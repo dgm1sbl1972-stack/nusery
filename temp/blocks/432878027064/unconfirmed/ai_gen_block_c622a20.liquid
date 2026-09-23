@@ -1,0 +1,85 @@
+{% doc %}
+  @prompt
+    In the Garden categories section (section ID: template--28088459395384__1790157062db4cdf4d), find the heading "Find your plants categories" and make only the word "categories" display in yellow (#ffd60a) colour. Wrap that specific word in a styled span tag with the yellow colour. Keep all other text in the heading the same colour as before. Add a theme editor setting to allow the highlight colour to be customizable.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-category-heading-{{ ai_gen_id }} {
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-category-heading-{{ ai_gen_id }}__highlight {
+    color: {{ block.settings.highlight_color }};
+  }
+{% endstyle %}
+
+<div class="ai-category-heading-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <{{ block.settings.heading_level }}>
+    Find your plants <span class="ai-category-heading-{{ ai_gen_id }}__highlight">categories</span>
+  </{{ block.settings.heading_level }}>
+</div>
+
+{% schema %}
+{
+  "name": "Category heading",
+  "settings": [
+    {
+      "type": "color",
+      "id": "highlight_color",
+      "label": "Highlight color",
+      "default": "#ffd60a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#14231a"
+    },
+    {
+      "type": "select",
+      "id": "heading_level",
+      "label": "Heading level",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category heading"
+    }
+  ],
+  "tag": null,
+  "class": "category-heading-block"
+}
+{% endschema %}
