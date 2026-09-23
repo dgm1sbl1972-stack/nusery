@@ -1,24 +1,186 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
+    "announcement_marquee_GtBkk6": {
+      "type": "announcement-marquee",
+      "blocks": {
+        "item_76f7Ah": {
+          "type": "item",
+          "settings": {
+            "icon": "🌿",
+            "text": "Beginner-Friendly Guidance Included",
+            "link": ""
+          }
+        },
+        "item_NTJ3tD": {
+          "type": "item",
+          "settings": {
+            "icon": "🚚",
+            "text": "Free Shipping Above ₹150",
+            "link": ""
+          }
+        },
+        "item_wHDJeP": {
+          "type": "item",
+          "settings": {
+            "icon": "💚",
+            "text": "Trusted by 3.5 Lakh+ Gardeners",
+            "link": ""
+          }
+        },
+        "item_iwabGN": {
+          "type": "item",
+          "settings": {
+            "icon": "📦",
+            "text": "Safe Live Plant Delivery",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_76f7Ah",
+        "item_NTJ3tD",
+        "item_wHDJeP",
+        "item_iwabGN"
+      ],
+      "name": "Announcement marquee",
+      "settings": {
+        "speed": 40
+      }
+    },
+    "17901562549d3a41e6": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_70765e0_7EKW7L": {
+          "type": "ai_gen_block_70765e0",
+          "settings": {
+            "logo": "shopify://shop_images/Untitled_design_25_XC.png",
+            "logo_width": 180,
+            "logo_height": 80,
+            "logo_size": 24,
+            "home_link": "",
+            "plants_link": "",
+            "pots_link": "",
+            "seeds_link": "",
+            "blog_link": "",
+            "contact_link": "",
+            "wishlist_link": "",
+            "desktop_width_percent": 100,
+            "content_max_width": 1350,
+            "header_height": 90,
+            "item_gap": 14,
+            "text_size": 19,
+            "search_width": 150,
+            "background_color": "#f8f4ec",
+            "text_color": "#14231a",
+            "logo_text_color": "#1f5130",
+            "accent_color": "#0d3a1d",
+            "border_color": "#c8d0c8",
+            "search_background": "#ffffff",
+            "placeholder_color": "#e8eee5"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_70765e0_7EKW7L"
+      ],
+      "settings": {}
+    },
+    "1790155594988dd5fc": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_e96aa26_C4xzyE": {
+          "type": "ai_gen_block_e96aa26",
+          "settings": {
+            "autoplay_seconds": 4,
+            "banner_height": 550,
+            "mobile_height": 420,
+            "content_position": "center",
+            "text_alignment": "left",
+            "slide_1_image": "shopify://shop_images/bnr2.png",
+            "slide_1_heading": "Bring your garden to life",
+            "slide_1_text": "Discover beautiful plants and everything you need to grow.",
+            "slide_1_button": "Shop plants",
+            "slide_1_link": "",
+            "slide_2_image": "shopify://shop_images/bnr1.png",
+            "slide_2_heading": "Create a greener home",
+            "slide_2_text": "Fresh ideas and healthy plants for every space.",
+            "slide_2_button": "Explore now",
+            "slide_2_link": "",
+            "slide_3_image": "shopify://shop_images/bnr.png",
+            "slide_3_heading": "Grow something wonderful",
+            "slide_3_text": "Find simple ways to make your garden thrive.",
+            "slide_3_button": "Get started",
+            "slide_3_link": "",
+            "fallback_background": "#1f5130",
+            "overlay_color": "#0d3a1d",
+            "overlay_opacity": 35,
+            "text_color": "#FFD60A",
+            "button_background": "#ffd60a",
+            "button_text_color": "#14231a",
+            "arrow_background": "#ffffff",
+            "arrow_color": "#14231a",
+            "dot_color": "#ffffff",
+            "focus_color": "#ffd60a",
+            "heading_size": 72,
+            "text_size": 18,
+            "button_radius": 8
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_e96aa26_C4xzyE"
+      ],
+      "settings": {}
+    },
     "hero_slider": {
       "type": "hero-slider",
-      "settings": {},
       "blocks": {
         "slide_1": {
           "type": "slide",
-          "settings": {}
+          "settings": {
+            "heading": "Grow Your Own",
+            "highlight": "Green Paradise",
+            "button_label": "Shop Plants",
+            "button_link": ""
+          }
         },
         "slide_2": {
           "type": "slide",
-          "settings": {}
+          "settings": {
+            "heading": "Grow Your Own",
+            "highlight": "Green Paradise",
+            "button_label": "Shop Plants",
+            "button_link": ""
+          }
         },
         "slide_3": {
           "type": "slide",
-          "settings": {}
+          "settings": {
+            "heading": "Grow Your Own",
+            "highlight": "Green Paradise",
+            "button_label": "Shop Plants",
+            "button_link": ""
+          }
         },
         "slide_4": {
           "type": "slide",
-          "settings": {}
+          "settings": {
+            "heading": "Grow Your Own",
+            "highlight": "Green Paradise",
+            "button_label": "Shop Plants",
+            "button_link": ""
+          }
         }
       },
       "block_order": [
@@ -26,69 +188,83 @@
         "slide_2",
         "slide_3",
         "slide_4"
-      ]
+      ],
+      "disabled": true,
+      "settings": {
+        "height": 600,
+        "autoplay_speed": 5
+      }
     },
     "category_circles": {
       "type": "category-circles",
-      "settings": {},
       "blocks": {
         "category_1": {
           "type": "category",
           "settings": {
+            "collection": "",
             "title": "Flower Creepers"
           }
         },
         "category_2": {
           "type": "category",
           "settings": {
+            "collection": "",
             "title": "Leaf Creepers"
           }
         },
         "category_3": {
           "type": "category",
           "settings": {
+            "collection": "",
             "title": "Succulent Creepers"
           }
         },
         "category_4": {
           "type": "category",
           "settings": {
+            "collection": "",
             "title": "Flower Plant"
           }
         },
         "category_5": {
           "type": "category",
           "settings": {
+            "collection": "",
             "title": "Herbs"
           }
         },
         "category_6": {
           "type": "category",
           "settings": {
+            "collection": "",
             "title": "Leaf Plant"
           }
         },
         "category_7": {
           "type": "category",
           "settings": {
+            "collection": "",
             "title": "Ornamental Flower"
           }
         },
         "category_8": {
           "type": "category",
           "settings": {
+            "collection": "",
             "title": "Ornamental Leaf"
           }
         },
         "category_9": {
           "type": "category",
           "settings": {
+            "collection": "",
             "title": "Ornamental Vegetable Plant"
           }
         },
         "category_10": {
           "type": "category",
           "settings": {
+            "collection": "",
             "title": "Fruit Plant"
           }
         }
@@ -104,27 +280,46 @@
         "category_8",
         "category_9",
         "category_10"
-      ]
+      ],
+      "settings": {
+        "heading": "Find Plant",
+        "heading_accent": "Category",
+        "background": "#f4f7dc",
+        "show_buy_now": true,
+        "buy_now_text": "Buy Now!",
+        "buy_now_link": ""
+      }
     },
     "featured_banner": {
       "type": "featured-banner",
-      "settings": {},
       "blocks": {
         "card_1": {
           "type": "card",
-          "settings": {}
+          "settings": {
+            "title": "",
+            "link": ""
+          }
         },
         "card_2": {
           "type": "card",
-          "settings": {}
+          "settings": {
+            "title": "",
+            "link": ""
+          }
         },
         "card_3": {
           "type": "card",
-          "settings": {}
+          "settings": {
+            "title": "",
+            "link": ""
+          }
         },
         "card_4": {
           "type": "card",
-          "settings": {}
+          "settings": {
+            "title": "",
+            "link": ""
+          }
         }
       },
       "block_order": [
@@ -132,34 +327,46 @@
         "card_2",
         "card_3",
         "card_4"
-      ]
+      ],
+      "settings": {
+        "background": "#e3b92c",
+        "eyebrow": "Explore our collections",
+        "heading": "Discover Hidden Wonders",
+        "text": "<p>From misty mountain peaks to golden coastlines — every destination holds a story waiting to unfold. Let yours begin here.</p>",
+        "button_label": "Start Exploring",
+        "button_link": "",
+        "gallery_label": "Featured destinations"
+      }
     },
     "product_tabs": {
       "type": "product-tabs",
-      "settings": {},
       "blocks": {
         "tab_1": {
           "type": "tab",
           "settings": {
-            "label": "All"
+            "label": "All",
+            "collection": ""
           }
         },
         "tab_2": {
           "type": "tab",
           "settings": {
-            "label": "Plants"
+            "label": "Plants",
+            "collection": ""
           }
         },
         "tab_3": {
           "type": "tab",
           "settings": {
-            "label": "Seeds"
+            "label": "Seeds",
+            "collection": ""
           }
         },
         "tab_4": {
           "type": "tab",
           "settings": {
-            "label": "Kits"
+            "label": "Kits",
+            "collection": ""
           }
         }
       },
@@ -168,15 +375,29 @@
         "tab_2",
         "tab_3",
         "tab_4"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Our collection",
+        "heading": "Handpicked",
+        "heading_accent": "Favourites",
+        "limit": 8,
+        "background": "#f8f4ec",
+        "button_label": "View All 500+ Products",
+        "button_link": ""
+      }
     },
     "services_banner": {
       "type": "services-banner",
-      "settings": {}
+      "settings": {
+        "background": "#ffe9c4",
+        "heading": "Garden services by SBL Nursery",
+        "text": "<p>From balcony makeovers to full garden setups and regular maintenance — our horticulture experts bring the green to your doorstep.</p>",
+        "button_label": "View all Our Service",
+        "button_link": ""
+      }
     },
     "our_story": {
       "type": "our-story",
-      "settings": {},
       "blocks": {
         "stat_1": {
           "type": "stat",
@@ -212,15 +433,25 @@
         "stat_2",
         "stat_3",
         "stat_4"
-      ]
+      ],
+      "settings": {
+        "background": "#fdf6ee",
+        "eyebrow": "Our Story",
+        "heading": "Rooted in",
+        "heading_accent": "Passion,",
+        "heading_2": "Growing in Purpose",
+        "text": "<p>SBL Nursery started in a small Bangalore nursery with one simple belief — every home deserves the joy of greenery. What began as a weekend hobby grew into India's most trusted online plant store.</p><p>We work directly with skilled horticulturists and small-scale growers across India, ensuring every plant is nurtured with care before reaching your doorstep.</p><p>Today, we've helped over 3.5 lakh families across India build their own green sanctuaries — and we're just getting started.</p>"
+      }
     },
     "plant_finder": {
       "type": "plant-finder",
-      "settings": {},
       "blocks": {
         "question_1": {
           "type": "question",
-          "settings": {}
+          "settings": {
+            "question": "How much natural light does your space get?",
+            "answers": "☀️ Bright & sunny | flower-plant\n🌥️ Low light | leaf-plant\n⛅ Moderate light | herbs\n🪟 No windows | succulent-creepers"
+          }
         },
         "question_2": {
           "type": "question",
@@ -249,45 +480,62 @@
         "question_2",
         "question_3",
         "question_4"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Plant finder",
+        "heading": "Not Sure Which Plant to",
+        "heading_accent": "Choose?",
+        "text": "<p>Answer 4 quick questions and we'll match you with the perfect plant for your space, lifestyle and experience level. No green thumb required!</p>",
+        "point_1": "Takes less than 60 seconds",
+        "point_2": "Personalised to your home & lifestyle",
+        "point_3": "Instant results with care tips",
+        "result_heading": "Your perfect match:",
+        "result_button": "Shop my plants",
+        "fallback_link": ""
+      }
     },
     "trending_reels": {
       "type": "trending-reels",
-      "settings": {},
       "blocks": {
         "reel_1": {
           "type": "reel",
           "settings": {
+            "external_url": "",
             "title": "Tiny Plant, Big Vibe"
           }
         },
         "reel_2": {
           "type": "reel",
           "settings": {
+            "external_url": "",
             "title": "Green Therapy Moment"
           }
         },
         "reel_3": {
           "type": "reel",
           "settings": {
+            "external_url": "",
             "title": "Transform Your WFH Space"
           }
         },
         "reel_4": {
           "type": "reel",
           "settings": {
+            "external_url": "",
             "title": "Balcony Makeover"
           }
         },
         "reel_5": {
           "type": "reel",
           "settings": {
+            "external_url": "",
             "title": "Repotting 101"
           }
         },
         "reel_6": {
           "type": "reel",
           "settings": {
+            "external_url": "",
             "title": "Herb Garden Tour"
           }
         }
@@ -299,37 +547,41 @@
         "reel_4",
         "reel_5",
         "reel_6"
-      ]
+      ],
+      "settings": {
+        "heading": "Trending",
+        "heading_accent": "Reels",
+        "background": "#f8f4ec"
+      }
     },
     "testimonials": {
       "type": "testimonials",
-      "settings": {},
       "blocks": {
         "testimonial_1": {
           "type": "testimonial",
           "settings": {
-            "name": "Arun Kumar",
-            "role": "Plant Lover",
             "rating": 5,
-            "quote": "The plant arrived in excellent condition and was beautifully packed. The quality was even better than I expected. Highly recommended!"
+            "quote": "The plant arrived in excellent condition and was beautifully packed. The quality was even better than I expected. Highly recommended!",
+            "name": "Arun Kumar",
+            "role": "Plant Lover"
           }
         },
         "testimonial_2": {
           "type": "testimonial",
           "settings": {
-            "name": "Priya Sharma",
-            "role": "Interior Designer",
             "rating": 5,
-            "quote": "Amazing collection of plants and excellent customer service. My Monstera arrived fresh, healthy and perfectly packed."
+            "quote": "Amazing collection of plants and excellent customer service. My Monstera arrived fresh, healthy and perfectly packed.",
+            "name": "Priya Sharma",
+            "role": "Interior Designer"
           }
         },
         "testimonial_3": {
           "type": "testimonial",
           "settings": {
-            "name": "Rahul Raj",
-            "role": "Business Owner",
             "rating": 4,
-            "quote": "Beautiful plants, great packaging and fast delivery. The entire buying experience was smooth and easy."
+            "quote": "Beautiful plants, great packaging and fast delivery. The entire buying experience was smooth and easy.",
+            "name": "Rahul Raj",
+            "role": "Business Owner"
           }
         }
       },
@@ -337,11 +589,17 @@
         "testimonial_1",
         "testimonial_2",
         "testimonial_3"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Testimonials",
+        "heading": "What Our Customers",
+        "heading_accent": "Say",
+        "subheading": "Discover what our customers have to say about their experience with our plants and services.",
+        "background": "#fff3dc"
+      }
     },
     "comparison_table": {
       "type": "comparison-table",
-      "settings": {},
       "blocks": {
         "row_1": {
           "type": "row",
@@ -425,19 +683,38 @@
         "row_6",
         "row_7",
         "row_8"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Subscription plans",
+        "heading": "Your Monthly",
+        "heading_accent": "Green Dose",
+        "subheading": "Get curated plants, seeds and care products delivered to your door every month. Cancel anytime.",
+        "background": "#e3fbdc",
+        "col_1": "Local Nurseries",
+        "col_2": "SBL",
+        "col_3": "Others"
+      }
     },
     "blog_posts": {
       "type": "blog-posts",
-      "settings": {}
+      "settings": {
+        "blog": "",
+        "eyebrow": "Plant journal",
+        "heading": "Grow Smarter with",
+        "heading_accent": "Expert Tips",
+        "button_label": "All Articles",
+        "background": "#ffffff"
+      }
     },
     "faq": {
       "type": "faq",
-      "settings": {},
       "blocks": {
         "question_1": {
           "type": "question",
-          "settings": {}
+          "settings": {
+            "question": "How are live plants packaged and shipped?",
+            "answer": "<p>Every plant is packed in a custom, breathable box with its soil secured, so it arrives fresh and upright.</p>"
+          }
         },
         "question_2": {
           "type": "question",
@@ -490,14 +767,34 @@
         "question_5",
         "question_6",
         "question_7"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "FAQ",
+        "heading": "Questions,",
+        "heading_accent": "Answered",
+        "text": "<p>Everything you need to know about ordering plants online, care tips, shipping and our policies.</p>",
+        "button_label": "Contact Support",
+        "button_link": "",
+        "help_title": "Need more help?",
+        "help_text": "Chat with our plant experts — Mon to Sat, 9am–6pm IST",
+        "background": "#f8f4ec"
+      }
     },
     "cta_banner": {
       "type": "cta-banner",
-      "settings": {}
+      "settings": {
+        "heading": "Stuck with plant care?\nWe're here to help",
+        "button_label": "Chat With Us",
+        "button_link": "",
+        "top_background": "#fbecea",
+        "bottom_background": "#1a2e10"
+      }
     }
   },
   "order": [
+    "announcement_marquee_GtBkk6",
+    "17901562549d3a41e6",
+    "1790155594988dd5fc",
     "hero_slider",
     "category_circles",
     "featured_banner",
