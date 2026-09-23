@@ -1,6 +1,92 @@
+{% doc %}
+  @prompt
+    Create a full-width edge-to-edge hero slider banner section that stretches across the entire screen with absolutely no margins or padding on the sides. It must include: automatic scrolling every 3-5 seconds (configurable). Each slide must have its OWN individual settings for: background image, heading text, subheading/body text, heading font size (editable per slide), body text font size (editable per slide), text colour (editable per slide), text alignment (left, center, or right - selectable per slide), button label, button link, button background colour, button text colour. Also include navigation dots and arrows. The banner must be fully responsive on mobile and desktop. Use Poppins font throughout.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-hero-slider-{{ ai_gen_id }} {
+    display: block;
+    position: relative;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    overflow: hidden;
+    font-family: {{ block.settings.slider_font.family }}, Poppins, sans-serif;
+  }
+
+  .ai-hero-slider-{{ ai_gen_id }}__track { display: flex; transition: transform 0.45s ease; }
+  .ai-hero-slider-{{ ai_gen_id }}__slide {
+    position: relative;
+    flex: 0 0 100%;
+    min-height: {{ block.settings.desktop_height }}px;
+    display: flex;
+    align-items: center;
+    background-color: {{ block.settings.fallback_color }};
+    background-size: cover;
+    background-position: center;
+  }
+  .ai-hero-slider-{{ ai_gen_id }}__slide::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,{{ block.settings.overlay_opacity | divided_by: 100.0 }}); }
+  .ai-hero-slider-{{ ai_gen_id }}__content { position: relative; z-index: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 48px 6%; text-align: var(--slide-align); }
+  .ai-hero-slider-{{ ai_gen_id }}__heading { margin: 0 0 14px; color: var(--slide-color); font-size: var(--slide-heading-size); line-height: 1.1; }
+  .ai-hero-slider-{{ ai_gen_id }}__body { margin: 0 0 26px; color: var(--slide-color); font-size: var(--slide-body-size); line-height: 1.5; }
+  .ai-hero-slider-{{ ai_gen_id }}__button { display: inline-block; padding: 13px 25px; border-radius: {{ block.settings.button_radius }}px; background: var(--slide-button-bg); color: var(--slide-button-color); text-decoration: none; font-weight: 600; }
+  .ai-hero-slider-{{ ai_gen_id }}__button:focus-visible, .ai-hero-slider-{{ ai_gen_id }}__arrow:focus-visible, .ai-hero-slider-{{ ai_gen_id }}__dot:focus-visible { outline: 3px solid {{ block.settings.focus_color }}; outline-offset: 3px; }
+  .ai-hero-slider-{{ ai_gen_id }}__arrow { position: absolute; z-index: 2; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border: 0; border-radius: 50%; background: {{ block.settings.control_color }}; color: {{ block.settings.control_icon_color }}; cursor: pointer; font-size: 24px; line-height: 1; }
+  .ai-hero-slider-{{ ai_gen_id }}__arrow--prev { left: 18px; } .ai-hero-slider-{{ ai_gen_id }}__arrow--next { right: 18px; }
+  .ai-hero-slider-{{ ai_gen_id }}__dots { position: absolute; z-index: 2; bottom: 18px; left: 50%; transform: translateX(-50%); display: flex; gap: 9px; }
+  .ai-hero-slider-{{ ai_gen_id }}__dot { width: 10px; height: 10px; padding: 0; border: 0; border-radius: 50%; background: {{ block.settings.control_color }}; opacity: .55; cursor: pointer; }
+  .ai-hero-slider-{{ ai_gen_id }}__dot[aria-current='true'] { opacity: 1; transform: scale(1.25); }
+  @media screen and (max-width: 749px) { .ai-hero-slider-{{ ai_gen_id }}__slide { min-height: {{ block.settings.mobile_height }}px; } .ai-hero-slider-{{ ai_gen_id }}__content { padding: 40px 14%; } .ai-hero-slider-{{ ai_gen_id }}__arrow { width: 36px; height: 36px; font-size: 20px; } }
+{% endstyle %}
+
+<hero-slider-{{ ai_gen_id }} class="ai-hero-slider-{{ ai_gen_id }}" data-interval="{{ block.settings.autoplay_seconds | times: 1000 }}" {{ block.shopify_attributes }}>
+  <div class="ai-hero-slider-{{ ai_gen_id }}__track">
+    {% for i in (1..3) %}
+      {% liquid
+        assign image_key = 'slide_' | append: i | append: '_image'
+        assign heading_key = 'slide_' | append: i | append: '_heading'
+        assign body_key = 'slide_' | append: i | append: '_body'
+        assign heading_size_key = 'slide_' | append: i | append: '_heading_size'
+        assign body_size_key = 'slide_' | append: i | append: '_body_size'
+        assign color_key = 'slide_' | append: i | append: '_color'
+        assign align_key = 'slide_' | append: i | append: '_align'
+        assign label_key = 'slide_' | append: i | append: '_button_label'
+        assign link_key = 'slide_' | append: i | append: '_button_link'
+        assign button_bg_key = 'slide_' | append: i | append: '_button_bg'
+        assign button_color_key = 'slide_' | append: i | append: '_button_color'
+      %}
+      <div class="ai-hero-slider-{{ ai_gen_id }}__slide" style="{% if block.settings[image_key] %}background-image:url('{{ block.settings[image_key] | image_url: width: 2400 }}');{% endif %}--slide-align:{{ block.settings[align_key] }};--slide-color:{{ block.settings[color_key] }};--slide-heading-size:{{ block.settings[heading_size_key] }}px;--slide-body-size:{{ block.settings[body_size_key] }}px;--slide-button-bg:{{ block.settings[button_bg_key] }};--slide-button-color:{{ block.settings[button_color_key] }};">
+        <div class="ai-hero-slider-{{ ai_gen_id }}__content">
+          {% if block.settings[heading_key] != blank %}<h2 class="ai-hero-slider-{{ ai_gen_id }}__heading">{{ block.settings[heading_key] | escape }}</h2>{% endif %}
+          {% if block.settings[body_key] != blank %}<div class="ai-hero-slider-{{ ai_gen_id }}__body">{{ block.settings[body_key] }}</div>{% endif %}
+          {% if block.settings[label_key] != blank and block.settings[link_key] != blank %}<a class="ai-hero-slider-{{ ai_gen_id }}__button" href="{{ block.settings[link_key] }}">{{ block.settings[label_key] | escape }}</a>{% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <button class="ai-hero-slider-{{ ai_gen_id }}__arrow ai-hero-slider-{{ ai_gen_id }}__arrow--prev" type="button" aria-label="Previous slide">&#8249;</button>
+  <button class="ai-hero-slider-{{ ai_gen_id }}__arrow ai-hero-slider-{{ ai_gen_id }}__arrow--next" type="button" aria-label="Next slide">&#8250;</button>
+  <div class="ai-hero-slider-{{ ai_gen_id }}__dots" role="tablist" aria-label="Choose slide">
+    {% for i in (1..3) %}<button class="ai-hero-slider-{{ ai_gen_id }}__dot" type="button" role="tab" aria-label="Slide {{ i }}" aria-current="{% if i == 1 %}true{% else %}false{% endif %}"></button>{% endfor %}
+  </div>
+</hero-slider-{{ ai_gen_id }}>
+
+<script>
+(function(){
+  class HeroSlider{{ ai_gen_id }} extends HTMLElement {
+    connectedCallback(){
+      this.track=this.querySelector('.ai-hero-slider-{{ ai_gen_id }}__track'); this.dots=[...this.querySelectorAll('.ai-hero-slider-{{ ai_gen_id }}__dot')]; this.index=0; this.timer=null;
+      this.querySelector('.ai-hero-slider-{{ ai_gen_id }}__arrow--prev').addEventListener('click',()=>this.go(this.index-1));
+      this.querySelector('.ai-hero-slider-{{ ai_gen_id }}__arrow--next').addEventListener('click',()=>this.go(this.index+1));
+      this.dots.forEach((dot,i)=>dot.addEventListener('click',()=>this.go(i))); this.start(); this.addEventListener('mouseenter',()=>this.stop()); this.addEventListener('mouseleave',()=>this.start());
+    }
+    go(i){this.index=(i+3)%3; this.track.style.transform='translateX(-'+(this.index*100)+'%)'; this.dots.forEach((d,n)=>d.setAttribute('aria-current',n===this.index?'true':'false'));}
+    start(){this.stop(); this.timer=setInterval(()=>this.go(this.index+1),Number(this.dataset.interval));} stop(){if(this.timer)clearInterval(this.timer);}
+  } customElements.define('hero-slider-{{ ai_gen_id }}',HeroSlider{{ ai_gen_id }});
+})();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{"name":"Full-width hero slider","tag":null,"class":"hero-slider-block","settings":[{"type":"font_picker","id":"slider_font","label":"Font","default":"poppins_n4"},{"type":"range","id":"autoplay_seconds","label":"Autoplay interval","min":3,"max":5,"step":1,"unit":"s","default":4},{"type":"range","id":"desktop_height","label":"Desktop height","min":300,"max":800,"step":50,"unit":"px","default":500},{"type":"range","id":"mobile_height","label":"Mobile height","min":300,"max":700,"step":50,"unit":"px","default":500},{"type":"range","id":"overlay_opacity","label":"Image overlay","min":0,"max":80,"step":5,"unit":"%","default":25},{"type":"color","id":"fallback_color","label":"Fallback background","default":"#1f5130"},{"type":"color","id":"control_color","label":"Control background","default":"#ffffff"},{"type":"color","id":"control_icon_color","label":"Control icon","default":"#14231a"},{"type":"color","id":"focus_color","label":"Focus outline","default":"#ffd60a"},{"type":"range","id":"button_radius","label":"Button radius","min":0,"max":30,"step":2,"unit":"px","default":6},{"type":"header","content":"Slide 1"},{"type":"image_picker","id":"slide_1_image","label":"Background image"},{"type":"text","id":"slide_1_heading","label":"Heading","default":"Grow something beautiful"},{"type":"richtext","id":"slide_1_body","label":"Body","default":"<p>Quality plants and supplies for your home and garden.</p>"},{"type":"range","id":"slide_1_heading_size","label":"Heading size","min":20,"max":80,"step":2,"unit":"px","default":48},{"type":"range","id":"slide_1_body_size","label":"Body size","min":12,"max":30,"step":2,"unit":"px","default":18},{"type":"color","id":"slide_1_color","label":"Text colour","default":"#ffffff"},{"type":"select","id":"slide_1_align","label":"Text alignment","options":[{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}],"default":"center"},{"type":"text","id":"slide_1_button_label","label":"Button label","default":"Shop plants"},{"type":"url","id":"slide_1_button_link","label":"Button link"},{"type":"color","id":"slide_1_button_bg","label":"Button background","default":"#ffd60a"},{"type":"color","id":"slide_1_button_color","label":"Button text","default":"#14231a"},{"type":"header","content":"Slide 2"},{"type":"image_picker","id":"slide_2_image","label":"Background image"},{"type":"text","id":"slide_2_heading","label":"Heading","default":"Bring nature home"},{"type":"richtext","id":"slide_2_body","label":"Body","default":"<p>Discover simple ways to create a greener space.</p>"},{"type":"range","id":"slide_2_heading_size","label":"Heading size","min":20,"max":80,"step":2,"unit":"px","default":44},{"type":"range","id":"slide_2_body_size","label":"Body size","min":12,"max":30,"step":2,"unit":"px","default":18},{"type":"color","id":"slide_2_color","label":"Text colour","default":"#ffffff"},{"type":"select","id":"slide_2_align","label":"Text alignment","options":[{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}],"default":"left"},{"type":"text","id":"slide_2_button_label","label":"Button label","default":"Explore collection"},{"type":"url","id":"slide_2_button_link","label":"Button link"},{"type":"color","id":"slide_2_button_bg","label":"Button background","default":"#ffd60a"},{"type":"color","id":"slide_2_button_color","label":"Button text","default":"#14231a"},{"type":"header","content":"Slide 3"},{"type":"image_picker","id":"slide_3_image","label":"Background image"},{"type":"text","id":"slide_3_heading","label":"Heading","default":"Your garden starts here"},{"type":"richtext","id":"slide_3_body","label":"Body","default":"<p>Find thoughtful products for every growing journey.</p>"},{"type":"range","id":"slide_3_heading_size","label":"Heading size","min":20,"max":80,"step":2,"unit":"px","default":42},{"type":"range","id":"slide_3_body_size","label":"Body size","min":12,"max":30,"step":2,"unit":"px","default":18},{"type":"color","id":"slide_3_color","label":"Text colour","default":"#ffffff"},{"type":"select","id":"slide_3_align","label":"Text alignment","options":[{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}],"default":"right"},{"type":"text","id":"slide_3_button_label","label":"Button label","default":"Shop now"},{"type":"url","id":"slide_3_button_link","label":"Button link"},{"type":"color","id":"slide_3_button_bg","label":"Button background","default":"#ffd60a"},{"type":"color","id":"slide_3_button_color","label":"Button text","default":"#14231a"}],"presets":[{"name":"Full-width hero slider"}]}
 {% endschema %}
