@@ -1,6 +1,162 @@
-{% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
-{% endschema %}
+{% doc %}
+  @prompt
+    Create a responsive Shopify homepage section inspired by the uploaded reference image.
+    
+    IMPORTANT:
+    - Do NOT include any human/person image.
+    - I will add my own plant/product images through Shopify Theme Editor.
+    - The section must be fully editable from the Shopify Theme Editor.
+    - Use Liquid, HTML, CSS, and minimal JavaScript only.
+    - Make it responsive for desktop, tablet, and mobile.
+    
+    SECTION DESIGN:
+    
+    Create a wide horizontal "Featured Plants" product carousel.
+    
+    LAYOUT:
+    - Left side: 3 product cards displayed horizontally.
+    - Right side: a large promotional banner area with a light cream/yellow abstract background.
+    - Do NOT add a person to the right banner.
+    - Instead, leave the right banner as a clean decorative area where I can optionally add an image later.
+    - The entire section should have a premium indoor-plant ecommerce look.
+    - Background: warm cream/off-white.
+    - Use rounded corners throughout.
+    - Clean spacing and premium typography.
+    
+    PRODUCT CARDS:
+    Each card should contain:
+    
+    1. Product image at the top
+       - Image should be uploaded/selectable from Shopify Theme Editor.
+       - Use an image picker for each product.
+       - Rounded top corners.
+       - Image should maintain a consistent aspect ratio.
+       - Object-fit: cover.
+    
+    2. Bestseller badge
+       - Small yellow pill at the top-left of the image.
+       - Text: "BESTSELLER"
+       - Editable text.
+    
+    3. Discount badge
+       - Small red pill at the top-right.
+       - Example: "15% OFF"
+       - Editable for each product.
+    
+    4. Rating badge
+       - Small white/translucent rounded badge positioned near the bottom-left of the image.
+       - Example:
+         "4.8 ★ | 440"
+       - Rating and review count should be editable.
+    
+    5. Product information below image
+       - Product name in a bold elegant serif-style font.
+       - Short product description underneath.
+       - Example:
+         "Stunning air-purifying plant"
+    
+    6. Pricing
+       - Current price in bold dark text.
+       - Original price beside it with strikethrough and lighter gray color.
+       - Example:
+         ₹299  ₹350
+    
+    7. Add-to-cart button
+       - Circular dark green button at the bottom-right.
+       - White shopping-bag/cart icon.
+       - Clicking it should add the corresponding product to Shopify cart.
+       - Use Shopify's native cart/add-to-cart functionality.
+    
+    PRODUCT CAROUSEL:
+    - Show 3 cards on desktop.
+    - Show approximately 2 cards on tablet.
+    - Show 1 card on mobile.
+    - Add a circular dark-green next-arrow button overlapping the right edge of the third card.
+    - The carousel should scroll smoothly.
+    - Support touch/swipe on mobile.
+    - Hide unnecessary scrollbar.
+    - If possible, include previous/next navigation.
+    - Product cards should have subtle hover animation:
+      - Slight upward movement.
+      - Very subtle shadow.
+      - Image slight zoom.
+    - Keep the animation smooth and premium.
+    
+    RIGHT PROMOTIONAL AREA:
+    - Create a large rectangular banner occupying approximately 38–40% of the desktop section width.
+    - Background should be a soft cream/yellow color.
+    - Add subtle abstract geometric/radial shapes similar to the reference.
+    - NO HUMAN IMAGE.
+    - Add a Shopify Theme Editor image picker called "Banner Image".
+    - If a banner image is selected, display it on the right side.
+    - If no image is selected, show only the decorative background.
+    - Add optional editable heading, subheading and button fields.
+    - Keep these optional so the banner can also be used as a simple visual area.
+    
+    SHOPIFY THEME EDITOR SETTINGS:
+    Create settings for:
+    - Section heading
+    - Section background color
+    - Card background color
+    - Primary/dark green color
+    - Yellow badge color
+    - Discount badge color
+    - Banner background color
+    - Banner image
+    - Banner heading
+    - Banner description
+    - Banner button text
+    - Banner button link
+    - Number of products/cards
+    - Product image
+    - Product name
+    - Product description
+    - Current price
+    - Original price
+    - Discount text
+    - Bestseller text
+    - Rating
+    - Review count
+    
+    Allow adding/removing/reordering product blocks from the Theme Editor.
+    
+    DESIGN STYLE:
+    - Premium modern Indian indoor plant ecommerce website.
+    - Cream + dark green + yellow + small red accents.
+    - Rounded 20–24px card corners.
+    - Elegant typography.
+    - Clean white/cream product information area.
+    - Generous spacing.
+    - Minimal and sophisticated.
+    - Avoid excessive shadows.
+    - Make it visually close to the uploaded reference layout but do not copy the human image.
+    
+    RESPONSIVE BEHAVIOR:
+    Desktop:
+    - Full-width section.
+    - 3 product cards + promotional banner.
+    - Cards should remain equal height.
+    
+    Tablet:
+    - 2 product cards visible.
+    - Banner can move below the products or remain as a smaller right-side area depending on available width.
+    
+    Mobile:
+    - Product carousel becomes horizontally scrollable.
+    - Show approximately 1.2 cards so the next card is partially visible.
+    - Promotional banner moves below the carousel.
+    - Maintain comfortable 16px side padding.
+    - Make buttons and text touch-friendly.
+    
+    TECHNICAL REQUIREMENTS:
+    - Provide complete Shopify Liquid section code.
+    - Include {% schema %} with all Theme Editor settings and blocks.
+    - Use CSS inside the section or an a
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% style %}
+.ai-fp-{{ ai_gen_id }}{display:block;width:100%;background:{{ block.settings.section_bg }};padding:clamp(28px,5vw,64px) 16px}.ai-fp-{{ ai_gen_id }}__inner{width:{{ block.settings.desktop_width }}%;max-width:{{ block.settings.max_width }}px;margin:auto}.ai-fp-{{ ai_gen_id }} h1{margin:0 0 24px;color:{{ block.settings.text_color }};font:700 clamp(28px,4vw,46px) Georgia,serif}.ai-fp-{{ ai_gen_id }}__layout{display:grid;grid-template-columns:1.6fr .9fr;gap:24px}.ai-fp-{{ ai_gen_id }}__track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 32px)/3);gap:16px;overflow:auto;scrollbar-width:none;scroll-behavior:smooth;padding:2px}.ai-fp-{{ ai_gen_id }}__track::-webkit-scrollbar{display:none}.ai-fp-{{ ai_gen_id }}__card{background:{{ block.settings.card_bg }};border-radius:{{ block.settings.radius }}px;overflow:hidden;transition:.25s;display:flex;flex-direction:column}.ai-fp-{{ ai_gen_id }}__card:hover{transform:translateY(-4px);box-shadow:0 8px 22px #14231a18}.ai-fp-{{ ai_gen_id }}__image{position:relative;aspect-ratio:.86;background:#e9eadf;overflow:hidden}.ai-fp-{{ ai_gen_id }}__image img,.ai-fp-{{ ai_gen_id }}__image svg{width:100%;height:100%;object-fit:cover}.ai-fp-{{ ai_gen_id }}__badges{position:absolute;inset:12px 10px auto;display:flex;justify-content:space-between}.ai-fp-{{ ai_gen_id }}__badge{border-radius:999px;padding:6px 8px;font-size:10px;font-weight:700}.ai-fp-{{ ai_gen_id }}__best{background:{{ block.settings.yellow }};color:#302700}.ai-fp-{{ ai_gen_id }}__off{background:{{ block.settings.red }};color:#fff}.ai-fp-{{ ai_gen_id }}__rating{position:absolute;bottom:10px;left:10px;border-radius:999px;padding:6px 9px;background:#ffffffe8;font-size:12px}.ai-fp-{{ ai_gen_id }}__info{padding:16px;flex:1;display:flex;flex-direction:column}.ai-fp-{{ ai_gen_id }} h2{margin:0 0 6px;color:{{ block.settings.text_color }};font:700 20px Georgia,serif}.ai-fp-{{ ai_gen_id }} p{margin:0 0 14px;color:{{ block.settings.muted }};font-size:13px}.ai-fp-{{ ai_gen_id }}__bottom{display:flex;justify-content:space-between;align-items:end;margin-top:auto}.ai-fp-{{ ai_gen_id }}__price{font-weight:700;color:{{ block.settings.text_color }};font-size:17px}.ai-fp-{{ ai_gen_id }}__original{text-decoration:line-through;color:#8b938d;font-size:12px;margin-left:5px;font-weight:400}.ai-fp-{{ ai_gen_id }}__cart,.ai-fp-{{ ai_gen_id }}__next{border:0;border-radius:50%;background:{{ block.settings.green }};color:#fff;cursor:pointer}.ai-fp-{{ ai_gen_id }}__cart{width:44px;height:44px}.ai-fp-{{ ai_gen_id }}__cart svg{width:20px}.ai-fp-{{ ai_gen_id }}__wrap{position:relative}.ai-fp-{{ ai_gen_id }}__next{position:absolute;right:-18px;top:50%;width:44px;height:44px;font-size:20px}.ai-fp-{{ ai_gen_id }}__banner{position:relative;overflow:hidden;min-height:100%;padding:28px;border-radius:{{ block.settings.radius }}px;background:{{ block.settings.banner_bg }};display:flex;align-items:end}.ai-fp-{{ ai_gen_id }}__banner:before{content:'';position:absolute;width:230px;height:230px;border-radius:50%;right:-70px;top:-70px;background:#ffffff40}.ai-fp-{{ ai_gen_id }}__banner img{position:absolute;right:0;top:0;width:62%;height:100%;object-fit:cover;mix-blend-mode:multiply}.ai-fp-{{ ai_gen_id }}__banner-content{position:relative;z-index:1;max-width:78%}.ai-fp-{{ ai_gen_id }}__banner h3{margin:0 0 10px;color:{{ block.settings.text_color }};font:700 32px Georgia,serif}.ai-fp-{{ ai_gen_id }}__banner a{display:inline-block;background:{{ block.settings.green }};color:#fff;padding:12px 18px;border-radius:999px;text-decoration:none;font-size:13px}@media(max-width:990px){.ai-fp-{{ ai_gen_id }}__layout{grid-template-columns:1fr}.ai-fp-{{ ai_gen_id }}__track{grid-auto-columns:calc((100% - 16px)/2)}.ai-fp-{{ ai_gen_id }}__banner{min-height:260px}}@media(max-width:600px){.ai-fp-{{ ai_gen_id }}__inner{width:100%}.ai-fp-{{ ai_gen_id }}__track{grid-auto-columns:82%}.ai-fp-{{ ai_gen_id }}__next{right:4px}}
+{% endstyle %}
+<featured-plants-{{ ai_gen_id }} class="ai-fp-{{ ai_gen_id }}" {{ block.shopify_attributes }}><div class="ai-fp-{{ ai_gen_id }}__inner">{% if block.settings.heading != blank %}<h1>{{ block.settings.heading }}</h1>{% endif %}<div class="ai-fp-{{ ai_gen_id }}__layout"><div class="ai-fp-{{ ai_gen_id }}__wrap"><div class="ai-fp-{{ ai_gen_id }}__track" data-track>{% for i in (1..3) %}{% assign image_key='image_'|append:i %}{% assign name_key='name_'|append:i %}{% assign desc_key='desc_'|append:i %}{% assign price_key='price_'|append:i %}{% assign old_key='old_'|append:i %}{% assign off_key='off_'|append:i %}{% assign rating_key='rating_'|append:i %}{% assign reviews_key='reviews_'|append:i %}{% assign product_key='product_'|append:i %}{% assign p=block.settings[product_key] %}<article class="ai-fp-{{ ai_gen_id }}__card"><div class="ai-fp-{{ ai_gen_id }}__image">{% if block.settings[image_key] %}<img src="{{ block.settings[image_key] | image_url: width:700 }}" alt="{{ block.settings[name_key] | escape }}" loading="lazy">{% else %}<div>{{ 'image' | placeholder_svg_tag }}</div>{% endif %}<div class="ai-fp-{{ ai_gen_id }}__badges"><span class="ai-fp-{{ ai_gen_id }}__badge ai-fp-{{ ai_gen_id }}__best">{{ block.settings.bestseller }}</span><span class="ai-fp-{{ ai_gen_id }}__badge ai-fp-{{ ai_gen_id }}__off">{{ block.settings[off_key] }}</span></div><span class="ai-fp-{{ ai_gen_id }}__rating">{{ block.settings[rating_key] }} ★ | {{ block.settings[reviews_key] }}</span></div><div class="ai-fp-{{ ai_gen_id }}__info"><h2>{{ block.settings[name_key] }}</h2><p>{{ block.settings[desc_key] }}</p><div class="ai-fp-{{ ai_gen_id }}__bottom"><div class="ai-fp-{{ ai_gen_id }}__price">{{ block.settings[price_key] }} <span class="ai-fp-{{ ai_gen_id }}__original">{{ block.settings[old_key] }}</span></div>{% if p %}{% form 'product',p %}<input type="hidden" name="id" value="{{ p.selected_or_first_available_variant.id }}"><button class="ai-fp-{{ ai_gen_id }}__cart" type="submit" aria-label="Add to cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L21 8H6M10 21h.01M18 21h.01"/></svg></button>{% endform %}{% endif %}</div></div></article>{% endfor %}</div><button class="ai-fp-{{ ai_gen_id }}__next" data-next type="button" aria-label="Next">→</button></div><aside class="ai-fp-{{ ai_gen_id }}__banner">{% if block.settings.banner_image %}<img src="{{ block.settings.banner_image | image_url: width:900 }}" alt="{{ block.settings.banner_heading | escape }}" loading="lazy">{% endif %}<div class="ai-fp-{{ ai_gen_id }}__banner-content">{% if block.settings.banner_heading != blank %}<h3>{{ block.settings.banner_heading }}</h3>{% endif %}{% if block.settings.banner_description != blank %}<p>{{ block.settings.banner_description }}</p>{% endif %}{% if block.settings.banner_button != blank and block.settings.banner_link != blank %}<a href="{{ block.settings.banner_link }}">{{ block.settings.banner_button }}</a>{% endif %}</div></aside></div></div></featured-plants-{{ ai_gen_id }}>
+<script>(function(){class FeaturedPlants{{ ai_gen_id }} extends HTMLElement{connectedCallback(){this.querySelector('[data-next]').onclick=()=>this.querySelector('[data-track]').scrollBy({left:this.querySelector('[data-track]').clientWidth*.8,behavior:'smooth'})}}customElements.define('featured-plants-{{ ai_gen_id }}',FeaturedPlants{{ ai_gen_id }})})();</script>
+{% schema %}{"name":"Featured plants","tag":null,"class":"featured-plants-block","settings":[{"type":"text","id":"heading","label":"Section heading","default":"Featured plants"},{"type":"color","id":"section_bg","label":"Section background","default":"#f8f4ec"},{"type":"color","id":"card_bg","label":"Card background","default":"#ffffff"},{"type":"color","id":"green","label":"Primary green","default":"#1f5130"},{"type":"color","id":"text_color","label":"Text color","default":"#14231a"},{"type":"color","id":"muted","label":"Muted text","default":"#5b6660"},{"type":"color","id":"yellow","label":"Yellow badge","default":"#ffd60a"},{"type":"color","id":"red","label":"Discount badge","default":"#b83b32"},{"type":"color","id":"banner_bg","label":"Banner background","default":"#f4e6a8"},{"type":"image_picker","id":"banner_image","label":"Banner image"},{"type":"text","id":"banner_heading","label":"Banner heading","default":"Bring home a little green"},{"type":"textarea","id":"banner_description","label":"Banner description","default":"Easy-care plants for brighter spaces."},{"type":"text","id":"banner_button","label":"Banner button","default":"Explore plants"},{"type":"url","id":"banner_link","label":"Banner link"},{"type":"range","id":"desktop_width","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},{"type":"range","id":"max_width","label":"Maximum width","min":1000,"max":1600,"step":20,"unit":"px","default":1200},{"type":"range","id":"radius","label":"Corner radius","min":8,"max":32,"step":2,"unit":"px","default":20},{"type":"text","id":"bestseller","label":"Bestseller text","default":"BESTSELLER"},{"type":"header","content":"Plant 1"},{"type":"product","id":"product_1","label":"Product"},{"type":"image_picker","id":"image_1","label":"Product image"},{"type":"text","id":"name_1","label":"Product name","default":"Green beauty"},{"type":"textarea","id":"desc_1","label":"Description","default":"Stunning air-purifying plant"},{"type":"text","id":"price_1","label":"Current price","default":"₹299"},{"type":"text","id":"old_1","label":"Original price","default":"₹350"},{"type":"text","id":"off_1","label":"Discount text","default":"15% OFF"},{"type":"text","id":"rating_1","label":"Rating","default":"4.8"},{"type":"text","id":"reviews_1","label":"Review count","default":"440"},{"type":"header","content":"Plant 2"},{"type":"product","id":"product_2","label":"Product"},{"type":"image_picker","id":"image_2","label":"Product image"},{"type":"text","id":"name_2","label":"Product name","default":"Leafy delight"},{"type":"textarea","id":"desc_2","label":"Description","default":"A graceful plant for every room"},{"type":"text","id":"price_2","label":"Current price","default":"₹399"},{"type":"text","id":"old_2","label":"Original price","default":"₹475"},{"type":"text","id":"off_2","label":"Discount text","default":"15% OFF"},{"type":"text","id":"rating_2","label":"Rating","default":"4.8"},{"type":"text","id":"reviews_2","label":"Review count","default":"220"},{"type":"header","content":"Plant 3"},{"type":"product","id":"product_3","label":"Product"},{"type":"image_picker","id":"image_3","label":"Product image"},{"type":"text","id":"name_3","label":"Product name","default":"Tropical charm"},{"type":"textarea","id":"desc_3","label":"Description","default":"Fresh character for your home"},{"type":"text","id":"price_3","label":"Current price","default":"₹499"},{"type":"text","id":"old_3","label":"Original price","default":"₹599"},{"type":"text","id":"off_3","label":"Discount text","default":"15% OFF"},{"type":"text","id":"rating_3","label":"Rating","default":"4.9"},{"type":"text","id":"reviews_3","label":"Review count","default":"180"}],"presets":[{"name":"Featured plants"}]}{% endschema %}
