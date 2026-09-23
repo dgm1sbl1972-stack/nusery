@@ -397,7 +397,7 @@
         "ai_gen_block_9681797_KTMUmV": {
           "type": "ai_gen_block_9681797",
           "settings": {
-            "heading": "Find your plants categories",
+            "heading": "Find Your Plants Categories",
             "content_width": 1600,
             "side_padding": 0,
             "heading_size": 32,
@@ -441,10 +441,20 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_aa94f13_pHYVA9": {
+          "type": "ai_gen_block_aa94f13",
+          "settings": {
+            "heading": "Your Home Deserves Green",
+            "heading_size": 32,
+            "heading_color": "#1F5130",
+            "desktop_width_percent": 100
+          },
+          "blocks": {}
+        },
         "ai_gen_block_8533040_YGgFmW": {
           "type": "ai_gen_block_8533040",
           "settings": {
-            "heading": "Bring home a little green",
+            "heading": "",
             "desktop_width_percent": 100,
             "background_color": "#FFF9E8",
             "card_color": "#FFFFFF",
@@ -456,6 +466,7 @@
             "discount_color": "#D8E9B5",
             "radius": 16,
             "card_radius": 16,
+            "product_1_image": "shopify://shop_images/3d691abe-2a08-480a-8c1a-1281c1061b2e.png",
             "product_1_product": "",
             "product_1_title": "Peace Lily Plant",
             "product_1_description": "Stunning air-purifying plant",
@@ -467,6 +478,7 @@
             "product_1_rating": "4.8",
             "product_1_reviews": "440",
             "product_1_link": "",
+            "product_2_image": "shopify://shop_images/e0e3054d-d7bf-4c16-ab13-dfd5b94a713c.png",
             "product_2_product": "",
             "product_2_title": "Anthurium Red Plant",
             "product_2_description": "Long-lasting indoor plant",
@@ -478,6 +490,7 @@
             "product_2_rating": "4.8",
             "product_2_reviews": "111",
             "product_2_link": "",
+            "product_3_image": "shopify://shop_images/24758470-c196-4c03-92c6-3bb51a2b5d84.png",
             "product_3_product": "",
             "product_3_title": "Jade Mini Plant",
             "product_3_description": "Easy-care lucky succulent",
@@ -528,59 +541,10 @@
       },
       "block_order": [
         "ai_gen_block_9681797_KTMUmV",
+        "ai_gen_block_aa94f13_pHYVA9",
         "ai_gen_block_8533040_YGgFmW"
       ],
       "settings": {}
-    },
-    "featured_banner": {
-      "type": "featured-banner",
-      "blocks": {
-        "card_1": {
-          "type": "card",
-          "settings": {
-            "title": "",
-            "link": ""
-          }
-        },
-        "card_2": {
-          "type": "card",
-          "settings": {
-            "title": "",
-            "link": ""
-          }
-        },
-        "card_3": {
-          "type": "card",
-          "settings": {
-            "title": "",
-            "link": ""
-          }
-        },
-        "card_4": {
-          "type": "card",
-          "settings": {
-            "title": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "card_1",
-        "card_2",
-        "card_3",
-        "card_4"
-      ],
-      "disabled": true,
-      "settings": {
-        "background": "#FDDB6B",
-        "background_image": "shopify://shop_images/IMG_5346-_1.jpg",
-        "eyebrow": "Explore our collections",
-        "heading": "Discover Hidden Wonders",
-        "text": "<p>From misty mountain peaks to golden coastlines — every destination holds a story waiting to unfold. Let yours begin here.</p>",
-        "button_label": "Start Exploring",
-        "button_link": "shopify://collections/all",
-        "gallery_label": "Featured destinations"
-      }
     },
     "featured_banner_MJbLAg": {
       "type": "featured-banner",
@@ -1102,6 +1066,18 @@
     "1790159110cf772009": {
       "type": "_blocks",
       "settings": {}
+    },
+    "1790164970bcc216e6": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "17901651019ef06f4d": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "17901655219d915c8a": {
+      "type": "_blocks",
+      "settings": {}
     }
   },
   "order": [
@@ -1114,7 +1090,6 @@
     "category_circles",
     "1790157062db4cdf4d",
     "1790161067735ca0dd",
-    "featured_banner",
     "featured_banner_MJbLAg",
     "product_tabs",
     "services_banner",
@@ -1127,6 +1102,9 @@
     "faq",
     "cta_banner",
     "17901580437110f3d4",
-    "1790159110cf772009"
+    "1790159110cf772009",
+    "1790164970bcc216e6",
+    "17901651019ef06f4d",
+    "17901655219d915c8a"
   ]
 }
