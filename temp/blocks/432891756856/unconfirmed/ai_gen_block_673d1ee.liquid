@@ -1,6 +1,445 @@
-{% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
-{% endschema %}
+{% doc %}
+  @prompt
+    IMPORTANT:
+    - Do NOT include the human/person shown in the reference image.
+    - The section should be designed specifically for a plant nursery / plant e-commerce website.
+    - All plant/product images must be selectable through Shopify's Theme Editor using image upload/picker options.
+    - Do NOT hardcode image URLs.
+    - Make the section fully responsive for desktop, tablet and mobile.
+    
+    SECTION LAYOUT:
+    
+    1. MAIN SECTION
+    - Full-width horizontal section.
+    - Use a soft warm cream/off-white background.
+    - Add a subtle decorative abstract radial/sunburst shape in the background on the right side.
+    - Keep the overall design clean, premium and modern.
+    - Rounded corners where appropriate.
+    
+    2. PRODUCT CAROUSEL
+    Create a horizontally scrollable product carousel on the left/middle area.
+    
+    Display 3 plant product cards at a time on desktop.
+    
+    Each product card should contain:
+    
+    TOP AREA:
+    - Large product image.
+    - Image must be selectable/uploadable from Shopify Theme Editor.
+    - Image should automatically fit inside the image area without distortion.
+    - Rounded top corners.
+    - Bestseller badge at top-left.
+    - Discount badge at top-right.
+    
+    PRODUCT DETAILS:
+    - Small rating badge such as:
+      ★ 4.8 | 440
+    - Product title.
+    - Short product description.
+    - Current price.
+    - Original price with strikethrough.
+    - Discount percentage.
+    - Circular dark-green Add to Cart icon/button at bottom-right.
+    
+    Example content:
+    Product 1:
+    Title: Peace Lily Plant
+    Description: Stunning air-purifying plant
+    Price: ₹299
+    Original Price: ₹350
+    Discount: 15% OFF
+    Rating: 4.8
+    Reviews: 440
+    
+    Product 2:
+    Title: Anthurium Red Plant
+    Description: Long-lasting indoor plant
+    Price: ₹699
+    Original Price: ₹800
+    Discount: 13% OFF
+    Rating: 4.8
+    Reviews: 111
+    
+    Product 3:
+    Title: Jade Mini Plant
+    Description: Easy-care lucky succulent
+    Price: ₹249
+    Original Price: ₹300
+    Discount: 17% OFF
+    Rating: 4.8
+    Reviews: 414
+    
+    3. SHOPIFY CUSTOMIZATION OPTIONS
+    
+    In the Shopify Theme Editor, provide settings for each product card:
+    
+    - Product image upload/picker
+    - Product title
+    - Product description
+    - Current price
+    - Original price
+    - Discount text
+    - Bestseller badge ON/OFF
+    - Bestseller text
+    - Rating
+    - Review count
+    - Product link
+    - Add to cart button
+    - Card background color
+    
+    Allow at least 6 product cards to be added dynamically using Shopify blocks.
+    
+    Each block should have its own image picker.
+    
+    4. CAROUSEL FUNCTIONALITY
+    
+    - Desktop: show 3 cards.
+    - Tablet: show 2 cards.
+    - Mobile: show 1 card with part of the next card visible.
+    - Add a circular dark-green right arrow button overlapping the carousel.
+    - Add a left arrow as well, but keep it subtle.
+    - Smooth horizontal sliding animation.
+    - Touch/swipe support on mobile.
+    - Do not use external carousel libraries.
+    - Use lightweight JavaScript/CSS.
+    - Infinite or smooth looping is preferred.
+    - Disable arrows when there are no more slides if infinite looping is not used.
+    
+    5. DESIGN STYLE
+    
+    Use a premium nursery / botanical visual style.
+    
+    Colors:
+    - Dark green: #1F5130
+    - Yellow/golden accent: #FFD60A
+    - Cream background: #FFF9E8
+    - White product card: #FFFFFF
+    - Muted gray for secondary text.
+    
+    Typography:
+    - Product titles should have a slightly elegant serif style.
+    - Descriptions and prices should use a clean modern sans-serif font.
+    - Use responsive font sizes.
+    
+    6. IMAGE SETTINGS
+    
+    VERY IMPORTANT:
+    Every product card must have a Shopify image picker.
+    
+    Example schema structure:
+    
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Plant Image"
+    }
+    
+    The uploaded image should be displayed dynamically.
+    
+    Also provide an optional image picker for:
+    - Background/decorative plant image
+    - Optional promotional image
+    
+    Do NOT use the human image from the reference.
+    
+    7. HOVER EFFECT
+    
+    When the user hovers over a product card:
+    - Slightly lift the card.
+    - Add a subtle shadow.
+    - Plant image should have a very subtle zoom effect.
+    - Add-to-cart button can slightly scale.
+    - Keep the animation smooth and premium.
+    - Do not make the animation excessive.
+    
+    8. ADD TO CART
+    
+    The circular shopping-bag/cart button should work with Shopify's cart functionality.
+    
+    If the block is connected to a Shopify product:
+    - Clicking the button should add the selected product to cart.
+    - Use Shopify's product/variant information.
+    - If necessary, provide a product selector in the Theme Editor.
+    
+    Provide:
+    - Product selector
+    - Variant support
+    - Add-to-cart functionality
+    
+    9. RESPONSIVE DESIGN
+    
+    Desktop:
+    - 3 product cards visible.
+    - Cards should have equal width.
+    - Carousel occupies approximately 65–70% of the section.
+    - Leave enough breathing space around the cards.
+    
+    Mobile:
+    - One card visible at a time.
+    - Horizontal swipe carousel.
+    - Product cards should remain visually large.
+    - Hide unnecessary decorative elements.
+    - Keep prices and buttons easy to tap.
+    - No horizontal page overflow.
+    
+    10. CODE REQUIREMENTS
+    
+    Generate a complete Shopify Online Store 2.0 section.
+    
+    Provide:
+    - Liquid
+    - HTML
+    - CSS
+    - JavaScript
+    - Shopify schema
+    
+    The code must be placed in ONE Shopify section file.
+    
+    Make sure:
+    - Shopify Liquid syntax is valid.
+    - Section sche, 11. ADDITIONAL PLANT PRODUCT CONTENT
+    
+    Include these 3 additional product cards in the carousel:
+    
+    PRODUCT 4:
+    - Plant Name: The China Doll Plant - XL
+    - Description: Evergreen ornamental indoor plant
+    - Current Price: ₹1,499
+    - Original Price: ₹1,800
+    - Discount: 17% OFF
+    - Rating: 4.9
+    - Reviews: 38
+    - Badge: BESTSELLER
+    - Product Image: Shopify image picker
+    
+    PRODUCT 5:
+    - Plant Name: Areca Palm Plant XL
+    - Description: Tropical plant, purifies air
+    - Current Price: ₹1,499
+    - Original Price: ₹1,800
+    - Discount: 17% OFF
+    - Rating: 4.9
+    - Reviews: 33
+    - Badge: BESTSELLER
+    - Product Image: Shopify image picker
+    
+    PRODUCT 6:
+    - Plant Name: Bird of Paradise Plant - XL
+    - Description: Bold tropical indoor centrepiece
+    - Current Price: ₹2,499
+    - Original Price: ₹3,000
+    - Discount: 17% OFF
+    - Rating: 4.8
+    - Reviews: 12
+    - Badge: BESTSELLER
+    - Product Image: Shopify image picker
+    
+    
+    12. COMPLETE PRODUCT DATA
+    
+    The carousel should support all 6 products:
+    
+    1. Peace Lily Plant
+       - Stunning air-purifying plant
+       - ₹299
+       - ₹350
+       - 15% OFF
+       - Rating 4.8
+       - 440 reviews
+       - BESTSELLER
+    
+    2. Anthurium Red Plant
+       - Long-lasting indoor plant
+       - ₹699
+       - ₹800
+       - 13% OFF
+       - Rating 4.8
+       - 111 reviews
+       - BESTSELLER
+    
+    3. Jade Mini Plant
+       - Easy-care lucky succulent
+       - ₹249
+       - ₹300
+       - 17% OFF
+       - Rating 4.8
+       - 414 reviews
+       - BESTSELLER
+    
+    4. The China Doll Plant - XL
+       - Evergreen ornamental indoor plant
+       - ₹1,499
+       - ₹1,800
+       - 17% OFF
+       - Rating 4.9
+       - 38 reviews
+       - BESTSELLER
+    
+    5. Areca Palm Plant XL
+       - Tropical plant, purifies air
+       - ₹1,499
+       - ₹1,800
+       - 17% OFF
+       - Rating 4.9
+       - 33 reviews
+       - BESTSELLER
+    
+    6. Bird of Paradise Plant - XL
+       - Bold tropical indoor centrepiece
+       - ₹2,499
+       - ₹3,000
+       - 17% OFF
+       - Rating 4.8
+       - 12 reviews
+       - BESTSELLER
+    
+    
+    13. PRODUCT CARD CONTENT STRUCTURE
+    
+    Each card must visually follow this hierarchy:
+    
+    [ BESTSELLER ]                         [ 17% OFF ]
+    
+                 PLANT IMAGE
+    
+    [ ★ 4.9 | 38 ]
+    
+    The China Doll Plant - XL
+    
+    Evergreen ornamental indoor plant
+    
+    ₹1,499  ₹1,800                    [ 🛍 ]
+    
+    The cart icon should be circular and dark green.
+    
+    The original price must have a light gray strikethrough.
+    
+    The discount badge should be red with white text.
+    
+    The Bestseller badge should be yellow with dark text.
+    
+    The rating badge should be positioned overlapping or immediately below the image area.
+    
+    
+    14. IMAGE UPLOAD REQUIREMENT
+    
+    Do NOT automatically generate or use plant images.
+    
+    For EVERY product block, provide:
+    
+    - Plant/Product Image → Shopify image picker
+    - Shopify Product → Product selector
+    - Product Link → URL option
+    
+    The merchant must be able to upload/replace every plant image directly from:
+    
+    Shopify Admin → Online Store → Theme Editor → Plant Product Carousel
+    
+    When an image is uploaded, automatically display it in the corresponding product card.
+    
+    Use the uploaded plant image as the primary visual asset without modifying, redesigning or replacing it.
+    
+    
+    15. DYNAMIC PRODUCT OPTION
+    
+    Make the content editable.
+    
+    The merchant should be able to either:
+    
+    A. Select an actual Shopify product, in which case:
+    - Product title
+    - Price
+    - Compare-at price
+    - Product URL
+    - Product image
+    - Variant
+    
+    can optionally be pulled from Shopify,
+    
+    OR
+    
+    B. Use custom manual content through the Theme Editor:
+    - Custom plant image
+    - Custom title
+    - Custom description
+    - Custom price
+    - Custom original price
+    - Custom discount
+    - Custom rating
+    - Custom review count
+    
+    Add a setting such as:
+    
+    "Use Shopify Product Data" ON/OFF
+    
+    This makes the section flexible for the nursery website.
+    
+    
+    16. VISUAL DETAILS FROM THE REFERENCE
+    
+    Match the product cards closely to the uploaded reference:
+    
+    - Large landscape image area at the top.
+    - Product image should be centered.
+    - Warm lifestyle-style image background can come from the uploaded product image.
+    - White content area below the image.
+    - Rounded card corners.
+    - Small gap between cards.
+    - Premium nursery/e-commerce appearance.
+    - Dark green circular cart button.
+    - Yellow BESTSELLER pill.
+    - Red discount pill.
+    - Rating badge with star icon.
+    - Elegant bold plant name.
+    - Clean description.
+    - Price aligned toward the bottom-left.
+    - Cart button aligned bottom-right.
+    
+    Do not add the human/person from the original reference design.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% style %}
+.ai-plant-carousel-{{ ai_gen_id }}{display:block;width:100%;background:#fff9e8;padding:48px 4%;overflow:hidden}.ai-plant-carousel-{{ ai_gen_id }}__track{display:flex;gap:18px;overflow-x:auto;scroll-behavior:smooth;scroll-snap-type:x mandatory;padding:8px 4px 18px;scrollbar-width:none}.ai-plant-carousel-{{ ai_gen_id }}__track::-webkit-scrollbar{display:none}.ai-plant-card-{{ ai_gen_id }}{flex:0 0 calc((100% - 36px)/3);min-width:260px;scroll-snap-align:start;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 16px #1f51301a;transition:transform .25s,box-shadow .25s}.ai-plant-card-{{ ai_gen_id }}:hover{transform:translateY(-5px);box-shadow:0 12px 26px #1f513033}.ai-plant-card__image-{{ ai_gen_id }}{height:220px;background:#f4f7dc;position:relative}.ai-plant-card__image-{{ ai_gen_id }} img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}.ai-plant-card:hover img{transform:scale(1.03)}.ai-plant-card__placeholder-{{ ai_gen_id }}{height:100%;display:flex;align-items:center;justify-content:center}.ai-plant-card__placeholder-{{ ai_gen_id }} svg{width:70%;height:70%;color:#1f5130}.ai-plant-pill-{{ ai_gen_id }}{position:absolute;top:14px;padding:6px 10px;border-radius:20px;font:700 11px/1 Arial,sans-serif}.ai-plant-pill--best-{{ ai_gen_id }}{left:14px;background:#ffd60a;color:#14231a}.ai-plant-pill--discount-{{ ai_gen_id }}{right:14px;background:#c9342f;color:#fff}.ai-plant-card__body-{{ ai_gen_id }}{padding:16px;position:relative;min-height:174px}.ai-plant-rating-{{ ai_gen_id }}{display:inline-block;background:#f4f7dc;color:#1f5130;border-radius:12px;padding:5px 8px;font:600 12px Arial,sans-serif}.ai-plant-card h3{margin:12px 0 5px;color:#14231a;font:700 21px Georgia,serif}.ai-plant-card p{margin:0 0 18px;color:#5b6660;font:14px/1.4 Arial,sans-serif}.ai-plant-price-{{ ai_gen_id }}{display:flex;align-items:center;gap:8px;color:#1f5130;font:700 18px Arial,sans-serif}.ai-plant-compare-{{ ai_gen_id }}{color:#8a918c;text-decoration:line-through;font-size:13px;font-weight:400}.ai-plant-cart-{{ ai_gen_id }}{position:absolute;right:16px;bottom:16px;width:42px;height:42px;border:0;border-radius:50%;background:#1f5130;color:#fff;display:grid;place-items:center;cursor:pointer}.ai-plant-cart-{{ ai_gen_id }}:hover{background:#0d3a1d;transform:scale(1.06)}.ai-plant-controls-{{ ai_gen_id }}{display:flex;justify-content:flex-end;gap:10px;margin-top:8px}.ai-plant-arrow-{{ ai_gen_id }}{width:40px;height:40px;border:1px solid #1f5130;border-radius:50%;background:transparent;color:#1f5130;cursor:pointer;font-size:20px}.ai-plant-arrow-{{ ai_gen_id }}:disabled{opacity:.35;cursor:not-allowed}@media(max-width:990px){.ai-plant-card-{{ ai_gen_id }}{flex-basis:calc((100% - 18px)/2)}}@media(max-width:600px){.ai-plant-carousel-{{ ai_gen_id }}{padding:32px 16px}.ai-plant-card-{{ ai_gen_id }}{flex-basis:86%}.ai-plant-card__image-{{ ai_gen_id }}{height:230px}}
+{% endstyle %}
+<plant-carousel-{{ ai_gen_id }} class="ai-plant-carousel-{{ ai_gen_id }}" style="width:{{ block.settings.desktop_width_percent }}%" {{ block.shopify_attributes }}>
+<div class="ai-plant-carousel-{{ ai_gen_id }}__track">
+{% for i in (1..6) %}
+{% liquid
+assign enabled_key='product_' | append:i | append:'_enabled'
+assign use_key='product_' | append:i | append:'_use_shopify'
+assign image_key='product_' | append:i | append:'_image'
+assign product_key='product_' | append:i | append:'_product'
+assign title_key='product_' | append:i | append:'_title'
+assign desc_key='product_' | append:i | append:'_description'
+assign price_key='product_' | append:i | append:'_price'
+assign compare_key='product_' | append:i | append:'_compare'
+assign discount_key='product_' | append:i | append:'_discount'
+assign rating_key='product_' | append:i | append:'_rating'
+assign reviews_key='product_' | append:i | append:'_reviews'
+assign badge_key='product_' | append:i | append:'_badge'
+assign link_key='product_' | append:i | append:'_link'
+assign enabled=block.settings[enabled_key]
+assign selected=block.settings[product_key]
+assign image=block.settings[image_key]
+assign title=block.settings[title_key]
+assign description=block.settings[desc_key]
+assign price=block.settings[price_key]
+assign compare=block.settings[compare_key]
+assign discount=block.settings[discount_key]
+assign rating=block.settings[rating_key]
+assign reviews=block.settings[reviews_key]
+assign badge=block.settings[badge_key]
+assign link=block.settings[link_key]
+if block.settings[use_key] and selected != blank
+assign title=selected.title
+assign description=selected.description | strip_html | truncate:90
+assign price=selected.price | money
+assign compare=selected.compare_at_price | money
+assign image=selected.featured_image
+assign link=selected.url
+endif
+%}
+{% if enabled %}<article class="ai-plant-card-{{ ai_gen_id }}"><a href="{{ link | default:'#' }}"><div class="ai-plant-card__image-{{ ai_gen_id }}">{% if image %}<img src="{{ image | image_url:width:700 }}" alt="{{ title | escape }}" loading="lazy">{% else %}<div class="ai-plant-card__placeholder-{{ ai_gen_id }}">{{ 'image' | placeholder_svg_tag }}</div>{% endif %}{% if badge != blank %}<span class="ai-plant-pill-{{ ai_gen_id }} ai-plant-pill--best-{{ ai_gen_id }}">{{ badge }}</span>{% endif %}{% if discount != blank %}<span class="ai-plant-pill-{{ ai_gen_id }} ai-plant-pill--discount-{{ ai_gen_id }}">{{ discount }}</span>{% endif %}</div></a><div class="ai-plant-card__body-{{ ai_gen_id }}"><span class="ai-plant-rating-{{ ai_gen_id }}">★ {{ rating }} | {{ reviews }}</span><h3>{{ title }}</h3><p>{{ description }}</p><div class="ai-plant-price-{{ ai_gen_id }}">{{ price }} <span class="ai-plant-compare-{{ ai_gen_id }}">{{ compare }}</span></div>{% if selected != blank %}<button type="button" class="ai-plant-cart-{{ ai_gen_id }}" data-variant="{{ selected.selected_or_first_available_variant.id }}" aria-label="Add {{ title | escape }} to cart">🛍</button>{% endif %}</div></article>{% endif %}
+{% endfor %}</div><div class="ai-plant-controls-{{ ai_gen_id }}"><button class="ai-plant-arrow-{{ ai_gen_id }}" data-direction="prev" aria-label="Previous products">‹</button><button class="ai-plant-arrow-{{ ai_gen_id }}" data-direction="next" aria-label="Next products">›</button></div></plant-carousel-{{ ai_gen_id }}>
+<script>(function(){class PlantCarousel{{ ai_gen_id }} extends HTMLElement{connectedCallback(){this.track=this.querySelector('.ai-plant-carousel-{{ ai_gen_id }}__track');this.querySelectorAll('[data-direction]').forEach(b=>b.addEventListener('click',()=>this.track.scrollBy({left:(b.dataset.direction==='next'?1:-1)*this.track.clientWidth*.82,behavior:'smooth'})));this.querySelectorAll('[data-variant]').forEach(b=>b.addEventListener('click',()=>fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items:[{id:b.dataset.variant,quantity:1}]})})));}}customElements.define('plant-carousel-{{ ai_gen_id }}',PlantCarousel{{ ai_gen_id }})})();</script>
+{% schema %}{"name":"Plant product carousel","tag":null,"class":"plant-product-carousel","settings":[{"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},{"type":"header","content":"Product cards"},{"type":"paragraph","content":"Enable up to six cards. Choose Shopify product data or enter custom content."},{"type":"checkbox","id":"product_1_enabled","label":"Show product 1","default":true},{"type":"checkbox","id":"product_1_use_shopify","label":"Use Shopify data 1","default":false},{"type":"image_picker","id":"product_1_image","label":"Plant image 1"},{"type":"product","id":"product_1_product","label":"Shopify product 1"},{"type":"text","id":"product_1_title","label":"Title 1","default":"Peace Lily Plant"},{"type":"text","id":"product_1_description","label":"Description 1","default":"Stunning air-purifying plant"},{"type":"text","id":"product_1_price","label":"Price 1","default":"₹299"},{"type":"text","id":"product_1_compare","label":"Original price 1","default":"₹350"},{"type":"text","id":"product_1_discount","label":"Discount 1","default":"15% OFF"},{"type":"text","id":"product_1_rating","label":"Rating 1","default":"4.8"},{"type":"text","id":"product_1_reviews","label":"Reviews 1","default":"440"},{"type":"text","id":"product_1_badge","label":"Badge 1","default":"BESTSELLER"},{"type":"url","id":"product_1_link","label":"Product link 1"},{"type":"checkbox","id":"product_2_enabled","label":"Show product 2","default":true},{"type":"checkbox","id":"product_2_use_shopify","label":"Use Shopify data 2","default":false},{"type":"image_picker","id":"product_2_image","label":"Plant image 2"},{"type":"product","id":"product_2_product","label":"Shopify product 2"},{"type":"text","id":"product_2_title","label":"Title 2","default":"Anthurium Red Plant"},{"type":"text","id":"product_2_description","label":"Description 2","default":"Long-lasting indoor plant"},{"type":"text","id":"product_2_price","label":"Price 2","default":"₹699"},{"type":"text","id":"product_2_compare","label":"Original price 2","default":"₹800"},{"type":"text","id":"product_2_discount","label":"Discount 2","default":"13% OFF"},{"type":"text","id":"product_2_rating","label":"Rating 2","default":"4.8"},{"type":"text","id":"product_2_reviews","label":"Reviews 2","default":"111"},{"type":"text","id":"product_2_badge","label":"Badge 2","default":"BESTSELLER"},{"type":"url","id":"product_2_link","label":"Product link 2"},{"type":"checkbox","id":"product_3_enabled","label":"Show product 3","default":true},{"type":"checkbox","id":"product_3_use_shopify","label":"Use Shopify data 3","default":false},{"type":"image_picker","id":"product_3_image","label":"Plant image 3"},{"type":"product","id":"product_3_product","label":"Shopify product 3"},{"type":"text","id":"product_3_title","label":"Title 3","default":"Jade Mini Plant"},{"type":"text","id":"product_3_description","label":"Description 3","default":"Easy-care lucky succulent"},{"type":"text","id":"product_3_price","label":"Price 3","default":"₹249"},{"type":"text","id":"product_3_compare","label":"Original price 3","default":"₹300"},{"type":"text","id":"product_3_discount","label":"Discount 3","default":"17% OFF"},{"type":"text","id":"product_3_rating","label":"Rating 3","default":"4.8"},{"type":"text","id":"product_3_reviews","label":"Reviews 3","default":"414"},{"type":"text","id":"product_3_badge","label":"Badge 3","default":"BESTSELLER"},{"type":"url","id":"product_3_link","label":"Product link 3"},{"type":"checkbox","id":"product_4_enabled","label":"Show product 4","default":true},{"type":"checkbox","id":"product_4_use_shopify","label":"Use Shopify data 4","default":false},{"type":"image_picker","id":"product_4_image","label":"Plant image 4"},{"type":"product","id":"product_4_product","label":"Shopify product 4"},{"type":"text","id":"product_4_title","label":"Title 4","default":"The China Doll Plant - XL"},{"type":"text","id":"product_4_description","label":"Description 4","default":"Evergreen ornamental indoor plant"},{"type":"text","id":"product_4_price","label":"Price 4","default":"₹1,499"},{"type":"text","id":"product_4_compare","label":"Original price 4","default":"₹1,800"},{"type":"text","id":"product_4_discount","label":"Discount 4","default":"17% OFF"},{"type":"text","id":"product_4_rating","label":"Rating 4","default":"4.9"},{"type":"text","id":"product_4_reviews","label":"Reviews 4","default":"38"},{"type":"text","id":"product_4_badge","label":"Badge 4","default":"BESTSELLER"},{"type":"url","id":"product_4_link","label":"Product link 4"},{"type":"checkbox","id":"product_5_enabled","label":"Show product 5","default":true},{"type":"checkbox","id":"product_5_use_shopify","label":"Use Shopify data 5","default":false},{"type":"image_picker","id":"product_5_image","label":"Plant image 5"},{"type":"product","id":"product_5_product","label":"Shopify product 5"},{"type":"text","id":"product_5_title","label":"Title 5","default":"Areca Palm Plant XL"},{"type":"text","id":"product_5_description","label":"Description 5","default":"Tropical plant, purifies air"},{"type":"text","id":"product_5_price","label":"Price 5","default":"₹1,499"},{"type":"text","id":"product_5_compare","label":"Original price 5","default":"₹1,800"},{"type":"text","id":"product_5_discount","label":"Discount 5","default":"17% OFF"},{"type":"text","id":"product_5_rating","label":"Rating 5","default":"4.9"},{"type":"text","id":"product_5_reviews","label":"Reviews 5","default":"33"},{"type":"text","id":"product_5_badge","label":"Badge 5","default":"BESTSELLER"},{"type":"url","id":"product_5_link","label":"Product link 5"},{"type":"checkbox","id":"product_6_enabled","label":"Show product 6","default":true},{"type":"checkbox","id":"product_6_use_shopify","label":"Use Shopify data 6","default":false},{"type":"image_picker","id":"product_6_image","label":"Plant image 6"},{"type":"product","id":"product_6_product","label":"Shopify product 6"},{"type":"text","id":"product_6_title","label":"Title 6","default":"Bird of Paradise Plant - XL"},{"type":"text","id":"product_6_description","label":"Description 6","default":"Bold tropical indoor centrepiece"},{"type":"text","id":"product_6_price","label":"Price 6","default":"₹2,499"},{"type":"text","id":"product_6_compare","label":"Original price 6","default":"₹3,000"},{"type":"text","id":"product_6_discount","label":"Discount 6","default":"17% OFF"},{"type":"text","id":"product_6_rating","label":"Rating 6","default":"4.8"},{"type":"text","id":"product_6_reviews","label":"Reviews 6","default":"12"},{"type":"text","id":"product_6_badge","label":"Badge 6","default":"BESTSELLER"},{"type":"url","id":"product_6_link","label":"Product link 6"}],"presets":[{"name":"Plant product carousel"}]}{% endschema %}
