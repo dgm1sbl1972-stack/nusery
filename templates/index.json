@@ -491,7 +491,7 @@
         "heading": "Discover Hidden Wonders",
         "text": "<p>From misty mountain peaks to golden coastlines — every destination holds a story waiting to unfold. Let yours begin here.</p>",
         "button_label": "Start Exploring",
-        "button_link": "",
+        "button_link": "shopify://collections/all",
         "gallery_label": "Featured destinations"
       }
     },
