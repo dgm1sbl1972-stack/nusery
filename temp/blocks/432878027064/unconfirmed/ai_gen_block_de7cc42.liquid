@@ -1,6 +1,103 @@
-{% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
-{% endschema %}
+{% doc %}
+  @prompt
+    The section should display 9 gardening categories horizontally:
+    
+    1. Plants
+    2. Pots
+    3. Soil
+    4. Fertilisers
+    5. Seeds
+    6. Garden Tools
+    7. Watering Solutions
+    8. Pest Control
+    9. Gardening Decor
+    
+    DESIGN:
+    - Create a clean horizontal category navigation.
+    - Each category should have a large circular/soft-round image container.
+    - Use soft off-white / very light cream background.
+    - Use colorful, friendly gardening illustrations/icons inside each circle.
+    - Keep the overall visual style minimal, premium, playful and modern.
+    - Category names should appear below each image.
+    - Use a clean rounded sans-serif font.
+    - The currently selected category should have a thin green circular border around its image and slightly bolder text.
+    - Maintain equal spacing and alignment between all categories.
+    - The section should look similar in structure to the uploaded reference image, but use original styling and illustrations.
+    
+    3D HOVER ANIMATION:
+    The most important feature is the hover interaction.
+    
+    When the user hovers over any category:
+    - The circular image container should smoothly scale up to around 1.08–1.12x.
+    - The gardening illustration inside should create a convincing 3D/parallax effect.
+    - The illustration should slightly move toward the user using transform/perspective.
+    - Add subtle depth, soft shadow and slight floating movement.
+    - The image should appear to lift out of the circular container.
+    - Add a very subtle rotateX / rotateY effect based on the mouse position.
+    - The category name should smoothly become slightly bolder or move upward by 2–4px.
+    - Add a soft green glow or shadow around the active category.
+    - Animation should be smooth and premium, not exaggerated.
+    - Use CSS perspective, transform-style: preserve-3d and transition animations.
+    - Add a gentle floating animation while hovered.
+    - On mouse leave, everything should smoothly return to its original position.
+    
+    INTERACTION:
+    - Entire category item should be clickable.
+    - Add cursor:pointer.
+    - Hover should work independently for each category.
+    - Only the hovered category should animate.
+    - Do not make all categories move simultaneously.
+    - Add keyboard focus states for accessibility.
+    - On mobile/touch devices, provide a subtle tap/active animation instead of relying only on hover.
+    
+    RESPONSIVE DESIGN:
+    Desktop:
+    - Display all 9 categories in one horizontal row.
+    - Allow horizontal scrolling if screen width becomes too small.
+    
+    Tablet:
+    - Display categories in a horizontally scrollable row.
+    
+    Mobile:
+    - Keep the categories in a single horizontal scrollable carousel.
+    - Hide the scrollbar visually while keeping scrolling functional.
+    - Make touch scrolling smooth.
+    
+    CAROUSEL:
+    - Add left and right navigation arrows on desktop/tablet.
+    - Arrows should be modern, circular and minimal.
+    - Arrow buttons should have a subtle hover scale effect.
+    - Clicking the arrows should smoothly scroll the category row.
+    - Do not use a heavy carousel library unless necessary.
+    
+    VISUAL DETAILS:
+    - Rounded circular image backgrounds.
+    - Soft shadows.
+    - Premium gardening/nursery aesthetic.
+    - Green should be the primary accent color.
+    - Use subtle cream, white and pastel tones.
+    - Avoid excessive gradients.
+    - Avoid clutter.
+    - Keep plenty of whitespace.
+    
+    TECHNICAL:
+    - Generate clean production-ready HTML, CSS and JavaScript.
+    - Prefer React if the project is React-based.
+    - Use reusable CategoryCard components.
+    - Store category information in an array/object and render dynamically.
+    - Use CSS variables for colors, spacing and animation timing.
+    - Use CSS 3D transforms for the hover effect.
+    - Use smooth scrolling.
+    - Ensure the animation is GPU-friendly and does not cause layout shifting.
+    - Respect prefers-reduced-motion for accessibility.
+    
+    IMPORTANT:
+    The final result should feel like a premium modern nursery/gardening e-commerce website.
+    
+    The key visual effect should be:
+    NORMAL → flat, clean circular gardening illustration
+    HOVER → illustration visually lifts forward, gains depth, subtle perspective tilt, soft shadow, and gentle floating 3D effect.
+    
+    Do not simply enlarge the image. The hover interaction must create a convincing 3D/parallax feeling., NEED LIKE NO NEED TO SCROLL JUST PLACE IN THE SAME DONT MAKE IT LIKE SCROLLING, INSTEAD OF CIRCLE CAN WE HAVE SOME PALT SHAPE KIND , SO NOW I NEED TO ADD THE ICONS SO GIVE IMAGE UPLOAD OPTIONS AND ALSO AFTER CLICKING ON IT IT SHOULD LINK TO THAT RESPECTIVE PAGE SO GIVE LINK ALSO9, NEED ONE HEADING FOR THIS LIKE FIND PLANTS CATEGORIES
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}{% assign categories = 'Plants|Pots|Soil|Fertilisers|Seeds|Garden Tools|Watering Solutions|Pest Control|Gardening Decor' | split: '|' %}{% style %}.ai-garden-{{ai_gen_id}}{display:block;width:{{block.settings.desktop_width_percent}}%;max-width:100%;padding:{{block.settings.vertical_padding}}px 0;background:{{block.settings.background_color}}}.ai-garden-{{ai_gen_id}}__heading{margin:0 auto 24px;padding:0 18px;text-align:center;color:{{block.settings.text_color}};font-size:{{block.settings.heading_size}}px;line-height:1.2;font-weight:700}.ai-garden-{{ai_gen_id}}__track{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:{{block.settings.item_gap}}px;max-width:1400px;margin:auto;padding:12px 18px}.ai-garden-{{ai_gen_id}}__item{display:flex;min-width:0;flex-direction:column;align-items:center;gap:12px;text-decoration:none;color:{{block.settings.text_color}};cursor:pointer;perspective:800px;outline:none}.ai-garden-{{ai_gen_id}}__shape{display:grid;place-items:center;width:min({{block.settings.shape_size}}px,100%);aspect-ratio:1;border-radius:48% 52% 62% 38% / 42% 48% 52% 58%;background:{{block.settings.shape_color}};box-shadow:0 8px 20px #25472e14;transform-style:preserve-3d;transition:transform .35s ease,box-shadow .35s ease}.ai-garden-{{ai_gen_id}}__shape img,.ai-garden-{{ai_gen_id}}__placeholder{width:70%;height:70%;object-fit:contain;transform:translateZ(14px);transition:transform .35s ease;display:block}.ai-garden-{{ai_gen_id}}__placeholder svg{width:100%;height:100%;color:{{block.settings.accent_color}}}.ai-garden-{{ai_gen_id}}__name{font-size:{{block.settings.label_size}}px;line-height:1.2;text-align:center;transition:transform .35s ease,font-weight .35s ease}.ai-garden-{{ai_gen_id}}__item:hover .ai-garden-{{ai_gen_id}}__shape,.ai-garden-{{ai_gen_id}}__item:focus-visible .ai-garden-{{ai_gen_id}}__shape{transform:translateZ(8px) scale(1.1) rotateX(var(--x,0deg)) rotateY(var(--y,0deg));box-shadow:0 18px 32px #25673933,0 0 0 6px #1f513018}.ai-garden-{{ai_gen_id}}__item:hover img,.ai-garden-{{ai_gen_id}}__item:focus-visible img{transform:translateZ(30px) scale(1.06)}.ai-garden-{{ai_gen_id}}__item:hover .ai-garden-{{ai_gen_id}}__name,.ai-garden-{{ai_gen_id}}__item:focus-visible .ai-garden-{{ai_gen_id}}__name{transform:translateY(-3px);font-weight:700;color:{{block.settings.accent_color}}}@media(max-width:749px){.ai-garden-{{ai_gen_id}}__track{gap:5px;padding-left:8px;padding-right:8px}.ai-garden-{{ai_gen_id}}__name{font-size:11px}.ai-garden-{{ai_gen_id}}__heading{font-size:24px}}@media(prefers-reduced-motion:reduce){.ai-garden-{{ai_gen_id}}__shape,.ai-garden-{{ai_gen_id}}__shape img,.ai-garden-{{ai_gen_id}}__name{transition:none}}{% endstyle %}<category-icons-{{ai_gen_id}} class="ai-garden-{{ai_gen_id}}" {{block.shopify_attributes}}>{% if block.settings.heading != blank %}<h2 class="ai-garden-{{ai_gen_id}}__heading">{{block.settings.heading | escape}}</h2>{% endif %}<div class="ai-garden-{{ai_gen_id}}__track">{% for category in categories %}{% assign n = forloop.index %}{% assign image_key = 'icon_' | append: n %}{% assign link_key = 'link_' | append: n %}<a class="ai-garden-{{ai_gen_id}}__item" href="{{block.settings[link_key] | default: '#' }}" aria-label="{{category | escape}}"><span class="ai-garden-{{ai_gen_id}}__shape">{% if block.settings[image_key] %}<img src="{{block.settings[image_key] | image_url: width: 300}}" alt="{{category | escape}}" loading="lazy" width="300" height="300">{% else %}<span class="ai-garden-{{ai_gen_id}}__placeholder">{{'image'|placeholder_svg_tag}}</span>{% endif %}</span><span class="ai-garden-{{ai_gen_id}}__name">{{category}}</span></a>{% endfor %}</div></category-icons-{{ai_gen_id}}><script>(function(){class C{{ai_gen_id}} extends HTMLElement{connectedCallback(){this.querySelectorAll('.ai-garden-{{ai_gen_id}}__item').forEach(e=>{e.addEventListener('mousemove',a=>{let r=e.getBoundingClientRect();e.style.setProperty('--y',((a.clientX-r.left)/r.width-.5)*10+'deg');e.style.setProperty('--x',-((a.clientY-r.top)/r.height-.5)*10+'deg')});e.addEventListener('mouseleave',()=>{e.style.removeProperty('--x');e.style.removeProperty('--y')})})}}customElements.define('category-icons-{{ai_gen_id}}',C{{ai_gen_id}})})();</script>{% schema %}{"name":"Garden categories","settings":[{"type":"text","id":"heading","label":"Heading","default":"Find your plants categories"},{"type":"range","id":"heading_size","label":"Heading size","min":18,"max":42,"step":2,"unit":"px","default":28},{"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},{"type":"color","id":"background_color","label":"Background","default":"#f8f4ec"},{"type":"color","id":"shape_color","label":"Shape background","default":"#f4f7dc"},{"type":"color","id":"accent_color","label":"Accent","default":"#1f5130"},{"type":"color","id":"text_color","label":"Text","default":"#14231a"},{"type":"range","id":"shape_size","label":"Shape size","min":60,"max":180,"step":10,"unit":"px","default":130},{"type":"range","id":"item_gap","label":"Item spacing","min":4,"max":40,"step":4,"unit":"px","default":16},{"type":"range","id":"label_size","label":"Label size","min":10,"max":22,"step":1,"unit":"px","default":15},{"type":"range","id":"vertical_padding","label":"Vertical padding","min":10,"max":60,"step":5,"unit":"px","default":25},{"type":"header","content":"Plants"},{"type":"image_picker","id":"icon_1","label":"Plants icon"},{"type":"url","id":"link_1","label":"Plants link"},{"type":"header","content":"Pots"},{"type":"image_picker","id":"icon_2","label":"Pots icon"},{"type":"url","id":"link_2","label":"Pots link"},{"type":"header","content":"Soil"},{"type":"image_picker","id":"icon_3","label":"Soil icon"},{"type":"url","id":"link_3","label":"Soil link"},{"type":"header","content":"Fertilisers"},{"type":"image_picker","id":"icon_4","label":"Fertilisers icon"},{"type":"url","id":"link_4","label":"Fertilisers link"},{"type":"header","content":"Seeds"},{"type":"image_picker","id":"icon_5","label":"Seeds icon"},{"type":"url","id":"link_5","label":"Seeds link"},{"type":"header","content":"Garden tools"},{"type":"image_picker","id":"icon_6","label":"Garden tools icon"},{"type":"url","id":"link_6","label":"Garden tools link"},{"type":"header","content":"Watering solutions"},{"type":"image_picker","id":"icon_7","label":"Watering solutions icon"},{"type":"url","id":"link_7","label":"Watering solutions link"},{"type":"header","content":"Pest control"},{"type":"image_picker","id":"icon_8","label":"Pest control icon"},{"type":"url","id":"link_8","label":"Pest control link"},{"type":"header","content":"Gardening decor"},{"type":"image_picker","id":"icon_9","label":"Gardening decor icon"},{"type":"url","id":"link_9","label":"Gardening decor link"}],"presets":[{"name":"Garden categories"}],"tag":null,"class":"garden-categories-block"}{% endschema %}
