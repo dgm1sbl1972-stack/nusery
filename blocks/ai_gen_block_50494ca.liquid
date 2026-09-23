@@ -1,0 +1,69 @@
+{% doc %}
+  @prompt
+    Create a global font override that applies Poppins (from Google Fonts) as the font for all headings and body text across the entire store. It should import Poppins with multiple weights (300, 400, 500, 600, 700) and apply it globally using CSS. No visible UI needed — it should work silently in the background to change all fonts site-wide., USE FOR HEADING Montserrat 
+    AND FOR SUBHEADING AND BODY TEXT USE POPPINS
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-font-override-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+{% endstyle %}
+
+<font-override-{{ ai_gen_id }}
+  class="ai-font-override-{{ ai_gen_id }}"
+  aria-hidden="true"
+  {{ block.shopify_attributes }}
+></font-override-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    var tagName = 'font-override-{{ ai_gen_id }}';
+    var styleId = 'ai-global-font-style-{{ ai_gen_id }}';
+
+    class FontOverride{{ ai_gen_id }} extends HTMLElement {
+      connectedCallback() {
+        if (document.getElementById(styleId)) return;
+
+        var style = document.createElement('style');
+        style.id = styleId;
+        style.textContent = "@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap'); body, body :where(p, a, button, input, textarea, select, label, li, dt, dd, table, th, td, summary, legend, small, strong, em, blockquote, figcaption) { font-family: 'Poppins', sans-serif !important; } body :where(h1, h2, h3, h4, h5, h6) { font-family: 'Montserrat', sans-serif !important; }";
+        document.head.appendChild(style);
+      }
+    }
+
+    if (!customElements.get(tagName)) {
+      customElements.define(tagName, FontOverride{{ ai_gen_id }});
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Global font override",
+  "settings": [
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Global font override"
+    }
+  ],
+  "tag": null,
+  "class": "ai-global-font-override"
+}
+{% endschema %}

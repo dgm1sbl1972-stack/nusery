@@ -95,6 +95,69 @@
       ],
       "settings": {}
     },
+    "179015930923a1b439": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_b9418f4_BgDDRM": {
+          "type": "ai_gen_block_b9418f4",
+          "settings": {
+            "slider_font": "poppins_n4",
+            "autoplay_seconds": 4,
+            "desktop_height": 550,
+            "mobile_height": 550,
+            "overlay_opacity": 25,
+            "fallback_color": "#1f5130",
+            "control_color": "#ffffff",
+            "control_icon_color": "#14231a",
+            "focus_color": "#ffd60a",
+            "button_radius": 10,
+            "slide_1_image": "shopify://shop_images/IMG_8433-1.jpg",
+            "slide_1_heading": "Grow something beautiful",
+            "slide_1_body": "<p>Quality plants and supplies for your home and garden.</p>",
+            "slide_1_heading_size": 70,
+            "slide_1_body_size": 24,
+            "slide_1_color": "#FFFFFF",
+            "slide_1_align": "center",
+            "slide_1_button_label": "Shop plants",
+            "slide_1_button_link": "shopify://collections/all",
+            "slide_1_button_bg": "#FFD60A",
+            "slide_1_button_color": "#14231a",
+            "slide_2_image": "shopify://shop_images/bnr1_aa22af6b-1256-4e11-b79d-a1f96de51b6f.png",
+            "slide_2_heading": "Bring nature home",
+            "slide_2_body": "<p>Discover simple ways to create a greener space.</p>",
+            "slide_2_heading_size": 70,
+            "slide_2_body_size": 24,
+            "slide_2_color": "#FFFFFF",
+            "slide_2_align": "center",
+            "slide_2_button_label": "Explore collection",
+            "slide_2_button_link": "shopify://collections/all",
+            "slide_2_button_bg": "#ffd60a",
+            "slide_2_button_color": "#14231a",
+            "slide_3_image": "shopify://shop_images/6M29148-1.jpg",
+            "slide_3_heading": "Your garden starts here",
+            "slide_3_body": "<p>Find thoughtful products for every growing journey.</p>",
+            "slide_3_heading_size": 70,
+            "slide_3_body_size": 24,
+            "slide_3_color": "#FFFFFF",
+            "slide_3_align": "center",
+            "slide_3_button_label": "Shop now",
+            "slide_3_button_link": "shopify://collections/all",
+            "slide_3_button_bg": "#ffd60a",
+            "slide_3_button_color": "#14231a"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_b9418f4_BgDDRM"
+      ],
+      "name": "BANNER",
+      "settings": {}
+    },
+    "1790160288979da8b0": {
+      "type": "_blocks",
+      "settings": {}
+    },
     "1790155594988dd5fc": {
       "type": "_blocks",
       "blocks": {
@@ -105,7 +168,7 @@
             "banner_height": 550,
             "mobile_height": 420,
             "content_position": "center",
-            "text_alignment": "left",
+            "text_alignment": "center",
             "slide_1_image": "shopify://shop_images/bnr2.png",
             "slide_1_heading": "Bring your garden to life",
             "slide_1_text": "Discover beautiful plants and everything you need to grow.",
@@ -132,7 +195,7 @@
             "dot_color": "#ffffff",
             "focus_color": "#ffd60a",
             "heading_size": 72,
-            "text_size": 18,
+            "text_size": 16,
             "button_radius": 8
           },
           "blocks": {}
@@ -141,12 +204,13 @@
       "block_order": [
         "ai_gen_block_e96aa26_C4xzyE"
       ],
+      "disabled": true,
       "settings": {}
     },
-    "hero_slider": {
+    "hero_slider_6C6tqL": {
       "type": "hero-slider",
       "blocks": {
-        "slide_1": {
+        "slide_nLw7d9": {
           "type": "slide",
           "settings": {
             "heading": "Grow Your Own",
@@ -155,7 +219,7 @@
             "button_link": ""
           }
         },
-        "slide_2": {
+        "slide_pDmbR7": {
           "type": "slide",
           "settings": {
             "heading": "Grow Your Own",
@@ -164,7 +228,7 @@
             "button_link": ""
           }
         },
-        "slide_3": {
+        "slide_bMfTti": {
           "type": "slide",
           "settings": {
             "heading": "Grow Your Own",
@@ -173,7 +237,7 @@
             "button_link": ""
           }
         },
-        "slide_4": {
+        "slide_Cn36Ut": {
           "type": "slide",
           "settings": {
             "heading": "Grow Your Own",
@@ -184,10 +248,10 @@
         }
       },
       "block_order": [
-        "slide_1",
-        "slide_2",
-        "slide_3",
-        "slide_4"
+        "slide_nLw7d9",
+        "slide_pDmbR7",
+        "slide_bMfTti",
+        "slide_Cn36Ut"
       ],
       "disabled": true,
       "settings": {
@@ -302,11 +366,11 @@
             "desktop_width_percent": 100,
             "background_color": "#f8f4ec",
             "shape_color": "#f4f7dc",
-            "accent_color": "#1f5130",
-            "text_color": "#14231a",
+            "accent_color": "#ffd60a",
+            "text_color": "#1F5130",
             "shape_size": 130,
             "item_gap": 16,
-            "label_size": 15,
+            "label_size": 13,
             "vertical_padding": 25,
             "link_1": "",
             "link_2": "",
@@ -323,6 +387,53 @@
       },
       "block_order": [
         "ai_gen_block_de7cc42_njHgBV"
+      ],
+      "disabled": true,
+      "settings": {}
+    },
+    "1790161067735ca0dd": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_9681797_KTMUmV": {
+          "type": "ai_gen_block_9681797",
+          "settings": {
+            "heading": "Find your plants categories",
+            "content_width": 1600,
+            "side_padding": 0,
+            "heading_size": 32,
+            "label_size": 15,
+            "category_gap": 28,
+            "section_padding": 30,
+            "background_color": "#f8f4ec",
+            "card_color": "#f4f7dc",
+            "accent_color": "#1f5130",
+            "text_color": "#14231a",
+            "category_1_title": "Flower Creepers",
+            "category_1_link": "",
+            "category_2_title": "Leaf creepers",
+            "category_2_link": "",
+            "category_3_title": "Succulent Creepers",
+            "category_3_link": "",
+            "category_4_title": "Flower plant",
+            "category_4_link": "",
+            "category_5_title": "Herbs",
+            "category_5_link": "",
+            "category_6_title": "Leaf plant",
+            "category_6_link": "",
+            "category_7_title": "Ornamental Flower",
+            "category_7_link": "",
+            "category_8_title": "Ornamental leaf",
+            "category_8_link": "",
+            "category_9_title": "Ornamental Vegetable Plant",
+            "category_9_link": "",
+            "category_10_title": "Fruit Plant",
+            "category_10_link": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_9681797_KTMUmV"
       ],
       "settings": {}
     },
@@ -825,15 +936,38 @@
         "top_background": "#fbecea",
         "bottom_background": "#1a2e10"
       }
+    },
+    "17901580437110f3d4": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_50494ca_Ajn3nK": {
+          "type": "ai_gen_block_50494ca",
+          "settings": {
+            "desktop_width_percent": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_50494ca_Ajn3nK"
+      ],
+      "settings": {}
+    },
+    "1790159110cf772009": {
+      "type": "_blocks",
+      "settings": {}
     }
   },
   "order": [
     "announcement_marquee_GtBkk6",
     "17901562549d3a41e6",
+    "179015930923a1b439",
+    "1790160288979da8b0",
     "1790155594988dd5fc",
-    "hero_slider",
+    "hero_slider_6C6tqL",
     "category_circles",
     "1790157062db4cdf4d",
+    "1790161067735ca0dd",
     "featured_banner",
     "product_tabs",
     "services_banner",
@@ -844,6 +978,8 @@
     "comparison_table",
     "blog_posts",
     "faq",
-    "cta_banner"
+    "cta_banner",
+    "17901580437110f3d4",
+    "1790159110cf772009"
   ]
 }
