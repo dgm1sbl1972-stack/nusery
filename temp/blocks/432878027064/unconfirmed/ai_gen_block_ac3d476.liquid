@@ -1,6 +1,72 @@
+{% doc %}
+  @prompt
+    Create a single combined full-width section that includes: 1) A heading at the top that says "Find Your Plants Categories" where the word "Categories" is displayed in a different highlight colour (customizable via a colour picker in the theme editor). 2) Below the heading, a grid of category cards, each with an image, a category name label, and a link. The number of columns should be configurable (2, 3, or 4 per row). Each category card should have its own image, label text, and URL link settings. Text colour, highlight colour, and background colour should all be editable in the theme editor. Use Poppins font. The section should be clean, modern, and fully responsive on mobile and desktop.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% style %}
+  .ai-plant-categories-{{ ai_gen_id }} { display:block; width:100%; background:{{ block.settings.background_color }}; color:{{ block.settings.text_color }}; font-family:{{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }}; }
+  .ai-plant-categories-{{ ai_gen_id }}__inner { width:{{ block.settings.desktop_width_percent }}%; max-width:100%; margin:0 auto; padding:{{ block.settings.section_spacing }}px 24px; }
+  .ai-plant-categories-{{ ai_gen_id }}__heading { margin:0 0 32px; color:{{ block.settings.text_color }}; font-size:clamp(28px,4vw,48px); line-height:1.12; font-weight:700; letter-spacing:-.03em; text-align:{{ block.settings.heading_alignment }}; }
+  .ai-plant-categories-{{ ai_gen_id }}__highlight { color:{{ block.settings.highlight_color }}; }
+  .ai-plant-categories-{{ ai_gen_id }}__grid { display:grid; grid-template-columns:repeat({{ block.settings.columns }},minmax(0,1fr)); gap:{{ block.settings.card_gap }}px; }
+  .ai-plant-categories-{{ ai_gen_id }}__card { display:flex; flex-direction:column; min-width:0; overflow:hidden; background:{{ block.settings.card_background }}; border-radius:{{ block.settings.card_radius }}px; box-shadow:0 5px 18px rgba(20,35,26,.08); }
+  .ai-plant-categories-{{ ai_gen_id }}__image-link,.ai-plant-categories-{{ ai_gen_id }}__image-wrap { display:block; aspect-ratio:4/3; overflow:hidden; background:{{ block.settings.placeholder_color }}; }
+  .ai-plant-categories-{{ ai_gen_id }}__image { display:block; width:100%; height:100%; object-fit:cover; }
+  .ai-plant-categories-{{ ai_gen_id }}__placeholder { display:flex; align-items:center; justify-content:center; width:100%; height:100%; }
+  .ai-plant-categories-{{ ai_gen_id }}__placeholder svg { width:52%; height:52%; color:{{ block.settings.text_color }}; opacity:.35; }
+  .ai-plant-categories-{{ ai_gen_id }}__content { display:flex; flex:1; align-items:center; justify-content:space-between; gap:12px; padding:18px 20px; }
+  .ai-plant-categories-{{ ai_gen_id }}__label { margin:0; color:{{ block.settings.text_color }}; font-size:18px; line-height:1.3; font-weight:600; text-decoration:none; }
+  .ai-plant-categories-{{ ai_gen_id }}__arrow { flex:0 0 auto; color:{{ block.settings.highlight_color }}; font-size:22px; line-height:1; text-decoration:none; }
+  .ai-plant-categories-{{ ai_gen_id }}__card a:focus-visible { outline:3px solid {{ block.settings.highlight_color }}; outline-offset:3px; }
+  @media screen and (max-width:749px) { .ai-plant-categories-{{ ai_gen_id }}__inner { width:100%; padding:{{ block.settings.mobile_spacing }}px 16px; } .ai-plant-categories-{{ ai_gen_id }}__heading { margin-bottom:24px; } .ai-plant-categories-{{ ai_gen_id }}__grid { grid-template-columns:repeat({{ block.settings.mobile_columns }},minmax(0,1fr)); gap:14px; } .ai-plant-categories-{{ ai_gen_id }}__content { padding:14px; } .ai-plant-categories-{{ ai_gen_id }}__label { font-size:15px; } }
+{% endstyle %}
+<div class="ai-plant-categories-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-plant-categories-{{ ai_gen_id }}__inner">
+    <h2 class="ai-plant-categories-{{ ai_gen_id }}__heading">{{ block.settings.heading_before }} <span class="ai-plant-categories-{{ ai_gen_id }}__highlight">{{ block.settings.heading_highlight }}</span></h2>
+    <div class="ai-plant-categories-{{ ai_gen_id }}__grid">
+      {% for i in (1..6) %}
+        {% liquid
+          assign enabled_key = 'card_' | append: i | append: '_enabled'
+          assign image_key = 'card_' | append: i | append: '_image'
+          assign label_key = 'card_' | append: i | append: '_label'
+          assign link_key = 'card_' | append: i | append: '_link'
+          assign enabled = block.settings[enabled_key]
+          assign image = block.settings[image_key]
+          assign label = block.settings[label_key]
+          assign link = block.settings[link_key]
+        %}
+        {% if enabled %}
+          <article class="ai-plant-categories-{{ ai_gen_id }}__card">
+            {% if link != blank %}<a href="{{ link }}" class="ai-plant-categories-{{ ai_gen_id }}__image-link" aria-label="{{ label | escape }}">{% endif %}
+              {% if image != blank %}<img class="ai-plant-categories-{{ ai_gen_id }}__image" src="{{ image | image_url: width: 900 }}" alt="{{ image.alt | default: label | escape }}" loading="lazy" width="{{ image.width }}" height="{{ image.height }}">{% else %}<div class="ai-plant-categories-{{ ai_gen_id }}__placeholder">{{ 'image' | placeholder_svg_tag }}</div>{% endif %}
+            {% if link != blank %}</a>{% endif %}
+            <div class="ai-plant-categories-{{ ai_gen_id }}__content">
+              {% if link != blank %}<a href="{{ link }}" class="ai-plant-categories-{{ ai_gen_id }}__label">{% endif %}<h3 class="ai-plant-categories-{{ ai_gen_id }}__label">{{ label }}</h3>{% if link != blank %}</a>{% endif %}
+              {% if link != blank %}<a href="{{ link }}" class="ai-plant-categories-{{ ai_gen_id }}__arrow" aria-label="Explore {{ label | escape }}">→</a>{% endif %}
+            </div>
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name":"Plant categories",
+  "settings":[
+    {"type":"header","content":"Heading"},{"type":"text","id":"heading_before","label":"First words","default":"Find Your Plants"},{"type":"text","id":"heading_highlight","label":"Highlighted words","default":"Categories"},{"type":"select","id":"heading_alignment","label":"Alignment","options":[{"value":"left","label":"Left"},{"value":"center","label":"Center"}],"default":"center"},{"type":"font_picker","id":"heading_font","label":"Font","default":"poppins_n4"},
+    {"type":"header","content":"Layout"},{"type":"select","id":"columns","label":"Columns","options":[{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"}],"default":"3"},{"type":"select","id":"mobile_columns","label":"Columns on mobile","options":[{"value":"1","label":"1"},{"value":"2","label":"2"}],"default":"2"},{"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},{"type":"range","id":"section_spacing","label":"Section spacing","min":20,"max":100,"step":5,"unit":"px","default":55},{"type":"range","id":"mobile_spacing","label":"Mobile spacing","min":16,"max":60,"step":4,"unit":"px","default":36},{"type":"range","id":"card_gap","label":"Card gap","min":8,"max":40,"step":4,"unit":"px","default":20},{"type":"range","id":"card_radius","label":"Card radius","min":0,"max":32,"step":2,"unit":"px","default":16},
+    {"type":"header","content":"Colors"},{"type":"color","id":"background_color","label":"Background","default":"#f8f4ec"},{"type":"color","id":"card_background","label":"Card","default":"#ffffff"},{"type":"color","id":"text_color","label":"Text","default":"#14231a"},{"type":"color","id":"highlight_color","label":"Highlight","default":"#ffd60a"},{"type":"color","id":"placeholder_color","label":"Placeholder","default":"#f4f7dc"},
+    {"type":"header","content":"Category cards"},
+    {"type":"checkbox","id":"card_1_enabled","label":"Show card 1","default":true},{"type":"image_picker","id":"card_1_image","label":"Card 1 image"},{"type":"text","id":"card_1_label","label":"Card 1 label","default":"Indoor plants"},{"type":"url","id":"card_1_link","label":"Card 1 link"},
+    {"type":"checkbox","id":"card_2_enabled","label":"Show card 2","default":true},{"type":"image_picker","id":"card_2_image","label":"Card 2 image"},{"type":"text","id":"card_2_label","label":"Card 2 label","default":"Outdoor plants"},{"type":"url","id":"card_2_link","label":"Card 2 link"},
+    {"type":"checkbox","id":"card_3_enabled","label":"Show card 3","default":true},{"type":"image_picker","id":"card_3_image","label":"Card 3 image"},{"type":"text","id":"card_3_label","label":"Card 3 label","default":"Flowering plants"},{"type":"url","id":"card_3_link","label":"Card 3 link"},
+    {"type":"checkbox","id":"card_4_enabled","label":"Show card 4","default":true},{"type":"image_picker","id":"card_4_image","label":"Card 4 image"},{"type":"text","id":"card_4_label","label":"Card 4 label","default":"Herbs"},{"type":"url","id":"card_4_link","label":"Card 4 link"},
+    {"type":"checkbox","id":"card_5_enabled","label":"Show card 5","default":true},{"type":"image_picker","id":"card_5_image","label":"Card 5 image"},{"type":"text","id":"card_5_label","label":"Card 5 label","default":"Fruit plants"},{"type":"url","id":"card_5_link","label":"Card 5 link"},
+    {"type":"checkbox","id":"card_6_enabled","label":"Show card 6","default":true},{"type":"image_picker","id":"card_6_image","label":"Card 6 image"},{"type":"text","id":"card_6_label","label":"Card 6 label","default":"Succulents"},{"type":"url","id":"card_6_link","label":"Card 6 link"}
+  ],
+  "presets":[{"name":"Plant categories"}],
+  "tag":null,
+  "class":"plant-categories-block"
+}
 {% endschema %}
