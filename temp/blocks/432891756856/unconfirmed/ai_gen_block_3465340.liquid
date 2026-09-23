@@ -1,6 +1,146 @@
+{% doc %}
+  @prompt
+    DESIGN:
+    - Create a wide horizontal product showcase section.
+    - Use a warm cream / off-white background (#FFF9E8).
+    - On the LEFT side, display a horizontal carousel of 3 product cards.
+    - Each product card should have:
+      - Large plant/product image at the top
+      - Rounded top corners
+      - Small yellow “BESTSELLER” badge at top-left
+      - Small red discount badge at top-right
+      - Rating badge near the bottom of the image
+      - Product name in bold dark green
+      - Short product description
+      - Current price in bold
+      - Original price crossed out in light grey
+      - Dark green circular add-to-cart button with a simple white shopping-bag icon
+    - Cards should have clean white backgrounds and subtle rounded corners.
+    - Add a dark green circular carousel arrow between the product cards and the right-side visual.
+    
+    RIGHT SIDE VISUAL:
+    - Do NOT use a human/person.
+    - Instead, create a large decorative plant image as the main visual.
+    - The plant should be a realistic, premium indoor potted plant.
+    - Position the plant prominently on the right side, partially extending beyond the section boundaries for a modern ecommerce look.
+    - Use a clean premium ceramic pot.
+    - Keep the plant visually large and attractive.
+    - The plant should have natural green foliage and soft realistic lighting.
+    - Add subtle abstract botanical shapes / rays behind the plant using very light cream and pale yellow tones.
+    - Keep the right side visually spacious and premium.
+    
+    IMPORTANT:
+    - The uploaded plant image should be used as the main right-side visual/background asset.
+    - Provide a Shopify image-upload setting so I can upload/replace this plant image easily from the Shopify Theme Editor.
+    - Do not generate or include any human/person.
+    - Do not place text over the large plant image.
+    - Make the entire section responsive for desktop, tablet and mobile.
+    - On mobile, stack the plant visual below or above the product carousel while maintaining the same visual style.
+    - Add smooth horizontal carousel scrolling and elegant hover effects.
+    - On product-card hover, slightly lift the card and add a subtle 3D depth effect.
+    - Maintain generous spacing and a premium nursery ecommerce appearance.
+    - Use clean typography, dark green accents, yellow badges and cream background.
+    - Make the section visually similar in composition and proportions to the uploaded reference, but do not copy any person's image.
+    
+    SHOPIFY CUSTOMIZATION SETTINGS:
+    1. Section heading
+    2. Product cards — add/remove/reorder products
+    3. Product image
+    4. Product name
+    5. Product description
+    6. Price
+    7. Compare-at price
+    8. Discount badge
+    9. Bestseller badge
+    10. Rating
+    11. Right-side plant image upload
+    12. Background color
+    13. Accent color
+    14. Carousel autoplay on/off
+    15. Mobile layout controls
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-showcase-{{ ai_gen_id }} { display:block; width:100%; background:{{ block.settings.background_color }}; color:{{ block.settings.text_color }}; overflow:hidden; }
+  .ai-showcase-{{ ai_gen_id }}__inner { width:{{ block.settings.desktop_width_percent }}%; max-width:1400px; margin:0 auto; padding:clamp(36px,6vw,84px) 4%; display:grid; grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr); gap:clamp(28px,5vw,80px); align-items:center; }
+  .ai-showcase-{{ ai_gen_id }}__heading { color:{{ block.settings.accent_color }}; font-size:clamp(26px,3.5vw,48px); line-height:1.05; margin:0 0 28px; max-width:530px; }
+  .ai-showcase-{{ ai_gen_id }}__carousel-wrap { min-width:0; position:relative; }
+  .ai-showcase-{{ ai_gen_id }}__carousel { display:flex; gap:18px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; padding:5px 4px 18px; }
+  .ai-showcase-{{ ai_gen_id }}__carousel::-webkit-scrollbar { display:none; }
+  .ai-showcase-{{ ai_gen_id }}__card { flex:0 0 min(270px,78%); scroll-snap-align:start; background:#fff; border-radius:{{ block.settings.card_radius }}px; overflow:hidden; box-shadow:0 8px 22px rgba(20,35,26,.08); transition:transform .25s ease,box-shadow .25s ease; }
+  .ai-showcase-{{ ai_gen_id }}__card:hover { transform:translateY(-7px); box-shadow:0 18px 34px rgba(20,35,26,.16); }
+  .ai-showcase-{{ ai_gen_id }}__media { height:235px; position:relative; background:#f6f1df; }
+  .ai-showcase-{{ ai_gen_id }}__media img { width:100%; height:100%; object-fit:cover; display:block; }
+  .ai-showcase-{{ ai_gen_id }}__placeholder { height:100%; display:flex; align-items:center; justify-content:center; color:#9a9c82; }
+  .ai-showcase-{{ ai_gen_id }}__placeholder svg { width:70%; height:70%; }
+  .ai-showcase-{{ ai_gen_id }}__badge { position:absolute; top:12px; padding:5px 8px; border-radius:5px; font-size:10px; font-weight:800; letter-spacing:.05em; }
+  .ai-showcase-{{ ai_gen_id }}__badge--best { left:12px; background:{{ block.settings.accent_color }}; color:#17301d; }
+  .ai-showcase-{{ ai_gen_id }}__badge--discount { right:12px; background:#c9342d; color:#fff; }
+  .ai-showcase-{{ ai_gen_id }}__rating { position:absolute; bottom:12px; left:12px; background:#fff; color:#17301d; border-radius:14px; padding:5px 9px; font-size:12px; font-weight:700; }
+  .ai-showcase-{{ ai_gen_id }}__body { padding:18px; }
+  .ai-showcase-{{ ai_gen_id }}__name { color:{{ block.settings.accent_color }}; font-size:18px; margin:0 0 7px; }
+  .ai-showcase-{{ ai_gen_id }}__description { color:{{ block.settings.muted_color }}; font-size:13px; line-height:1.45; min-height:38px; margin:0 0 13px; }
+  .ai-showcase-{{ ai_gen_id }}__price { display:flex; align-items:center; gap:8px; font-size:17px; font-weight:800; }
+  .ai-showcase-{{ ai_gen_id }}__compare { color:#9ca19d; font-size:13px; text-decoration:line-through; font-weight:400; }
+  .ai-showcase-{{ ai_gen_id }}__add { float:right; width:38px; height:38px; margin-top:-34px; border:0; border-radius:50%; background:{{ block.settings.accent_color }}; color:#fff; display:grid; place-items:center; cursor:pointer; }
+  .ai-showcase-{{ ai_gen_id }}__add svg { width:18px; height:18px; }
+  .ai-showcase-{{ ai_gen_id }}__visual { position:relative; min-height:430px; display:flex; align-items:center; justify-content:center; }
+  .ai-showcase-{{ ai_gen_id }}__visual:before,.ai-showcase-{{ ai_gen_id }}__visual:after { content:""; position:absolute; border-radius:50%; background:#fff1b8; opacity:.55; }
+  .ai-showcase-{{ ai_gen_id }}__visual:before { width:290px; height:290px; top:4%; right:8%; }
+  .ai-showcase-{{ ai_gen_id }}__visual:after { width:150px; height:150px; bottom:4%; left:5%; background:#f6efcf; }
+  .ai-showcase-{{ ai_gen_id }}__visual img { position:relative; z-index:1; width:125%; max-width:none; margin-right:-22%; object-fit:contain; filter:drop-shadow(0 22px 18px rgba(20,35,26,.16)); }
+  .ai-showcase-{{ ai_gen_id }}__visual-placeholder { position:relative; z-index:1; width:85%; aspect-ratio:1; display:grid; place-items:center; color:#a6a98a; }
+  .ai-showcase-{{ ai_gen_id }}__visual-placeholder svg { width:100%; height:100%; }
+  .ai-showcase-{{ ai_gen_id }}__next { position:absolute; z-index:3; right:-24px; top:50%; transform:translateY(-50%); width:48px; height:48px; border:0; border-radius:50%; background:{{ block.settings.accent_color }}; color:#fff; cursor:pointer; box-shadow:0 5px 15px rgba(20,35,26,.18); }
+  @media(max-width:900px){.ai-showcase-{{ ai_gen_id }}__inner{grid-template-columns:1fr}.ai-showcase-{{ ai_gen_id }}__visual{order:{% if block.settings.mobile_layout == 'plant_first' %}-1{% else %}1{% endif %};min-height:340px}.ai-showcase-{{ ai_gen_id }}__visual img{width:90%;margin:0}.ai-showcase-{{ ai_gen_id }}__next{right:4px}}
+  @media(max-width:600px){.ai-showcase-{{ ai_gen_id }}__inner{width:100%;padding:36px 16px}.ai-showcase-{{ ai_gen_id }}__media{height:210px}.ai-showcase-{{ ai_gen_id }}__heading{margin-bottom:20px}}
+{% endstyle %}
+
+<product-showcase-{{ ai_gen_id }} class="ai-showcase-{{ ai_gen_id }}" data-autoplay="{{ block.settings.autoplay }}" data-interval="{{ block.settings.autoplay_interval }}" {{ block.shopify_attributes }}>
+  <div class="ai-showcase-{{ ai_gen_id }}__inner">
+    <div class="ai-showcase-{{ ai_gen_id }}__carousel-wrap">
+      {% if block.settings.heading != blank %}<h2 class="ai-showcase-{{ ai_gen_id }}__heading">{{ block.settings.heading }}</h2>{% endif %}
+      <div class="ai-showcase-{{ ai_gen_id }}__carousel">
+        {% for i in (1..3) %}
+          {% liquid
+            assign product_key = 'product_' | append: i
+            assign image_key = 'image_' | append: i
+            assign name_key = 'name_' | append: i
+            assign description_key = 'description_' | append: i
+            assign price_key = 'price_' | append: i
+            assign compare_key = 'compare_' | append: i
+            assign discount_key = 'discount_' | append: i
+            assign bestseller_key = 'bestseller_' | append: i
+            assign rating_key = 'rating_' | append: i
+            assign selected_product = block.settings[product_key]
+          %}
+          <article class="ai-showcase-{{ ai_gen_id }}__card">
+            <div class="ai-showcase-{{ ai_gen_id }}__media">
+              {% if block.settings[image_key] %}<img src="{{ block.settings[image_key] | image_url: width: 700 }}" alt="{{ block.settings[name_key] | escape }}" loading="lazy">{% elsif selected_product.featured_image %}<img src="{{ selected_product.featured_image | image_url: width: 700 }}" alt="{{ selected_product.title | escape }}" loading="lazy">{% else %}<div class="ai-showcase-{{ ai_gen_id }}__placeholder">{{ 'product-apparel-1' | placeholder_svg_tag }}</div>{% endif %}
+              {% if block.settings[bestseller_key] %}<span class="ai-showcase-{{ ai_gen_id }}__badge ai-showcase-{{ ai_gen_id }}__badge--best">BESTSELLER</span>{% endif %}
+              {% if block.settings[discount_key] != blank %}<span class="ai-showcase-{{ ai_gen_id }}__badge ai-showcase-{{ ai_gen_id }}__badge--discount">{{ block.settings[discount_key] }}</span>{% endif %}
+              {% if block.settings[rating_key] != blank %}<span class="ai-showcase-{{ ai_gen_id }}__rating">★ {{ block.settings[rating_key] }}</span>{% endif %}
+            </div>
+            <div class="ai-showcase-{{ ai_gen_id }}__body">
+              <h3 class="ai-showcase-{{ ai_gen_id }}__name">{% if block.settings[name_key] != blank %}{{ block.settings[name_key] }}{% else %}{{ selected_product.title | default: 'Featured plant' }}{% endif %}</h3>
+              <p class="ai-showcase-{{ ai_gen_id }}__description">{{ block.settings[description_key] }}</p>
+              <div class="ai-showcase-{{ ai_gen_id }}__price">{{ block.settings[price_key] }} {% if block.settings[compare_key] != blank %}<span class="ai-showcase-{{ ai_gen_id }}__compare">{{ block.settings[compare_key] }}</span>{% endif %}</div>
+              {% if selected_product %}<form action="/cart/add" method="post"><input type="hidden" name="id" value="{{ selected_product.selected_or_first_available_variant.id }}"><button class="ai-showcase-{{ ai_gen_id }}__add" type="submit" aria-label="Add {{ selected_product.title | escape }} to cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8h12l1 12H5L6 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg></button></form>{% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+      <button class="ai-showcase-{{ ai_gen_id }}__next" type="button" aria-label="Next products">→</button>
+    </div>
+    <div class="ai-showcase-{{ ai_gen_id }}__visual">{% if block.settings.plant_image %}<img src="{{ block.settings.plant_image | image_url: width: 1200 }}" alt="{{ block.settings.plant_image.alt | escape }}" loading="lazy">{% else %}<div class="ai-showcase-{{ ai_gen_id }}__visual-placeholder">{{ 'hero-apparel-1' | placeholder_svg_tag }}</div>{% endif %}</div>
+  </div>
+</product-showcase-{{ ai_gen_id }}>
+
+<script>
+(function(){class ProductShowcase{{ ai_gen_id }} extends HTMLElement{connectedCallback(){this.track=this.querySelector('.ai-showcase-{{ ai_gen_id }}__carousel');this.next=this.querySelector('.ai-showcase-{{ ai_gen_id }}__next');this.next.addEventListener('click',()=>this.track.scrollBy({left:this.track.clientWidth*.72,behavior:'smooth'}));if(this.dataset.autoplay==='true'){this.timer=setInterval(()=>this.next.click(),Number(this.dataset.interval)*1000)} }disconnectedCallback(){clearInterval(this.timer)}}customElements.define('product-showcase-{{ ai_gen_id }}',ProductShowcase{{ ai_gen_id }})})();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{"name":"Plant product showcase","settings":[{"type":"text","id":"heading","label":"Section heading","default":"Bring nature home"},{"type":"image_picker","id":"plant_image","label":"Right-side plant image"},{"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},{"type":"color","id":"background_color","label":"Background","default":"#FFF9E8"},{"type":"color","id":"accent_color","label":"Accent","default":"#1f5130"},{"type":"color","id":"text_color","label":"Text","default":"#14231a"},{"type":"color","id":"muted_color","label":"Muted text","default":"#5b6660"},{"type":"range","id":"card_radius","label":"Card radius","min":0,"max":32,"step":2,"unit":"px","default":16},{"type":"checkbox","id":"autoplay","label":"Autoplay carousel","default":false},{"type":"range","id":"autoplay_interval","label":"Autoplay interval","min":3,"max":15,"step":1,"unit":"s","default":6},{"type":"select","id":"mobile_layout","label":"Mobile layout","options":[{"value":"products_first","label":"Products first"},{"value":"plant_first","label":"Plant first"}],"default":"products_first"},{"type":"header","content":"Product 1"},{"type":"product","id":"product_1","label":"Product"},{"type":"image_picker","id":"image_1","label":"Product image"},{"type":"text","id":"name_1","label":"Name","default":"Monstera deliciosa"},{"type":"textarea","id":"description_1","label":"Description","default":"Lush tropical foliage for bright interiors."},{"type":"text","id":"price_1","label":"Price","default":"₹1,299"},{"type":"text","id":"compare_1","label":"Compare-at price","default":"₹1,599"},{"type":"text","id":"discount_1","label":"Discount badge","default":"20% OFF"},{"type":"checkbox","id":"bestseller_1","label":"Bestseller badge","default":true},{"type":"text","id":"rating_1","label":"Rating","default":"4.9"},{"type":"header","content":"Product 2"},{"type":"product","id":"product_2","label":"Product"},{"type":"image_picker","id":"image_2","label":"Product image"},{"type":"text","id":"name_2","label":"Name","default":"Areca palm"},{"type":"textarea","id":"description_2","label":"Description","default":"Air-purifying greenery with elegant fronds."},{"type":"text","id":"price_2","label":"Price","default":"₹999"},{"type":"text","id":"compare_2","label":"Compare-at price","default":"₹1,299"},{"type":"text","id":"discount_2","label":"Discount badge","default":"15% OFF"},{"type":"checkbox","id":"bestseller_2","label":"Bestseller badge","default":true},{"type":"text","id":"rating_2","label":"Rating","default":"4.8"},{"type":"header","content":"Product 3"},{"type":"product","id":"product_3","label":"Product"},{"type":"image_picker","id":"image_3","label":"Product image"},{"type":"text","id":"name_3","label":"Name","default":"Rubber plant"},{"type":"textarea","id":"description_3","label":"Description","default":"Glossy leaves and a calm, sculptural silhouette."},{"type":"text","id":"price_3","label":"Price","default":"₹1,099"},{"type":"text","id":"compare_3","label":"Compare-at price","default":"₹1,399"},{"type":"text","id":"discount_3","label":"Discount badge","default":"18% OFF"},{"type":"checkbox","id":"bestseller_3","label":"Bestseller badge","default":false},{"type":"text","id":"rating_3","label":"Rating","default":"4.7"}],"presets":[{"name":"Plant product showcase"}],"tag":null,"class":"plant-product-showcase"}
 {% endschema %}
