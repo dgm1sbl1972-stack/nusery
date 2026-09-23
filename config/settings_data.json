@@ -1,5 +1,26 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-  "current": "Default",
+  "current": {
+    "color_primary": "#1f5130",
+    "color_primary_dark": "#0d3a1d",
+    "color_bright": "#0c8f45",
+    "color_accent": "#ffd60a",
+    "color_text": "#0d3a1d",
+    "color_muted": "#5b6660",
+    "color_cream": "#f8f4ec",
+    "color_lime": "#f4f7dc",
+    "page_width": 1200,
+    "card_radius": 16,
+    "content_for_index": []
+  },
   "presets": {
     "Default": {
       "color_primary": "#1f5130",

@@ -440,10 +440,95 @@
             "category_10_link": ""
           },
           "blocks": {}
+        },
+        "ai_gen_block_8533040_YGgFmW": {
+          "type": "ai_gen_block_8533040",
+          "settings": {
+            "heading": "Bring home a little green",
+            "desktop_width_percent": 100,
+            "background_color": "#FFF9E8",
+            "card_color": "#FFFFFF",
+            "heading_color": "#1F5130",
+            "text_color": "#14231A",
+            "muted_color": "#5B6660",
+            "button_color": "#1F5130",
+            "badge_color": "#FFD60A",
+            "discount_color": "#D8E9B5",
+            "radius": 16,
+            "card_radius": 16,
+            "product_1_product": "",
+            "product_1_title": "Peace Lily Plant",
+            "product_1_description": "Stunning air-purifying plant",
+            "product_1_price": "₹299",
+            "product_1_original": "₹350",
+            "product_1_discount": "15% OFF",
+            "product_1_bestseller": true,
+            "product_1_bestseller_text": "Bestseller",
+            "product_1_rating": "4.8",
+            "product_1_reviews": "440",
+            "product_1_link": "",
+            "product_2_product": "",
+            "product_2_title": "Anthurium Red Plant",
+            "product_2_description": "Long-lasting indoor plant",
+            "product_2_price": "₹699",
+            "product_2_original": "₹800",
+            "product_2_discount": "13% OFF",
+            "product_2_bestseller": true,
+            "product_2_bestseller_text": "Bestseller",
+            "product_2_rating": "4.8",
+            "product_2_reviews": "111",
+            "product_2_link": "",
+            "product_3_product": "",
+            "product_3_title": "Jade Mini Plant",
+            "product_3_description": "Easy-care lucky succulent",
+            "product_3_price": "₹249",
+            "product_3_original": "₹300",
+            "product_3_discount": "17% OFF",
+            "product_3_bestseller": true,
+            "product_3_bestseller_text": "Bestseller",
+            "product_3_rating": "4.8",
+            "product_3_reviews": "414",
+            "product_3_link": "",
+            "product_4_product": "",
+            "product_4_title": "",
+            "product_4_description": "",
+            "product_4_price": "",
+            "product_4_original": "",
+            "product_4_discount": "",
+            "product_4_bestseller": false,
+            "product_4_bestseller_text": "Bestseller",
+            "product_4_rating": "4.8",
+            "product_4_reviews": "0",
+            "product_4_link": "",
+            "product_5_product": "",
+            "product_5_title": "",
+            "product_5_description": "",
+            "product_5_price": "",
+            "product_5_original": "",
+            "product_5_discount": "",
+            "product_5_bestseller": false,
+            "product_5_bestseller_text": "Bestseller",
+            "product_5_rating": "4.8",
+            "product_5_reviews": "0",
+            "product_5_link": "",
+            "product_6_product": "",
+            "product_6_title": "",
+            "product_6_description": "",
+            "product_6_price": "",
+            "product_6_original": "",
+            "product_6_discount": "",
+            "product_6_bestseller": false,
+            "product_6_bestseller_text": "Bestseller",
+            "product_6_rating": "4.8",
+            "product_6_reviews": "0",
+            "product_6_link": ""
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "ai_gen_block_9681797_KTMUmV"
+        "ai_gen_block_9681797_KTMUmV",
+        "ai_gen_block_8533040_YGgFmW"
       ],
       "settings": {}
     },
@@ -485,6 +570,57 @@
         "card_3",
         "card_4"
       ],
+      "disabled": true,
+      "settings": {
+        "background": "#FDDB6B",
+        "background_image": "shopify://shop_images/IMG_5346-_1.jpg",
+        "eyebrow": "Explore our collections",
+        "heading": "Discover Hidden Wonders",
+        "text": "<p>From misty mountain peaks to golden coastlines — every destination holds a story waiting to unfold. Let yours begin here.</p>",
+        "button_label": "Start Exploring",
+        "button_link": "shopify://collections/all",
+        "gallery_label": "Featured destinations"
+      }
+    },
+    "featured_banner_MJbLAg": {
+      "type": "featured-banner",
+      "blocks": {
+        "card_9mULMT": {
+          "type": "card",
+          "settings": {
+            "title": "",
+            "link": ""
+          }
+        },
+        "card_Dnj8Lg": {
+          "type": "card",
+          "settings": {
+            "title": "",
+            "link": ""
+          }
+        },
+        "card_N7TNxc": {
+          "type": "card",
+          "settings": {
+            "title": "",
+            "link": ""
+          }
+        },
+        "card_TnzJWR": {
+          "type": "card",
+          "settings": {
+            "title": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_9mULMT",
+        "card_Dnj8Lg",
+        "card_N7TNxc",
+        "card_TnzJWR"
+      ],
+      "disabled": true,
       "settings": {
         "background": "#e3b92c",
         "eyebrow": "Explore our collections",
@@ -979,6 +1115,7 @@
     "1790157062db4cdf4d",
     "1790161067735ca0dd",
     "featured_banner",
+    "featured_banner_MJbLAg",
     "product_tabs",
     "services_banner",
     "our_story",
