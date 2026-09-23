@@ -1,0 +1,46 @@
+{%- assign variant = product.selected_or_first_available_variant -%}
+<section class="section-pad main-product">
+  <div class="page-width main-product__grid">
+    <div class="main-product__media">
+      {%- for media in product.media limit: 6 -%}
+        {%- if media.media_type == 'image' -%}
+          {{ media | image_url: width: 1000 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 560px, 100vw', widths: '500, 750, 1000' }}
+        {%- endif -%}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endfor -%}
+    </div>
+    <div class="main-product__info">
+      <p class="product-card__type">{{ product.type }}</p>
+      <h1 class="section-title section-title--left">{{ product.title }}</h1>
+      <div class="price price--lg">
+        <strong>{{ variant.price | money }}</strong>
+        {%- if variant.compare_at_price > variant.price -%}<s>{{ variant.compare_at_price | money }}</s>{%- endif -%}
+      </div>
+      {%- form 'product', product, class: 'main-product__form' -%}
+        {%- unless product.has_only_default_variant -%}
+          <label for="variant-{{ section.id }}">Option</label>
+          <select id="variant-{{ section.id }}" name="id" class="select">
+            {%- for v in product.variants -%}
+              <option value="{{ v.id }}"{% if v == variant %} selected{% endif %}{% unless v.available %} disabled{% endunless %}>{{ v.title }} – {{ v.price | money }}</option>
+            {%- endfor -%}
+          </select>
+        {%- else -%}
+          <input type="hidden" name="id" value="{{ variant.id }}">
+        {%- endunless -%}
+        <div class="qty-row">
+          <input type="number" name="quantity" value="1" min="1" class="qty" aria-label="Quantity">
+          <button type="submit" class="btn btn--green"{% unless product.available %} disabled{% endunless %}>
+            {%- if product.available -%}{{ 'general.add_to_cart' | t }}{%- else -%}{{ 'general.sold_out' | t }}{%- endif -%}
+          </button>
+        </div>
+        {{ form | payment_button }}
+      {%- endform -%}
+      <div class="rte">{{ product.description }}</div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Product information", "settings": [] }
+{% endschema %}

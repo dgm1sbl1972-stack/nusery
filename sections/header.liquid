@@ -1,0 +1,82 @@
+{%- liquid
+  assign menu = linklists[section.settings.menu]
+-%}
+<header class="site-header" data-header>
+  <div class="page-width site-header__inner">
+    <a href="{{ routes.root_url }}" class="site-header__logo">
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 200 | image_tag: alt: shop.name, width: section.settings.logo_width, loading: 'eager' }}
+      {%- else -%}
+        <span class="logo-badge" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="40" height="40"><circle cx="24" cy="24" r="22" fill="#fff" stroke="#c62828" stroke-width="3"/><circle cx="24" cy="24" r="15" fill="#c62828"/><text x="24" y="28" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">SBL</text></svg>
+        </span>
+      {%- endif -%}
+      <span class="site-header__brand">
+        <strong>{{ section.settings.brand_name | default: shop.name }}</strong>
+        {%- if section.settings.tagline != blank -%}<small>{{ section.settings.tagline }}</small>{%- endif -%}
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="Main" data-nav>
+      <ul class="site-nav__list">
+        {%- for link in menu.links -%}
+          <li class="site-nav__item{% if link.links != blank %} has-dropdown{% endif %}">
+            <a href="{{ link.url }}" class="site-nav__link"{% if link.current %} aria-current="page"{% endif %}>
+              {{ link.title }}
+              {%- if link.links != blank -%}
+                <svg viewBox="0 0 10 6" width="9" height="6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+              {%- endif -%}
+            </a>
+            {%- if link.links != blank -%}
+              <ul class="site-nav__dropdown">
+                {%- for child in link.links -%}
+                  <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <form action="{{ routes.search_url }}" method="get" role="search" class="header-search">
+        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search' | t }}" aria-label="Search">
+        <input type="hidden" name="options[prefix]" value="last">
+      </form>
+      <a href="{{ routes.cart_url }}" class="icon-btn" aria-label="Cart">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7z M9 7a3 3 0 016 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span class="icon-btn__count" data-cart-count>{{ cart.item_count }}</span>
+      </a>
+      {%- if section.settings.wishlist_url != blank -%}
+        <a href="{{ section.settings.wishlist_url }}" class="icon-btn" aria-label="Wishlist">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </a>
+      {%- endif -%}
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="icon-btn" aria-label="Account">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 21a8 8 0 0116 0" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        </a>
+      {%- endif -%}
+      <button class="icon-btn menu-toggle" type="button" aria-label="Menu" aria-expanded="false" data-menu-toggle>
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo image" },
+    { "type": "range", "id": "logo_width", "label": "Logo width", "min": 30, "max": 200, "step": 5, "unit": "px", "default": 44 },
+    { "type": "text", "id": "brand_name", "label": "Brand name", "default": "Nursery" },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Nursery & Garden Store" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "url", "id": "wishlist_url", "label": "Wishlist link" }
+  ]
+}
+{% endschema %}

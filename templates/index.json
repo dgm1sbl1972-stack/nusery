@@ -1,0 +1,515 @@
+{
+  "sections": {
+    "hero_slider": {
+      "type": "hero-slider",
+      "settings": {},
+      "blocks": {
+        "slide_1": {
+          "type": "slide",
+          "settings": {}
+        },
+        "slide_2": {
+          "type": "slide",
+          "settings": {}
+        },
+        "slide_3": {
+          "type": "slide",
+          "settings": {}
+        },
+        "slide_4": {
+          "type": "slide",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "slide_1",
+        "slide_2",
+        "slide_3",
+        "slide_4"
+      ]
+    },
+    "category_circles": {
+      "type": "category-circles",
+      "settings": {},
+      "blocks": {
+        "category_1": {
+          "type": "category",
+          "settings": {
+            "title": "Flower Creepers"
+          }
+        },
+        "category_2": {
+          "type": "category",
+          "settings": {
+            "title": "Leaf Creepers"
+          }
+        },
+        "category_3": {
+          "type": "category",
+          "settings": {
+            "title": "Succulent Creepers"
+          }
+        },
+        "category_4": {
+          "type": "category",
+          "settings": {
+            "title": "Flower Plant"
+          }
+        },
+        "category_5": {
+          "type": "category",
+          "settings": {
+            "title": "Herbs"
+          }
+        },
+        "category_6": {
+          "type": "category",
+          "settings": {
+            "title": "Leaf Plant"
+          }
+        },
+        "category_7": {
+          "type": "category",
+          "settings": {
+            "title": "Ornamental Flower"
+          }
+        },
+        "category_8": {
+          "type": "category",
+          "settings": {
+            "title": "Ornamental Leaf"
+          }
+        },
+        "category_9": {
+          "type": "category",
+          "settings": {
+            "title": "Ornamental Vegetable Plant"
+          }
+        },
+        "category_10": {
+          "type": "category",
+          "settings": {
+            "title": "Fruit Plant"
+          }
+        }
+      },
+      "block_order": [
+        "category_1",
+        "category_2",
+        "category_3",
+        "category_4",
+        "category_5",
+        "category_6",
+        "category_7",
+        "category_8",
+        "category_9",
+        "category_10"
+      ]
+    },
+    "featured_banner": {
+      "type": "featured-banner",
+      "settings": {},
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {}
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {}
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {}
+        },
+        "card_4": {
+          "type": "card",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3",
+        "card_4"
+      ]
+    },
+    "product_tabs": {
+      "type": "product-tabs",
+      "settings": {},
+      "blocks": {
+        "tab_1": {
+          "type": "tab",
+          "settings": {
+            "label": "All"
+          }
+        },
+        "tab_2": {
+          "type": "tab",
+          "settings": {
+            "label": "Plants"
+          }
+        },
+        "tab_3": {
+          "type": "tab",
+          "settings": {
+            "label": "Seeds"
+          }
+        },
+        "tab_4": {
+          "type": "tab",
+          "settings": {
+            "label": "Kits"
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_2",
+        "tab_3",
+        "tab_4"
+      ]
+    },
+    "services_banner": {
+      "type": "services-banner",
+      "settings": {}
+    },
+    "our_story": {
+      "type": "our-story",
+      "settings": {},
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "value": "3.5L+",
+            "label": "Happy Customers"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "value": "500+",
+            "label": "Plant Varieties"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "value": "28+",
+            "label": "Cities Served"
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "value": "4.9★",
+            "label": "Customer Rating"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ]
+    },
+    "plant_finder": {
+      "type": "plant-finder",
+      "settings": {},
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {}
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "question": "How often can you water your plants?",
+            "answers": "💧 Every day | herbs\n🗓️ Twice a week | flower-plant\n🌵 Once in a while | succulent-creepers\n🤷 I often forget | succulent-creepers"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "question": "Where will the plant live?",
+            "answers": "🛋️ Living room | leaf-plant\n🌇 Balcony | flower-creepers\n🍳 Kitchen | herbs\n💻 Work desk | succulent-creepers"
+          }
+        },
+        "question_4": {
+          "type": "question",
+          "settings": {
+            "question": "What's your experience level?",
+            "answers": "🌱 Complete beginner | leaf-plant\n🌿 Some experience | flower-plant\n🌳 Plant pro | fruit-plant\n🎁 Buying as a gift | ornamental-flower"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3",
+        "question_4"
+      ]
+    },
+    "trending_reels": {
+      "type": "trending-reels",
+      "settings": {},
+      "blocks": {
+        "reel_1": {
+          "type": "reel",
+          "settings": {
+            "title": "Tiny Plant, Big Vibe"
+          }
+        },
+        "reel_2": {
+          "type": "reel",
+          "settings": {
+            "title": "Green Therapy Moment"
+          }
+        },
+        "reel_3": {
+          "type": "reel",
+          "settings": {
+            "title": "Transform Your WFH Space"
+          }
+        },
+        "reel_4": {
+          "type": "reel",
+          "settings": {
+            "title": "Balcony Makeover"
+          }
+        },
+        "reel_5": {
+          "type": "reel",
+          "settings": {
+            "title": "Repotting 101"
+          }
+        },
+        "reel_6": {
+          "type": "reel",
+          "settings": {
+            "title": "Herb Garden Tour"
+          }
+        }
+      },
+      "block_order": [
+        "reel_1",
+        "reel_2",
+        "reel_3",
+        "reel_4",
+        "reel_5",
+        "reel_6"
+      ]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {},
+      "blocks": {
+        "testimonial_1": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Arun Kumar",
+            "role": "Plant Lover",
+            "rating": 5,
+            "quote": "The plant arrived in excellent condition and was beautifully packed. The quality was even better than I expected. Highly recommended!"
+          }
+        },
+        "testimonial_2": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Priya Sharma",
+            "role": "Interior Designer",
+            "rating": 5,
+            "quote": "Amazing collection of plants and excellent customer service. My Monstera arrived fresh, healthy and perfectly packed."
+          }
+        },
+        "testimonial_3": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Rahul Raj",
+            "role": "Business Owner",
+            "rating": 4,
+            "quote": "Beautiful plants, great packaging and fast delivery. The entire buying experience was smooth and easy."
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_1",
+        "testimonial_2",
+        "testimonial_3"
+      ]
+    },
+    "comparison_table": {
+      "type": "comparison-table",
+      "settings": {},
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "feature": "Plant quality",
+            "value_1": "yes",
+            "value_2": "yes | Green, healthy & bushy",
+            "value_3": "~ | Inconsistent"
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "feature": "Pests",
+            "value_1": "no | Common issue",
+            "value_2": "yes | Pest-controlled",
+            "value_3": "yes"
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "feature": "Repotting",
+            "value_1": "no | Requires repotting (Pot is missing)",
+            "value_2": "yes | Not required",
+            "value_3": "~ | Varies; not consistent"
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "feature": "Standard soil",
+            "value_1": "no | Standard soil",
+            "value_2": "yes | Pre-mixed",
+            "value_3": "yes"
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "feature": "Growing Conditions",
+            "value_1": "yes",
+            "value_2": "yes | Grown by experts on old farms",
+            "value_3": "no | Outsourced"
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "feature": "After-sale help",
+            "value_1": "no | None",
+            "value_2": "yes | Expert support",
+            "value_3": "no | None"
+          }
+        },
+        "row_7": {
+          "type": "row",
+          "settings": {
+            "feature": "Guaranteed",
+            "value_1": "no | No guarantee",
+            "value_2": "yes | Assured quality, 14 days replacement",
+            "value_3": "~ | Conditional"
+          }
+        },
+        "row_8": {
+          "type": "row",
+          "settings": {
+            "feature": "One-stop garden shop",
+            "value_1": "yes",
+            "value_2": "yes",
+            "value_3": "no"
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6",
+        "row_7",
+        "row_8"
+      ]
+    },
+    "blog_posts": {
+      "type": "blog-posts",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {},
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {}
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "question": "What if my plant arrives damaged or dead?",
+            "answer": "<p>Share a photo within 7 days of delivery and we'll send a free replacement.</p>"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "question": "Do you ship all across India?",
+            "answer": "<p>Yes, we deliver to most pin codes across India.</p>"
+          }
+        },
+        "question_4": {
+          "type": "question",
+          "settings": {
+            "question": "I'm a complete beginner. Where should I start?",
+            "answer": "<p>Try our plant finder quiz or our beginner-friendly collection.</p>"
+          }
+        },
+        "question_5": {
+          "type": "question",
+          "settings": {
+            "question": "Are your seeds and fertilisers organic?",
+            "answer": "<p>Yes, our seeds and fertilisers are 100% organic.</p>"
+          }
+        },
+        "question_6": {
+          "type": "question",
+          "settings": {
+            "question": "Can I return or exchange a plant?",
+            "answer": "<p>Live plants can be replaced under our plant guarantee. Pots and accessories can be returned within 7 days.</p>"
+          }
+        },
+        "question_7": {
+          "type": "question",
+          "settings": {
+            "question": "How do I cancel or modify my order?",
+            "answer": "<p>Contact support before your order ships and we'll update it for you.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3",
+        "question_4",
+        "question_5",
+        "question_6",
+        "question_7"
+      ]
+    },
+    "cta_banner": {
+      "type": "cta-banner",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero_slider",
+    "category_circles",
+    "featured_banner",
+    "product_tabs",
+    "services_banner",
+    "our_story",
+    "plant_finder",
+    "trending_reels",
+    "testimonials",
+    "comparison_table",
+    "blog_posts",
+    "faq",
+    "cta_banner"
+  ]
+}

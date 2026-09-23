@@ -1,0 +1,15 @@
+<article class="section-pad">
+  <div class="page-width page-width--narrow">
+    <p class="eyebrow"><a href="{{ blog.url }}">{{ blog.title }}</a></p>
+    <h1 class="section-title section-title--left">{{ article.title }}</h1>
+    <p class="post__meta">📅 {{ article.published_at | date: '%B %-d, %Y' }}</p>
+    {%- if article.image -%}
+      <div class="article__image mt-40">{{ article.image | image_url: width: 1400 | image_tag: loading: 'eager', sizes: '(min-width: 1000px) 1000px, 100vw', widths: '600, 1000, 1400' }}</div>
+    {%- endif -%}
+    <div class="rte mt-40">{{ article.content }}</div>
+  </div>
+</article>
+
+{% schema %}
+{ "name": "Blog post", "settings": [] }
+{% endschema %}

@@ -1,0 +1,51 @@
+{%- capture items -%}
+  {%- for block in section.blocks -%}
+    <span class="marquee__item" {{ block.shopify_attributes }}>
+      {%- if block.settings.icon != blank -%}<span class="marquee__icon" aria-hidden="true">{{ block.settings.icon }}</span>{%- endif -%}
+      {%- if block.settings.link != blank -%}
+        <a href="{{ block.settings.link }}">{{ block.settings.text }}</a>
+      {%- else -%}
+        {{ block.settings.text }}
+      {%- endif -%}
+    </span>
+  {%- endfor -%}
+{%- endcapture -%}
+
+<div class="marquee" style="--marquee-speed: {{ section.settings.speed }}s;">
+  <div class="marquee__track">
+    <div class="marquee__group">{{ items }}</div>
+    <div class="marquee__group" aria-hidden="true">{{ items }}</div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement marquee",
+  "class": "section-marquee",
+  "settings": [
+    { "type": "range", "id": "speed", "label": "Scroll duration", "min": 10, "max": 90, "step": 5, "unit": "s", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon (emoji)", "default": "🌿" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Free Shipping Above ₹150" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement marquee",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "🌿", "text": "Beginner-Friendly Guidance Included" } },
+        { "type": "item", "settings": { "icon": "🚚", "text": "Free Shipping Above ₹150" } },
+        { "type": "item", "settings": { "icon": "💚", "text": "Trusted by 3.5 Lakh+ Gardeners" } },
+        { "type": "item", "settings": { "icon": "📦", "text": "Safe Live Plant Delivery" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

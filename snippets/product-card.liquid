@@ -1,0 +1,52 @@
+{%- comment -%}
+  Renders a product card.
+  Accepts:
+  - product: {Object} product (optional; placeholder is rendered when blank)
+  - index: {Number} used for placeholder image variety
+{%- endcomment -%}
+<article class="product-card">
+  {%- if product != blank -%}
+    {%- assign variant = product.selected_or_first_available_variant -%}
+    <a href="{{ product.url }}" class="product-card__media">
+      {%- if product.featured_media -%}
+        {{ product.featured_media | image_url: width: 600 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 300px, 50vw', widths: '300, 450, 600', alt: product.featured_media.alt | default: product.title }}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </a>
+    <div class="product-card__body">
+      <p class="product-card__type">{{ product.type | default: product.vendor }}</p>
+      <h3 class="product-card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+      <p class="product-card__desc">{{ product.description | strip_html | truncatewords: 12 }}</p>
+      <div class="product-card__footer">
+        <div class="price">
+          <strong>{{ product.price | money_without_trailing_zeros }}</strong>
+          {%- if product.compare_at_price > product.price -%}
+            <s>{{ product.compare_at_price | money_without_trailing_zeros }}</s>
+          {%- endif -%}
+        </div>
+        {%- if product.available -%}
+          <form action="{{ routes.cart_add_url }}" method="post" data-add-to-cart>
+            <input type="hidden" name="id" value="{{ variant.id }}">
+            <input type="hidden" name="quantity" value="1">
+            <button type="submit" class="btn btn--sm btn--green">{{ 'general.add_to_cart' | t }}</button>
+          </form>
+        {%- else -%}
+          <span class="btn btn--sm btn--disabled">{{ 'general.sold_out' | t }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- else -%}
+    {%- assign ph = index | default: 0 | modulo: 6 | plus: 1 -%}
+    <div class="product-card__media">{{ 'product-' | append: ph | placeholder_svg_tag: 'placeholder-svg' }}</div>
+    <div class="product-card__body">
+      <p class="product-card__type">Plants</p>
+      <h3 class="product-card__title">Example plant</h3>
+      <p class="product-card__desc">Add products to a collection to see them here.</p>
+      <div class="product-card__footer">
+        <div class="price"><strong>₹499</strong> <s>₹699</s></div>
+        <span class="btn btn--sm btn--green">{{ 'general.add_to_cart' | t }}</span>
+      </div>
+    </div>
+  {%- endif -%}
+</article>

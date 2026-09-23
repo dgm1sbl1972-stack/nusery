@@ -1,0 +1,70 @@
+<section class="hero section-pad-sm" data-slider data-autoplay="{{ section.settings.autoplay_speed }}">
+  <div class="page-width">
+    <div class="hero__frame" style="--hero-h: {{ section.settings.height }}px;">
+      <div class="hero__track" data-slider-track>
+        {%- for block in section.blocks -%}
+          <div class="hero__slide{% if forloop.first %} is-active{% endif %}" data-slide {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              {%- if forloop.first -%}{%- assign loading = 'eager' -%}{%- else -%}{%- assign loading = 'lazy' -%}{%- endif -%}
+              {{ block.settings.image | image_url: width: 2000 | image_tag: class: 'hero__img', sizes: '(min-width: 1200px) 1200px, 100vw', widths: '600, 900, 1200, 1600, 2000', loading: loading }}
+            {%- else -%}
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'hero__img placeholder-svg' }}
+            {%- endif -%}
+            <div class="hero__overlay"></div>
+            <div class="hero__content">
+              <h2 class="hero__title">
+                {{- block.settings.heading | escape | newline_to_br -}}
+                {%- if block.settings.highlight != blank -%}<br><span class="text-accent">{{ block.settings.highlight }}</span>{%- endif -%}
+              </h2>
+              {%- if block.settings.button_label != blank -%}
+                <a href="{{ block.settings.button_link | default: routes.all_products_collection_url }}" class="btn btn--dark">
+                  {{ block.settings.button_label }} <span aria-hidden="true">→</span>
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      {%- if section.blocks.size > 1 -%}
+        <button class="slider-arrow slider-arrow--prev" type="button" aria-label="Previous slide" data-slider-prev>←</button>
+        <button class="slider-arrow slider-arrow--next" type="button" aria-label="Next slide" data-slider-next>→</button>
+        <div class="hero__dots" data-slider-dots>
+          {%- for block in section.blocks -%}
+            <button type="button" class="dot{% if forloop.first %} is-active{% endif %}" aria-label="Go to slide {{ forloop.index }}"></button>
+          {%- endfor -%}
+        </div>
+        <div class="hero__counter"><strong data-slider-current>01</strong> / {{ section.blocks.size | prepend: '0' | slice: -2, 2 }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero slider",
+  "settings": [
+    { "type": "range", "id": "height", "label": "Height", "min": 300, "max": 700, "step": 20, "unit": "px", "default": 600 },
+    { "type": "range", "id": "autoplay_speed", "label": "Autoplay (0 = off)", "min": 0, "max": 10, "step": 1, "unit": "s", "default": 5 }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "textarea", "id": "heading", "label": "Heading", "default": "Grow Your Own" },
+        { "type": "text", "id": "highlight", "label": "Highlighted text (yellow)", "default": "Green Paradise" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop Plants" },
+        { "type": "url", "id": "button_link", "label": "Button link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero slider",
+      "blocks": [ { "type": "slide" }, { "type": "slide" }, { "type": "slide" }, { "type": "slide" } ]
+    }
+  ]
+}
+{% endschema %}

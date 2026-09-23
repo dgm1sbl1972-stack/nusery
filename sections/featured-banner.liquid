@@ -1,0 +1,66 @@
+<section class="feature-banner" style="--banner-bg: {{ section.settings.background }};" data-slider>
+  {%- if section.settings.background_image != blank -%}
+    {{ section.settings.background_image | image_url: width: 2400 | image_tag: class: 'feature-banner__bg', loading: 'lazy', alt: '' }}
+  {%- endif -%}
+  <div class="page-width feature-banner__inner">
+    <div class="feature-banner__text">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow eyebrow--line">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="feature-banner__title">{{ section.settings.heading }}</h2>
+      <div class="feature-banner__body">{{ section.settings.text }}</div>
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link | default: routes.collections_url }}" class="btn btn--accent">{{ section.settings.button_label }} <span aria-hidden="true">→</span></a>
+      {%- endif -%}
+    </div>
+
+    <div class="feature-banner__gallery">
+      {%- if section.settings.gallery_label != blank -%}<p class="eyebrow eyebrow--light">{{ section.settings.gallery_label }}</p>{%- endif -%}
+      <div class="feature-banner__track" data-slider-track data-scroller>
+        {%- for block in section.blocks -%}
+          <a class="feature-card" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 500 | image_tag: loading: 'lazy', alt: block.settings.title }}
+            {%- else -%}
+              {%- assign ph = forloop.index0 | modulo: 6 | plus: 1 -%}
+              {{ 'product-' | append: ph | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+            {%- if block.settings.title != blank -%}<span class="feature-card__title">{{ block.settings.title }}</span>{%- endif -%}
+          </a>
+        {%- endfor -%}
+      </div>
+      <div class="scroller-nav">
+        <button type="button" class="round-btn" aria-label="Previous" data-scroll-prev>←</button>
+        <button type="button" class="round-btn" aria-label="Next" data-scroll-next>→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured banner",
+  "settings": [
+    { "type": "color", "id": "background", "label": "Background color", "default": "#e3b92c" },
+    { "type": "image_picker", "id": "background_image", "label": "Background image (optional)" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Explore our collections" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Discover Hidden Wonders" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>From misty mountain peaks to golden coastlines — every destination holds a story waiting to unfold. Let yours begin here.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Start Exploring" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "text", "id": "gallery_label", "label": "Gallery label", "default": "Featured destinations" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Image card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Caption" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Featured banner", "blocks": [ { "type": "card" }, { "type": "card" }, { "type": "card" }, { "type": "card" } ] }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,23 @@
+<section class="section-pad" style="background: var(--c-lime);">
+  <div class="page-width">
+    <h1 class="section-title section-title--left">Collections</h1>
+    <div class="categories__grid mt-40">
+      {%- for collection in collections -%}
+        <a class="category" href="{{ collection.url }}">
+          <span class="category__img">
+            {%- if collection.featured_image -%}
+              {{ collection.featured_image | image_url: width: 300, height: 300, crop: 'center' | image_tag: loading: 'lazy' }}
+            {%- else -%}
+              {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </span>
+          <span class="category__title">{{ collection.title }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Collections list", "settings": [] }
+{% endschema %}

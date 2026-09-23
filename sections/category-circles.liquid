@@ -1,0 +1,75 @@
+<section class="categories section-pad" style="background: {{ section.settings.background }};">
+  <div class="page-width">
+    <h2 class="section-title section-title--left">
+      {{ section.settings.heading }} <em>{{ section.settings.heading_accent }}</em>
+    </h2>
+
+    <div class="categories__grid">
+      {%- for block in section.blocks -%}
+        {%- assign collection_obj = block.settings.collection -%}
+        {%- assign title = block.settings.title | default: collection_obj.title -%}
+        {%- assign img = block.settings.image | default: collection_obj.featured_image -%}
+        <a class="category" href="{{ collection_obj.url | default: '#' }}" {{ block.shopify_attributes }}>
+          <span class="category__img">
+            {%- if img != blank -%}
+              {{ img | image_url: width: 300, height: 300, crop: 'center' | image_tag: loading: 'lazy', alt: title }}
+            {%- else -%}
+              {%- assign ph = forloop.index0 | modulo: 6 | plus: 1 -%}
+              {{ 'collection-' | append: ph | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </span>
+          <span class="category__title">{{ title | default: 'Category' }}</span>
+        </a>
+      {%- endfor -%}
+
+      {%- if section.settings.show_buy_now -%}
+        <a class="buy-now-card" href="{{ section.settings.buy_now_link | default: routes.all_products_collection_url }}">
+          <span class="buy-now-card__text">{{ section.settings.buy_now_text }}</span>
+          <svg class="buy-now-card__arrow" viewBox="0 0 80 30" width="80" height="30" aria-hidden="true"><path d="M3 8c20 18 45 20 70 10" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M60 8l14 10-16 6" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Category circles",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find Plant" },
+    { "type": "text", "id": "heading_accent", "label": "Heading accent (italic green)", "default": "Category" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#f4f7dc" },
+    { "type": "checkbox", "id": "show_buy_now", "label": "Show \"Buy Now\" card", "default": true },
+    { "type": "text", "id": "buy_now_text", "label": "Buy Now text", "default": "Buy Now!" },
+    { "type": "url", "id": "buy_now_link", "label": "Buy Now link" }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "title", "label": "Title override" },
+        { "type": "image_picker", "id": "image", "label": "Image override" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category circles",
+      "blocks": [
+        { "type": "category", "settings": { "title": "Flower Creepers" } },
+        { "type": "category", "settings": { "title": "Leaf Creepers" } },
+        { "type": "category", "settings": { "title": "Succulent Creepers" } },
+        { "type": "category", "settings": { "title": "Flower Plant" } },
+        { "type": "category", "settings": { "title": "Herbs" } },
+        { "type": "category", "settings": { "title": "Leaf Plant" } },
+        { "type": "category", "settings": { "title": "Ornamental Flower" } },
+        { "type": "category", "settings": { "title": "Ornamental Leaf" } },
+        { "type": "category", "settings": { "title": "Ornamental Vegetable Plant" } },
+        { "type": "category", "settings": { "title": "Fruit Plant" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

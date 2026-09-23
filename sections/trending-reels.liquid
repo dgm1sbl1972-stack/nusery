@@ -1,0 +1,67 @@
+<section class="reels section-pad" style="background: {{ section.settings.background }};">
+  <div class="page-width">
+    <h2 class="section-title">{{ section.settings.heading }}<em>{{ section.settings.heading_accent }}</em></h2>
+
+    <div class="scroller">
+      <button type="button" class="round-btn scroller__arrow scroller__arrow--prev" aria-label="Previous" data-scroll-prev>‹</button>
+      <div class="reels__track" data-scroller>
+        {%- for block in section.blocks -%}
+          <div class="reel" data-reel {{ block.shopify_attributes }}>
+            {%- if block.settings.video != blank -%}
+              {{ block.settings.video | video_tag: class: 'reel__video', muted: true, loop: true, playsinline: true, preload: 'none', image_size: '400x' }}
+            {%- elsif block.settings.poster != blank -%}
+              {{ block.settings.poster | image_url: width: 400 | image_tag: class: 'reel__video', loading: 'lazy' }}
+            {%- else -%}
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'reel__video placeholder-svg' }}
+            {%- endif -%}
+            {%- if block.settings.video != blank -%}
+              <button type="button" class="reel__play" aria-label="Play {{ block.settings.title | escape }}" data-reel-play>▶</button>
+            {%- elsif block.settings.external_url != blank -%}
+              <a class="reel__play" href="{{ block.settings.external_url }}" target="_blank" rel="noopener" aria-label="Watch {{ block.settings.title | escape }}">▶</a>
+            {%- else -%}
+              <span class="reel__play" aria-hidden="true">▶</span>
+            {%- endif -%}
+            {%- if block.settings.title != blank -%}<span class="reel__title">{{ block.settings.title }}</span>{%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+      <button type="button" class="round-btn scroller__arrow scroller__arrow--next" aria-label="Next" data-scroll-next>›</button>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trending reels",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Trending" },
+    { "type": "text", "id": "heading_accent", "label": "Heading accent", "default": "Reels" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#f8f4ec" }
+  ],
+  "blocks": [
+    {
+      "type": "reel",
+      "name": "Reel",
+      "settings": [
+        { "type": "video", "id": "video", "label": "Video (uploaded to Shopify)" },
+        { "type": "image_picker", "id": "poster", "label": "Cover image (if no video)" },
+        { "type": "url", "id": "external_url", "label": "Instagram / YouTube link (if no video)" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Tiny Plant, Big Vibe" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trending reels",
+      "blocks": [
+        { "type": "reel", "settings": { "title": "Tiny Plant, Big Vibe" } },
+        { "type": "reel", "settings": { "title": "Green Therapy Moment" } },
+        { "type": "reel", "settings": { "title": "Transform Your WFH Space" } },
+        { "type": "reel", "settings": { "title": "Balcony Makeover" } },
+        { "type": "reel", "settings": { "title": "Repotting 101" } },
+        { "type": "reel", "settings": { "title": "Herb Garden Tour" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

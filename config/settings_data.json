@@ -1,0 +1,17 @@
+{
+  "current": "Default",
+  "presets": {
+    "Default": {
+      "color_primary": "#1f5130",
+      "color_primary_dark": "#0d3a1d",
+      "color_bright": "#0c8f45",
+      "color_accent": "#ffd60a",
+      "color_text": "#14231a",
+      "color_muted": "#5b6660",
+      "color_cream": "#f8f4ec",
+      "color_lime": "#f4f7dc",
+      "page_width": 1200,
+      "card_radius": 16
+    }
+  }
+}

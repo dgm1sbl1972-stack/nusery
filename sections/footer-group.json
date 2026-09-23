@@ -1,0 +1,23 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "shop": { "type": "menu", "settings": { "heading": "Shop" } },
+        "services": { "type": "menu", "settings": { "heading": "Services" } },
+        "about": { "type": "menu", "settings": { "heading": "About us" } },
+        "help": { "type": "menu", "settings": { "heading": "Help" } }
+      },
+      "block_order": ["shop", "services", "about", "help"],
+      "settings": {
+        "brand_name": "Nursery",
+        "tagline": "Nursery & Garden Store",
+        "show_newsletter": true,
+        "legal_menu": "footer"
+      }
+    }
+  },
+  "order": ["footer"]
+}

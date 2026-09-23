@@ -1,0 +1,30 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "brand_name": "Nursery",
+        "tagline": "Nursery & Garden Store",
+        "menu": "main-menu",
+        "logo_width": 44
+      }
+    },
+    "announcement": {
+      "type": "announcement-marquee",
+      "blocks": {
+        "a1": { "type": "item", "settings": { "icon": "🌿", "text": "Beginner-Friendly Guidance Included" } },
+        "a2": { "type": "item", "settings": { "icon": "🚚", "text": "Free Shipping Above ₹150" } },
+        "a3": { "type": "item", "settings": { "icon": "💚", "text": "Trusted by 3.5 Lakh+ Gardeners" } },
+        "a4": { "type": "item", "settings": { "icon": "📦", "text": "Safe Live Plant Delivery" } },
+        "a5": { "type": "item", "settings": { "icon": "🌱", "text": "100% Organic & Eco-Friendly" } },
+        "a6": { "type": "item", "settings": { "icon": "✅", "text": "7-Day Plant Guarantee" } },
+        "a7": { "type": "item", "settings": { "icon": "🎁", "text": "Free Gifts Above ₹300" } }
+      },
+      "block_order": ["a1", "a2", "a3", "a4", "a5", "a6", "a7"],
+      "settings": { "speed": 40 }
+    }
+  },
+  "order": ["header", "announcement"]
+}

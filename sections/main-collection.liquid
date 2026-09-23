@@ -1,0 +1,20 @@
+<section class="section-pad" style="background: var(--c-cream);">
+  <div class="page-width">
+    <h1 class="section-title section-title--left">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}<div class="rte section-sub">{{ collection.description }}</div>{%- endif -%}
+    {%- paginate collection.products by 16 -%}
+      <div class="product-grid mt-40">
+        {%- for product in collection.products -%}
+          {%- render 'product-card', product: product -%}
+        {%- else -%}
+          <p>No products found.</p>
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}<div class="pagination center mt-40">{{ paginate | default_pagination }}</div>{%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Collection products", "settings": [] }
+{% endschema %}

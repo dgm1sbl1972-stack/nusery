@@ -1,0 +1,68 @@
+<section class="testimonials section-pad" style="background: {{ section.settings.background }};">
+  <div class="page-width page-width--narrow">
+    <div class="section-head center">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="section-title">{{ section.settings.heading }} <em>{{ section.settings.heading_accent }}</em></h2>
+      {%- if section.settings.subheading != blank -%}<p class="section-sub">{{ section.settings.subheading }}</p>{%- endif -%}
+    </div>
+
+    <div class="testimonials__track" data-scroller data-scroller-dots>
+      {%- for block in section.blocks -%}
+        <figure class="testimonial" {{ block.shopify_attributes }}>
+          <div class="testimonial__avatar">
+            {%- if block.settings.avatar != blank -%}
+              {{ block.settings.avatar | image_url: width: 120, height: 120, crop: 'center' | image_tag: loading: 'lazy', alt: block.settings.name }}
+            {%- else -%}
+              <span>{{ block.settings.name | slice: 0 }}</span>
+            {%- endif -%}
+          </div>
+          <div class="stars" aria-label="{{ block.settings.rating }} out of 5 stars">
+            {%- for i in (1..5) -%}<span{% if i > block.settings.rating %} class="is-empty"{% endif %}>★</span>{%- endfor -%}
+          </div>
+          <blockquote>“{{ block.settings.quote }}”</blockquote>
+          <figcaption>
+            <strong>{{ block.settings.name }}</strong>
+            <span>{{ block.settings.role }}</span>
+          </figcaption>
+        </figure>
+      {%- endfor -%}
+    </div>
+    <div class="dots" data-scroller-dots-target></div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Testimonials" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What Our Customers" },
+    { "type": "text", "id": "heading_accent", "label": "Heading accent", "default": "Say" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Discover what our customers have to say about their experience with our plants and services." },
+    { "type": "color", "id": "background", "label": "Background", "default": "#fff3dc" }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "image_picker", "id": "avatar", "label": "Photo" },
+        { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "The plant arrived in excellent condition and was beautifully packed." },
+        { "type": "text", "id": "name", "label": "Name", "default": "Customer name" },
+        { "type": "text", "id": "role", "label": "Role", "default": "Plant Lover" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        { "type": "testimonial", "settings": { "name": "Arun Kumar", "role": "Plant Lover", "rating": 5, "quote": "The plant arrived in excellent condition and was beautifully packed. The quality was even better than I expected. Highly recommended!" } },
+        { "type": "testimonial", "settings": { "name": "Priya Sharma", "role": "Interior Designer", "rating": 5, "quote": "Amazing collection of plants and excellent customer service. My Monstera arrived fresh, healthy and perfectly packed." } },
+        { "type": "testimonial", "settings": { "name": "Rahul Raj", "role": "Business Owner", "rating": 4, "quote": "Beautiful plants, great packaging and fast delivery. The entire buying experience was smooth and easy." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,27 @@
+<section class="section-pad" style="background: var(--c-cream);">
+  <div class="page-width">
+    <h1 class="section-title section-title--left">Search</h1>
+    <form action="{{ routes.search_url }}" method="get" class="header-search header-search--lg mt-40">
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search' | t }}" aria-label="Search">
+    </form>
+    {%- if search.performed -%}
+      {%- paginate search.results by 16 -%}
+        <p class="section-sub">{{ search.results_count }} results for “{{ search.terms | escape }}”</p>
+        <div class="product-grid mt-40">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {%- render 'product-card', product: item -%}
+            {%- else -%}
+              <article class="product-card"><div class="product-card__body"><h3 class="product-card__title"><a href="{{ item.url }}">{{ item.title }}</a></h3></div></article>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        {%- if paginate.pages > 1 -%}<div class="pagination center mt-40">{{ paginate | default_pagination }}</div>{%- endif -%}
+      {%- endpaginate -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Search results", "settings": [] }
+{% endschema %}

@@ -1,0 +1,75 @@
+<footer class="site-footer">
+  <div class="page-width site-footer__grid">
+    <div class="site-footer__brand">
+      <a href="{{ routes.root_url }}" class="site-footer__logo">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 160 | image_tag: loading: 'lazy', alt: shop.name, width: 60 }}
+        {%- endif -%}
+        <strong>{{ section.settings.brand_name | default: shop.name }}</strong>
+        {%- if section.settings.tagline != blank -%}<small>{{ section.settings.tagline }}</small>{%- endif -%}
+      </a>
+
+      {%- if section.settings.show_newsletter -%}
+        {%- form 'customer', class: 'newsletter', id: 'FooterNewsletter' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input type="email" name="contact[email]" placeholder="Enter email address" aria-label="Email address" required>
+          <button type="submit" aria-label="Subscribe">→</button>
+          {%- if form.posted_successfully? -%}<p class="newsletter__msg">Thanks for subscribing!</p>{%- endif -%}
+        {%- endform -%}
+      {%- endif -%}
+
+      <div class="socials">
+        {%- if settings.social_facebook != blank -%}<a href="{{ settings.social_facebook }}" class="social social--fb" aria-label="Facebook" target="_blank" rel="noopener">f</a>{%- endif -%}
+        {%- if settings.social_instagram != blank -%}<a href="{{ settings.social_instagram }}" class="social social--ig" aria-label="Instagram" target="_blank" rel="noopener">◎</a>{%- endif -%}
+        {%- if settings.social_youtube != blank -%}<a href="{{ settings.social_youtube }}" class="social social--yt" aria-label="YouTube" target="_blank" rel="noopener">▶</a>{%- endif -%}
+        {%- if settings.social_linkedin != blank -%}<a href="{{ settings.social_linkedin }}" class="social social--in" aria-label="LinkedIn" target="_blank" rel="noopener">in</a>{%- endif -%}
+      </div>
+    </div>
+
+    {%- for block in section.blocks -%}
+      {%- assign menu = linklists[block.settings.menu] -%}
+      <div class="site-footer__col" {{ block.shopify_attributes }}>
+        <h3>{{ block.settings.heading | default: menu.title }}</h3>
+        <ul>
+          {%- for link in menu.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <div class="page-width site-footer__bottom">
+    <nav class="site-footer__legal" aria-label="Legal">
+      {%- for link in linklists[section.settings.legal_menu].links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+    <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "section-footer",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "text", "id": "brand_name", "label": "Brand name", "default": "Nursery" },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Nursery & Garden Store" },
+    { "type": "checkbox", "id": "show_newsletter", "label": "Show newsletter signup", "default": true },
+    { "type": "link_list", "id": "legal_menu", "label": "Bottom menu", "default": "footer" }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu column",
+      "limit": 5,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,10 @@
+{
+  "general": {
+    "search": "Search plants, seeds...",
+    "add_to_cart": "Add to Cart",
+    "sold_out": "Sold out",
+    "view_all": "View all",
+    "read_article": "Read Article",
+    "min_read": "min read"
+  }
+}

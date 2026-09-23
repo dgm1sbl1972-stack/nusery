@@ -1,0 +1,24 @@
+<section class="cta-banner" style="--cta-top: {{ section.settings.top_background }}; --cta-bottom: {{ section.settings.bottom_background }};">
+  <div class="page-width page-width--cta">
+    <div class="cta-banner__card">
+      <h2 class="cta-banner__title">{{ section.settings.heading | escape | newline_to_br }}</h2>
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link | default: '/pages/contact' }}" class="btn btn--glow">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CTA banner",
+  "settings": [
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Stuck with plant care?\nWe're here to help" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Chat With Us" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "color", "id": "top_background", "label": "Background above", "default": "#fbecea" },
+    { "type": "color", "id": "bottom_background", "label": "Background below (match footer)", "default": "#1a2e10" }
+  ],
+  "presets": [ { "name": "CTA banner" } ]
+}
+{% endschema %}
