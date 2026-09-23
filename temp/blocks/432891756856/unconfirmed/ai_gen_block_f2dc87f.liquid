@@ -1,6 +1,204 @@
-{% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
-{% endschema %}
+{% doc %}
+  @prompt
+    Create a modern, premium Shopify homepage section inspired by the attached reference image.
+    
+    IMPORTANT:
+    - Do NOT include any human/person image.
+    - The entire right-side area should be replaced with a clean botanical/plant-themed visual area or a subtle decorative background.
+    - Use actual Shopify product data/images for the plants instead of hardcoded images.
+    - Make the section fully responsive for desktop, tablet, and mobile.
+    
+    SECTION LAYOUT:
+    
+    Create a horizontal featured-products section with two main areas:
+    
+    LEFT SIDE – PRODUCT CAROUSEL
+    - Approximately 60% of the section width.
+    - Display 3 product cards at a time on desktop.
+    - Product cards should have rounded corners around 18–22px.
+    - Cards should have a large product image at the top.
+    - Use the Shopify product featured image dynamically.
+    - Image area should have a warm, soft lifestyle background.
+    - Maintain consistent image aspect ratio and crop.
+    - Add a small yellow "BESTSELLER" pill at the top-left of the image.
+    - Add a red discount badge at the top-right showing the product's discount percentage dynamically.
+    - Below the image, show:
+      - Star rating
+      - Review count
+      - Product title
+      - Short product description
+      - Current price
+      - Original price with strikethrough
+      - Circular dark-green Add to Cart button with a white shopping-bag/cart icon.
+    
+    PRODUCT CARD STYLE:
+    - Background: white
+    - Border radius: 18–22px
+    - No heavy border
+    - Very subtle shadow
+    - Product title should use an elegant serif font.
+    - Product description and price should use a clean modern sans-serif font.
+    - Product title approximately 20–22px.
+    - Description approximately 15–16px.
+    - Price should be bold.
+    - Original price should be light gray and crossed out.
+    - Add-to-cart button should be approximately 44–48px circular.
+    - Use smooth hover animation.
+    - On hover, slightly lift the card and add a subtle shadow.
+    - Product image should have a very subtle zoom effect on hover.
+    
+    CAROUSEL:
+    - Show exactly 3 cards on desktop.
+    - Add a circular dark-green right-arrow button overlapping the right edge of the third card.
+    - Arrow button should be approximately 40–44px.
+    - Use a clean white arrow icon.
+    - Smooth horizontal sliding animation.
+    - On tablet show 2 cards.
+    - On mobile show 1 card.
+    - Allow touch/swipe scrolling on mobile.
+    - Do not show ugly default browser scrollbars.
+    
+    RIGHT SIDE:
+    - Approximately 40% of the section width.
+    - DO NOT USE A HUMAN IMAGE.
+    - Instead create a clean premium botanical visual composition.
+    - Use a warm cream/light-yellow background.
+    - Add subtle abstract organic shapes behind the plants.
+    - Display several decorative indoor plants, leaves, or botanical illustrations arranged naturally.
+    - The visual should feel like a premium nursery website.
+    - Keep this area visually balanced with the product cards.
+    - Do not place too much text here.
+    - Optionally add a small elegant heading such as:
+      "Bring Nature Home"
+      with a short supporting line:
+      "Fresh plants for happier spaces."
+    - Keep the typography minimal.
+    
+    BACKGROUND:
+    - Overall section background should be warm cream/off-white.
+    - Use soft pale-yellow abstract shapes similar to the reference.
+    - Avoid excessive gradients.
+    - Keep the overall look premium, clean, modern and natural.
+    
+    COLOR PALETTE:
+    - Dark green: #1F5130
+    - Yellow: #FFD60A
+    - Warm cream: #FFF9E8
+    - White: #FFFFFF
+    - Soft red for discount badge: #D92D20
+    - Dark text: #172018
+    - Light gray: #9A9A9A
+    
+    SHOPIFY FUNCTIONALITY:
+    - Build this as a reusable Shopify Liquid section.
+    - Products must be selected dynamically using Shopify's product/collection settings.
+    - Allow the merchant to select a collection from the Shopify Theme Editor.
+    - Automatically display products from the selected collection.
+    - Product title, image, price, compare-at-price and product URL must come dynamically from Shopify.
+    - Calculate and display discount percentage automatically when compare-at-price exists.
+    - Add-to-cart button must actually add the selected product to the Shopify cart using AJAX without refreshing the page.
+    - Make the entire product card clickable to the product page except the Add to Cart button.
+    - If a product has no compare-at-price, hide the discount badge.
+    - If there is no review data, hide the rating/review area instead of showing fake ratings.
+    
+    SHOPIFY THEME EDITOR SETTINGS:
+    Include settings for:
+    - Collection selection
+    - Number of products
+    - Section heading
+    - Section description
+    - Background color
+    - Card background color
+    - Enable/disable bestseller badge
+    - Enable/disable rating
+    - Enable/disable carousel
+    - Enable/disable right-side botanical visual
+    - Mobile cards per view
+    - Desktop cards per view
+    
+    RESPONSIVE DESIGN:
+    Desktop:
+    - Two-column layout.
+    - Product cards occupy approximately 60%.
+    - Botanical visual occupies approximately 40%.
+    - 3 product cards visible.
+    
+    Tablet:
+    - Product carousel takes most of the width.
+    - Botanical visual becomes smaller.
+    
+    Mobile:
+    - Stack the layout vertically.
+    - Product carousel first.
+    - Botanical visual below the products.
+    - Show one product card at a ti
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% style %}
+  .ai-nursery-{{ ai_gen_id }} { display:block; width:100%; background:{{ block.settings.background_color }}; color:#172018; padding:clamp(28px,5vw,72px) 0; overflow:hidden; }
+  .ai-nursery-{{ ai_gen_id }}__inner { width:{{ block.settings.desktop_width_percent }}%; max-width:1400px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr); gap:clamp(24px,4vw,64px); align-items:center; }
+  .ai-nursery-{{ ai_gen_id }}__intro h2 { margin:0 0 10px; font-family:Georgia,serif; font-size:clamp(28px,3vw,44px); line-height:1.05; color:#1f5130; }
+  .ai-nursery-{{ ai_gen_id }}__intro p { margin:0; color:#5b6660; max-width:520px; font-size:16px; }
+  .ai-nursery-{{ ai_gen_id }}__head { display:flex; justify-content:space-between; gap:16px; align-items:end; margin-bottom:22px; }
+  .ai-nursery-{{ ai_gen_id }}__track { display:grid; grid-auto-flow:column; grid-auto-columns:calc((100% - 32px) / 3); gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; padding:4px 8px 12px 2px; }
+  .ai-nursery-{{ ai_gen_id }}__track::-webkit-scrollbar { display:none; }
+  .ai-nursery-{{ ai_gen_id }}__card { scroll-snap-align:start; min-width:0; background:{{ block.settings.card_background_color }}; border-radius:20px; box-shadow:0 5px 20px rgba(31,81,48,.08); overflow:hidden; position:relative; transition:transform .25s ease,box-shadow .25s ease; }
+  .ai-nursery-{{ ai_gen_id }}__card:hover { transform:translateY(-5px); box-shadow:0 12px 26px rgba(31,81,48,.16); }
+  .ai-nursery-{{ ai_gen_id }}__link { display:block; color:inherit; text-decoration:none; }
+  .ai-nursery-{{ ai_gen_id }}__media { position:relative; aspect-ratio:1/1.05; overflow:hidden; background:#f4ead0; }
+  .ai-nursery-{{ ai_gen_id }}__media img { width:100%; height:100%; object-fit:cover; transition:transform .35s ease; }
+  .ai-nursery-{{ ai_gen_id }}__card:hover img { transform:scale(1.04); }
+  .ai-nursery-{{ ai_gen_id }}__badge { position:absolute; top:12px; padding:6px 9px; border-radius:999px; font:700 10px/1 Arial,sans-serif; letter-spacing:.06em; }
+  .ai-nursery-{{ ai_gen_id }}__best { left:12px; background:#ffd60a; color:#172018; }
+  .ai-nursery-{{ ai_gen_id }}__discount { right:12px; background:#d92d20; color:#fff; }
+  .ai-nursery-{{ ai_gen_id }}__body { padding:15px; position:relative; }
+  .ai-nursery-{{ ai_gen_id }}__rating { font-size:12px; color:#1f5130; margin-bottom:7px; }
+  .ai-nursery-{{ ai_gen_id }}__title { font:600 20px/1.15 Georgia,serif; margin:0 0 7px; }
+  .ai-nursery-{{ ai_gen_id }}__desc { color:#5b6660; font-size:14px; line-height:1.4; margin:0 0 13px; }
+  .ai-nursery-{{ ai_gen_id }}__price { display:flex; align-items:center; gap:8px; padding-right:48px; font:700 16px Arial,sans-serif; }
+  .ai-nursery-{{ ai_gen_id }}__compare { color:#9a9a9a; font-weight:400; text-decoration:line-through; font-size:13px; }
+  .ai-nursery-{{ ai_gen_id }}__cart { position:absolute; right:14px; bottom:14px; width:46px; height:46px; border:0; border-radius:50%; background:#1f5130; color:#fff; display:grid; place-items:center; cursor:pointer; }
+  .ai-nursery-{{ ai_gen_id }}__cart:hover,.ai-nursery-{{ ai_gen_id }}__arrow:hover { background:#0d3a1d; }
+  .ai-nursery-{{ ai_gen_id }}__cart svg { width:20px; height:20px; }
+  .ai-nursery-{{ ai_gen_id }}__arrow { flex:0 0 auto; width:44px; height:44px; border:0; border-radius:50%; background:#1f5130; color:#fff; cursor:pointer; display:grid; place-items:center; }
+  .ai-nursery-{{ ai_gen_id }}__visual { min-height:430px; border-radius:28px; background:#fff9e8; position:relative; overflow:hidden; display:grid; place-items:center; }
+  .ai-nursery-{{ ai_gen_id }}__visual:before,.ai-nursery-{{ ai_gen_id }}__visual:after { content:''; position:absolute; border-radius:50%; background:#f4e89b; opacity:.6; }
+  .ai-nursery-{{ ai_gen_id }}__visual:before { width:260px; height:190px; top:-40px; right:-55px; }
+  .ai-nursery-{{ ai_gen_id }}__visual:after { width:220px; height:160px; bottom:-45px; left:-55px; background:#dce9bd; }
+  .ai-nursery-{{ ai_gen_id }}__plant { position:relative; z-index:1; width:190px; height:280px; border-bottom:18px solid #c88755; border-radius:0 0 48% 48%; }
+  .ai-nursery-{{ ai_gen_id }}__plant:before { content:'♧'; position:absolute; color:#1f5130; font-size:210px; line-height:1; transform:rotate(-18deg); left:8px; top:-155px; }
+  .ai-nursery-{{ ai_gen_id }}__copy { position:absolute; z-index:2; top:28px; left:28px; max-width:190px; }
+  .ai-nursery-{{ ai_gen_id }}__copy h3 { margin:0 0 6px; font:600 28px/1 Georgia,serif; color:#1f5130; }
+  .ai-nursery-{{ ai_gen_id }}__copy p { margin:0; color:#5b6660; font-size:14px; }
+  @media(max-width:989px){ .ai-nursery-{{ ai_gen_id }}__inner{grid-template-columns:1fr}.ai-nursery-{{ ai_gen_id }}__visual{min-height:300px}.ai-nursery-{{ ai_gen_id }}__track{grid-auto-columns:calc((100% - 16px)/2)} }
+  @media(max-width:600px){ .ai-nursery-{{ ai_gen_id }}{padding:32px 0}.ai-nursery-{{ ai_gen_id }}__inner{width:calc(100% - 28px)}.ai-nursery-{{ ai_gen_id }}__track{grid-auto-columns:100%;gap:14px}.ai-nursery-{{ ai_gen_id }}__head{align-items:center}.ai-nursery-{{ ai_gen_id }}__visual{min-height:270px}.ai-nursery-{{ ai_gen_id }}__copy{top:20px;left:20px} }
+{% endstyle %}
+
+<featured-nursery-{{ ai_gen_id }} class="ai-nursery-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-nursery-{{ ai_gen_id }}__inner">
+    <div>
+      <div class="ai-nursery-{{ ai_gen_id }}__head"><div class="ai-nursery-{{ ai_gen_id }}__intro"><h2>{{ block.settings.heading }}</h2><p>{{ block.settings.description }}</p></div>{% if block.settings.enable_carousel %}<button class="ai-nursery-{{ ai_gen_id }}__arrow" type="button" aria-label="Show more products">→</button>{% endif %}</div>
+      {% if block.settings.collection != blank %}
+        <div class="ai-nursery-{{ ai_gen_id }}__track" data-track>
+          {% for product in block.settings.collection.products limit:block.settings.product_count %}
+            {% assign variant = product.selected_or_first_available_variant %}
+            {% assign rating = product.metafields.reviews.rating.value %}
+            {% assign review_count = product.metafields.reviews.rating_count.value %}
+            <article class="ai-nursery-{{ ai_gen_id }}__card">
+              <a class="ai-nursery-{{ ai_gen_id }}__link" href="{{ product.url }}">
+                <div class="ai-nursery-{{ ai_gen_id }}__media">{% if product.featured_image %}<img src="{{ product.featured_image | image_url: width:700 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" loading="lazy" width="700" height="735">{% else %}{{ 'product-apparel-1' | placeholder_svg_tag }}{% endif %}{% if block.settings.show_bestseller %}<span class="ai-nursery-{{ ai_gen_id }}__badge ai-nursery-{{ ai_gen_id }}__best">BESTSELLER</span>{% endif %}{% if product.compare_at_price_max > product.price %}{% assign savings = product.compare_at_price_max | minus: product.price | times:100 | divided_by:product.compare_at_price_max %}<span class="ai-nursery-{{ ai_gen_id }}__badge ai-nursery-{{ ai_gen_id }}__discount">-{{ savings }}%</span>{% endif %}</div>
+                <div class="ai-nursery-{{ ai_gen_id }}__body">{% if block.settings.show_rating and rating != blank %}<div class="ai-nursery-{{ ai_gen_id }}__rating" aria-label="Rated {{ rating }} out of 5">★★★★★ <span>({{ review_count | default: 0 }})</span></div>{% endif %}<h3 class="ai-nursery-{{ ai_gen_id }}__title">{{ product.title }}</h3><p class="ai-nursery-{{ ai_gen_id }}__desc">{{ product.description | strip_html | truncate: 75 }}</p><div class="ai-nursery-{{ ai_gen_id }}__price">{{ product.price | money }}{% if product.compare_at_price_max > product.price %}<span class="ai-nursery-{{ ai_gen_id }}__compare">{{ product.compare_at_price_max | money }}</span>{% endif %}</div></div>
+              </a>
+              {% if variant.available %}<button class="ai-nursery-{{ ai_gen_id }}__cart" type="button" data-add-to-cart="{{ variant.id }}" aria-label="Add {{ product.title | escape }} to cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 8h16l-1 12H5L4 8Z"/><path d="M8 8a4 4 0 0 1 8 0"/></svg></button>{% endif %}
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}<p>Select a collection to display products.</p>{% endif %}
+    </div>
+    {% if block.settings.show_botanical %}<aside class="ai-nursery-{{ ai_gen_id }}__visual"><div class="ai-nursery-{{ ai_gen_id }}__copy"><h3>Bring nature home</h3><p>Fresh plants for happier spaces.</p></div><div class="ai-nursery-{{ ai_gen_id }}__plant" aria-hidden="true"></div></aside>{% endif %}
+  </div>
+</featured-nursery-{{ ai_gen_id }}>
+<script>
+(function(){class FeaturedNursery{{ ai_gen_id }} extends HTMLElement{connectedCallback(){const track=this.querySelector('[data-track]');const next=this.querySelector('.ai-nursery-{{ ai_gen_id }}__arrow');if(next&&track)next.addEventListener('click',()=>track.scrollBy({left:track.clientWidth*.72,behavior:'smooth'}));this.querySelectorAll('[data-add-to-cart]').forEach(b=>b.addEventListener('click',async e=>{e.preventDefault();e.stopPropagation();b.disabled=true;try{await fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({items:[{id:Number(b.dataset.addToCart),quantity:1}]})});b.setAttribute('aria-label','Added to cart');}finally{b.disabled=false;}}));}}customElements.define('featured-nursery-{{ ai_gen_id }}',FeaturedNursery{{ ai_gen_id }})})();
+</script>
+{% schema %}{"name":"Featured nursery products","settings":[{"type":"collection","id":"collection","label":"Collection"},{"type":"range","id":"product_count","label":"Number of products","min":3,"max":12,"step":1,"default":6},{"type":"text","id":"heading","label":"Heading","default":"Bring nature home"},{"type":"textarea","id":"description","label":"Description","default":"Beautiful plants selected to make every space feel more alive."},{"type":"color","id":"background_color","label":"Background","default":"#FFF9E8"},{"type":"color","id":"card_background_color","label":"Card background","default":"#FFFFFF"},{"type":"checkbox","id":"show_bestseller","label":"Show bestseller badge","default":true},{"type":"checkbox","id":"show_rating","label":"Show ratings","default":true},{"type":"checkbox","id":"enable_carousel","label":"Enable carousel","default":true},{"type":"checkbox","id":"show_botanical","label":"Show botanical visual","default":true},{"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100}],"presets":[{"name":"Featured nursery products"}],"tag":null,"class":"featured-nursery-block"}{% endschema %}
