@@ -804,103 +804,6 @@
       "type": "_blocks",
       "settings": {}
     },
-    "comparison_table": {
-      "type": "comparison-table",
-      "blocks": {
-        "row_1": {
-          "type": "row",
-          "settings": {
-            "feature": "Plant quality",
-            "value_1": "yes",
-            "value_2": "yes | Green, healthy & bushy",
-            "value_3": "~ | Inconsistent"
-          }
-        },
-        "row_2": {
-          "type": "row",
-          "settings": {
-            "feature": "Pests",
-            "value_1": "no | Common issue",
-            "value_2": "yes | Pest-controlled",
-            "value_3": "yes"
-          }
-        },
-        "row_3": {
-          "type": "row",
-          "settings": {
-            "feature": "Repotting",
-            "value_1": "no | Requires repotting (Pot is missing)",
-            "value_2": "yes | Not required",
-            "value_3": "~ | Varies; not consistent"
-          }
-        },
-        "row_4": {
-          "type": "row",
-          "settings": {
-            "feature": "Standard soil",
-            "value_1": "no | Standard soil",
-            "value_2": "yes | Pre-mixed",
-            "value_3": "yes"
-          }
-        },
-        "row_5": {
-          "type": "row",
-          "settings": {
-            "feature": "Growing Conditions",
-            "value_1": "yes",
-            "value_2": "yes | Grown by experts on old farms",
-            "value_3": "no | Outsourced"
-          }
-        },
-        "row_6": {
-          "type": "row",
-          "settings": {
-            "feature": "After-sale help",
-            "value_1": "no | None",
-            "value_2": "yes | Expert support",
-            "value_3": "no | None"
-          }
-        },
-        "row_7": {
-          "type": "row",
-          "settings": {
-            "feature": "Guaranteed",
-            "value_1": "no | No guarantee",
-            "value_2": "yes | Assured quality, 14 days replacement",
-            "value_3": "~ | Conditional"
-          }
-        },
-        "row_8": {
-          "type": "row",
-          "settings": {
-            "feature": "One-stop garden shop",
-            "value_1": "yes",
-            "value_2": "yes",
-            "value_3": "no"
-          }
-        }
-      },
-      "block_order": [
-        "row_1",
-        "row_2",
-        "row_3",
-        "row_4",
-        "row_5",
-        "row_6",
-        "row_7",
-        "row_8"
-      ],
-      "settings": {
-        "eyebrow": "why choose sbl",
-        "heading": "Your Monthly  Green Dose",
-        "heading_accent": "",
-        "subheading": "Get curated plants, seeds and care products delivered to your door every month. Cancel anytime.",
-        "background": "#e3fbdc",
-        "col_1": "Local Nurseries",
-        "col_2": "SBL",
-        "col_3": "Others"
-      }
-    },
     "179024251235ac3a75": {
       "type": "_blocks",
       "blocks": {
@@ -1088,16 +991,6 @@
         "background": "#f8f4ec"
       }
     },
-    "cta_banner": {
-      "type": "cta-banner",
-      "settings": {
-        "heading": "Stuck with plant care?\nWe're here to help",
-        "button_label": "Chat With Us",
-        "button_link": "",
-        "top_background": "#fbecea",
-        "bottom_background": "#1a2e10"
-      }
-    },
     "17902419438e913f8a": {
       "type": "_blocks",
       "blocks": {
@@ -1134,14 +1027,15 @@
             "feature_8": "One-stop garden shop",
             "sbl_8": "✓ Plants • Pots • Soil • Care • Services",
             "others_8": "~ Plants-focused",
+            "background_image": "shopify://shop_images/5f384df0-2260-469a-a3fc-a1fe6a500c93.png",
             "overlay_opacity": 25,
             "section_background": "#f8f4ec",
             "sbl_background": "#EED433",
             "header_background": "#1f5130",
             "feature_background": "#ffffff",
             "heading_color": "#0d3a1d",
-            "label_color": "#0c8f45",
-            "description_color": "#5b6660",
+            "label_color": "#101010",
+            "description_color": "#1F5130",
             "text_color": "#14231a",
             "sbl_text_color": "#0d3a1d",
             "header_text_color": "#ffffff",
@@ -1157,6 +1051,17 @@
         "ai_gen_block_7988465_EHzXE3"
       ],
       "settings": {}
+    },
+    "cta_banner": {
+      "type": "cta-banner",
+      "disabled": true,
+      "settings": {
+        "heading": "Stuck with plant care?\nWe're here to help",
+        "button_label": "Chat With Us",
+        "button_link": "",
+        "top_background": "#fbecea",
+        "bottom_background": "#1a2e10"
+      }
     },
     "17902340700a400c12": {
       "type": "_blocks",
@@ -1178,6 +1083,37 @@
         "ai_gen_block_fc7c0d1_FHEhmT"
       ],
       "settings": {}
+    },
+    "1790245140c8bee5d6": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_ac2d975_KzxWRy": {
+          "type": "ai_gen_block_ac2d975",
+          "settings": {
+            "eyebrow": "Stuck with plant care?",
+            "title": "We're here to help",
+            "button_label": "Chat with us",
+            "button_link": "",
+            "desktop_width_percent": 100,
+            "background_color": "#f4f7dc",
+            "border_color": "#d6dfb1",
+            "text_color": "#0d3a1d",
+            "eyebrow_color": "#1f5130",
+            "button_color": "#1f5130",
+            "button_hover_color": "#0d3a1d",
+            "button_text_color": "#ffffff",
+            "focus_color": "#ffd60a",
+            "title_size": 22,
+            "border_radius": 16,
+            "button_radius": 8
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_ac2d975_KzxWRy"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -1196,14 +1132,14 @@
     "trending_reels",
     "1790236138b706c727",
     "1790230434f3dff53d",
-    "comparison_table",
     "179024251235ac3a75",
     "17901580437110f3d4",
     "1790242364d2d2796d",
     "blog_posts",
     "faq",
-    "cta_banner",
     "17902419438e913f8a",
-    "17902340700a400c12"
+    "cta_banner",
+    "17902340700a400c12",
+    "1790245140c8bee5d6"
   ]
 }
