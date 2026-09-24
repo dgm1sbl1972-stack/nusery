@@ -1,6 +1,179 @@
+{% doc %}
+  @prompt
+    so need one heading like trending reels section
+    and bottom end to end there can be 6 tiles where i neeed to have option of uploding video and url and cover page also while clicking it should redirect to the video placeholder 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-trending-reels-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 32px 20px;
+    background: {{ block.settings.background_color }};
+  }
+
+  .ai-trending-reels-{{ ai_gen_id }}__heading {
+    margin: 0 0 22px;
+    color: {{ block.settings.heading_color }};
+    font-size: {{ block.settings.heading_size }}px;
+    line-height: 1.15;
+    text-align: {{ block.settings.heading_alignment }};
+  }
+
+  .ai-trending-reels-{{ ai_gen_id }}__grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .ai-trending-reels-{{ ai_gen_id }}__tile {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 9 / 16;
+    border-radius: {{ block.settings.tile_radius }}px;
+    background: {{ block.settings.placeholder_color }};
+    color: {{ block.settings.placeholder_text_color }};
+    text-decoration: none;
+  }
+
+  .ai-trending-reels-{{ ai_gen_id }}__tile img,
+  .ai-trending-reels-{{ ai_gen_id }}__tile video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .ai-trending-reels-{{ ai_gen_id }}__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    text-align: center;
+    font-size: 13px;
+  }
+
+  .ai-trending-reels-{{ ai_gen_id }}__placeholder svg {
+    width: 100%;
+    height: 100%;
+    opacity: .35;
+  }
+
+  .ai-trending-reels-{{ ai_gen_id }}__play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: {{ block.settings.play_color }};
+    color: {{ block.settings.play_icon_color }};
+    pointer-events: none;
+  }
+
+  .ai-trending-reels-{{ ai_gen_id }}__play svg {
+    width: 18px;
+    height: 18px;
+    margin-left: 3px;
+    fill: currentColor;
+  }
+
+  @media screen and (max-width: 900px) {
+    .ai-trending-reels-{{ ai_gen_id }}__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
+  @media screen and (max-width: 520px) {
+    .ai-trending-reels-{{ ai_gen_id }} { padding: 24px 14px; }
+    .ai-trending-reels-{{ ai_gen_id }}__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .ai-trending-reels-{{ ai_gen_id }}__heading { font-size: {{ block.settings.heading_size | times: 0.85 }}px; }
+  }
+{% endstyle %}
+
+<div class="ai-trending-reels-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.heading != blank %}
+    <h2 class="ai-trending-reels-{{ ai_gen_id }}__heading">{{ block.settings.heading | escape }}</h2>
+  {% endif %}
+
+  <div class="ai-trending-reels-{{ ai_gen_id }}__grid">
+    {% for i in (1..6) %}
+      {% liquid
+        assign image_key = 'tile_' | append: i | append: '_cover'
+        assign video_key = 'tile_' | append: i | append: '_video'
+        assign link_key = 'tile_' | append: i | append: '_url'
+        assign cover = block.settings[image_key]
+        assign video = block.settings[video_key]
+        assign link = block.settings[link_key]
+      %}
+      <a class="ai-trending-reels-{{ ai_gen_id }}__tile" href="{{ link | default: '#' }}" {% if link == blank %}aria-disabled="true"{% endif %}>
+        {% if video != blank %}
+          {{ video | video_tag: image_size: '600x', poster: cover, controls: false, autoplay: false, loop: true, muted: true, playsinline: true }}
+        {% elsif cover != blank %}
+          <img src="{{ cover | image_url: width: 700 }}" alt="{{ cover.alt | escape }}" loading="lazy" width="{{ cover.width }}" height="{{ cover.height }}">
+        {% else %}
+          <div class="ai-trending-reels-{{ ai_gen_id }}__placeholder">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+        <span class="ai-trending-reels-{{ ai_gen_id }}__play" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+        </span>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Trending reels",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Trending reels" },
+    { "type": "select", "id": "heading_alignment", "label": "Alignment", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }], "default": "left" },
+    { "type": "range", "id": "heading_size", "label": "Heading size", "min": 20, "max": 56, "step": 2, "unit": "px", "default": 32 },
+    { "type": "range", "id": "desktop_width_percent", "label": "Desktop width", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "tile_radius", "label": "Tile radius", "min": 0, "max": 30, "step": 2, "unit": "px", "default": 16 },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#f8f4ec" },
+    { "type": "color", "id": "heading_color", "label": "Heading", "default": "#0d3a1d" },
+    { "type": "color", "id": "placeholder_color", "label": "Placeholder", "default": "#e7eee6" },
+    { "type": "color", "id": "placeholder_text_color", "label": "Placeholder text", "default": "#0d3a1d" },
+    { "type": "color", "id": "play_color", "label": "Play button", "default": "#0d3a1d" },
+    { "type": "color", "id": "play_icon_color", "label": "Play icon", "default": "#ffffff" },
+    { "type": "header", "content": "Tile 1" },
+    { "type": "video", "id": "tile_1_video", "label": "Video" },
+    { "type": "image_picker", "id": "tile_1_cover", "label": "Cover image" },
+    { "type": "url", "id": "tile_1_url", "label": "Video URL" },
+    { "type": "header", "content": "Tile 2" },
+    { "type": "video", "id": "tile_2_video", "label": "Video" },
+    { "type": "image_picker", "id": "tile_2_cover", "label": "Cover image" },
+    { "type": "url", "id": "tile_2_url", "label": "Video URL" },
+    { "type": "header", "content": "Tile 3" },
+    { "type": "video", "id": "tile_3_video", "label": "Video" },
+    { "type": "image_picker", "id": "tile_3_cover", "label": "Cover image" },
+    { "type": "url", "id": "tile_3_url", "label": "Video URL" },
+    { "type": "header", "content": "Tile 4" },
+    { "type": "video", "id": "tile_4_video", "label": "Video" },
+    { "type": "image_picker", "id": "tile_4_cover", "label": "Cover image" },
+    { "type": "url", "id": "tile_4_url", "label": "Video URL" },
+    { "type": "header", "content": "Tile 5" },
+    { "type": "video", "id": "tile_5_video", "label": "Video" },
+    { "type": "image_picker", "id": "tile_5_cover", "label": "Cover image" },
+    { "type": "url", "id": "tile_5_url", "label": "Video URL" },
+    { "type": "header", "content": "Tile 6" },
+    { "type": "video", "id": "tile_6_video", "label": "Video" },
+    { "type": "image_picker", "id": "tile_6_cover", "label": "Cover image" },
+    { "type": "url", "id": "tile_6_url", "label": "Video URL" }
+  ],
+  "presets": [{ "name": "Trending reels" }],
+  "tag": null,
+  "class": "trending-reels-block"
+}
 {% endschema %}
