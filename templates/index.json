@@ -500,133 +500,57 @@
       ],
       "settings": {}
     },
-    "product_tabs": {
-      "type": "product-tabs",
-      "blocks": {
-        "card_1": {
-          "type": "card",
-          "settings": {
-            "tab": "tab_1",
-            "title": "Monstera Deliciosa",
-            "text": "Iconic split-leaf tropical. Air-purifying & low-maintenance.",
-            "price": "₹499",
-            "compare_price": "₹699"
-          }
-        },
-        "card_2": {
-          "type": "card",
-          "settings": {
-            "tab": "tab_1",
-            "title": "Peace Lily",
-            "text": "Elegant white blooms. Thrives in low light, purifies air.",
-            "price": "₹349",
-            "compare_price": "₹499"
-          }
-        },
-        "card_3": {
-          "type": "card",
-          "settings": {
-            "tab": "tab_1",
-            "title": "Golden Pothos",
-            "text": "Cascading vines for shelves & hanging planters. Nearly unkillable!",
-            "price": "₹199",
-            "compare_price": "₹299"
-          }
-        },
-        "card_4": {
-          "type": "card",
-          "settings": {
-            "tab": "tab_1",
-            "title": "Cactus Mix",
-            "text": "3 handpicked mini cacti. Minimal watering, maximum charm.",
-            "price": "₹299",
-            "compare_price": "₹440"
-          }
-        },
-        "card_5": {
-          "type": "card",
-          "settings": {
-            "tab": "tab_2",
-            "title": "Tomato Seeds (Organic)",
-            "text": "Non-GMO, 95% germination rate. Grow juicy tomatoes at home.",
-            "price": "₹89",
-            "compare_price": "₹149"
-          }
-        },
-        "card_6": {
-          "type": "card",
-          "settings": {
-            "tab": "tab_2",
-            "title": "Herb Garden Kit",
-            "text": "Basil, coriander, mint & more. Your kitchen garden in a box.",
-            "price": "₹249",
-            "compare_price": "₹299"
-          }
-        },
-        "card_7": {
-          "type": "card",
-          "settings": {
-            "tab": "tab_3",
-            "title": "Beginner Garden Kit",
-            "text": "Everything to start gardening: pots, soil, tools & seeds.",
-            "price": "₹799",
-            "compare_price": "₹1199"
-          }
-        },
-        "card_8": {
-          "type": "card",
-          "settings": {
-            "tab": "tab_3",
-            "title": "Self-Watering Planter",
-            "text": "Smart planter with reservoir — waters itself for up to 2 weeks.",
-            "price": "₹449",
-            "compare_price": "₹649"
-          }
-        }
-      },
-      "block_order": [
-        "card_1",
-        "card_2",
-        "card_3",
-        "card_4",
-        "card_5",
-        "card_6",
-        "card_7",
-        "card_8"
-      ],
-      "settings": {
-        "eyebrow": "Our collection",
-        "heading": "Handpicked",
-        "heading_accent": "Favourites",
-        "background": "#f8f4ec",
-        "button_label": "View All 500+ Products",
-        "button_link": "",
-        "tab_all": "All",
-        "tab_1": "Plants",
-        "tab_2": "Seeds",
-        "tab_3": "Kits"
-      }
-    },
-    "1790224367bff4ff77": {
+    "179022738232862195": {
       "type": "_blocks",
       "blocks": {
-        "ai_gen_block_0774df5_FdKV4n": {
-          "type": "ai_gen_block_0774df5",
+        "ai_gen_block_e0fbcb6_RDUErV": {
+          "type": "ai_gen_block_e0fbcb6",
           "settings": {
             "collection": "pots",
-            "heading": "Find Your Perfect Pot",
-            "products_to_show": 12,
-            "products_per_row": "4",
+            "heading": "Pots",
             "desktop_width_percent": 100,
+            "columns_desktop": 4,
+            "products_to_show": 12,
+            "grid_gap": 16,
+            "section_padding": 40,
             "background_color": "#f8f4ec",
+            "heading_color": "#0d3a1d",
+            "text_color": "#14231a",
+            "muted_color": "#5b6660",
             "button_color": "#0d3a1d",
-            "border_radius": 16
+            "badge_color": "#1f5130"
           },
           "blocks": {}
         }
       },
       "block_order": [
-        "ai_gen_block_0774df5_FdKV4n"
+        "ai_gen_block_e0fbcb6_RDUErV"
+      ],
+      "settings": {}
+    },
+    "1790224367bff4ff77": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_719033e_6naQEb": {
+          "type": "ai_gen_block_719033e",
+          "disabled": true,
+          "settings": {
+            "collection": "pots",
+            "desktop_width_percent": 100,
+            "products_per_page": 8,
+            "columns": "4",
+            "mobile_columns": "2",
+            "grid_gap": 20,
+            "mobile_gap": 12,
+            "button_label": "View more",
+            "loading_label": "Loading...",
+            "empty_message": "Select a collection to display products."
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_719033e_6naQEb"
       ],
       "settings": {}
     },
@@ -1065,6 +989,117 @@
     "17901655219d915c8a": {
       "type": "_blocks",
       "settings": {}
+    },
+    "17902271122abbfa04": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "product_tabs": {
+      "type": "product-tabs",
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "tab": "tab_1",
+            "title": "Monstera Deliciosa",
+            "text": "Iconic split-leaf tropical. Air-purifying & low-maintenance.",
+            "price": "₹499",
+            "compare_price": "₹699"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "tab": "tab_1",
+            "title": "Peace Lily",
+            "text": "Elegant white blooms. Thrives in low light, purifies air.",
+            "price": "₹349",
+            "compare_price": "₹499"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "tab": "tab_1",
+            "title": "Golden Pothos",
+            "text": "Cascading vines for shelves & hanging planters. Nearly unkillable!",
+            "price": "₹199",
+            "compare_price": "₹299"
+          }
+        },
+        "card_4": {
+          "type": "card",
+          "settings": {
+            "tab": "tab_1",
+            "title": "Cactus Mix",
+            "text": "3 handpicked mini cacti. Minimal watering, maximum charm.",
+            "price": "₹299",
+            "compare_price": "₹440"
+          }
+        },
+        "card_5": {
+          "type": "card",
+          "settings": {
+            "tab": "tab_2",
+            "title": "Tomato Seeds (Organic)",
+            "text": "Non-GMO, 95% germination rate. Grow juicy tomatoes at home.",
+            "price": "₹89",
+            "compare_price": "₹149"
+          }
+        },
+        "card_6": {
+          "type": "card",
+          "settings": {
+            "tab": "tab_2",
+            "title": "Herb Garden Kit",
+            "text": "Basil, coriander, mint & more. Your kitchen garden in a box.",
+            "price": "₹249",
+            "compare_price": "₹299"
+          }
+        },
+        "card_7": {
+          "type": "card",
+          "settings": {
+            "tab": "tab_3",
+            "title": "Beginner Garden Kit",
+            "text": "Everything to start gardening: pots, soil, tools & seeds.",
+            "price": "₹799",
+            "compare_price": "₹1199"
+          }
+        },
+        "card_8": {
+          "type": "card",
+          "settings": {
+            "tab": "tab_3",
+            "title": "Self-Watering Planter",
+            "text": "Smart planter with reservoir — waters itself for up to 2 weeks.",
+            "price": "₹449",
+            "compare_price": "₹649"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3",
+        "card_4",
+        "card_5",
+        "card_6",
+        "card_7",
+        "card_8"
+      ],
+      "settings": {
+        "eyebrow": "Our collection",
+        "heading": "Handpicked",
+        "heading_accent": "Favourites",
+        "background": "#f8f4ec",
+        "button_label": "View All 500+ Products",
+        "button_link": "",
+        "tab_all": "All",
+        "tab_1": "Plants",
+        "tab_2": "Seeds",
+        "tab_3": "Kits"
+      }
     }
   },
   "order": [
@@ -1077,6 +1112,7 @@
     "1790157062db4cdf4d",
     "1790161067735ca0dd",
     "product_tabs",
+    "179022738232862195",
     "1790224367bff4ff77",
     "services_banner",
     "our_story",
@@ -1091,6 +1127,7 @@
     "1790159110cf772009",
     "1790164970bcc216e6",
     "17901651019ef06f4d",
-    "17901655219d915c8a"
+    "17901655219d915c8a",
+    "17902271122abbfa04"
   ]
 }
