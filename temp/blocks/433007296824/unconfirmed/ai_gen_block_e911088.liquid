@@ -1,0 +1,15 @@
+{% doc %}
+  @prompt
+    Create a customer testimonials section with the following features:
+    - End-to-end automatic infinite scrolling carousel (auto-scroll, no pause)
+    - Google logo/icon displayed on each testimonial card
+    - Customer profile image
+    - Customer name
+    - Review date showing how many days ago the review was written
+    - Star rating display
+    - Text review content
+    - 3 product image upload options per testimonial card
+    - Clean, modern card layout
+    - Smooth continuous scrolling animation, need for 6 testinomials, heading can be center, images also need to be uploaded  and add google logo, name of the person and persons profile image need to upload and text and image upload of the sustomers product, add google licon
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}{% style %}.ai-google-{{ai_gen_id}}{display:block;width:{{block.settings.desktop_width_percent}}%;text-align:center;padding:12px}.ai-google-{{ai_gen_id}} svg{width:32px;height:32px;display:inline-block}{% endstyle %}<div class="ai-google-{{ai_gen_id}}" aria-label="Google review" {{block.shopify_attributes}}><svg viewBox="0 0 48 48" role="img" aria-hidden="true"><path fill="#4285F4" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.42 30.47 0 24 0 14.61 0 6.53 5.38 2.56 13.22l7.98 6.2C12.44 13.14 17.74 9.5 24 9.5z"/><path fill="#34A853" d="M46.5 24.55c0-1.59-.14-3.12-.41-4.55H24v8.6h12.65c-.54 2.76-2.1 5.1-4.48 6.67l7.23 5.62c4.22-3.9 7.1-9.65 7.1-16.34z"/><path fill="#FBBC05" d="M10.54 28.58A14.44 14.44 0 0 1 9.75 24c0-1.59.27-3.13.79-4.58l-7.98-6.2A24 24 0 0 0 0 24c0 3.87.93 7.53 2.56 10.78l7.98-6.2z"/><path fill="#EA4335" d="M24 48c6.48 0 11.92-2.14 15.89-5.81l-7.23-5.62c-2.01 1.35-4.57 2.15-8.66 2.15-6.26 0-11.56-3.64-13.46-8.92l-7.98 6.2C6.53 42.62 14.61 48 24 48z"/></svg></div>{% schema %}{"name":"Google logo","settings":[{"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100}],"presets":[{"name":"Google logo"}],"tag":null,"class":"google-logo-block"}{% endschema %}
