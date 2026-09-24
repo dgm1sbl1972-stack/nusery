@@ -1,0 +1,137 @@
+{%- comment -%}
+  Plant journal posts: 3 blog cards (large first card) whose image, tag, title,
+  date, read time and link are all set in the theme editor. The uploaded card
+  images always render; no Shopify blog is needed. Setting IDs match the
+  AI-generated "Plant journal posts" block so saved images carry over.
+{%- endcomment -%}
+{%- assign uid = block.id | replace: '_', '' | downcase -%}
+{% style %}
+  .pj-{{ uid }} { background: {{ block.settings.background }}; padding: 64px 0; }
+  .pj-{{ uid }} .pj__inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .pj-{{ uid }} .pj__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
+  .pj-{{ uid }} .pj__eyebrow { margin: 0 0 10px; font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #0c8f45; }
+  .pj-{{ uid }} .pj__title { margin: 0; font-size: clamp(30px, 3.4vw, 48px); font-weight: 700; line-height: 1.1; color: #14231a; }
+  .pj-{{ uid }} .pj__title em { display: block; color: #1f5130; font-style: italic; }
+  .pj-{{ uid }} .pj__all { display: inline-block; padding: 12px 26px; border: 2px solid #0d3a1d; border-radius: 999px; color: #0d3a1d; font-weight: 700; font-size: 14px; text-decoration: none; }
+  .pj-{{ uid }} .pj__all:hover { background: #0d3a1d; color: #fff; }
+  .pj-{{ uid }} .pj__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 20px; }
+  .pj-{{ uid }} .pj__card { display: flex; flex-direction: column; overflow: hidden; border-radius: 16px; border: 1px solid #d8ecd2; background: #eef8ea; }
+  .pj-{{ uid }} .pj__media { display: block; position: relative; width: 100%; height: 240px; overflow: hidden; background: #dfe7d6; }
+  .pj-{{ uid }} .pj__card--wide .pj__media { height: 320px; }
+  .pj-{{ uid }} .pj__media img, .pj-{{ uid }} .pj__media svg { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+  .pj-{{ uid }} .pj__card:hover .pj__media img { transform: scale(1.05); }
+  .pj-{{ uid }} .pj__body { padding: 16px 20px 22px; }
+  .pj-{{ uid }} .pj__tag { display: inline-block; margin-bottom: 10px; padding: 4px 12px; border-radius: 999px; background: #d7f0cf; color: #1f5130; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  .pj-{{ uid }} .pj__name { margin: 0 0 10px; font-family: Georgia, 'Times New Roman', serif; font-size: 19px; font-weight: 400; line-height: 1.35; color: #14231a; }
+  .pj-{{ uid }} .pj__card--wide .pj__name { font-size: 23px; }
+  .pj-{{ uid }} .pj__name a { color: inherit; text-decoration: none; }
+  .pj-{{ uid }} .pj__meta { margin: 0 0 14px; font-size: 13px; color: #5b6660; }
+  .pj-{{ uid }} .pj__link { font-size: 14px; font-weight: 700; color: #1f5130; text-decoration: none; }
+  @media (max-width: 989px) {
+    .pj-{{ uid }} .pj__grid { grid-template-columns: 1fr 1fr; }
+    .pj-{{ uid }} .pj__card--wide { grid-column: 1 / -1; }
+  }
+  @media (max-width: 599px) {
+    .pj-{{ uid }} { padding: 44px 0; }
+    .pj-{{ uid }} .pj__inner { padding: 0 16px; }
+    .pj-{{ uid }} .pj__grid { grid-template-columns: 1fr; }
+    .pj-{{ uid }} .pj__media, .pj-{{ uid }} .pj__card--wide .pj__media { height: 220px; }
+  }
+{% endstyle %}
+
+<div class="pj-{{ uid }}" {{ block.shopify_attributes }}>
+  <div class="pj__inner">
+    <div class="pj__head">
+      <div>
+        {%- if block.settings.subtitle != blank -%}<p class="pj__eyebrow">{{ block.settings.subtitle }}</p>{%- endif -%}
+        <h2 class="pj__title">{{ block.settings.heading }}{%- if block.settings.heading_accent != blank -%}<em>{{ block.settings.heading_accent }}</em>{%- endif -%}</h2>
+      </div>
+      {%- if block.settings.all_articles_text != blank -%}
+        <a class="pj__all" href="{{ block.settings.all_articles_url | default: '/blogs' }}">{{ block.settings.all_articles_text }}</a>
+      {%- endif -%}
+    </div>
+
+    <div class="pj__grid">
+      {%- for i in (1..3) -%}
+        {%- liquid
+          assign prefix = 'card_' | append: i
+          assign image_key = prefix | append: '_image'
+          assign tag_key = prefix | append: '_tag'
+          assign title_key = prefix | append: '_title'
+          assign date_key = prefix | append: '_date'
+          assign read_time_key = prefix | append: '_read_time'
+          assign url_key = prefix | append: '_url'
+          assign image = block.settings[image_key]
+          assign tag = block.settings[tag_key]
+          assign title = block.settings[title_key]
+          assign date = block.settings[date_key]
+          assign read_time = block.settings[read_time_key]
+          assign url = block.settings[url_key]
+        -%}
+        <article class="pj__card{% if forloop.first %} pj__card--wide{% endif %}">
+          <a class="pj__media" href="{{ url | default: '#' }}">
+            {%- if image != blank -%}
+              {{ image | image_url: width: 800 | image_tag: loading: 'lazy', alt: title }}
+            {%- else -%}
+              {{ 'lifestyle-1' | placeholder_svg_tag }}
+            {%- endif -%}
+          </a>
+          <div class="pj__body">
+            {%- if tag != blank -%}<span class="pj__tag">{{ tag }}</span>{%- endif -%}
+            <h3 class="pj__name"><a href="{{ url | default: '#' }}">{{ title }}</a></h3>
+            {%- if date != blank or read_time != blank -%}
+              <p class="pj__meta">
+                {%- if date != blank -%}📅 {{ date }}{%- endif -%}
+                {%- if date != blank and read_time != blank %} &nbsp; {% endif -%}
+                {%- if read_time != blank -%}⏱ {{ read_time }}{%- endif -%}
+              </p>
+            {%- endif -%}
+            {%- if block.settings.read_article_text != blank -%}
+              <a class="pj__link" href="{{ url | default: '#' }}">{{ block.settings.read_article_text }} →</a>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Plant journal posts",
+  "settings": [
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Plant journal" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Grow Smarter with" },
+    { "type": "text", "id": "heading_accent", "label": "Heading accent (italic green)", "default": "Expert Tips" },
+    { "type": "text", "id": "all_articles_text", "label": "All articles text", "default": "All Articles →" },
+    { "type": "url", "id": "all_articles_url", "label": "All articles link" },
+    { "type": "text", "id": "read_article_text", "label": "Read article text", "default": "Read Article" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#ffffff" },
+
+    { "type": "header", "content": "Card 1 (large)" },
+    { "type": "image_picker", "id": "card_1_image", "label": "Card 1 image" },
+    { "type": "text", "id": "card_1_tag", "label": "Card 1 tag", "default": "🌿 Beginner guide" },
+    { "type": "text", "id": "card_1_title", "label": "Card 1 title", "default": "10 Easiest Indoor Plants That Even Black Thumbs Can't Kill" },
+    { "type": "text", "id": "card_1_date", "label": "Card 1 date", "default": "June 12, 2026" },
+    { "type": "text", "id": "card_1_read_time", "label": "Card 1 read time", "default": "6 min read" },
+    { "type": "url", "id": "card_1_url", "label": "Card 1 link" },
+
+    { "type": "header", "content": "Card 2" },
+    { "type": "image_picker", "id": "card_2_image", "label": "Card 2 image" },
+    { "type": "text", "id": "card_2_tag", "label": "Card 2 tag", "default": "🌱 Grow at home" },
+    { "type": "text", "id": "card_2_title", "label": "Card 2 title", "default": "How to Start a Kitchen Garden on Your Balcony" },
+    { "type": "text", "id": "card_2_date", "label": "Card 2 date", "default": "May 28, 2026" },
+    { "type": "text", "id": "card_2_read_time", "label": "Card 2 read time", "default": "5 min read" },
+    { "type": "url", "id": "card_2_url", "label": "Card 2 link" },
+
+    { "type": "header", "content": "Card 3" },
+    { "type": "image_picker", "id": "card_3_image", "label": "Card 3 image" },
+    { "type": "text", "id": "card_3_tag", "label": "Card 3 tag", "default": "💧 Plant care" },
+    { "type": "text", "id": "card_3_title", "label": "Card 3 title", "default": "Overwatering vs Underwatering: How to Tell the Difference" },
+    { "type": "text", "id": "card_3_date", "label": "Card 3 date", "default": "May 10, 2026" },
+    { "type": "text", "id": "card_3_read_time", "label": "Card 3 read time", "default": "4 min read" },
+    { "type": "url", "id": "card_3_url", "label": "Card 3 link" }
+  ],
+  "presets": [{ "name": "Plant journal posts" }]
+}
+{% endschema %}
