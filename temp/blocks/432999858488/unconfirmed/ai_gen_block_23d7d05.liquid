@@ -1,6 +1,259 @@
+{% doc %}
+  @prompt
+    Replace the existing CTA banner section with an interactive 3D style CTA banner. It should have a 3D parallax effect where elements move as the user hovers or scrolls, with depth layers creating a sense of dimension. Include a bold headline, subtext, and a call-to-action button with a 3D push/press animation on hover. Use modern CSS 3D transforms, perspective effects, and smooth animations. The design should feel immersive and eye-catching, matching a plant/nursery store aesthetic with earthy greens and natural tones.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-3d-cta-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    perspective: 1400px;
+    padding: 24px 0;
+  }
+
+  .ai-3d-cta-{{ ai_gen_id }}__scene {
+    position: relative;
+    min-height: {{ block.settings.min_height }}px;
+    overflow: hidden;
+    isolation: isolate;
+    border-radius: {{ block.settings.border_radius }}px;
+    background: linear-gradient(135deg, {{ block.settings.background_color }}, {{ block.settings.background_color_2 }});
+    color: {{ block.settings.text_color }};
+    transform-style: preserve-3d;
+    transition: transform 180ms ease-out, box-shadow 180ms ease-out;
+    box-shadow: 0 20px 50px rgba(13, 58, 29, 0.16);
+  }
+
+  .ai-3d-cta-{{ ai_gen_id }}__scene::before,
+  .ai-3d-cta-{{ ai_gen_id }}__scene::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .ai-3d-cta-{{ ai_gen_id }}__scene::before {
+    width: 390px;
+    height: 390px;
+    right: -120px;
+    top: -175px;
+    background: rgba(255, 255, 255, 0.08);
+    transform: translate3d(var(--ai-shift-x, 0px), var(--ai-shift-y, 0px), 15px);
+  }
+
+  .ai-3d-cta-{{ ai_gen_id }}__scene::after {
+    width: 280px;
+    height: 280px;
+    left: -130px;
+    bottom: -170px;
+    background: rgba(255, 214, 10, 0.12);
+    transform: translate3d(calc(var(--ai-shift-x, 0px) * -0.45), calc(var(--ai-shift-y, 0px) * -0.45), 10px);
+  }
+
+  .ai-3d-cta-{{ ai_gen_id }}__glow {
+    position: absolute;
+    inset: 12% 35% 10% 18%;
+    background: radial-gradient(circle, rgba(255,255,255,.18), transparent 64%);
+    filter: blur(12px);
+    transform: translate3d(calc(var(--ai-shift-x, 0px) * .3), calc(var(--ai-shift-y, 0px) * .3), 20px);
+    pointer-events: none;
+  }
+
+  .ai-3d-cta-{{ ai_gen_id }}__content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: {{ block.settings.alignment }};
+    justify-content: center;
+    min-height: inherit;
+    max-width: 720px;
+    padding: 56px clamp(24px, 8vw, 100px);
+    text-align: {{ block.settings.alignment }};
+    transform: translate3d(calc(var(--ai-shift-x, 0px) * .14), calc(var(--ai-shift-y, 0px) * .14), 40px);
+    transition: transform 180ms ease-out;
+  }
+
+  .ai-3d-cta-{{ ai_gen_id }}__eyebrow {
+    margin: 0 0 14px;
+    color: {{ block.settings.accent_color }};
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+
+  .ai-3d-cta-{{ ai_gen_id }}__heading {
+    margin: 0;
+    color: inherit;
+    font-size: clamp(32px, 5vw, {{ block.settings.heading_size }}px);
+    line-height: 1.02;
+    letter-spacing: -.035em;
+    text-wrap: balance;
+  }
+
+  .ai-3d-cta-{{ ai_gen_id }}__text {
+    max-width: 540px;
+    margin: 18px 0 28px;
+    color: {{ block.settings.text_color }};
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  .ai-3d-cta-{{ ai_gen_id }}__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 0 28px;
+    border: 1px solid {{ block.settings.button_color }};
+    border-radius: 999px;
+    background: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 7px 0 {{ block.settings.button_shadow_color }}, 0 15px 24px rgba(13, 58, 29, .18);
+    transform: translateZ(28px);
+    transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+  }
+
+  .ai-3d-cta-{{ ai_gen_id }}__button:hover {
+    background: {{ block.settings.button_hover_color }};
+    transform: translateY(5px) translateZ(28px);
+    box-shadow: 0 2px 0 {{ block.settings.button_shadow_color }}, 0 8px 14px rgba(13, 58, 29, .16);
+  }
+
+  .ai-3d-cta-{{ ai_gen_id }}__button:focus-visible {
+    outline: 3px solid {{ block.settings.accent_color }};
+    outline-offset: 4px;
+  }
+
+  .ai-3d-cta-{{ ai_gen_id }}__leaf {
+    position: absolute;
+    z-index: 2;
+    width: 110px;
+    height: 180px;
+    border-radius: 100% 0 100% 0;
+    background: linear-gradient(145deg, {{ block.settings.leaf_color }}, {{ block.settings.leaf_color_2 }});
+    opacity: .88;
+    pointer-events: none;
+    transform-origin: bottom center;
+    transition: transform 220ms ease-out;
+  }
+
+  .ai-3d-cta-{{ ai_gen_id }}__leaf--one {
+    right: 13%;
+    bottom: -34px;
+    transform: rotate(28deg) translate3d(calc(var(--ai-shift-x, 0px) * .9), calc(var(--ai-shift-y, 0px) * .9), 70px);
+  }
+
+  .ai-3d-cta-{{ ai_gen_id }}__leaf--two {
+    right: 5%;
+    bottom: -45px;
+    width: 82px;
+    height: 145px;
+    opacity: .62;
+    transform: rotate(58deg) translate3d(calc(var(--ai-shift-x, 0px) * 1.25), calc(var(--ai-shift-y, 0px) * 1.25), 100px);
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-3d-cta-{{ ai_gen_id }} { width: 100%; padding: 12px 0; }
+    .ai-3d-cta-{{ ai_gen_id }}__scene { min-height: 420px; }
+    .ai-3d-cta-{{ ai_gen_id }}__content { padding: 46px 24px 150px; }
+    .ai-3d-cta-{{ ai_gen_id }}__leaf--one { right: 15%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-3d-cta-{{ ai_gen_id }}__scene,
+    .ai-3d-cta-{{ ai_gen_id }}__content,
+    .ai-3d-cta-{{ ai_gen_id }}__leaf,
+    .ai-3d-cta-{{ ai_gen_id }}__button { transition: none; }
+  }
+{% endstyle %}
+
+<immersive-cta-{{ ai_gen_id }} class="ai-3d-cta-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-3d-cta-{{ ai_gen_id }}__scene" data-scene>
+    <div class="ai-3d-cta-{{ ai_gen_id }}__glow"></div>
+    <span class="ai-3d-cta-{{ ai_gen_id }}__leaf ai-3d-cta-{{ ai_gen_id }}__leaf--one" aria-hidden="true"></span>
+    <span class="ai-3d-cta-{{ ai_gen_id }}__leaf ai-3d-cta-{{ ai_gen_id }}__leaf--two" aria-hidden="true"></span>
+    <div class="ai-3d-cta-{{ ai_gen_id }}__content">
+      {% if block.settings.eyebrow != blank %}<p class="ai-3d-cta-{{ ai_gen_id }}__eyebrow">{{ block.settings.eyebrow }}</p>{% endif %}
+      <h2 class="ai-3d-cta-{{ ai_gen_id }}__heading">{{ block.settings.heading }}</h2>
+      {% if block.settings.subtext != blank %}<div class="ai-3d-cta-{{ ai_gen_id }}__text">{{ block.settings.subtext }}</div>{% endif %}
+      {% if block.settings.button_label != blank %}<a class="ai-3d-cta-{{ ai_gen_id }}__button" href="{{ block.settings.button_link }}">{{ block.settings.button_label }}</a>{% endif %}
+    </div>
+  </div>
+</immersive-cta-{{ ai_gen_id }}>
+
+<script>
+  (() => {
+    class ImmersiveCta{{ ai_gen_id }} extends HTMLElement {
+      connectedCallback() {
+        this.scene = this.querySelector('[data-scene]');
+        this.reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (this.reduceMotion) return;
+        this.handleMove = this.handleMove.bind(this);
+        this.handleLeave = this.handleLeave.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
+        this.scene.addEventListener('pointermove', this.handleMove);
+        this.scene.addEventListener('pointerleave', this.handleLeave);
+        window.addEventListener('scroll', this.handleScroll, { passive: true });
+      }
+      handleMove(event) {
+        const rect = this.scene.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - .5;
+        const y = (event.clientY - rect.top) / rect.height - .5;
+        this.scene.style.setProperty('--ai-shift-x', `${x * -32}px`);
+        this.scene.style.setProperty('--ai-shift-y', `${y * -24}px`);
+        this.scene.style.transform = `rotateX(${y * -2.5}deg) rotateY(${x * 3.5}deg)`;
+      }
+      handleLeave() {
+        this.scene.style.setProperty('--ai-shift-x', '0px');
+        this.scene.style.setProperty('--ai-shift-y', '0px');
+        this.scene.style.transform = 'rotateX(0deg) rotateY(0deg)';
+      }
+      handleScroll() {
+        const rect = this.scene.getBoundingClientRect();
+        const offset = Math.max(-1, Math.min(1, (window.innerHeight / 2 - (rect.top + rect.height / 2)) / window.innerHeight));
+        this.scene.style.setProperty('--ai-shift-y', `${offset * 18}px`);
+      }
+    }
+    customElements.define('immersive-cta-{{ ai_gen_id }}', ImmersiveCta{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "3D nursery CTA",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Grow something beautiful" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Bring your space to life" },
+    { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Discover healthy plants, thoughtful supplies, and everything you need to create your own green sanctuary." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Explore the nursery" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "desktop_width_percent", "label": "Desktop width", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "min_height", "label": "Minimum height", "min": 300, "max": 700, "step": 20, "unit": "px", "default": 480 },
+    { "type": "range", "id": "heading_size", "label": "Heading size", "min": 32, "max": 80, "step": 4, "unit": "px", "default": 56 },
+    { "type": "select", "id": "alignment", "label": "Alignment", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }], "default": "left" },
+    { "type": "range", "id": "border_radius", "label": "Corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#dcebd5" },
+    { "type": "color", "id": "background_color_2", "label": "Background depth", "default": "#9dc5a1" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#0d3a1d" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#806b00" },
+    { "type": "color", "id": "leaf_color", "label": "Leaf", "default": "#1f5130" },
+    { "type": "color", "id": "leaf_color_2", "label": "Leaf highlight", "default": "#0c8f45" },
+    { "type": "color", "id": "button_color", "label": "Button", "default": "#0d3a1d" },
+    { "type": "color", "id": "button_hover_color", "label": "Button hover", "default": "#1f5130" },
+    { "type": "color", "id": "button_text_color", "label": "Button text", "default": "#ffffff" },
+    { "type": "color", "id": "button_shadow_color", "label": "Button shadow", "default": "#061d0e" }
+  ],
+  "presets": [{ "name": "3D nursery CTA" }],
+  "tag": null,
+  "class": "immersive-cta-block"
+}
 {% endschema %}
