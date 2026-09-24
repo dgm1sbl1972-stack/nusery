@@ -182,6 +182,8 @@ p { margin: 0 0 .75em; }
 .pill { border: 1px solid #d6d6d6; background: #fff; border-radius: 999px; padding: 6px 18px; font-size: 13px; font-weight: 500; }
 .pill.is-active { background: var(--c-primary-dark); border-color: var(--c-primary-dark); color: #fff; }
 .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.product-grid__item { display: flex; }
+.product-grid__item > .product-card { flex: 1; }
 .product-card { background: #fff; border-radius: var(--radius); overflow: hidden; border: 1px solid #ece6da; display: flex; flex-direction: column; transition: transform .3s, box-shadow .3s; }
 .product-card:hover { transform: translateY(-4px); box-shadow: 0 16px 34px rgba(0,0,0,.1); }
 .product-card__media { display: block; aspect-ratio: 1 / .92; overflow: hidden; }

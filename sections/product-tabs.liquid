@@ -1,34 +1,42 @@
-<section class="product-tabs section-pad" style="background: {{ section.settings.background }};" data-tabs>
+{%- comment -%}
+  "Handpicked Favourites" grid. Every product card is a block with its own
+  image, text and price, so it can be edited in the theme editor. Cards can
+  optionally be linked to a real Shopify product to make Add to Cart work.
+  A "Products from collection" block adds a collection's products instead.
+{%- endcomment -%}
+<section class="product-tabs section-pad" style="background: {{ section.settings.background }};" data-filter-tabs>
   <div class="page-width">
     <div class="section-head section-head--split">
       <div>
         {%- if section.settings.eyebrow != blank -%}<p class="eyebrow eyebrow--line">{{ section.settings.eyebrow }}</p>{%- endif -%}
         <h2 class="section-title section-title--left">{{ section.settings.heading }} <em>{{ section.settings.heading_accent }}</em></h2>
       </div>
-      {%- if section.blocks.size > 1 -%}
-        <div class="pill-tabs" role="tablist">
-          {%- for block in section.blocks -%}
-            <button type="button" role="tab" class="pill{% if forloop.first %} is-active{% endif %}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="panel-{{ block.id }}" data-tab {{ block.shopify_attributes }}>
-              {{ block.settings.label | default: block.settings.collection.title }}
-            </button>
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
+      <div class="pill-tabs" role="tablist">
+        <button type="button" role="tab" class="pill is-active" aria-selected="true" data-filter="all">{{ section.settings.tab_all }}</button>
+        {%- for n in (1..4) -%}
+          {%- assign key = 'tab_' | append: n -%}
+          {%- if section.settings[key] != blank -%}
+            <button type="button" role="tab" class="pill" aria-selected="false" data-filter="{{ key }}">{{ section.settings[key] }}</button>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
     </div>
 
-    {%- for block in section.blocks -%}
-      <div class="product-grid" id="panel-{{ block.id }}" role="tabpanel" data-tab-panel{% unless forloop.first %} hidden{% endunless %}>
-        {%- if block.settings.collection != blank and block.settings.collection.products_count > 0 -%}
-          {%- for product in block.settings.collection.products limit: section.settings.limit -%}
-            {%- render 'product-card', product: product -%}
-          {%- endfor -%}
-        {%- else -%}
-          {%- for i in (1..section.settings.limit) -%}
-            {%- render 'product-card', product: blank, index: i -%}
-          {%- endfor -%}
-        {%- endif -%}
-      </div>
-    {%- endfor -%}
+    <div class="product-grid">
+      {%- for block in section.blocks -%}
+        {%- assign tab_name = section.settings[block.settings.tab] -%}
+        {%- case block.type -%}
+          {%- when 'card' -%}
+            {%- render 'editable-product-card', block: block, tab_name: tab_name, index: forloop.index -%}
+          {%- when 'collection' -%}
+            {%- for product in block.settings.collection.products limit: block.settings.limit -%}
+              <div class="product-grid__item" data-tab="{{ block.settings.tab }}" {{ block.shopify_attributes }}>
+                {%- render 'product-card', product: product -%}
+              </div>
+            {%- endfor -%}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
 
     {%- if section.settings.button_label != blank -%}
       <div class="center mt-40">
@@ -45,18 +53,70 @@
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our collection" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Handpicked" },
     { "type": "text", "id": "heading_accent", "label": "Heading accent", "default": "Favourites" },
-    { "type": "range", "id": "limit", "label": "Products per tab", "min": 4, "max": 16, "step": 4, "default": 8 },
     { "type": "color", "id": "background", "label": "Background", "default": "#f8f4ec" },
+    { "type": "header", "content": "Filter tabs" },
+    { "type": "text", "id": "tab_all", "label": "\"Show all\" tab", "default": "All" },
+    { "type": "text", "id": "tab_1", "label": "Tab 1", "default": "Plants" },
+    { "type": "text", "id": "tab_2", "label": "Tab 2", "default": "Seeds" },
+    { "type": "text", "id": "tab_3", "label": "Tab 3", "default": "Kits" },
+    { "type": "text", "id": "tab_4", "label": "Tab 4", "info": "Leave empty to hide this tab" },
+    { "type": "header", "content": "Button" },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "View All 500+ Products" },
     { "type": "url", "id": "button_link", "label": "Button link" }
   ],
   "blocks": [
     {
-      "type": "tab",
-      "name": "Tab",
+      "type": "card",
+      "name": "Product card",
       "settings": [
-        { "type": "text", "id": "label", "label": "Tab label", "default": "All" },
-        { "type": "collection", "id": "collection", "label": "Collection" }
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        {
+          "type": "select",
+          "id": "tab",
+          "label": "Show under tab",
+          "options": [
+            { "value": "tab_1", "label": "Tab 1" },
+            { "value": "tab_2", "label": "Tab 2" },
+            { "value": "tab_3", "label": "Tab 3" },
+            { "value": "tab_4", "label": "Tab 4" }
+          ],
+          "default": "tab_1"
+        },
+        { "type": "text", "id": "label", "label": "Small label", "info": "Leave empty to use the tab name" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Plant name" },
+        { "type": "textarea", "id": "text", "label": "Description", "default": "Short description of this plant." },
+        { "type": "header", "content": "Price" },
+        { "type": "text", "id": "price", "label": "Price", "default": "₹499" },
+        { "type": "text", "id": "compare_price", "label": "Old price (crossed out)", "default": "₹699", "info": "Leave empty to hide" },
+        { "type": "header", "content": "Button" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Add to Cart" },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Shopify product (optional)",
+          "info": "Pick a product so the button adds it to the cart. Empty fields above are filled from this product."
+        },
+        { "type": "url", "id": "link", "label": "Link", "info": "Where the image, title and button go when no product is picked" }
+      ]
+    },
+    {
+      "type": "collection",
+      "name": "Products from collection",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        {
+          "type": "select",
+          "id": "tab",
+          "label": "Show under tab",
+          "options": [
+            { "value": "tab_1", "label": "Tab 1" },
+            { "value": "tab_2", "label": "Tab 2" },
+            { "value": "tab_3", "label": "Tab 3" },
+            { "value": "tab_4", "label": "Tab 4" }
+          ],
+          "default": "tab_1"
+        },
+        { "type": "range", "id": "limit", "label": "Number of products", "min": 1, "max": 16, "step": 1, "default": 4 }
       ]
     }
   ],
@@ -64,10 +124,14 @@
     {
       "name": "Product tabs",
       "blocks": [
-        { "type": "tab", "settings": { "label": "All" } },
-        { "type": "tab", "settings": { "label": "Plants" } },
-        { "type": "tab", "settings": { "label": "Seeds" } },
-        { "type": "tab", "settings": { "label": "Kits" } }
+        { "type": "card", "settings": { "tab": "tab_1", "title": "Monstera Deliciosa", "text": "Iconic split-leaf tropical. Air-purifying & low-maintenance.", "price": "₹499", "compare_price": "₹699" } },
+        { "type": "card", "settings": { "tab": "tab_1", "title": "Peace Lily", "text": "Elegant white blooms. Thrives in low light, purifies air.", "price": "₹349", "compare_price": "₹499" } },
+        { "type": "card", "settings": { "tab": "tab_1", "title": "Golden Pothos", "text": "Cascading vines for shelves & hanging planters. Nearly unkillable!", "price": "₹199", "compare_price": "₹299" } },
+        { "type": "card", "settings": { "tab": "tab_1", "title": "Cactus Mix", "text": "3 handpicked mini cacti. Minimal watering, maximum charm.", "price": "₹299", "compare_price": "₹440" } },
+        { "type": "card", "settings": { "tab": "tab_2", "title": "Tomato Seeds (Organic)", "text": "Non-GMO, 95% germination rate. Grow juicy tomatoes at home.", "price": "₹89", "compare_price": "₹149" } },
+        { "type": "card", "settings": { "tab": "tab_2", "title": "Herb Garden Kit", "text": "Basil, coriander, mint & more. Your kitchen garden in a box.", "price": "₹249", "compare_price": "₹299" } },
+        { "type": "card", "settings": { "tab": "tab_3", "title": "Beginner Garden Kit", "text": "Everything to start gardening: pots, soil, tools & seeds.", "price": "₹799", "compare_price": "₹1199" } },
+        { "type": "card", "settings": { "tab": "tab_3", "title": "Self-Watering Planter", "text": "Smart planter with reservoir — waters itself for up to 2 weeks.", "price": "₹449", "compare_price": "₹649" } }
       ]
     }
   ]

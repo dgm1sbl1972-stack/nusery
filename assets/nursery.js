@@ -86,6 +86,25 @@
     });
   }
 
+  /* Filter tabs: show only the cards whose data-tab matches the chosen tab. */
+  function initFilterTabs(root) {
+    var tabs = root.querySelectorAll('[data-filter]');
+    var items = root.querySelectorAll('[data-tab]');
+    root._showTab = function (filter) {
+      tabs.forEach(function (t) {
+        var on = t.getAttribute('data-filter') === filter;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      items.forEach(function (item) {
+        item.hidden = filter !== 'all' && item.getAttribute('data-tab') !== filter;
+      });
+    };
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () { root._showTab(tab.getAttribute('data-filter')); });
+    });
+  }
+
   /* Plant finder quiz: tally answers by collection handle, recommend the winner. */
   function initFinder(root) {
     var steps = root.querySelectorAll('[data-finder-step]');
@@ -157,6 +176,7 @@
     scope.querySelectorAll('.hero[data-slider]').forEach(initHero);
     scope.querySelectorAll('[data-scroller]').forEach(initScroller);
     scope.querySelectorAll('[data-tabs]').forEach(initTabs);
+    scope.querySelectorAll('[data-filter-tabs]').forEach(initFilterTabs);
     scope.querySelectorAll('[data-plant-finder]').forEach(initFinder);
     scope.querySelectorAll('.reels').forEach(initReels);
   }
@@ -208,4 +228,10 @@
 
   /* Re-initialise sections when edited in the Shopify theme editor. */
   document.addEventListener('shopify:section:load', function (e) { init(e.target); });
+
+  /* In the theme editor, reveal a product card when its block is selected. */
+  document.addEventListener('shopify:block:select', function (e) {
+    var root = e.target.closest('[data-filter-tabs]');
+    if (root && root._showTab && e.target.hidden) root._showTab('all');
+  });
 })();

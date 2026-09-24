@@ -1,0 +1,75 @@
+{%- comment -%}
+  Product card whose content comes from a section block. Any empty field
+  falls back to the block's linked product, if one is picked.
+  Accepts:
+  - block: {Object} "card" block from the product-tabs section
+  - tab_name: {String} name of the tab the card belongs to
+  - index: {Number} used for placeholder image variety
+{%- endcomment -%}
+{%- liquid
+  assign s = block.settings
+  assign product = s.product
+  assign variant = product.selected_or_first_available_variant
+
+  assign image = s.image | default: product.featured_image
+  assign title = s.title | default: product.title
+  assign text = s.text
+  if text == blank and product != blank
+    assign text = product.description | strip_html | truncatewords: 12
+  endif
+  assign label = s.label | default: tab_name
+
+  assign price = s.price
+  if price == blank and product != blank
+    assign price = product.price | money_without_trailing_zeros
+  endif
+  assign compare_price = s.compare_price
+  if compare_price == blank and product.compare_at_price > product.price
+    assign compare_price = product.compare_at_price | money_without_trailing_zeros
+  endif
+
+  assign url = s.link | default: product.url
+-%}
+<div class="product-grid__item" data-tab="{{ s.tab }}" {{ block.shopify_attributes }}>
+  <article class="product-card">
+    {%- if url != blank -%}<a href="{{ url }}" class="product-card__media">{%- else -%}<div class="product-card__media">{%- endif -%}
+      {%- if image != blank -%}
+        {{ image | image_url: width: 600 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 300px, 50vw', widths: '300, 450, 600', alt: title }}
+      {%- else -%}
+        {%- assign ph = index | default: 1 | minus: 1 | modulo: 6 | plus: 1 -%}
+        {{ 'product-' | append: ph | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    {%- if url != blank -%}</a>{%- else -%}</div>{%- endif -%}
+
+    <div class="product-card__body">
+      {%- if label != blank -%}<p class="product-card__type">{{ label }}</p>{%- endif -%}
+      <h3 class="product-card__title">
+        {%- if url != blank -%}<a href="{{ url }}">{{ title }}</a>{%- else -%}{{ title }}{%- endif -%}
+      </h3>
+      {%- if text != blank -%}<p class="product-card__desc">{{ text | escape | newline_to_br }}</p>{%- endif -%}
+
+      <div class="product-card__footer">
+        <div class="price">
+          {%- if price != blank -%}<strong>{{ price }}</strong>{%- endif -%}
+          {%- if compare_price != blank -%}<s>{{ compare_price }}</s>{%- endif -%}
+        </div>
+
+        {%- if s.button_label != blank -%}
+          {%- if product != blank and product.available -%}
+            <form action="{{ routes.cart_add_url }}" method="post" data-add-to-cart>
+              <input type="hidden" name="id" value="{{ variant.id }}">
+              <input type="hidden" name="quantity" value="1">
+              <button type="submit" class="btn btn--sm btn--green">{{ s.button_label }}</button>
+            </form>
+          {%- elsif product != blank -%}
+            <span class="btn btn--sm btn--disabled">{{ 'general.sold_out' | t }}</span>
+          {%- elsif url != blank -%}
+            <a href="{{ url }}" class="btn btn--sm btn--green">{{ s.button_label }}</a>
+          {%- else -%}
+            <span class="btn btn--sm btn--green">{{ s.button_label }}</span>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </article>
+</div>

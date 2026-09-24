@@ -13,7 +13,7 @@ and you can add, remove or reorder the sections there too.
 | 3 | Hero slider | Full-width image slides with a yellow highlighted heading, arrows, dots, counter and autoplay |
 | 4 | Category circles | Round collection images plus a "Buy Now!" card |
 | 5 | Featured banner | Yellow banner with text on the left and a scrolling image gallery on the right |
-| 6 | Product tabs | "Handpicked Favourites" grid with All / Plants / Seeds / Kits tabs, one collection per tab. Add to Cart works without leaving the page |
+| 6 | Product tabs | "Handpicked Favourites" grid with All / Plants / Seeds / Kits filter tabs. Each product card is editable: image, label, title, description, price and old price |
 | 7 | Services banner | Image plus a yellow gradient card |
 | 8 | Our story | Collage of 3 images, story text and stat boxes |
 | 9 | Plant finder quiz | 4-question quiz that recommends a collection |
@@ -56,12 +56,16 @@ shopify theme push --unpublished                     # upload as a new theme
    - `footer` holds the bottom legal links.
    - Create 4 more menus (Shop, Services, About us, Help) and pick them in the Footer section.
 2. **Collections**: create collections such as *Flower Creepers*, *Herbs* and *Fruit Plant*, then pick them in
-   **Category circles** and in **Product tabs** (one collection per tab).
-3. **Images**: upload your photos in the Hero slider, Featured banner, Services banner and Our story sections.
-4. **Plant finder quiz**: in each question, write one answer per line as `Answer text | collection-handle`.
+   **Category circles**.
+3. **Handpicked Favourites products**: in the **Product tabs** section, click a *Product card* to change its image,
+   title, description, price and old price, and choose which tab it shows under. Use *Add block* to add more cards.
+   Pick a *Shopify product* in a card to make its Add to Cart button put that product in the cart. Or add a
+   *Products from collection* block to show a whole collection's products.
+4. **Images**: upload your photos in the Hero slider, Featured banner, Services banner and Our story sections.
+5. **Plant finder quiz**: in each question, write one answer per line as `Answer text | collection-handle`.
    When the quiz ends, the collection with the most votes is recommended.
-5. **Comparison table**: in each row, start a value with `yes`, `no` or `~` to show ✓, ✕ or ~.
+6. **Comparison table**: in each row, start a value with `yes`, `no` or `~` to show ✓, ✕ or ~.
    You can add a caption after `|`, for example `no | Common issue`.
-6. **Social links and colours**: go to **Theme settings**.
+7. **Social links and colours**: go to **Theme settings**.
 
 Until you pick real collections, images and a blog, the sections show sample placeholders, so the page never looks empty.
