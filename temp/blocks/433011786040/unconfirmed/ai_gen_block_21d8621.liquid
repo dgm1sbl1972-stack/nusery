@@ -1,6 +1,50 @@
+{% doc %}
+  @prompt
+    In the existing "Handpicked favourites" section (section ID: template--28088459395384__17902341379f58eb9f), fix the product card images so they do not stretch when a custom image is uploaded. Apply object-fit: cover and a fixed height (e.g. 220px) to the image container so all product images fill the card consistently without distortion, regardless of the uploaded image's original aspect ratio. Do not change any other part of the design, layout, colors, spacing, or functionality.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  #shopify-section-template--28088459395384__17902341379f58eb9f .card__media,
+  #shopify-section-template--28088459395384__17902341379f58eb9f .product-card__image-container,
+  #shopify-section-template--28088459395384__17902341379f58eb9f .product-card__image {
+    height: 220px;
+    overflow: hidden;
+  }
+
+  #shopify-section-template--28088459395384__17902341379f58eb9f .card__media img,
+  #shopify-section-template--28088459395384__17902341379f58eb9f .product-card__image-container img,
+  #shopify-section-template--28088459395384__17902341379f58eb9f .product-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+{% endstyle %}
+
+<div class="ai-product-image-fix-{{ ai_gen_id }}" style="width: {{ block.settings.desktop_width_percent }}%;" {{ block.shopify_attributes }}></div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Product image fix",
+  "settings": [
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product image fix"
+    }
+  ],
+  "tag": null,
+  "class": "product-image-fix"
+}
 {% endschema %}
