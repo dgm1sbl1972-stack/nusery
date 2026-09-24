@@ -906,6 +906,67 @@
       "type": "_blocks",
       "settings": {}
     },
+    "17902419438e913f8a": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_7988465_EHzXE3": {
+          "type": "ai_gen_block_7988465",
+          "settings": {
+            "top_label": "WHY CHOOSE SBL",
+            "heading": "Your Monthly Green Dose",
+            "description": "Get curated plants, seeds and care products delivered to your door every month. Cancel anytime.",
+            "feature_heading": "Feature",
+            "sbl_heading": "SBL NURSERY",
+            "others_heading": "Others",
+            "feature_1": "Plant quality",
+            "sbl_1": "✓ Wide range of indoor, outdoor & flowering plants",
+            "others_1": "~ Limited selection",
+            "feature_2": "Pests",
+            "sbl_2": "✓ Pest-controlled",
+            "others_2": "✓",
+            "feature_3": "Repotting",
+            "sbl_3": "✓ Not required",
+            "others_3": "~ Varies; not consistent",
+            "feature_4": "Standard soil",
+            "sbl_4": "✓ Pre-mixed",
+            "others_4": "✓",
+            "feature_5": "Growing Conditions",
+            "sbl_5": "✓ Grown by experts on old farms",
+            "others_5": "✕ Outsourced",
+            "feature_6": "After-sale help",
+            "sbl_6": "✓ Expert support",
+            "others_6": "✕ None",
+            "feature_7": "Guaranteed",
+            "sbl_7": "✓ Assured quality, 14 days replacement",
+            "others_7": "~ Conditional",
+            "feature_8": "One-stop garden shop",
+            "sbl_8": "✓ Plants • Pots • Soil • Care • Services",
+            "others_8": "~ Plants-focused",
+            "background_image": "shopify://shop_images/5f384df0-2260-469a-a3fc-a1fe6a500c93.png",
+            "overlay_opacity": 25,
+            "section_background": "#f8f4ec",
+            "sbl_background": "#EED433",
+            "header_background": "#1f5130",
+            "feature_background": "#ffffff",
+            "heading_color": "#0d3a1d",
+            "label_color": "#101010",
+            "description_color": "#1F5130",
+            "text_color": "#14231a",
+            "sbl_text_color": "#0d3a1d",
+            "header_text_color": "#ffffff",
+            "border_color": "#d5dfd5",
+            "desktop_width_percent": 100,
+            "border_radius": 16,
+            "section_spacing": 70
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_7988465_EHzXE3"
+      ],
+      "settings": {}
+    },
     "blog_posts": {
       "type": "blog-posts",
       "settings": {
@@ -991,67 +1052,6 @@
         "background": "#f8f4ec"
       }
     },
-    "17902419438e913f8a": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_7988465_EHzXE3": {
-          "type": "ai_gen_block_7988465",
-          "settings": {
-            "top_label": "WHY CHOOSE SBL",
-            "heading": "Your Monthly Green Dose",
-            "description": "Get curated plants, seeds and care products delivered to your door every month. Cancel anytime.",
-            "feature_heading": "Feature",
-            "sbl_heading": "SBL NURSERY",
-            "others_heading": "Others",
-            "feature_1": "Plant quality",
-            "sbl_1": "✓ Wide range of indoor, outdoor & flowering plants",
-            "others_1": "~ Limited selection",
-            "feature_2": "Pests",
-            "sbl_2": "✓ Pest-controlled",
-            "others_2": "✓",
-            "feature_3": "Repotting",
-            "sbl_3": "✓ Not required",
-            "others_3": "~ Varies; not consistent",
-            "feature_4": "Standard soil",
-            "sbl_4": "✓ Pre-mixed",
-            "others_4": "✓",
-            "feature_5": "Growing Conditions",
-            "sbl_5": "✓ Grown by experts on old farms",
-            "others_5": "✕ Outsourced",
-            "feature_6": "After-sale help",
-            "sbl_6": "✓ Expert support",
-            "others_6": "✕ None",
-            "feature_7": "Guaranteed",
-            "sbl_7": "✓ Assured quality, 14 days replacement",
-            "others_7": "~ Conditional",
-            "feature_8": "One-stop garden shop",
-            "sbl_8": "✓ Plants • Pots • Soil • Care • Services",
-            "others_8": "~ Plants-focused",
-            "background_image": "shopify://shop_images/5f384df0-2260-469a-a3fc-a1fe6a500c93.png",
-            "overlay_opacity": 25,
-            "section_background": "#f8f4ec",
-            "sbl_background": "#EED433",
-            "header_background": "#1f5130",
-            "feature_background": "#ffffff",
-            "heading_color": "#0d3a1d",
-            "label_color": "#101010",
-            "description_color": "#1F5130",
-            "text_color": "#14231a",
-            "sbl_text_color": "#0d3a1d",
-            "header_text_color": "#ffffff",
-            "border_color": "#d5dfd5",
-            "desktop_width_percent": 100,
-            "border_radius": 16,
-            "section_spacing": 70
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_7988465_EHzXE3"
-      ],
-      "settings": {}
-    },
     "1790246288989fe778": {
       "type": "_blocks",
       "blocks": {
@@ -1073,7 +1073,7 @@
             "min_height": 360,
             "mobile_min_height": 300,
             "background_color": "#f4f7dc",
-            "text_color": "#ffffff",
+            "text_color": "#FFFFFF",
             "button_color": "#ffd60a",
             "button_text_color": "#0d3a1d",
             "focus_color": "#ffd60a",
@@ -1111,7 +1111,7 @@
             "image": "shopify://shop_images/jmh.png",
             "desktop_width_percent": 100,
             "max_height": 240,
-            "border_radius": 16,
+            "border_radius": 0,
             "placeholder_color": "#f4f7dc",
             "placeholder_icon_color": "#5b6660"
           },
@@ -1143,10 +1143,10 @@
     "179024251235ac3a75",
     "17901580437110f3d4",
     "1790242364d2d2796d",
-    "blog_posts",
-    "faq",
     "17902419438e913f8a",
+    "blog_posts",
     "1790246288989fe778",
+    "faq",
     "cta_banner",
     "17902340700a400c12"
   ]
