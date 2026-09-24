@@ -1,6 +1,32 @@
+{% doc %}
+  @prompt
+    Stuck with plant care?
+    We're here to help
+    Chat With Us
+    
+    NEED A SMALL BOX KIND FOR THE ABOVE IMNFORMATION CHAT WITH US A BUTTON WITH LINK
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% style %}
+  .ai-plant-care-help-{{ ai_gen_id }} { display: block; width: {{ block.settings.desktop_width_percent }}%; max-width: 100%; }
+  .ai-plant-care-help__box-{{ ai_gen_id }} { display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; padding: 22px 24px; background: {{ block.settings.background_color }}; border: 1px solid {{ block.settings.border_color }}; border-radius: {{ block.settings.border_radius }}px; box-sizing: border-box; }
+  .ai-plant-care-help__content-{{ ai_gen_id }} { min-width: 0; }
+  .ai-plant-care-help__eyebrow-{{ ai_gen_id }} { margin: 0 0 5px; color: {{ block.settings.eyebrow_color }}; font-size: 12px; font-weight: 700; letter-spacing: .08em; line-height: 1.4; text-transform: uppercase; }
+  .ai-plant-care-help__title-{{ ai_gen_id }} { margin: 0; color: {{ block.settings.text_color }}; font-size: {{ block.settings.title_size }}px; font-weight: 700; line-height: 1.25; }
+  .ai-plant-care-help__button-{{ ai_gen_id }} { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; min-height: 44px; padding: 11px 18px; background: {{ block.settings.button_color }}; border: 1px solid {{ block.settings.button_color }}; border-radius: {{ block.settings.button_radius }}px; color: {{ block.settings.button_text_color }}; font-size: 14px; font-weight: 700; line-height: 1.2; text-align: center; text-decoration: none; transition: background-color .2s ease, border-color .2s ease; }
+  .ai-plant-care-help__button-{{ ai_gen_id }}:hover { background: {{ block.settings.button_hover_color }}; border-color: {{ block.settings.button_hover_color }}; }
+  .ai-plant-care-help__button-{{ ai_gen_id }}:focus-visible { outline: 3px solid {{ block.settings.focus_color }}; outline-offset: 3px; }
+  @media screen and (max-width: 749px) { .ai-plant-care-help__box-{{ ai_gen_id }} { align-items: flex-start; flex-direction: column; gap: 16px; padding: 20px; } .ai-plant-care-help__button-{{ ai_gen_id }} { width: 100%; } }
+{% endstyle %}
+<plant-care-help-{{ ai_gen_id }} class="ai-plant-care-help-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-plant-care-help__box-{{ ai_gen_id }}">
+    <div class="ai-plant-care-help__content-{{ ai_gen_id }}">
+      {% if block.settings.eyebrow != blank %}<p class="ai-plant-care-help__eyebrow-{{ ai_gen_id }}">{{ block.settings.eyebrow | escape }}</p>{% endif %}
+      <h2 class="ai-plant-care-help__title-{{ ai_gen_id }}">{{ block.settings.title | escape }}</h2>
+    </div>
+    {% if block.settings.button_link != blank %}<a class="ai-plant-care-help__button-{{ ai_gen_id }}" href="{{ block.settings.button_link }}">{{ block.settings.button_label | escape }}</a>{% endif %}
+  </div>
+</plant-care-help-{{ ai_gen_id }}>
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{"name":"Plant care help","settings":[{"type":"header","content":"Content"},{"type":"text","id":"eyebrow","label":"Eyebrow","default":"Stuck with plant care?"},{"type":"text","id":"title","label":"Title","default":"We're here to help"},{"type":"text","id":"button_label","label":"Button label","default":"Chat with us"},{"type":"url","id":"button_link","label":"Button link"},{"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},{"type":"header","content":"Style"},{"type":"color","id":"background_color","label":"Background","default":"#f4f7dc"},{"type":"color","id":"border_color","label":"Border","default":"#d6dfb1"},{"type":"color","id":"text_color","label":"Text","default":"#0d3a1d"},{"type":"color","id":"eyebrow_color","label":"Eyebrow","default":"#1f5130"},{"type":"color","id":"button_color","label":"Button","default":"#1f5130"},{"type":"color","id":"button_hover_color","label":"Button hover","default":"#0d3a1d"},{"type":"color","id":"button_text_color","label":"Button text","default":"#ffffff"},{"type":"color","id":"focus_color","label":"Focus outline","default":"#ffd60a"},{"type":"range","id":"title_size","label":"Title size","min":16,"max":32,"step":1,"unit":"px","default":22},{"type":"range","id":"border_radius","label":"Box radius","min":0,"max":32,"step":2,"unit":"px","default":16},{"type":"range","id":"button_radius","label":"Button radius","min":0,"max":24,"step":2,"unit":"px","default":8}],"presets":[{"name":"Plant care help"}],"tag":null,"class":"plant-care-help-block"}
 {% endschema %}
