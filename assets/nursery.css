@@ -315,8 +315,6 @@ p { margin: 0 0 .75em; }
 .tag { display: inline-block; background: #d7f0cf; color: var(--c-primary); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; padding: 4px 10px; border-radius: 999px; margin-bottom: 8px; }
 .post__title { font-family: var(--font-display); font-size: 17px; margin-bottom: 8px; }
 .post--wide .post__title { font-size: 21px; }
-.post__excerpt { font-size: 13px; color: var(--c-muted); margin-bottom: 8px; }
-.journal__empty { grid-column: 1 / -1; text-align: center; color: var(--c-muted); background: #eef8ea; border-radius: 14px; padding: 40px 20px; margin: 0; }
 .post__meta { font-size: 11px; color: var(--c-muted); }
 .post__link { font-size: 12px; font-weight: 700; color: var(--c-primary); }
 

@@ -80,6 +80,11 @@
   </div>
 </section>
 
+{% stylesheet %}
+  .post__excerpt { font-size: 13px; color: var(--c-muted); margin-bottom: 8px; }
+  .journal__empty { grid-column: 1 / -1; text-align: center; color: var(--c-muted); background: #eef8ea; border-radius: 14px; padding: 40px 20px; margin: 0; }
+{% endstylesheet %}
+
 {% schema %}
 {
   "name": "Blog posts",
