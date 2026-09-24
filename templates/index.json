@@ -1086,24 +1086,36 @@
     },
     "1790245140c8bee5d6": {
       "type": "_blocks",
+      "settings": {}
+    },
+    "1790246288989fe778": {
+      "type": "_blocks",
       "blocks": {
-        "ai_gen_block_ac2d975_KzxWRy": {
-          "type": "ai_gen_block_ac2d975",
+        "ai_gen_block_23a7a22_wCn3DR": {
+          "type": "ai_gen_block_23a7a22",
           "settings": {
-            "eyebrow": "Stuck with plant care?",
-            "title": "We're here to help",
-            "button_label": "Chat with us",
-            "button_link": "",
+            "heading": "Plant care help",
+            "text": "<p>Find helpful guidance to keep your plants healthy and thriving.</p>",
+            "button_label": "Contact Us",
+            "button_link": "shopify://pages/contact",
+            "background_image": "shopify://shop_images/Untitled_design_31.jpg",
+            "background_position": "center center",
+            "enable_overlay": true,
+            "overlay_color": "#0d3a1d",
+            "overlay_opacity": 55,
             "desktop_width_percent": 100,
+            "text_alignment": "center",
+            "content_alignment": "center",
+            "min_height": 360,
+            "mobile_min_height": 300,
             "background_color": "#f4f7dc",
-            "border_color": "#d6dfb1",
-            "text_color": "#0d3a1d",
-            "eyebrow_color": "#1f5130",
-            "button_color": "#1f5130",
-            "button_hover_color": "#0d3a1d",
-            "button_text_color": "#ffffff",
+            "text_color": "#ffffff",
+            "button_color": "#ffd60a",
+            "button_text_color": "#0d3a1d",
             "focus_color": "#ffd60a",
-            "title_size": 22,
+            "heading_size": 40,
+            "mobile_heading_size": 30,
+            "text_size": 18,
             "border_radius": 16,
             "button_radius": 8
           },
@@ -1111,7 +1123,7 @@
         }
       },
       "block_order": [
-        "ai_gen_block_ac2d975_KzxWRy"
+        "ai_gen_block_23a7a22_wCn3DR"
       ],
       "settings": {}
     }
@@ -1140,6 +1152,7 @@
     "17902419438e913f8a",
     "cta_banner",
     "17902340700a400c12",
-    "1790245140c8bee5d6"
+    "1790245140c8bee5d6",
+    "1790246288989fe778"
   ]
 }
