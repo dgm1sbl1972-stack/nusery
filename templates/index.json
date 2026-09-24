@@ -959,6 +959,35 @@
       ],
       "settings": {}
     },
+    "179024742622a7c64a": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_a12f2e6_NkkwcG": {
+          "type": "ai_gen_block_a12f2e6",
+          "settings": {
+            "blog_1": "why-landscapers-gardeners-choose-sbl-farms",
+            "blog_2": "visit-karnatakas-largest-sbl-plant-nursery",
+            "blog_3": "bangalores-hidden-natural-farm",
+            "heading": "Explore our blogs",
+            "link_label": "",
+            "desktop_width_percent": 100,
+            "box_size": 360,
+            "section_padding": 65,
+            "gap": 40,
+            "card_radius": 10,
+            "heading_size": 30,
+            "background_color": "#f8f4ec",
+            "card_color": "#ffffff",
+            "heading_color": "#0d3a1d"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_a12f2e6_NkkwcG"
+      ],
+      "settings": {}
+    },
     "1790246288989fe778": {
       "type": "_blocks",
       "blocks": {
@@ -1103,35 +1132,6 @@
         "ai_gen_block_fc7c0d1_FHEhmT"
       ],
       "settings": {}
-    },
-    "179024742622a7c64a": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_a12f2e6_NkkwcG": {
-          "type": "ai_gen_block_a12f2e6",
-          "settings": {
-            "blog_1": "why-landscapers-gardeners-choose-sbl-farms",
-            "blog_2": "visit-karnatakas-largest-sbl-plant-nursery",
-            "blog_3": "bangalores-hidden-natural-farm",
-            "heading": "Explore our blogs",
-            "link_label": "",
-            "desktop_width_percent": 100,
-            "box_size": 360,
-            "section_padding": 65,
-            "gap": 40,
-            "card_radius": 10,
-            "heading_size": 30,
-            "background_color": "#f8f4ec",
-            "card_color": "#ffffff",
-            "heading_color": "#0d3a1d"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_a12f2e6_NkkwcG"
-      ],
-      "settings": {}
     }
   },
   "order": [
@@ -1152,10 +1152,10 @@
     "179024251235ac3a75",
     "17901580437110f3d4",
     "17902419438e913f8a",
+    "179024742622a7c64a",
     "1790246288989fe778",
     "faq",
     "cta_banner",
-    "17902340700a400c12",
-    "179024742622a7c64a"
+    "17902340700a400c12"
   ]
 }
