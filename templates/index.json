@@ -1132,44 +1132,6 @@
         "ai_gen_block_fc7c0d1_FHEhmT"
       ],
       "settings": {}
-    },
-    "blog_posts": {
-      "type": "blog-posts",
-      "blocks": {
-        "post_1": {
-          "type": "post",
-          "settings": {
-            "tag": "🌿 Beginner guide",
-            "title": "10 Easiest Indoor Plants That Even Black Thumbs Can't Kill",
-            "date": "June 12, 2026",
-            "read_time": "6 min read"
-          }
-        },
-        "post_2": {
-          "type": "post",
-          "settings": {
-            "tag": "🌱 Grow at home",
-            "title": "How to Start a Kitchen Garden on Your Balcony",
-            "date": "May 28, 2026",
-            "read_time": "5 min read"
-          }
-        },
-        "post_3": {
-          "type": "post",
-          "settings": {
-            "tag": "💧 Plant care",
-            "title": "Overwatering vs Underwatering: How to Tell the Difference",
-            "date": "May 10, 2026",
-            "read_time": "4 min read"
-          }
-        }
-      },
-      "block_order": [
-        "post_1",
-        "post_2",
-        "post_3"
-      ],
-      "settings": {}
     }
   },
   "order": [
@@ -1192,7 +1154,6 @@
     "17902419438e913f8a",
     "179024742622a7c64a",
     "1790246288989fe778",
-    "blog_posts",
     "faq",
     "cta_banner",
     "17902340700a400c12"
