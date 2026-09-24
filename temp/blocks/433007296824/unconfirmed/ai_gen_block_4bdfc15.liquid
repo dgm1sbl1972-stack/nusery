@@ -1,6 +1,254 @@
+{% doc %}
+  @prompt
+    Create a full-width premium botanical plant announcement ticker section for Shopify. Requirements:
+    
+    LAYOUT & BACKGROUND:
+    - Full-width section with a fixed background image (uploadable from Theme Editor)
+    - Background stays fixed (CSS background-attachment: fixed)
+    - A wooden table/shelf image at the bottom that stays fixed and does not scroll
+    - Wooden shelf image should also be uploadable from Theme Editor
+    - Only the ticker content scrolls
+    
+    TICKER:
+    - Continuous infinite scroll animation from right to left (like an announcement ticker/marquee)
+    - Ticker speed setting in Theme Editor (slow, medium, fast)
+    - Vertical dividers between each ticker item
+    - Smooth seamless looping (duplicate items for seamless loop)
+    
+    EACH TICKER ITEM (repeatable blocks, unlimited):
+    - Plant image upload option
+    - Icon image upload option (small icon)
+    - Heading/title text option
+    - Small description text option
+    - Plant image + icon + heading + description all move together as one unit
+    
+    EXAMPLE TICKER ITEMS:
+    - 🌿 3.5 Lakh+ Happy Plant Families
+    - 🚚 On-Time Plant Delivery
+    - 🪴 Healthy Plants, Carefully Packed
+    - 🌱 Professional Garden Services
+    - 🏡 Landscape & Green Wall Solutions
+    - ✨ Quality Plants, Grown with Care
+    
+    DESIGN:
+    - Clean, realistic, premium and botanical aesthetic
+    - Warm earthy tones (greens, browns, creams)
+    - Elegant typography
+    - Fully responsive for desktop and mobile
+    
+    THEME EDITOR SETTINGS:
+    - Background image upload
+    - Wooden shelf/table image upload
+    - Ticker speed (slow/medium/fast)
+    - Section height setting
+    - Each ticker item as a repeatable block with: plant image, icon image, heading text, description text
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-botanical-ticker-{{ ai_gen_id }} {
+    position: relative;
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    min-height: {{ block.settings.section_height }}px;
+    overflow: hidden;
+    background-color: #1f5130;
+    background-image: linear-gradient(rgba(13, 58, 29, 0.34), rgba(13, 58, 29, 0.34)), url({% if block.settings.background_image %}{{ block.settings.background_image | image_url: width: 2400 }}{% endif %});
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #fff;
+  }
+
+  .ai-botanical-ticker-{{ ai_gen_id }}__shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(13, 58, 29, 0.72), rgba(31, 81, 48, 0.2) 45%, rgba(13, 58, 29, 0.72));
+    pointer-events: none;
+  }
+
+  .ai-botanical-ticker-{{ ai_gen_id }}__track-wrap {
+    position: absolute;
+    inset: 50% 0 auto;
+    transform: translateY(-50%);
+    overflow: hidden;
+    z-index: 2;
+    padding: 20px 0;
+  }
+
+  .ai-botanical-ticker-{{ ai_gen_id }}__track {
+    display: flex;
+    width: max-content;
+    animation: ai-botanical-ticker-scroll-{{ ai_gen_id }} {{ block.settings.ticker_speed }}s linear infinite;
+    will-change: transform;
+  }
+
+  .ai-botanical-ticker-{{ ai_gen_id }}__group {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  .ai-botanical-ticker-{{ ai_gen_id }}__item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 330px;
+    padding: 0 34px;
+    border-right: 1px solid rgba(255, 255, 255, 0.45);
+  }
+
+  .ai-botanical-ticker-{{ ai_gen_id }}__plant {
+    width: 66px;
+    height: 66px;
+    flex: 0 0 66px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.75);
+    background: #f8f4ec;
+  }
+
+  .ai-botanical-ticker-{{ ai_gen_id }}__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .ai-botanical-ticker-{{ ai_gen_id }}__icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+
+  .ai-botanical-ticker-{{ ai_gen_id }}__heading {
+    margin: 0;
+    color: #fff;
+    font-size: 17px;
+    line-height: 1.25;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  .ai-botanical-ticker-{{ ai_gen_id }}__description {
+    margin: 0;
+    color: #f8f4ec;
+    font-size: 12px;
+    line-height: 1.35;
+    opacity: 0.92;
+  }
+
+  .ai-botanical-ticker-{{ ai_gen_id }}__shelf {
+    position: fixed;
+    z-index: 4;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    max-height: 24vh;
+    object-fit: cover;
+    object-position: center top;
+    pointer-events: none;
+  }
+
+  @keyframes ai-botanical-ticker-scroll-{{ ai_gen_id }} {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-botanical-ticker-{{ ai_gen_id }}__track { animation-play-state: paused; }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-botanical-ticker-{{ ai_gen_id }} { min-height: {{ block.settings.mobile_height }}px; }
+    .ai-botanical-ticker-{{ ai_gen_id }}__item { min-width: 280px; padding: 0 22px; gap: 10px; }
+    .ai-botanical-ticker-{{ ai_gen_id }}__plant { width: 54px; height: 54px; flex-basis: 54px; }
+    .ai-botanical-ticker-{{ ai_gen_id }}__heading { font-size: 15px; }
+    .ai-botanical-ticker-{{ ai_gen_id }}__description { font-size: 11px; }
+  }
+{% endstyle %}
+
+<botanical-announcement-{{ ai_gen_id }} class="ai-botanical-ticker-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-botanical-ticker-{{ ai_gen_id }}__shade"></div>
+  <div class="ai-botanical-ticker-{{ ai_gen_id }}__track-wrap" aria-label="{{ block.settings.accessibility_label | escape }}">
+    <div class="ai-botanical-ticker-{{ ai_gen_id }}__track">
+      {% for copy in (1..2) %}
+        <div class="ai-botanical-ticker-{{ ai_gen_id }}__group" {% if copy == 2 %}aria-hidden="true"{% endif %}>
+          {% for i in (1..6) %}
+            {% liquid
+              assign plant_key = 'item_' | append: i | append: '_plant'
+              assign icon_key = 'item_' | append: i | append: '_icon'
+              assign heading_key = 'item_' | append: i | append: '_heading'
+              assign description_key = 'item_' | append: i | append: '_description'
+              assign plant = block.settings[plant_key]
+              assign icon = block.settings[icon_key]
+              assign heading = block.settings[heading_key]
+              assign description = block.settings[description_key]
+            %}
+            {% if heading != blank %}
+              <div class="ai-botanical-ticker-{{ ai_gen_id }}__item">
+                {% if plant %}
+                  <img class="ai-botanical-ticker-{{ ai_gen_id }}__plant" src="{{ plant | image_url: width: 180 }}" alt="{{ plant.alt | escape }}" loading="lazy" width="66" height="66">
+                {% else %}
+                  <div class="ai-botanical-ticker-{{ ai_gen_id }}__plant">{{ 'image' | placeholder_svg_tag }}</div>
+                {% endif %}
+                <div class="ai-botanical-ticker-{{ ai_gen_id }}__copy">
+                  <h2 class="ai-botanical-ticker-{{ ai_gen_id }}__heading">{% if icon %}<img class="ai-botanical-ticker-{{ ai_gen_id }}__icon" src="{{ icon | image_url: width: 48 }}" alt="" loading="lazy" width="20" height="20">{% endif %}{{ heading | escape }}</h2>
+                  {% if description != blank %}<p class="ai-botanical-ticker-{{ ai_gen_id }}__description">{{ description | escape }}</p>{% endif %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% if block.settings.shelf_image %}<img class="ai-botanical-ticker-{{ ai_gen_id }}__shelf" src="{{ block.settings.shelf_image | image_url: width: 2400 }}" alt="" loading="lazy">{% endif %}
+</botanical-announcement-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    if (!customElements.get('botanical-announcement-{{ ai_gen_id }}')) {
+      class BotanicalAnnouncement{{ ai_gen_id }} extends HTMLElement {
+        connectedCallback() {
+          this.addEventListener('mouseenter', function() { this.querySelector('.ai-botanical-ticker-{{ ai_gen_id }}__track').style.animationPlayState = 'paused'; });
+          this.addEventListener('mouseleave', function() { this.querySelector('.ai-botanical-ticker-{{ ai_gen_id }}__track').style.animationPlayState = 'running'; });
+        }
+      }
+      customElements.define('botanical-announcement-{{ ai_gen_id }}', BotanicalAnnouncement{{ ai_gen_id }});
+    }
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Botanical announcement",
+  "tag": null,
+  "class": "botanical-announcement-block",
+  "settings": [
+    {"type":"header","content":"Background"},
+    {"type":"image_picker","id":"background_image","label":"Background image"},
+    {"type":"image_picker","id":"shelf_image","label":"Wooden shelf image"},
+    {"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},
+    {"type":"range","id":"section_height","label":"Section height","min":180,"max":600,"step":20,"unit":"px","default":320},
+    {"type":"range","id":"mobile_height","label":"Mobile height","min":160,"max":500,"step":20,"unit":"px","default":260},
+    {"type":"select","id":"ticker_speed","label":"Ticker speed","options":[{"value":"36","label":"Slow"},{"value":"24","label":"Medium"},{"value":"15","label":"Fast"}],"default":"24"},
+    {"type":"text","id":"accessibility_label","label":"Accessibility label","default":"Store announcements"},
+    {"type":"header","content":"Ticker item 1"},
+    {"type":"image_picker","id":"item_1_plant","label":"Plant image"},{"type":"image_picker","id":"item_1_icon","label":"Icon image"},{"type":"text","id":"item_1_heading","label":"Heading","default":"3.5 Lakh+ Happy Plant Families"},{"type":"text","id":"item_1_description","label":"Description","default":"Growing greener homes together"},
+    {"type":"header","content":"Ticker item 2"},
+    {"type":"image_picker","id":"item_2_plant","label":"Plant image"},{"type":"image_picker","id":"item_2_icon","label":"Icon image"},{"type":"text","id":"item_2_heading","label":"Heading","default":"On-Time Plant Delivery"},{"type":"text","id":"item_2_description","label":"Description","default":"Fresh plants at your doorstep"},
+    {"type":"header","content":"Ticker item 3"},
+    {"type":"image_picker","id":"item_3_plant","label":"Plant image"},{"type":"image_picker","id":"item_3_icon","label":"Icon image"},{"type":"text","id":"item_3_heading","label":"Heading","default":"Healthy Plants, Carefully Packed"},{"type":"text","id":"item_3_description","label":"Description","default":"Handled with care from nursery to home"},
+    {"type":"header","content":"Ticker item 4"},
+    {"type":"image_picker","id":"item_4_plant","label":"Plant image"},{"type":"image_picker","id":"item_4_icon","label":"Icon image"},{"type":"text","id":"item_4_heading","label":"Heading","default":"Professional Garden Services"},{"type":"text","id":"item_4_description","label":"Description","default":"Expert help for thriving gardens"},
+    {"type":"header","content":"Ticker item 5"},
+    {"type":"image_picker","id":"item_5_plant","label":"Plant image"},{"type":"image_picker","id":"item_5_icon","label":"Icon image"},{"type":"text","id":"item_5_heading","label":"Heading","default":"Landscape & Green Wall Solutions"},{"type":"text","id":"item_5_description","label":"Description","default":"Beautiful spaces, thoughtfully designed"},
+    {"type":"header","content":"Ticker item 6"},
+    {"type":"image_picker","id":"item_6_plant","label":"Plant image"},{"type":"image_picker","id":"item_6_icon","label":"Icon image"},{"type":"text","id":"item_6_heading","label":"Heading","default":"Quality Plants, Grown with Care"},{"type":"text","id":"item_6_description","label":"Description","default":"Rooted in quality and passion"}
+  ],
+  "presets": [{"name":"Botanical announcement"}]
+}
 {% endschema %}
