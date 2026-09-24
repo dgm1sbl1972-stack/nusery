@@ -901,6 +901,108 @@
         "col_3": "Others"
       }
     },
+    "179024251235ac3a75": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_ba26721_pkr4BH": {
+          "type": "ai_gen_block_ba26721",
+          "settings": {
+            "heading": "Customer testimonials",
+            "desktop_width_percent": 100,
+            "section_padding": 60,
+            "mobile_padding": 40,
+            "heading_size": 40,
+            "mobile_heading_size": 28,
+            "heading_spacing": 32,
+            "card_gap": 24,
+            "scroll_speed": 100,
+            "mobile_scroll_speed": 60,
+            "background_color": "#f8f4ec",
+            "card_background": "#ffffff",
+            "card_border_color": "#d9e2d9",
+            "heading_color": "#1F5130",
+            "text_color": "#14231a",
+            "muted_color": "#5b6660",
+            "rating_color": "#d99b00",
+            "placeholder_background": "#eef2ec",
+            "card_radius": 16,
+            "slide_1_name": "Priya R.",
+            "slide_1_text": "Loved the quality of the plants! They arrived fresh, healthy, and were packed really well. The plant looks beautiful in my living room. need image upload size as square box",
+            "slide_1_rating": "5",
+            "slide_1_profile": "shopify://shop_images/Peperomia_Variegated.png",
+            "slide_1_google_logo": "shopify://shop_images/image8-2.webp",
+            "slide_1_image_one": "shopify://shop_images/6484560b-e72b-4aa8-8148-4c313a0d97dc.png",
+            "slide_1_image_two": "shopify://shop_images/Philo_Parisa.png",
+            "slide_1_image_three": "shopify://shop_images/Philosophers_With_Moistick.png",
+            "slide_2_name": "Arjun K.",
+            "slide_2_text": "Really happy with my purchase from SBL Nursery. The plant was healthy, exactly as shown, and delivery was smooth. Will definitely order again.",
+            "slide_2_rating": "5",
+            "slide_2_profile": "shopify://shop_images/Philo_Parisa.png",
+            "slide_2_google_logo": "shopify://shop_images/image8-2.webp",
+            "slide_2_image_one": "shopify://shop_images/Barleria_ed8494b5-ffd3-47ec-a324-464066b2a214.png",
+            "slide_2_image_two": "shopify://shop_images/Jade_Variegated.png",
+            "slide_2_image_three": "shopify://shop_images/SUCCULENT_CREEPERS_-_Motihari.png",
+            "slide_3_name": "Sneha M.",
+            "slide_3_text": "The plant arrived in perfect condition and was packed with great care. It has already become my favourite corner of the house!",
+            "slide_3_rating": "5",
+            "slide_3_profile": "shopify://shop_images/Ceylon_Gold.png",
+            "slide_3_google_logo": "shopify://shop_images/image8-2.webp",
+            "slide_3_image_one": "shopify://shop_images/PHILODENDRON_RED_WITH_MOISTICK.png",
+            "slide_3_image_two": "shopify://shop_images/Mandevilla.png",
+            "slide_3_image_three": "shopify://shop_images/Jade_Big_Leaf.png",
+            "slide_4_name": "Rahul S.",
+            "slide_4_text": "Great experience from ordering to delivery. The plant quality is excellent and it was delivered safely to my doorstep.",
+            "slide_4_rating": "5",
+            "slide_4_profile": "shopify://shop_images/Oxycardium_Green.png",
+            "slide_4_google_logo": "shopify://shop_images/image8-2.webp",
+            "slide_4_image_one": "shopify://shop_images/Betel_Leaf.png",
+            "slide_4_image_two": "shopify://shop_images/Table_Rose.png",
+            "slide_4_image_three": "shopify://shop_images/Bougainvillea_08b05e9b-1159-4945-856c-18017e4af0a7.png",
+            "slide_5_name": "Ananya P.",
+            "slide_5_text": "I ordered a few indoor plants and I’m very happy with them. Fresh, healthy, and beautiful plants at a great value.",
+            "slide_5_rating": "5",
+            "slide_5_profile": "shopify://shop_images/BANANA_SUCCULENT.png",
+            "slide_5_google_logo": "shopify://shop_images/image8-2.webp",
+            "slide_5_image_one": "shopify://shop_images/Philosophers_With_Moistick.png",
+            "slide_5_image_two": "shopify://shop_images/Oxycardium_Gold.png",
+            "slide_5_image_three": "shopify://shop_images/Aralia_Green.png",
+            "slide_6_name": "Vikram N.",
+            "slide_6_text": "SBL Nursery made it so easy to bring more greenery into my home. The plant arrived healthy and ready to grow. Highly recommended!",
+            "slide_6_rating": "5",
+            "slide_6_profile": "shopify://shop_images/mix_tray.png",
+            "slide_6_google_logo": "shopify://shop_images/image8-2.webp",
+            "slide_6_image_one": "shopify://shop_images/Jade.png",
+            "slide_6_image_two": "shopify://shop_images/Aptenia_7f1dd54a-f428-43ad-af64-9ffef36be980.png",
+            "slide_6_image_three": "shopify://shop_images/Morning_Glory.png"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_ba26721_pkr4BH"
+      ],
+      "settings": {}
+    },
+    "17901580437110f3d4": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_50494ca_Ajn3nK": {
+          "type": "ai_gen_block_50494ca",
+          "settings": {
+            "desktop_width_percent": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_50494ca_Ajn3nK"
+      ],
+      "settings": {}
+    },
+    "1790242364d2d2796d": {
+      "type": "_blocks",
+      "settings": {}
+    },
     "blog_posts": {
       "type": "blog-posts",
       "settings": {
@@ -998,21 +1100,61 @@
     },
     "17902419438e913f8a": {
       "type": "_blocks",
-      "settings": {}
-    },
-    "17901580437110f3d4": {
-      "type": "_blocks",
       "blocks": {
-        "ai_gen_block_50494ca_Ajn3nK": {
-          "type": "ai_gen_block_50494ca",
+        "ai_gen_block_7988465_EHzXE3": {
+          "type": "ai_gen_block_7988465",
           "settings": {
-            "desktop_width_percent": 100
+            "top_label": "WHY CHOOSE SBL",
+            "heading": "Your Monthly Green Dose",
+            "description": "Get curated plants, seeds and care products delivered to your door every month. Cancel anytime.",
+            "feature_heading": "Feature",
+            "sbl_heading": "SBL NURSERY",
+            "others_heading": "Others",
+            "feature_1": "Plant quality",
+            "sbl_1": "✓ Wide range of indoor, outdoor & flowering plants",
+            "others_1": "~ Limited selection",
+            "feature_2": "Pests",
+            "sbl_2": "✓ Pest-controlled",
+            "others_2": "✓",
+            "feature_3": "Repotting",
+            "sbl_3": "✓ Not required",
+            "others_3": "~ Varies; not consistent",
+            "feature_4": "Standard soil",
+            "sbl_4": "✓ Pre-mixed",
+            "others_4": "✓",
+            "feature_5": "Growing Conditions",
+            "sbl_5": "✓ Grown by experts on old farms",
+            "others_5": "✕ Outsourced",
+            "feature_6": "After-sale help",
+            "sbl_6": "✓ Expert support",
+            "others_6": "✕ None",
+            "feature_7": "Guaranteed",
+            "sbl_7": "✓ Assured quality, 14 days replacement",
+            "others_7": "~ Conditional",
+            "feature_8": "One-stop garden shop",
+            "sbl_8": "✓ Plants • Pots • Soil • Care • Services",
+            "others_8": "~ Plants-focused",
+            "overlay_opacity": 25,
+            "section_background": "#f8f4ec",
+            "sbl_background": "#EED433",
+            "header_background": "#1f5130",
+            "feature_background": "#ffffff",
+            "heading_color": "#0d3a1d",
+            "label_color": "#0c8f45",
+            "description_color": "#5b6660",
+            "text_color": "#14231a",
+            "sbl_text_color": "#0d3a1d",
+            "header_text_color": "#ffffff",
+            "border_color": "#d5dfd5",
+            "desktop_width_percent": 100,
+            "border_radius": 16,
+            "section_spacing": 70
           },
           "blocks": {}
         }
       },
       "block_order": [
-        "ai_gen_block_50494ca_Ajn3nK"
+        "ai_gen_block_7988465_EHzXE3"
       ],
       "settings": {}
     },
@@ -1034,92 +1176,6 @@
       },
       "block_order": [
         "ai_gen_block_fc7c0d1_FHEhmT"
-      ],
-      "settings": {}
-    },
-    "1790242364d2d2796d": {
-      "type": "_blocks",
-      "settings": {}
-    },
-    "179024251235ac3a75": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_ba26721_pkr4BH": {
-          "type": "ai_gen_block_ba26721",
-          "settings": {
-            "heading": "Customer testimonials",
-            "desktop_width_percent": 100,
-            "section_padding": 60,
-            "mobile_padding": 40,
-            "heading_size": 40,
-            "mobile_heading_size": 28,
-            "heading_spacing": 32,
-            "card_gap": 24,
-            "scroll_speed": 100,
-            "mobile_scroll_speed": 60,
-            "background_color": "#f8f4ec",
-            "card_background": "#ffffff",
-            "card_border_color": "#d9e2d9",
-            "heading_color": "#1F5130",
-            "text_color": "#14231a",
-            "muted_color": "#5b6660",
-            "rating_color": "#d99b00",
-            "placeholder_background": "#eef2ec",
-            "card_radius": 16,
-            "slide_1_name": "Priya R.",
-            "slide_1_text": "Loved the quality of the plants! They arrived fresh, healthy, and were packed really well. The plant looks beautiful in my living room. need image upload size as square box",
-            "slide_1_rating": "5",
-            "slide_1_profile": "shopify://shop_images/Peperomia_Variegated.png",
-            "slide_1_google_logo": "shopify://shop_images/image8-2.webp",
-            "slide_1_image_one": "shopify://shop_images/6484560b-e72b-4aa8-8148-4c313a0d97dc.png",
-            "slide_1_image_two": "shopify://shop_images/Philo_Parisa.png",
-            "slide_1_image_three": "shopify://shop_images/Philosophers_With_Moistick.png",
-            "slide_2_name": "Arjun K.",
-            "slide_2_text": "Really happy with my purchase from SBL Nursery. The plant was healthy, exactly as shown, and delivery was smooth. Will definitely order again.",
-            "slide_2_rating": "5",
-            "slide_2_profile": "shopify://shop_images/Philo_Parisa.png",
-            "slide_2_google_logo": "shopify://shop_images/image8-2.webp",
-            "slide_2_image_one": "shopify://shop_images/Barleria_ed8494b5-ffd3-47ec-a324-464066b2a214.png",
-            "slide_2_image_two": "shopify://shop_images/Jade_Variegated.png",
-            "slide_2_image_three": "shopify://shop_images/SUCCULENT_CREEPERS_-_Motihari.png",
-            "slide_3_name": "Sneha M.",
-            "slide_3_text": "The plant arrived in perfect condition and was packed with great care. It has already become my favourite corner of the house!",
-            "slide_3_rating": "5",
-            "slide_3_profile": "shopify://shop_images/Ceylon_Gold.png",
-            "slide_3_google_logo": "shopify://shop_images/image8-2.webp",
-            "slide_3_image_one": "shopify://shop_images/PHILODENDRON_RED_WITH_MOISTICK.png",
-            "slide_3_image_two": "shopify://shop_images/Mandevilla.png",
-            "slide_3_image_three": "shopify://shop_images/Jade_Big_Leaf.png",
-            "slide_4_name": "Rahul S.",
-            "slide_4_text": "Great experience from ordering to delivery. The plant quality is excellent and it was delivered safely to my doorstep.",
-            "slide_4_rating": "5",
-            "slide_4_profile": "shopify://shop_images/Oxycardium_Green.png",
-            "slide_4_google_logo": "shopify://shop_images/image8-2.webp",
-            "slide_4_image_one": "shopify://shop_images/Betel_Leaf.png",
-            "slide_4_image_two": "shopify://shop_images/Table_Rose.png",
-            "slide_4_image_three": "shopify://shop_images/Bougainvillea_08b05e9b-1159-4945-856c-18017e4af0a7.png",
-            "slide_5_name": "Ananya P.",
-            "slide_5_text": "I ordered a few indoor plants and I’m very happy with them. Fresh, healthy, and beautiful plants at a great value.",
-            "slide_5_rating": "5",
-            "slide_5_profile": "shopify://shop_images/BANANA_SUCCULENT.png",
-            "slide_5_google_logo": "shopify://shop_images/image8-2.webp",
-            "slide_5_image_one": "shopify://shop_images/Philosophers_With_Moistick.png",
-            "slide_5_image_two": "shopify://shop_images/Oxycardium_Gold.png",
-            "slide_5_image_three": "shopify://shop_images/Aralia_Green.png",
-            "slide_6_name": "Vikram N.",
-            "slide_6_text": "SBL Nursery made it so easy to bring more greenery into my home. The plant arrived healthy and ready to grow. Highly recommended!",
-            "slide_6_rating": "5",
-            "slide_6_profile": "shopify://shop_images/mix_tray.png",
-            "slide_6_google_logo": "shopify://shop_images/image8-2.webp",
-            "slide_6_image_one": "shopify://shop_images/Jade.png",
-            "slide_6_image_two": "shopify://shop_images/Aptenia_7f1dd54a-f428-43ad-af64-9ffef36be980.png",
-            "slide_6_image_three": "shopify://shop_images/Morning_Glory.png"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_ba26721_pkr4BH"
       ],
       "settings": {}
     }
