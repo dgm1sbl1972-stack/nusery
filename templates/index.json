@@ -500,75 +500,57 @@
       ],
       "settings": {}
     },
-    "product_tabs": {
-      "type": "product-tabs",
-      "blocks": {
-        "tab_1": {
-          "type": "tab",
-          "settings": {
-            "label": "All",
-            "collection": ""
-          }
-        },
-        "tab_2": {
-          "type": "tab",
-          "settings": {
-            "label": "Plants",
-            "collection": ""
-          }
-        },
-        "tab_3": {
-          "type": "tab",
-          "settings": {
-            "label": "Seeds",
-            "collection": ""
-          }
-        },
-        "tab_4": {
-          "type": "tab",
-          "settings": {
-            "label": "Kits",
-            "collection": ""
-          }
-        }
-      },
-      "block_order": [
-        "tab_1",
-        "tab_2",
-        "tab_3",
-        "tab_4"
-      ],
-      "disabled": true,
-      "settings": {
-        "eyebrow": "Our collection",
-        "heading": "Handpicked",
-        "heading_accent": "Favourites",
-        "limit": 8,
-        "background": "#f8f4ec",
-        "button_label": "View All 500+ Products",
-        "button_link": ""
-      }
-    },
-    "1790224367bff4ff77": {
+    "179022738232862195": {
       "type": "_blocks",
       "blocks": {
-        "ai_gen_block_0774df5_FdKV4n": {
-          "type": "ai_gen_block_0774df5",
+        "ai_gen_block_e0fbcb6_RDUErV": {
+          "type": "ai_gen_block_e0fbcb6",
           "settings": {
             "collection": "pots",
-            "heading": "Find Your Perfect Pot",
-            "products_to_show": 12,
-            "products_per_row": "4",
+            "heading": "Pots",
             "desktop_width_percent": 100,
+            "columns_desktop": 4,
+            "products_to_show": 12,
+            "grid_gap": 16,
+            "section_padding": 40,
             "background_color": "#f8f4ec",
+            "heading_color": "#0d3a1d",
+            "text_color": "#14231a",
+            "muted_color": "#5b6660",
             "button_color": "#0d3a1d",
-            "border_radius": 16
+            "badge_color": "#1f5130"
           },
           "blocks": {}
         }
       },
       "block_order": [
-        "ai_gen_block_0774df5_FdKV4n"
+        "ai_gen_block_e0fbcb6_RDUErV"
+      ],
+      "settings": {}
+    },
+    "1790224367bff4ff77": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_719033e_6naQEb": {
+          "type": "ai_gen_block_719033e",
+          "disabled": true,
+          "settings": {
+            "collection": "pots",
+            "desktop_width_percent": 100,
+            "products_per_page": 8,
+            "columns": "4",
+            "mobile_columns": "2",
+            "grid_gap": 20,
+            "mobile_gap": 12,
+            "button_label": "View more",
+            "loading_label": "Loading...",
+            "empty_message": "Select a collection to display products."
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_719033e_6naQEb"
       ],
       "settings": {}
     },
@@ -1007,6 +989,10 @@
     "17901655219d915c8a": {
       "type": "_blocks",
       "settings": {}
+    },
+    "17902271122abbfa04": {
+      "type": "_blocks",
+      "settings": {}
     }
   },
   "order": [
@@ -1018,7 +1004,7 @@
     "category_circles",
     "1790157062db4cdf4d",
     "1790161067735ca0dd",
-    "product_tabs",
+    "179022738232862195",
     "1790224367bff4ff77",
     "services_banner",
     "our_story",
@@ -1033,6 +1019,7 @@
     "1790159110cf772009",
     "1790164970bcc216e6",
     "17901651019ef06f4d",
-    "17901655219d915c8a"
+    "17901655219d915c8a",
+    "17902271122abbfa04"
   ]
 }
