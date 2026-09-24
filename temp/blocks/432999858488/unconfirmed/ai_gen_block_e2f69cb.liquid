@@ -1,6 +1,285 @@
+{% doc %}
+  @prompt
+    Create a two-column layout section that has the Plant finder quiz on the left side and a video upload/embed section on the right side. The right column should allow merchants to upload or embed a video (supporting both uploaded video files and external video URLs like YouTube/Vimeo). Both columns should be equal width and responsive on mobile (stacking vertically). The design should be clean and match the store's existing style.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-plant-finder-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__card {
+    background: {{ block.settings.card_background }};
+    border: 1px solid {{ block.settings.card_border }};
+    border-radius: {{ block.settings.card_radius }}px;
+    padding: clamp(24px, 4vw, 44px);
+    min-width: 0;
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__eyebrow {
+    color: {{ block.settings.eyebrow_color }};
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    margin: 0 0 10px;
+    text-transform: uppercase;
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__title {
+    color: {{ block.settings.heading_color }};
+    font-size: clamp(24px, 3vw, 36px);
+    line-height: 1.15;
+    margin: 0 0 12px;
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__intro,
+  .ai-plant-finder-{{ ai_gen_id }}__result-text {
+    color: {{ block.settings.muted_color }};
+    line-height: 1.6;
+    margin: 0 0 24px;
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__question {
+    border: 0;
+    margin: 0 0 22px;
+    padding: 0;
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__question legend {
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__options {
+    display: grid;
+    gap: 8px;
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__option {
+    align-items: center;
+    background: {{ block.settings.option_background }};
+    border: 1px solid {{ block.settings.card_border }};
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__option:has(input:checked) {
+    background: {{ block.settings.option_selected_background }};
+    border-color: {{ block.settings.eyebrow_color }};
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__option input {
+    accent-color: {{ block.settings.eyebrow_color }};
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__button {
+    background: {{ block.settings.button_background }};
+    border: 0;
+    border-radius: 999px;
+    color: {{ block.settings.button_text_color }};
+    cursor: pointer;
+    font-weight: 700;
+    padding: 13px 22px;
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__button:focus-visible,
+  .ai-plant-finder-{{ ai_gen_id }}__option:focus-within {
+    outline: 3px solid {{ block.settings.focus_color }};
+    outline-offset: 2px;
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__result {
+    background: {{ block.settings.result_background }};
+    border-radius: 12px;
+    margin-top: 20px;
+    padding: 18px;
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__result[hidden] {
+    display: none;
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__result-title {
+    color: {{ block.settings.heading_color }};
+    font-size: 20px;
+    margin: 0 0 8px;
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__video {
+    aspect-ratio: 16 / 9;
+    background: {{ block.settings.video_background }};
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__video iframe,
+  .ai-plant-finder-{{ ai_gen_id }}__video video {
+    border: 0;
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+
+  .ai-plant-finder-{{ ai_gen_id }}__video-empty {
+    align-items: center;
+    color: {{ block.settings.muted_color }};
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-plant-finder-{{ ai_gen_id }}__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstyle %}
+
+<plant-finder-{{ ai_gen_id }} class="ai-plant-finder-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-plant-finder-{{ ai_gen_id }}__grid">
+    <section class="ai-plant-finder-{{ ai_gen_id }}__card" aria-labelledby="ai-quiz-title-{{ ai_gen_id }}">
+      {% if block.settings.quiz_eyebrow != blank %}<p class="ai-plant-finder-{{ ai_gen_id }}__eyebrow">{{ block.settings.quiz_eyebrow }}</p>{% endif %}
+      <h2 id="ai-quiz-title-{{ ai_gen_id }}" class="ai-plant-finder-{{ ai_gen_id }}__title">{{ block.settings.quiz_heading }}</h2>
+      <div class="ai-plant-finder-{{ ai_gen_id }}__intro">{{ block.settings.quiz_intro }}</div>
+      <form data-quiz>
+        <fieldset class="ai-plant-finder-{{ ai_gen_id }}__question">
+          <legend>{{ block.settings.question_one }}</legend>
+          <div class="ai-plant-finder-{{ ai_gen_id }}__options">
+            <label class="ai-plant-finder-{{ ai_gen_id }}__option"><input required type="radio" name="light-{{ ai_gen_id }}" value="bright"> {{ block.settings.light_bright }}</label>
+            <label class="ai-plant-finder-{{ ai_gen_id }}__option"><input type="radio" name="light-{{ ai_gen_id }}" value="low"> {{ block.settings.light_low }}</label>
+          </div>
+        </fieldset>
+        <fieldset class="ai-plant-finder-{{ ai_gen_id }}__question">
+          <legend>{{ block.settings.question_two }}</legend>
+          <div class="ai-plant-finder-{{ ai_gen_id }}__options">
+            <label class="ai-plant-finder-{{ ai_gen_id }}__option"><input required type="radio" name="care-{{ ai_gen_id }}" value="easy"> {{ block.settings.care_easy }}</label>
+            <label class="ai-plant-finder-{{ ai_gen_id }}__option"><input type="radio" name="care-{{ ai_gen_id }}" value="often"> {{ block.settings.care_often }}</label>
+          </div>
+        </fieldset>
+        <button class="ai-plant-finder-{{ ai_gen_id }}__button" type="submit">{{ block.settings.button_label }}</button>
+      </form>
+      <div class="ai-plant-finder-{{ ai_gen_id }}__result" data-result hidden aria-live="polite">
+        <h3 class="ai-plant-finder-{{ ai_gen_id }}__result-title" data-result-title></h3>
+        <p class="ai-plant-finder-{{ ai_gen_id }}__result-text" data-result-text></p>
+      </div>
+    </section>
+
+    <section class="ai-plant-finder-{{ ai_gen_id }}__card" aria-labelledby="ai-video-title-{{ ai_gen_id }}">
+      {% if block.settings.video_eyebrow != blank %}<p class="ai-plant-finder-{{ ai_gen_id }}__eyebrow">{{ block.settings.video_eyebrow }}</p>{% endif %}
+      <h2 id="ai-video-title-{{ ai_gen_id }}" class="ai-plant-finder-{{ ai_gen_id }}__title">{{ block.settings.video_heading }}</h2>
+      {% if block.settings.video_description != blank %}<div class="ai-plant-finder-{{ ai_gen_id }}__intro">{{ block.settings.video_description }}</div>{% endif %}
+      <div class="ai-plant-finder-{{ ai_gen_id }}__video">
+        {% if block.settings.video_file != blank %}
+          {{ block.settings.video_file | video_tag: controls: true, image_size: '1200x' }}
+        {% elsif block.settings.video_url != blank %}
+          <iframe src="{{ block.settings.video_url }}" title="{{ block.settings.video_heading | escape }}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+        {% else %}
+          <div class="ai-plant-finder-{{ ai_gen_id }}__video-empty">{{ block.settings.video_empty_text }}</div>
+        {% endif %}
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (function() {
+      class PlantFinder{{ ai_gen_id }} extends HTMLElement {
+        connectedCallback() {
+          const form = this.querySelector('[data-quiz]');
+          const result = this.querySelector('[data-result]');
+          const title = this.querySelector('[data-result-title]');
+          const text = this.querySelector('[data-result-text]');
+          form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const light = form.querySelector('input[name="light-{{ ai_gen_id }}"]:checked').value;
+            const care = form.querySelector('input[name="care-{{ ai_gen_id }}"]:checked').value;
+            if (light === 'bright' && care === 'often') {
+              title.textContent = {{ block.settings.result_bright_often | json }};
+              text.textContent = {{ block.settings.result_bright_often_text | json }};
+            } else if (light === 'bright') {
+              title.textContent = {{ block.settings.result_bright_easy | json }};
+              text.textContent = {{ block.settings.result_bright_easy_text | json }};
+            } else if (care === 'often') {
+              title.textContent = {{ block.settings.result_low_often | json }};
+              text.textContent = {{ block.settings.result_low_often_text | json }};
+            } else {
+              title.textContent = {{ block.settings.result_low_easy | json }};
+              text.textContent = {{ block.settings.result_low_easy_text | json }};
+            }
+            result.hidden = false;
+          });
+        }
+      }
+      if (!customElements.get('plant-finder-{{ ai_gen_id }}')) customElements.define('plant-finder-{{ ai_gen_id }}', PlantFinder{{ ai_gen_id }});
+    })();
+  </script>
+</plant-finder-{{ ai_gen_id }}>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Plant finder with video",
+  "tag": null,
+  "class": "plant-finder-video-block",
+  "settings": [
+    {"type":"header","content":"Layout"},
+    {"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},
+    {"type":"range","id":"card_radius","label":"Card radius","min":0,"max":32,"step":2,"unit":"px","default":16},
+    {"type":"header","content":"Quiz content"},
+    {"type":"text","id":"quiz_eyebrow","label":"Quiz eyebrow","default":"Find your match"},
+    {"type":"text","id":"quiz_heading","label":"Quiz heading","default":"Which plant is right for you?"},
+    {"type":"textarea","id":"quiz_intro","label":"Quiz introduction","default":"Answer two quick questions and discover a great place to start."},
+    {"type":"text","id":"question_one","label":"First question","default":"How much natural light does your space get?"},
+    {"type":"text","id":"light_bright","label":"Bright light answer","default":"Bright, indirect light"},
+    {"type":"text","id":"light_low","label":"Low light answer","default":"Low to moderate light"},
+    {"type":"text","id":"question_two","label":"Second question","default":"How often would you like to care for it?"},
+    {"type":"text","id":"care_easy","label":"Easy care answer","default":"Occasionally"},
+    {"type":"text","id":"care_often","label":"Frequent care answer","default":"Regularly"},
+    {"type":"text","id":"button_label","label":"Button label","default":"Show my plant match"},
+    {"type":"text","id":"result_bright_often","label":"Bright and regular result","default":"Try a flowering plant"},
+    {"type":"textarea","id":"result_bright_often_text","label":"Bright and regular text","default":"Your space and routine suit a plant that rewards consistent care."},
+    {"type":"text","id":"result_bright_easy","label":"Bright and occasional result","default":"Try a sun-loving succulent"},
+    {"type":"textarea","id":"result_bright_easy_text","label":"Bright and occasional text","default":"Choose a hardy plant that enjoys plenty of light and less frequent watering."},
+    {"type":"text","id":"result_low_often","label":"Low light and regular result","default":"Try a leafy tropical plant"},
+    {"type":"textarea","id":"result_low_often_text","label":"Low light and regular text","default":"A lush foliage plant can thrive with attentive care in a gentler light spot."},
+    {"type":"text","id":"result_low_easy","label":"Low light and occasional result","default":"Try a low-light plant"},
+    {"type":"textarea","id":"result_low_easy_text","label":"Low light and occasional text","default":"Look for a forgiving plant that is comfortable in lower light and needs less attention."},
+    {"type":"header","content":"Video"},
+    {"type":"text","id":"video_eyebrow","label":"Video eyebrow","default":"Plant care tips"},
+    {"type":"text","id":"video_heading","label":"Video heading","default":"See how to get started"},
+    {"type":"textarea","id":"video_description","label":"Video description","default":"Share a helpful guide alongside your plant recommendations."},
+    {"type":"video","id":"video_file","label":"Uploaded video"},
+    {"type":"url","id":"video_url","label":"External video URL"},
+    {"type":"text","id":"video_empty_text","label":"Empty video message","default":"Add an uploaded video or an external video URL."},
+    {"type":"header","content":"Colors"},
+    {"type":"color","id":"card_background","label":"Card background","default":"#f8f4ec"},
+    {"type":"color","id":"card_border","label":"Card border","default":"#d9e1d6"},
+    {"type":"color","id":"text_color","label":"Text","default":"#0d3a1d"},
+    {"type":"color","id":"heading_color","label":"Headings","default":"#0d3a1d"},
+    {"type":"color","id":"muted_color","label":"Muted text","default":"#5b6660"},
+    {"type":"color","id":"eyebrow_color","label":"Eyebrow and accents","default":"#1f5130"},
+    {"type":"color","id":"option_background","label":"Option background","default":"#ffffff"},
+    {"type":"color","id":"option_selected_background","label":"Selected option","default":"#e7f0df"},
+    {"type":"color","id":"result_background","label":"Result background","default":"#e7f0df"},
+    {"type":"color","id":"button_background","label":"Button background","default":"#1f5130"},
+    {"type":"color","id":"button_text_color","label":"Button text","default":"#ffffff"},
+    {"type":"color","id":"focus_color","label":"Focus outline","default":"#ffd60a"},
+    {"type":"color","id":"video_background","label":"Video background","default":"#e5ebe3"}
+  ],
+  "presets": [{"name":"Plant finder with video"}]
+}
 {% endschema %}
