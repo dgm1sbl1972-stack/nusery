@@ -609,10 +609,10 @@
             "background_color": "#f8f4ec",
             "heading_color": "#0d3a1d",
             "fallback_color": "#1f5130",
-            "placeholder_background": "#dfe8df",
+            "placeholder_background": "#FFF0BE",
             "placeholder_color": "#5b6660",
             "focus_color": "#ffd60a",
-            "collection_1": "",
+            "collection_1": "plants",
             "image_1": "shopify://shop_images/f8608819-4320-4fe7-b3b1-2a19ac9331ba.png",
             "title_1": "Living Room",
             "collection_2": "",
@@ -755,11 +755,50 @@
         "reel_6",
         "reel_WU6rwq"
       ],
+      "disabled": true,
       "settings": {
         "heading": "Explore Our Reels",
         "heading_accent": "",
         "background": "#f7f9ef"
       }
+    },
+    "1790236138b706c727": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_9d8dc44_64YEeB": {
+          "type": "ai_gen_block_9d8dc44",
+          "settings": {
+            "heading": "Plants in the Spotlight",
+            "heading_alignment": "center",
+            "heading_size": 32,
+            "desktop_width_percent": 100,
+            "tile_radius": 16,
+            "background_color": "#f8f4ec",
+            "heading_color": "#1F5130",
+            "placeholder_color": "#e7eee6",
+            "placeholder_text_color": "#0d3a1d",
+            "play_color": "#EED433",
+            "play_icon_color": "#1F5130",
+            "tile_1_cover": "shopify://shop_images/22.jpg",
+            "tile_1_url": "https://www.instagram.com/reel/DYrpj-8vW5P/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==",
+            "tile_2_cover": "shopify://shop_images/50.jpg",
+            "tile_2_url": "https://www.instagram.com/reel/DZupEUSPYHx/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==",
+            "tile_3_cover": "shopify://shop_images/41.jpg",
+            "tile_3_url": "https://www.instagram.com/reel/DZhoGERvQsm/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==",
+            "tile_4_cover": "shopify://shop_images/52.jpg",
+            "tile_4_url": "https://www.instagram.com/reel/DaArCloP3t6/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==",
+            "tile_5_cover": "shopify://shop_images/24.jpg",
+            "tile_5_url": "https://www.instagram.com/reel/DYzQrWZPXWg/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==",
+            "tile_6_cover": "shopify://shop_images/34.jpg",
+            "tile_6_url": "https://www.instagram.com/reel/DZU5QzevcYQ/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA=="
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_9d8dc44_64YEeB"
+      ],
+      "settings": {}
     },
     "1790230434f3dff53d": {
       "type": "_blocks",
@@ -1080,6 +1119,7 @@
     "1790224367bff4ff77",
     "179022886862f2d4cd",
     "trending_reels",
+    "1790236138b706c727",
     "1790230434f3dff53d",
     "comparison_table",
     "blog_posts",
