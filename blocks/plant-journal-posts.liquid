@@ -1,7 +1,8 @@
 {%- comment -%}
   Plant journal posts: 3 blog cards (large first card) whose image, tag, title,
-  date, read time and link are all set in the theme editor. The uploaded card
-  images always render; no Shopify blog is needed. Setting IDs match the
+  description, date, read time and link are all set in the theme editor. The
+  uploaded card images always render; no Shopify blog is needed. Pick a blog
+  article on a card to link to it and fill any empty fields from it. Setting IDs match the
   AI-generated "Plant journal posts" block so saved images carry over.
 {%- endcomment -%}
 {%- assign uid = block.id | replace: '_', '' | downcase -%}
@@ -25,6 +26,7 @@
   .pj-{{ uid }} .pj__name { margin: 0 0 10px; font-family: Georgia, 'Times New Roman', serif; font-size: 19px; font-weight: 400; line-height: 1.35; color: #14231a; }
   .pj-{{ uid }} .pj__card--wide .pj__name { font-size: 23px; }
   .pj-{{ uid }} .pj__name a { color: inherit; text-decoration: none; }
+  .pj-{{ uid }} .pj__desc { margin: 0 0 12px; font-size: 14px; line-height: 1.6; color: #5b6660; display: -webkit-box; -webkit-line-clamp: {{ block.settings.description_lines }}; -webkit-box-orient: vertical; overflow: hidden; }
   .pj-{{ uid }} .pj__meta { margin: 0 0 14px; font-size: 13px; color: #5b6660; }
   .pj-{{ uid }} .pj__link { font-size: 14px; font-weight: 700; color: #1f5130; text-decoration: none; }
   @media (max-width: 989px) {
@@ -61,12 +63,33 @@
           assign date_key = prefix | append: '_date'
           assign read_time_key = prefix | append: '_read_time'
           assign url_key = prefix | append: '_url'
+          assign description_key = prefix | append: '_description'
+          assign article_key = prefix | append: '_article'
           assign image = block.settings[image_key]
           assign tag = block.settings[tag_key]
           assign title = block.settings[title_key]
           assign date = block.settings[date_key]
           assign read_time = block.settings[read_time_key]
           assign url = block.settings[url_key]
+          assign description = block.settings[description_key]
+          assign article = block.settings[article_key]
+          if article != blank
+            if image == blank
+              assign image = article.image
+            endif
+            if title == blank
+              assign title = article.title
+            endif
+            if description == blank
+              assign description = article.excerpt_or_content | strip_html | truncatewords: 30
+            endif
+            if date == blank
+              assign date = article.published_at | date: '%B %-d, %Y'
+            endif
+            if url == blank
+              assign url = article.url
+            endif
+          endif
         -%}
         <article class="pj__card{% if forloop.first %} pj__card--wide{% endif %}">
           <a class="pj__media" href="{{ url | default: '#' }}">
@@ -79,6 +102,7 @@
           <div class="pj__body">
             {%- if tag != blank -%}<span class="pj__tag">{{ tag }}</span>{%- endif -%}
             <h3 class="pj__name"><a href="{{ url | default: '#' }}">{{ title }}</a></h3>
+            {%- if description != blank -%}<p class="pj__desc">{{ description | escape | newline_to_br }}</p>{%- endif -%}
             {%- if date != blank or read_time != blank -%}
               <p class="pj__meta">
                 {%- if date != blank -%}📅 {{ date }}{%- endif -%}
@@ -106,31 +130,38 @@
     { "type": "text", "id": "all_articles_text", "label": "All articles text", "default": "All Articles →" },
     { "type": "url", "id": "all_articles_url", "label": "All articles link" },
     { "type": "text", "id": "read_article_text", "label": "Read article text", "default": "Read Article" },
+    { "type": "range", "id": "description_lines", "label": "Description lines shown", "min": 2, "max": 6, "step": 1, "default": 3 },
     { "type": "color", "id": "background", "label": "Background", "default": "#ffffff" },
 
     { "type": "header", "content": "Card 1 (large)" },
     { "type": "image_picker", "id": "card_1_image", "label": "Card 1 image" },
     { "type": "text", "id": "card_1_tag", "label": "Card 1 tag", "default": "🌿 Beginner guide" },
     { "type": "text", "id": "card_1_title", "label": "Card 1 title", "default": "10 Easiest Indoor Plants That Even Black Thumbs Can't Kill" },
+    { "type": "textarea", "id": "card_1_description", "label": "Card 1 description", "default": "Low-light, low-water heroes like snake plants, ZZ plants and pothos that thrive even when you forget about them." },
     { "type": "text", "id": "card_1_date", "label": "Card 1 date", "default": "June 12, 2026" },
     { "type": "text", "id": "card_1_read_time", "label": "Card 1 read time", "default": "6 min read" },
     { "type": "url", "id": "card_1_url", "label": "Card 1 link" },
+    { "type": "article", "id": "card_1_article", "label": "Card 1 blog article (optional)", "info": "Links the card to this article and fills any empty fields above from it" },
 
     { "type": "header", "content": "Card 2" },
     { "type": "image_picker", "id": "card_2_image", "label": "Card 2 image" },
     { "type": "text", "id": "card_2_tag", "label": "Card 2 tag", "default": "🌱 Grow at home" },
     { "type": "text", "id": "card_2_title", "label": "Card 2 title", "default": "How to Start a Kitchen Garden on Your Balcony" },
+    { "type": "textarea", "id": "card_2_description", "label": "Card 2 description", "default": "Turn a sunny balcony into a mini kitchen garden with herbs, tomatoes and chillies. All you need is a few pots and good soil." },
     { "type": "text", "id": "card_2_date", "label": "Card 2 date", "default": "May 28, 2026" },
     { "type": "text", "id": "card_2_read_time", "label": "Card 2 read time", "default": "5 min read" },
     { "type": "url", "id": "card_2_url", "label": "Card 2 link" },
+    { "type": "article", "id": "card_2_article", "label": "Card 2 blog article (optional)", "info": "Links the card to this article and fills any empty fields above from it" },
 
     { "type": "header", "content": "Card 3" },
     { "type": "image_picker", "id": "card_3_image", "label": "Card 3 image" },
     { "type": "text", "id": "card_3_tag", "label": "Card 3 tag", "default": "💧 Plant care" },
     { "type": "text", "id": "card_3_title", "label": "Card 3 title", "default": "Overwatering vs Underwatering: How to Tell the Difference" },
+    { "type": "textarea", "id": "card_3_description", "label": "Card 3 description", "default": "Yellow leaves? Drooping stems? Learn the simple signs that tell you whether your plant needs more water or less." },
     { "type": "text", "id": "card_3_date", "label": "Card 3 date", "default": "May 10, 2026" },
     { "type": "text", "id": "card_3_read_time", "label": "Card 3 read time", "default": "4 min read" },
-    { "type": "url", "id": "card_3_url", "label": "Card 3 link" }
+    { "type": "url", "id": "card_3_url", "label": "Card 3 link" },
+    { "type": "article", "id": "card_3_article", "label": "Card 3 blog article (optional)", "info": "Links the card to this article and fills any empty fields above from it" }
   ],
   "presets": [{ "name": "Plant journal posts" }]
 }
