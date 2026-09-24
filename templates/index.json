@@ -493,7 +493,7 @@
             "mobile_padding": 24,
             "content_width": 1200,
             "card_background": "#fffdf8",
-            "text_color": "#1F5130",
+            "text_color": "#1f5130",
             "muted_color": "#5b6660",
             "control_background": "#fffdf8",
             "filter_background": "#fffdf8",
@@ -609,7 +609,7 @@
             "background_color": "#f8f4ec",
             "heading_color": "#0d3a1d",
             "fallback_color": "#1f5130",
-            "placeholder_background": "#FFF0BE",
+            "placeholder_background": "#fff0be",
             "placeholder_color": "#5b6660",
             "focus_color": "#ffd60a",
             "collection_1": "plants",
@@ -774,11 +774,11 @@
             "desktop_width_percent": 100,
             "tile_radius": 16,
             "background_color": "#f8f4ec",
-            "heading_color": "#1F5130",
+            "heading_color": "#1f5130",
             "placeholder_color": "#e7eee6",
             "placeholder_text_color": "#0d3a1d",
-            "play_color": "#EED433",
-            "play_icon_color": "#1F5130",
+            "play_color": "#eed433",
+            "play_icon_color": "#1f5130",
             "tile_1_cover": "shopify://shop_images/22.jpg",
             "tile_1_url": "https://www.instagram.com/reel/DYrpj-8vW5P/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==",
             "tile_2_cover": "shopify://shop_images/50.jpg",
@@ -823,7 +823,7 @@
             "background_color": "#f8f4ec",
             "card_background": "#ffffff",
             "card_border_color": "#d9e2d9",
-            "heading_color": "#1F5130",
+            "heading_color": "#1f5130",
             "text_color": "#14231a",
             "muted_color": "#5b6660",
             "rating_color": "#d99b00",
@@ -945,12 +945,12 @@
             "background_image": "shopify://shop_images/5f384df0-2260-469a-a3fc-a1fe6a500c93.png",
             "overlay_opacity": 25,
             "section_background": "#f8f4ec",
-            "sbl_background": "#EED433",
+            "sbl_background": "#eed433",
             "header_background": "#1f5130",
             "feature_background": "#ffffff",
             "heading_color": "#0d3a1d",
             "label_color": "#101010",
-            "description_color": "#1F5130",
+            "description_color": "#1f5130",
             "text_color": "#14231a",
             "sbl_text_color": "#0d3a1d",
             "header_text_color": "#ffffff",
@@ -966,59 +966,6 @@
         "ai_gen_block_7988465_EHzXE3"
       ],
       "settings": {}
-    },
-    "blog_posts": {
-      "type": "blog-posts",
-      "settings": {
-        "eyebrow": "Plant journal",
-        "heading": "Grow Smarter with  Expert Tips",
-        "heading_accent": "",
-        "button_label": "All Articles",
-        "background": "#ffffff",
-        "blog": "",
-        "columns": 4,
-        "blog_button_label": "Read more"
-      },
-      "blocks": {
-        "post_1": {
-          "type": "post",
-          "settings": {
-            "title": "Bangalore's Hidden Natural Farm",
-            "excerpt": "There's something quietly powerful about the idea of natural farming. No chemicals, no shortcuts, no forced growth...",
-            "button_label": "Read more"
-          }
-        },
-        "post_2": {
-          "type": "post",
-          "settings": {
-            "title": "Nature's Best, Grown Organically Here",
-            "excerpt": "There's a growing curiosity today around where our food comes from. More people are reading labels...",
-            "button_label": "Read more"
-          }
-        },
-        "post_3": {
-          "type": "post",
-          "settings": {
-            "title": "Why landscapers & Gardeners Choose SBL Farms",
-            "excerpt": "There's a difference between buying plants for a personal space and sourcing...",
-            "button_label": "Read more"
-          }
-        },
-        "post_4": {
-          "type": "post",
-          "settings": {
-            "title": "Visit Karnataka's Largest SBL Plant Nursery",
-            "excerpt": "There comes a point where plants stop being just decorative elements and start becoming part of...",
-            "button_label": "Read more"
-          }
-        }
-      },
-      "block_order": [
-        "post_1",
-        "post_2",
-        "post_3",
-        "post_4"
-      ]
     },
     "1790246288989fe778": {
       "type": "_blocks",
@@ -1041,7 +988,7 @@
             "min_height": 360,
             "mobile_min_height": 300,
             "background_color": "#f4f7dc",
-            "text_color": "#FFFFFF",
+            "text_color": "#ffffff",
             "button_color": "#ffd60a",
             "button_text_color": "#0d3a1d",
             "focus_color": "#ffd60a",
@@ -1178,7 +1125,7 @@
             "link_label": "",
             "desktop_width_percent": 100,
             "box_size": 360,
-            "section_padding": 55,
+            "section_padding": 65,
             "gap": 40,
             "card_radius": 10,
             "heading_size": 30,
@@ -1215,7 +1162,6 @@
     "17901580437110f3d4",
     "1790242364d2d2796d",
     "17902419438e913f8a",
-    "blog_posts",
     "1790246288989fe778",
     "faq",
     "cta_banner",
