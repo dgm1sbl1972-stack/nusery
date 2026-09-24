@@ -496,6 +496,37 @@
     "17902281242a4f0ec3": {
       "type": "_blocks",
       "blocks": {
+        "ai_gen_block_02acb7f_XMY4Yd": {
+          "type": "ai_gen_block_02acb7f",
+          "settings": {
+            "heading": "Your Plant Deserves Pots",
+            "intro": "Bring a little more green into your space.",
+            "heading_size": 44,
+            "heading_alignment": "left",
+            "collection": "pots",
+            "products_to_show": 16,
+            "desktop_columns": "4",
+            "tablet_columns": "3",
+            "mobile_columns": "2",
+            "background_color": "#f8f4ec",
+            "overlay_opacity": 20,
+            "card_radius": 18,
+            "card_spacing": 20,
+            "section_padding": 40,
+            "mobile_padding": 24,
+            "content_width": 1200,
+            "card_background": "#fffdf8",
+            "text_color": "#1F5130",
+            "muted_color": "#5b6660",
+            "control_background": "#fffdf8",
+            "filter_background": "#fffdf8",
+            "control_border_color": "#d5ddd1",
+            "button_background": "#1f5130",
+            "button_text_color": "#ffffff",
+            "badge_background": "#0d3a1d"
+          },
+          "blocks": {}
+        },
         "ai_gen_block_4d8a09d_KX6BNp": {
           "type": "ai_gen_block_4d8a09d",
           "settings": {
@@ -527,6 +558,7 @@
         }
       },
       "block_order": [
+        "ai_gen_block_02acb7f_XMY4Yd",
         "ai_gen_block_4d8a09d_KX6BNp"
       ],
       "settings": {}
