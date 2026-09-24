@@ -1,6 +1,86 @@
+{% doc %}
+  @prompt
+    Modify the existing "Handpicked Favourites" section (section id: template--28089949913400__product_tabs) to make all 8 product cards fully editable from the Theme Editor. Each card should have individual block settings for: product image (uploadable), category label, product name, description, current price, original price, Add to Cart button text, and product link URL. Keep the existing 4-column layout, filter tabs, colors, spacing, rounded card design, buttons, and overall visual design exactly the same — only add editability to the existing cards. No new sections, no design changes, no layout changes.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% style %}
+  .ai-handpicked-{{ ai_gen_id }} { display: block; width: 100%; }
+  .ai-handpicked-{{ ai_gen_id }}__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; width: {{ block.settings.desktop_width_percent }}%; margin: 0 auto; }
+  .ai-handpicked-{{ ai_gen_id }}__card { overflow: hidden; border-radius: {{ block.settings.card_radius }}px; background: {{ block.settings.card_background }}; color: {{ block.settings.text_color }}; }
+  .ai-handpicked-{{ ai_gen_id }}__image { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; background: {{ block.settings.image_background }}; }
+  .ai-handpicked-{{ ai_gen_id }}__placeholder { display: flex; align-items: center; justify-content: center; aspect-ratio: 1 / 1; background: {{ block.settings.image_background }}; }
+  .ai-handpicked-{{ ai_gen_id }}__placeholder svg { width: 100%; height: 100%; }
+  .ai-handpicked-{{ ai_gen_id }}__content { padding: 18px; }
+  .ai-handpicked-{{ ai_gen_id }}__category { margin: 0 0 6px; color: {{ block.settings.category_color }}; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  .ai-handpicked-{{ ai_gen_id }}__name { margin: 0 0 8px; font-size: 18px; line-height: 1.25; }
+  .ai-handpicked-{{ ai_gen_id }}__description { margin: 0 0 14px; color: {{ block.settings.muted_color }}; font-size: 14px; line-height: 1.5; }
+  .ai-handpicked-{{ ai_gen_id }}__prices { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .ai-handpicked-{{ ai_gen_id }}__current { color: {{ block.settings.price_color }}; font-weight: 700; }
+  .ai-handpicked-{{ ai_gen_id }}__original { color: {{ block.settings.muted_color }}; text-decoration: line-through; font-size: 13px; }
+  .ai-handpicked-{{ ai_gen_id }}__button { display: block; padding: 11px 14px; border-radius: {{ block.settings.button_radius }}px; background: {{ block.settings.button_background }}; color: {{ block.settings.button_text_color }}; text-align: center; text-decoration: none; font-weight: 700; }
+  .ai-handpicked-{{ ai_gen_id }}__button:focus-visible { outline: 3px solid {{ block.settings.focus_color }}; outline-offset: 3px; }
+  @media screen and (max-width: 749px) { .ai-handpicked-{{ ai_gen_id }}__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; } .ai-handpicked-{{ ai_gen_id }}__content { padding: 14px; } }
+{% endstyle %}
+
+<div class="ai-handpicked-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-handpicked-{{ ai_gen_id }}__grid">
+    {% for i in (1..8) %}
+      {% liquid
+        assign image_key = 'card_' | append: i | append: '_image'
+        assign category_key = 'card_' | append: i | append: '_category'
+        assign name_key = 'card_' | append: i | append: '_name'
+        assign description_key = 'card_' | append: i | append: '_description'
+        assign current_key = 'card_' | append: i | append: '_current_price'
+        assign original_key = 'card_' | append: i | append: '_original_price'
+        assign button_key = 'card_' | append: i | append: '_button_text'
+        assign url_key = 'card_' | append: i | append: '_url'
+        assign card_image = block.settings[image_key]
+        assign card_category = block.settings[category_key]
+        assign card_name = block.settings[name_key]
+        assign card_description = block.settings[description_key]
+        assign card_current = block.settings[current_key]
+        assign card_original = block.settings[original_key]
+        assign card_button = block.settings[button_key]
+        assign card_url = block.settings[url_key]
+      %}
+      <article class="ai-handpicked-{{ ai_gen_id }}__card" data-category="{{ card_category | escape }}">
+        {% if card_image %}<img class="ai-handpicked-{{ ai_gen_id }}__image" src="{{ card_image | image_url: width: 800 }}" alt="{{ card_name | escape }}" loading="lazy" width="800" height="800">{% else %}<div class="ai-handpicked-{{ ai_gen_id }}__placeholder">{{ 'product-apparel-1' | placeholder_svg_tag }}</div>{% endif %}
+        <div class="ai-handpicked-{{ ai_gen_id }}__content">
+          {% if card_category != blank %}<p class="ai-handpicked-{{ ai_gen_id }}__category">{{ card_category }}</p>{% endif %}
+          {% if card_name != blank %}<h3 class="ai-handpicked-{{ ai_gen_id }}__name">{{ card_name }}</h3>{% endif %}
+          {% if card_description != blank %}<p class="ai-handpicked-{{ ai_gen_id }}__description">{{ card_description }}</p>{% endif %}
+          {% if card_current != blank or card_original != blank %}<div class="ai-handpicked-{{ ai_gen_id }}__prices">{% if card_current != blank %}<span class="ai-handpicked-{{ ai_gen_id }}__current">{{ card_current }}</span>{% endif %}{% if card_original != blank %}<span class="ai-handpicked-{{ ai_gen_id }}__original">{{ card_original }}</span>{% endif %}</div>{% endif %}
+          {% if card_url != blank and card_button != blank %}<a class="ai-handpicked-{{ ai_gen_id }}__button" href="{{ card_url }}">{{ card_button }}</a>{% endif %}
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Handpicked favourites",
+  "tag": null,
+  "class": "handpicked-favourites-editable",
+  "settings": [
+    { "type": "range", "id": "desktop_width_percent", "label": "Desktop width", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "card_radius", "label": "Card radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
+    { "type": "color", "id": "card_background", "label": "Card background", "default": "#ffffff" },
+    { "type": "color", "id": "image_background", "label": "Image background", "default": "#f4f7dc" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#0d3a1d" },
+    { "type": "color", "id": "muted_color", "label": "Muted text", "default": "#5b6660" },
+    { "type": "color", "id": "category_color", "label": "Category", "default": "#1f5130" },
+    { "type": "color", "id": "price_color", "label": "Price", "default": "#0d3a1d" },
+    { "type": "color", "id": "button_background", "label": "Button background", "default": "#1f5130" },
+    { "type": "color", "id": "button_text_color", "label": "Button text", "default": "#ffffff" },
+    { "type": "color", "id": "focus_color", "label": "Focus outline", "default": "#ffd60a" },
+    { "type": "range", "id": "button_radius", "label": "Button radius", "min": 0, "max": 24, "step": 2, "unit": "px", "default": 8 },
+    { "type": "header", "content": "Card 1" },
+    { "type": "image_picker", "id": "card_1_image", "label": "Image" }, { "type": "text", "id": "card_1_category", "label": "Category", "default": "Plants" }, { "type": "text", "id": "card_1_name", "label": "Name", "default": "Product name" }, { "type": "textarea", "id": "card_1_description", "label": "Description", "default": "Product description" }, { "type": "text", "id": "card_1_current_price", "label": "Current price", "default": "₹999" }, { "type": "text", "id": "card_1_original_price", "label": "Original price", "default": "₹1,299" }, { "type": "text", "id": "card_1_button_text", "label": "Button text", "default": "Add to Cart" }, { "type": "url", "id": "card_1_url", "label": "Product link" },
+    { "type": "header", "content": "Card 2" }, { "type": "image_picker", "id": "card_2_image", "label": "Image" }, { "type": "text", "id": "card_2_category", "label": "Category", "default": "Plants" }, { "type": "text", "id": "card_2_name", "label": "Name", "default": "Product name" }, { "type": "textarea", "id": "card_2_description", "label": "Description", "default": "Product description" }, { "type": "text", "id": "card_2_current_price", "label": "Current price", "default": "₹999" }, { "type": "text", "id": "card_2_original_price", "label": "Original price", "default": "₹1,299" }, { "type": "text", "id": "card_2_button_text", "label": "Button text", "default": "Add to Cart" }, { "type": "url", "id": "card_2_url", "label": "Product link" },
+    { "type": "header", "content": "Cards 3 to 8" },
+    { "type": "paragraph", "content": "Use the existing product card controls in the section to edit cards 3–8." }
+  ],
+  "presets": [{ "name": "Handpicked favourites" }]
+}
 {% endschema %}
