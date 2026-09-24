@@ -1,6 +1,204 @@
+{% doc %}
+  @prompt
+    Create a Shopify custom Liquid section inspired by the uploaded reference image.
+    
+    IMPORTANT: This section is for PLANT POTS / PLANTERS, NOT seeds. Replace all seed-related content, names, images, and wording with pots and planters.
+    
+    SECTION DESIGN:
+    - Create a clean, premium product collection grid for plant pots.
+    - Use a 4-column product grid on desktop.
+    - 2 columns on tablet.
+    - 2 columns on mobile.
+    - Maintain the same overall visual structure and spacing as the reference image.
+    - Use rounded corners on product cards.
+    - Use large product images at the top of each card.
+    - Product image should have a fixed aspect ratio and use object-fit: cover.
+    - Use a soft, warm off-white/cream background for the section.
+    - Keep the design minimal, elegant and plant-focused.
+    
+    TOP BAR:
+    - Left side: filter icon + "FILTER"
+    - Right side: "Sort by" with a dropdown arrow.
+    - Make the filter and sorting controls functional.
+    - Sort dropdown should include:
+      - Featured
+      - Most relevant
+      - Best selling
+      - Alphabetically, A-Z
+      - Alphabetically, Z-A
+      - Price, low to high
+      - Price, high to low
+      - Date, old to new
+      - Date, new to old
+    
+    PRODUCT CARDS:
+    Each card should contain:
+    1. Product image
+    2. Optional discount badge in the top-right corner, such as "20% OFF"
+    3. Product rating below the image
+    4. Product title
+    5. Current price
+    6. Original price with strikethrough when there is a discount
+    7. Dark green rounded "View Product" button
+    
+    POT PRODUCT EXAMPLES:
+    Use example content such as:
+    - Classic Ceramic Pot
+    - Minimal White Planter
+    - Terracotta Plant Pot
+    - Ribbed Ceramic Planter
+    - Self-Watering Pot
+    - Hanging Planter
+    - Indoor Decorative Pot
+    - Outdoor Garden Planter
+    
+    PRODUCT DATA:
+    - Make the section dynamic and compatible with Shopify products/collections.
+    - Allow the merchant to select a Shopify collection from the Theme Editor.
+    - Pull the actual product image, title, price, compare-at price, rating if available, and product URL dynamically.
+    - Do not hard-code seed products.
+    - The section should work with any selected POT / PLANTER collection.
+    
+    FILTER:
+    Create a working filter interface suitable for pot products. Include useful filters such as:
+    - Price
+    - Size
+    - Material
+    - Color
+    - Pot Type
+    - Indoor / Outdoor
+    - Availability
+    
+    DESIGN:
+    - Premium gardening/lifestyle aesthetic.
+    - Use dark green for buttons and important accents.
+    - Use a warm cream/off-white background.
+    - Typography should be clean and elegant.
+    - Keep product titles clearly readable.
+    - Buttons should have rounded pill-style corners.
+    - Add subtle hover effects to product cards.
+    - On hover, slightly lift the card and add a soft shadow.
+    - Product images can have a subtle zoom effect on hover.
+    - Keep animations smooth and lightweight.
+    
+    RESPONSIVE:
+    - Desktop: 4 products per row.
+    - Tablet: 2–3 products per row.
+    - Mobile: 2 products per row.
+    - Ensure there is no horizontal scrolling.
+    - Maintain good spacing and readable text on mobile.
+    
+    SHOPIFY REQUIREMENTS:
+    - Provide complete Shopify Liquid, HTML, CSS and JavaScript in ONE section file.
+    - Use Shopify's collection/product objects wherever possible.
+    - Add Theme Editor schema settings for:
+      - Collection selection
+      - Number of products
+      - Products per row
+      - Section heading
+      - Background color
+      - Button color
+      - Border radius
+    - Make the code self-contained and avoid external libraries.
+    - Make sure the code can be pasted directly into a Shopify Custom Liquid/section environment.
+    - Do not include any seed-related terminology anywhere in the final section.
+    
+    SECTION HEADING:
+    Use:
+    "Find Your Perfect Pot"
+    
+    The final result should visually resemble the uploaded reference image's product listing section, but clearly represent a premium PLANT POTS & PLANTERS collection.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-pot-collection-{{ ai_gen_id }} { display: block; width: 100%; background: {{ block.settings.background_color }}; color: #14231a; }
+  .ai-pot-collection__inner-{{ ai_gen_id }} { width: {{ block.settings.desktop_width_percent }}%; max-width: 1200px; margin: 0 auto; padding: 48px 20px 64px; }
+  .ai-pot-collection__heading-{{ ai_gen_id }} { margin: 0 0 28px; font-size: clamp(28px, 4vw, 48px); line-height: 1.05; letter-spacing: -0.03em; color: #0d3a1d; }
+  .ai-pot-collection__toolbar-{{ ai_gen_id }} { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px; }
+  .ai-pot-collection__filter-button-{{ ai_gen_id }}, .ai-pot-collection__sort-{{ ai_gen_id }} { border: 1px solid rgba(13,58,29,.2); background: transparent; color: #0d3a1d; border-radius: 999px; padding: 11px 16px; font: inherit; cursor: pointer; }
+  .ai-pot-collection__filter-button-{{ ai_gen_id }} { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .12em; }
+  .ai-pot-collection__sort-wrap-{{ ai_gen_id }} { display: flex; align-items: center; gap: 8px; color: #5b6660; font-size: 14px; }
+  .ai-pot-collection__sort-{{ ai_gen_id }} { padding: 10px 34px 10px 14px; appearance: auto; }
+  .ai-pot-collection__grid-{{ ai_gen_id }} { display: grid; grid-template-columns: repeat({{ block.settings.products_per_row }}, minmax(0, 1fr)); gap: 20px; }
+  .ai-pot-collection__card-{{ ai_gen_id }} { min-width: 0; background: #fffdf9; border-radius: {{ block.settings.border_radius }}px; overflow: hidden; transition: transform .25s ease, box-shadow .25s ease; }
+  .ai-pot-collection__card-{{ ai_gen_id }}:hover { transform: translateY(-5px); box-shadow: 0 12px 28px rgba(13,58,29,.12); }
+  .ai-pot-collection__media-{{ ai_gen_id }} { position: relative; aspect-ratio: 1 / 1.08; overflow: hidden; background: #eee8dc; }
+  .ai-pot-collection__media-{{ ai_gen_id }} img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+  .ai-pot-collection__card-{{ ai_gen_id }}:hover img { transform: scale(1.04); }
+  .ai-pot-collection__badge-{{ ai_gen_id }} { position: absolute; top: 12px; right: 12px; padding: 6px 9px; border-radius: 999px; background: #0d3a1d; color: #fff; font-size: 11px; font-weight: 700; }
+  .ai-pot-collection__body-{{ ai_gen_id }} { padding: 16px; }
+  .ai-pot-collection__rating-{{ ai_gen_id }} { color: #b47722; font-size: 13px; letter-spacing: 1px; min-height: 18px; }
+  .ai-pot-collection__title-{{ ai_gen_id }} { display: block; margin: 7px 0 9px; color: #14231a; font-size: 16px; font-weight: 600; text-decoration: none; }
+  .ai-pot-collection__prices-{{ ai_gen_id }} { display: flex; gap: 8px; align-items: center; margin-bottom: 15px; font-size: 14px; }
+  .ai-pot-collection__price-{{ ai_gen_id }} { color: #0d3a1d; font-weight: 700; }
+  .ai-pot-collection__compare-{{ ai_gen_id }} { color: #79827c; text-decoration: line-through; }
+  .ai-pot-collection__button-{{ ai_gen_id }} { display: block; width: 100%; padding: 12px; border-radius: 999px; background: {{ block.settings.button_color }}; color: #fff; text-align: center; text-decoration: none; font-size: 13px; font-weight: 700; }
+  .ai-pot-collection__empty-{{ ai_gen_id }} { grid-column: 1 / -1; padding: 36px; text-align: center; color: #5b6660; }
+  .ai-pot-collection__drawer-{{ ai_gen_id }} { display: none; position: fixed; inset: 0; z-index: 20; background: rgba(13,58,29,.25); }
+  .ai-pot-collection__drawer-{{ ai_gen_id }}.is-open { display: block; }
+  .ai-pot-collection__panel-{{ ai_gen_id }} { width: min(360px, 88vw); height: 100%; padding: 28px; background: #fffdf9; box-shadow: 8px 0 30px rgba(0,0,0,.12); }
+  .ai-pot-collection__panel-head-{{ ai_gen_id }} { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+  .ai-pot-collection__panel h3 { margin: 0; color: #0d3a1d; }
+  .ai-pot-collection__close-{{ ai_gen_id }} { border: 0; background: none; font-size: 24px; cursor: pointer; color: #0d3a1d; }
+  .ai-pot-collection__field-{{ ai_gen_id }} { display: block; padding: 12px 0; border-bottom: 1px solid #e3ded2; font-size: 14px; }
+  .ai-pot-collection__field input { margin-right: 9px; accent-color: #0d3a1d; }
+  @media (max-width: 990px) { .ai-pot-collection__grid-{{ ai_gen_id }} { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 600px) { .ai-pot-collection__inner-{{ ai_gen_id }} { padding: 34px 12px 48px; } .ai-pot-collection__grid-{{ ai_gen_id }} { gap: 10px; } .ai-pot-collection__body-{{ ai_gen_id }} { padding: 11px; } .ai-pot-collection__title-{{ ai_gen_id }} { font-size: 13px; } .ai-pot-collection__prices-{{ ai_gen_id }} { font-size: 12px; } .ai-pot-collection__button-{{ ai_gen_id }} { padding: 10px 6px; font-size: 11px; } .ai-pot-collection__toolbar-{{ ai_gen_id }} { margin-bottom: 16px; } .ai-pot-collection__sort-wrap-{{ ai_gen_id }} { font-size: 12px; } }
+{% endstyle %}
+
+<pot-collection-{{ ai_gen_id }} class="ai-pot-collection-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-pot-collection__inner-{{ ai_gen_id }}">
+    <h2 class="ai-pot-collection__heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+    <div class="ai-pot-collection__toolbar-{{ ai_gen_id }}">
+      <button class="ai-pot-collection__filter-button-{{ ai_gen_id }}" type="button" aria-controls="ai-pot-drawer-{{ ai_gen_id }}" aria-expanded="false"><span aria-hidden="true">☰</span> FILTER</button>
+      <label class="ai-pot-collection__sort-wrap-{{ ai_gen_id }}">Sort by
+        <select class="ai-pot-collection__sort-{{ ai_gen_id }}" aria-label="Sort products">
+          <option value="featured">Featured</option><option value="relevance">Most relevant</option><option value="best-selling">Best selling</option><option value="az">Alphabetically, A-Z</option><option value="za">Alphabetically, Z-A</option><option value="price-ascending">Price, low to high</option><option value="price-descending">Price, high to low</option><option value="date-ascending">Date, old to new</option><option value="date-descending">Date, new to old</option>
+        </select>
+      </label>
+    </div>
+    <div class="ai-pot-collection__grid-{{ ai_gen_id }}">
+      {% if block.settings.collection != blank %}
+        {% for product in block.settings.collection.products limit: block.settings.product_limit %}
+          {% assign rating = product.metafields.reviews.rating.value | default: product.metafields.custom.rating.value %}
+          <article class="ai-pot-collection__card-{{ ai_gen_id }}" data-title="{{ product.title | escape }}" data-price="{{ product.price }}" data-date="{{ product.created_at | date: '%s' }}" data-tags="{{ product.tags | join: ',' | downcase }}">
+            <a href="{{ product.url }}" class="ai-pot-collection__media-{{ ai_gen_id }}">
+              {% if product.featured_image %}<img src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" loading="lazy" width="900" height="980">{% else %}<div>{{ 'product-apparel-1' | placeholder_svg_tag }}</div>{% endif %}
+              {% if product.compare_at_price > product.price %}<span class="ai-pot-collection__badge-{{ ai_gen_id }}">{{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }}% OFF</span>{% endif %}
+            </a>
+            <div class="ai-pot-collection__body-{{ ai_gen_id }}">
+              <div class="ai-pot-collection__rating-{{ ai_gen_id }}" aria-label="Rating">{% if rating != blank %}★★★★★ <span>{{ rating }}</span>{% else %}☆ ☆ ☆ ☆ ☆{% endif %}</div>
+              <a class="ai-pot-collection__title-{{ ai_gen_id }}" href="{{ product.url }}">{{ product.title }}</a>
+              <div class="ai-pot-collection__prices-{{ ai_gen_id }}"><span class="ai-pot-collection__price-{{ ai_gen_id }}">{{ product.price | money }}</span>{% if product.compare_at_price > product.price %}<span class="ai-pot-collection__compare-{{ ai_gen_id }}">{{ product.compare_at_price | money }}</span>{% endif %}</div>
+              <a class="ai-pot-collection__button-{{ ai_gen_id }}" href="{{ product.url }}">View Product</a>
+            </div>
+          </article>
+        {% else %}<div class="ai-pot-collection__empty-{{ ai_gen_id }}">Choose a pot or planter collection to display products.</div>{% endfor %}
+      {% else %}<div class="ai-pot-collection__empty-{{ ai_gen_id }}">Choose a pot or planter collection to display products.</div>{% endif %}
+    </div>
+  </div>
+  <div class="ai-pot-collection__drawer-{{ ai_gen_id }}" id="ai-pot-drawer-{{ ai_gen_id }}" role="dialog" aria-label="Filter products">
+    <div class="ai-pot-collection__panel-{{ ai_gen_id }}"><div class="ai-pot-collection__panel-head-{{ ai_gen_id }}"><h3>Filter pots</h3><button class="ai-pot-collection__close-{{ ai_gen_id }}" type="button" aria-label="Close filters">×</button></div>
+      <label class="ai-pot-collection__field-{{ ai_gen_id }}"><input type="checkbox" data-filter="indoor">Indoor</label><label class="ai-pot-collection__field-{{ ai_gen_id }}"><input type="checkbox" data-filter="outdoor">Outdoor</label><label class="ai-pot-collection__field-{{ ai_gen_id }}"><input type="checkbox" data-filter="ceramic">Ceramic</label><label class="ai-pot-collection__field-{{ ai_gen_id }}"><input type="checkbox" data-filter="terracotta">Terracotta</label><label class="ai-pot-collection__field-{{ ai_gen_id }}"><input type="checkbox" data-filter="hanging">Hanging</label><label class="ai-pot-collection__field-{{ ai_gen_id }}"><input type="checkbox" data-filter="self-watering">Self-watering</label>
+    </div>
+  </div>
+</pot-collection-{{ ai_gen_id }}>
+
+<script>
+(function(){
+  class PotCollection{{ ai_gen_id }} extends HTMLElement {
+    connectedCallback(){
+      this.grid=this.querySelector('.ai-pot-collection__grid-{{ ai_gen_id }}'); this.cards=[...this.grid.querySelectorAll('.ai-pot-collection__card-{{ ai_gen_id }}')]; this.drawer=this.querySelector('.ai-pot-collection__drawer-{{ ai_gen_id }}');
+      this.querySelector('.ai-pot-collection__filter-button-{{ ai_gen_id }}').addEventListener('click',()=>{this.drawer.classList.add('is-open');}); this.querySelector('.ai-pot-collection__close-{{ ai_gen_id }}').addEventListener('click',()=>this.drawer.classList.remove('is-open')); this.drawer.addEventListener('click',e=>{if(e.target===this.drawer)this.drawer.classList.remove('is-open');});
+      this.querySelector('.ai-pot-collection__sort-{{ ai_gen_id }}').addEventListener('change',e=>this.sort(e.target.value)); this.querySelectorAll('[data-filter]').forEach(input=>input.addEventListener('change',()=>this.filter()));
+    }
+    filter(){let active=[...this.querySelectorAll('[data-filter]:checked')].map(i=>i.dataset.filter); this.cards.forEach(c=>c.hidden=active.length>0&&!active.every(f=>c.dataset.tags.includes(f)));}
+    sort(value){let sorted=[...this.cards]; let key=(a,b)=>a.dataset.title.localeCompare(b.dataset.title); if(value==='za')key=(a,b)=>b.dataset.title.localeCompare(a.dataset.title); if(value==='price-ascending')key=(a,b)=>+a.dataset.price-+b.dataset.price; if(value==='price-descending')key=(a,b)=>+b.dataset.price-+a.dataset.price; if(value==='date-ascending')key=(a,b)=>+a.dataset.date-+b.dataset.date; if(value==='date-descending')key=(a,b)=>+b.dataset.date-+a.dataset.date; sorted.sort(key).forEach(c=>this.grid.appendChild(c));}
+  } customElements.define('pot-collection-{{ ai_gen_id }}',PotCollection{{ ai_gen_id }});
+})();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{"name":"Pot collection grid","settings":[{"type":"collection","id":"collection","label":"Pot collection"},{"type":"range","id":"product_limit","label":"Number of products","min":4,"max":24,"step":4,"default":12},{"type":"select","id":"products_per_row","label":"Products per row","options":[{"value":"3","label":"3"},{"value":"4","label":"4"}],"default":"4"},{"type":"text","id":"heading","label":"Section heading","default":"Find Your Perfect Pot"},{"type":"color","id":"background_color","label":"Background","default":"#f8f4ec"},{"type":"color","id":"button_color","label":"Button color","default":"#0d3a1d"},{"type":"range","id":"border_radius","label":"Border radius","min":0,"max":32,"step":2,"unit":"px","default":16},{"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100}],"presets":[{"name":"Pot collection grid"}],"tag":null,"class":"pot-collection-block"}
 {% endschema %}
