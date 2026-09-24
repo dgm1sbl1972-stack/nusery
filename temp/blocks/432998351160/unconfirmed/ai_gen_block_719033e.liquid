@@ -1,6 +1,229 @@
+{% doc %}
+  @prompt
+    Add a "View More" button to the Pot collection grid section that allows customers to load and display additional products dynamically. The button should appear below the product grid and load more products when clicked, with a smooth loading experience.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign source_collection = block.settings.collection %}
+{% if source_collection == blank %}
+  {% assign source_collection = collection %}
+{% endif %}
+
+{% style %}
+  .ai-load-more-grid-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    color: {{ settings.color_text | default: '#0d3a1d' }};
+  }
+
+  .ai-load-more-grid-{{ ai_gen_id }}__items {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns }}, minmax(0, 1fr));
+    gap: {{ block.settings.grid_gap }}px;
+  }
+
+  .ai-load-more-grid-{{ ai_gen_id }}__card {
+    min-width: 0;
+    background: {{ settings.color_cream | default: '#f8f4ec' }};
+    border-radius: {{ settings.card_radius | default: 16 }}px;
+    overflow: hidden;
+  }
+
+  .ai-load-more-grid-{{ ai_gen_id }}__media {
+    display: block;
+    aspect-ratio: 1 / 1;
+    background: {{ settings.color_lime | default: '#f4f7dc' }};
+  }
+
+  .ai-load-more-grid-{{ ai_gen_id }}__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-load-more-grid-{{ ai_gen_id }}__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ai-load-more-grid-{{ ai_gen_id }}__placeholder svg {
+    width: 55%;
+    height: 55%;
+  }
+
+  .ai-load-more-grid-{{ ai_gen_id }}__details {
+    padding: 14px 16px 18px;
+  }
+
+  .ai-load-more-grid-{{ ai_gen_id }}__title {
+    display: block;
+    margin: 0 0 6px;
+    color: {{ settings.color_text | default: '#0d3a1d' }};
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .ai-load-more-grid-{{ ai_gen_id }}__price {
+    color: {{ settings.color_muted | default: '#5b6660' }};
+    font-size: 14px;
+  }
+
+  .ai-load-more-grid-{{ ai_gen_id }}__footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .ai-load-more-grid-{{ ai_gen_id }}__button {
+    min-width: 150px;
+    padding: 13px 24px;
+    border: 0;
+    border-radius: 999px;
+    background: {{ settings.color_primary | default: '#1f5130' }};
+    color: #ffffff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  .ai-load-more-grid-{{ ai_gen_id }}__button:hover:not(:disabled) {
+    opacity: 0.88;
+    transform: translateY(-1px);
+  }
+
+  .ai-load-more-grid-{{ ai_gen_id }}__button:focus-visible {
+    outline: 3px solid {{ settings.color_accent | default: '#ffd60a' }};
+    outline-offset: 3px;
+  }
+
+  .ai-load-more-grid-{{ ai_gen_id }}__button:disabled {
+    cursor: wait;
+    opacity: 0.65;
+  }
+
+  .ai-load-more-grid-{{ ai_gen_id }}__button[hidden] {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-load-more-grid-{{ ai_gen_id }}__items {
+      grid-template-columns: repeat({{ block.settings.mobile_columns }}, minmax(0, 1fr));
+      gap: {{ block.settings.mobile_gap }}px;
+    }
+
+    .ai-load-more-grid-{{ ai_gen_id }}__details {
+      padding: 12px;
+    }
+  }
+{% endstyle %}
+
+<load-more-products-{{ ai_gen_id }}
+  class="ai-load-more-grid-{{ ai_gen_id }}"
+  data-section-id="{{ section.id }}"
+  data-collection-url="{% if source_collection != blank %}{{ source_collection.url }}{% endif %}"
+  data-page-size="{{ block.settings.products_per_page }}"
+  {{ block.shopify_attributes }}
+>
+  {% if source_collection != blank %}
+    {% paginate source_collection.products by block.settings.products_per_page %}
+      <div class="ai-load-more-grid-{{ ai_gen_id }}__items" data-products>
+        {% for product in source_collection.products %}
+          <article class="ai-load-more-grid-{{ ai_gen_id }}__card">
+            <a class="ai-load-more-grid-{{ ai_gen_id }}__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+              {% if product.featured_image %}
+                <img src="{{ product.featured_image | image_url: width: 700 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" loading="lazy" width="700" height="700">
+              {% else %}
+                <div class="ai-load-more-grid-{{ ai_gen_id }}__placeholder">{{ 'product-apparel-1' | placeholder_svg_tag }}</div>
+              {% endif %}
+            </a>
+            <div class="ai-load-more-grid-{{ ai_gen_id }}__details">
+              <a class="ai-load-more-grid-{{ ai_gen_id }}__title" href="{{ product.url }}">{{ product.title }}</a>
+              <div class="ai-load-more-grid-{{ ai_gen_id }}__price">{{ product.price | money }}</div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+      <div class="ai-load-more-grid-{{ ai_gen_id }}__footer">
+        <button type="button" class="ai-load-more-grid-{{ ai_gen_id }}__button" data-load-more {% unless paginate.next %}hidden{% endunless %} aria-controls="products-{{ ai_gen_id }}">
+          <span data-label>{{ block.settings.button_label }}</span>
+          <span data-loading hidden>{{ block.settings.loading_label }}</span>
+        </button>
+      </div>
+    {% endpaginate %}
+  {% else %}
+    <div class="ai-load-more-grid-{{ ai_gen_id }}__items"><p>{{ block.settings.empty_message }}</p></div>
+  {% endif %}
+</load-more-products-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class LoadMoreProducts{{ ai_gen_id }} extends HTMLElement {
+      connectedCallback() {
+        this.button = this.querySelector('[data-load-more]');
+        this.items = this.querySelector('[data-products]');
+        if (!this.button || !this.items) return;
+        this.page = 1;
+        this.button.addEventListener('click', () => this.loadNextPage());
+      }
+
+      async loadNextPage() {
+        if (this.button.disabled) return;
+        this.button.disabled = true;
+        this.querySelector('[data-label]').hidden = true;
+        this.querySelector('[data-loading]').hidden = false;
+        try {
+          this.page += 1;
+          const url = new URL(this.dataset.collectionUrl, window.location.origin);
+          url.searchParams.set('page', this.page);
+          url.searchParams.set('section_id', this.dataset.sectionId);
+          const response = await fetch(url.toString(), { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+          if (!response.ok) throw new Error('Request failed');
+          const html = await response.text();
+          const parsed = new DOMParser().parseFromString(html, 'text/html');
+          const nextItems = parsed.querySelector('[data-products]');
+          if (!nextItems || !nextItems.children.length) {
+            this.button.hidden = true;
+            return;
+          }
+          this.items.insertAdjacentHTML('beforeend', nextItems.innerHTML);
+          const nextButton = parsed.querySelector('[data-load-more]');
+          if (!nextButton || nextButton.hidden) this.button.hidden = true;
+        } catch (error) {
+          this.page -= 1;
+        } finally {
+          this.button.disabled = false;
+          this.querySelector('[data-label]').hidden = false;
+          this.querySelector('[data-loading]').hidden = true;
+        }
+      }
+    }
+    if (!customElements.get('load-more-products-{{ ai_gen_id }}')) customElements.define('load-more-products-{{ ai_gen_id }}', LoadMoreProducts{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "View more products",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "desktop_width_percent", "label": "Desktop width", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "products_per_page", "label": "Products per load", "min": 4, "max": 24, "step": 4, "default": 8 },
+    { "type": "select", "id": "columns", "label": "Columns", "options": [{ "value": "2", "label": "2" }, { "value": "3", "label": "3" }, { "value": "4", "label": "4" }], "default": "4" },
+    { "type": "select", "id": "mobile_columns", "label": "Columns on mobile", "options": [{ "value": "1", "label": "1" }, { "value": "2", "label": "2" }], "default": "2" },
+    { "type": "range", "id": "grid_gap", "label": "Grid gap", "min": 8, "max": 40, "step": 4, "unit": "px", "default": 20 },
+    { "type": "range", "id": "mobile_gap", "label": "Mobile gap", "min": 8, "max": 24, "step": 4, "unit": "px", "default": 12 },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "View more" },
+    { "type": "text", "id": "loading_label", "label": "Loading label", "default": "Loading..." },
+    { "type": "text", "id": "empty_message", "label": "Empty message", "default": "Select a collection to display products." }
+  ],
+  "presets": [{ "name": "View more products" }],
+  "tag": null,
+  "class": "view-more-products-block"
+}
 {% endschema %}
