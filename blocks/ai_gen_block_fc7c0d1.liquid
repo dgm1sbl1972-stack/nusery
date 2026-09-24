@@ -1,0 +1,124 @@
+{% doc %}
+  @prompt
+    need only small ad banner section without text need only image to upload
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-image-ad-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    line-height: 0;
+    overflow: hidden;
+    border-radius: {{ block.settings.border_radius }}px;
+    background-color: {{ block.settings.placeholder_color }};
+  }
+
+  .ai-image-ad-{{ ai_gen_id }} img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: {{ block.settings.max_height }}px;
+    object-fit: cover;
+  }
+
+  .ai-image-ad__placeholder-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    padding: 24px;
+    line-height: 1.4;
+  }
+
+  .ai-image-ad__placeholder-{{ ai_gen_id }} svg {
+    display: block;
+    width: 100%;
+    max-width: 260px;
+    height: 120px;
+    color: {{ block.settings.placeholder_icon_color }};
+  }
+{% endstyle %}
+
+<div
+  class="ai-image-ad-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.image != blank %}
+    <img
+      src="{{ block.settings.image | image_url: width: 2400 }}"
+      alt="{{ block.settings.image.alt | escape }}"
+      width="{{ block.settings.image.width }}"
+      height="{{ block.settings.image.height }}"
+      loading="lazy"
+    >
+  {% else %}
+    <div class="ai-image-ad__placeholder-{{ ai_gen_id }}">
+      {{ 'image' | placeholder_svg_tag }}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Image ad banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner image"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "max_height",
+      "label": "Maximum height",
+      "min": 80,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 240
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "placeholder_color",
+      "label": "Placeholder background",
+      "default": "#f4f7dc"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_icon_color",
+      "label": "Placeholder icon",
+      "default": "#5b6660"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image ad banner"
+    }
+  ],
+  "tag": null,
+  "class": "image-ad-banner-block"
+}
+{% endschema %}
