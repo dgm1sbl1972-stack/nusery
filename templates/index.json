@@ -970,47 +970,52 @@
     "blog_posts": {
       "type": "blog-posts",
       "settings": {
-        "blog": "",
         "eyebrow": "Plant journal",
         "heading": "Grow Smarter with  Expert Tips",
         "heading_accent": "",
         "button_label": "All Articles",
-        "background": "#ffffff"
-      },
+        "background": "#ffffff",
+        "blog": ""
+      }
+    },
+    "1790246288989fe778": {
+      "type": "_blocks",
       "blocks": {
-        "post_1": {
-          "type": "post",
+        "ai_gen_block_23a7a22_wCn3DR": {
+          "type": "ai_gen_block_23a7a22",
           "settings": {
-            "tag": "Beginner guide",
-            "title": "10 Easiest Indoor Plants That Even Black Thumbs Can't Kill",
-            "date": "June 12, 2026",
-            "read_time": "6 min read"
-          }
-        },
-        "post_2": {
-          "type": "post",
-          "settings": {
-            "tag": "Grow at home",
-            "title": "How to Start a Kitchen Garden on Your Balcony",
-            "date": "May 28, 2026",
-            "read_time": "5 min read"
-          }
-        },
-        "post_3": {
-          "type": "post",
-          "settings": {
-            "tag": "Plant care",
-            "title": "Overwatering vs Underwatering: How to Tell the Difference",
-            "date": "May 10, 2026",
-            "read_time": "4 min read"
-          }
+            "heading": "Plant care help",
+            "text": "<p>Find helpful guidance to keep your plants healthy and thriving.</p>",
+            "button_label": "Contact Us",
+            "button_link": "shopify://pages/contact",
+            "background_image": "shopify://shop_images/Untitled_design_31.jpg",
+            "background_position": "center center",
+            "enable_overlay": true,
+            "overlay_color": "#0d3a1d",
+            "overlay_opacity": 55,
+            "desktop_width_percent": 100,
+            "text_alignment": "center",
+            "content_alignment": "center",
+            "min_height": 360,
+            "mobile_min_height": 300,
+            "background_color": "#f4f7dc",
+            "text_color": "#FFFFFF",
+            "button_color": "#ffd60a",
+            "button_text_color": "#0d3a1d",
+            "focus_color": "#ffd60a",
+            "heading_size": 40,
+            "mobile_heading_size": 30,
+            "text_size": 18,
+            "border_radius": 0,
+            "button_radius": 8
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "post_1",
-        "post_2",
-        "post_3"
-      ]
+        "ai_gen_block_23a7a22_wCn3DR"
+      ],
+      "settings": {}
     },
     "faq": {
       "type": "faq",
@@ -1086,45 +1091,6 @@
         "background": "#f8f4ec"
       }
     },
-    "1790246288989fe778": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_23a7a22_wCn3DR": {
-          "type": "ai_gen_block_23a7a22",
-          "settings": {
-            "heading": "Plant care help",
-            "text": "<p>Find helpful guidance to keep your plants healthy and thriving.</p>",
-            "button_label": "Contact Us",
-            "button_link": "shopify://pages/contact",
-            "background_image": "shopify://shop_images/Untitled_design_31.jpg",
-            "background_position": "center center",
-            "enable_overlay": true,
-            "overlay_color": "#0d3a1d",
-            "overlay_opacity": 55,
-            "desktop_width_percent": 100,
-            "text_alignment": "center",
-            "content_alignment": "center",
-            "min_height": 360,
-            "mobile_min_height": 300,
-            "background_color": "#f4f7dc",
-            "text_color": "#FFFFFF",
-            "button_color": "#ffd60a",
-            "button_text_color": "#0d3a1d",
-            "focus_color": "#ffd60a",
-            "heading_size": 40,
-            "mobile_heading_size": 30,
-            "text_size": 18,
-            "border_radius": 0,
-            "button_radius": 8
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_23a7a22_wCn3DR"
-      ],
-      "settings": {}
-    },
     "cta_banner": {
       "type": "cta-banner",
       "disabled": true,
@@ -1156,6 +1122,35 @@
         "ai_gen_block_fc7c0d1_FHEhmT"
       ],
       "settings": {}
+    },
+    "179024742622a7c64a": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_a12f2e6_NkkwcG": {
+          "type": "ai_gen_block_a12f2e6",
+          "settings": {
+            "blog_1": "why-landscapers-gardeners-choose-sbl-farms",
+            "blog_2": "visit-karnatakas-largest-sbl-plant-nursery",
+            "blog_3": "bangalores-hidden-natural-farm",
+            "heading": "Explore our blogs",
+            "link_label": "",
+            "desktop_width_percent": 100,
+            "box_size": 360,
+            "section_padding": 55,
+            "gap": 40,
+            "card_radius": 10,
+            "heading_size": 30,
+            "background_color": "#f8f4ec",
+            "card_color": "#ffffff",
+            "heading_color": "#0d3a1d"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_a12f2e6_NkkwcG"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -1182,6 +1177,7 @@
     "1790246288989fe778",
     "faq",
     "cta_banner",
-    "17902340700a400c12"
+    "17902340700a400c12",
+    "179024742622a7c64a"
   ]
 }
