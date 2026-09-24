@@ -1,6 +1,292 @@
+{% doc %}
+  @prompt
+    Create a Shopify collection/product grid section for a “Pots” category, matching the uploaded reference image in overall layout, spacing, styling, and functionality.
+    
+    IMPORTANT: This section is ONLY for PLANT POTS, not seeds or plants.
+    
+    DESIGN & LAYOUT:
+    - Create a clean 4-column product grid on desktop.
+    - Each product card should have rounded corners.
+    - Use a large product image at the top of each card with a fixed consistent image ratio.
+    - Below the image, show the pot/product name in a bold elegant serif-style font.
+    - Display the current selling price prominently.
+    - Show the original price beside it with a strikethrough when a discount exists.
+    - Add a discount badge such as “20% OFF” at the top-right corner of the product image when applicable.
+    - Add a rating badge at the bottom-left of the image showing rating, star icon, and review count if available.
+    - Add a dark green rounded “View Product” button at the bottom-right of each card.
+    - Keep the card background white.
+    - Use subtle spacing between cards.
+    - Overall background should be a very light warm/off-white tone.
+    - Maintain a premium, minimal gardening/e-commerce aesthetic.
+    
+    TOP BAR:
+    - Add a “FILTER” option on the left with a small filter/sliders icon.
+    - Add “Sort by” on the right with a dropdown arrow.
+    - The sorting dropdown should include:
+      - Featured
+      - Most relevant
+      - Best selling
+      - Alphabetically, A-Z
+      - Alphabetically, Z-A
+      - Price, low to high
+      - Price, high to low
+      - Date, old to new
+      - Date, new to old
+    - The filter and sorting controls must be functional using Shopify's collection filtering and sorting system.
+    
+    POT-SPECIFIC CONTENT:
+    - The products displayed should come from the Pots collection.
+    - Do not use seed-related labels, seed packets, or seed imagery.
+    - Pot categories can include:
+      - Ceramic Pots
+      - Plastic Pots
+      - Terracotta Pots
+      - Hanging Pots
+      - Decorative Pots
+      - Indoor Pots
+      - Outdoor Pots
+      - Planters
+    - Product images should use the actual Shopify product images.
+    - Do not generate placeholder seed images.
+    
+    PRODUCT CARD:
+    Each card should contain:
+    1. Product image
+    2. Optional discount badge
+    3. Optional rating/review badge
+    4. Pot/product title
+    5. Current price
+    6. Original price with strikethrough if applicable
+    7. “View Product” button
+    
+    RESPONSIVE DESIGN:
+    - Desktop: 4 columns
+    - Tablet: 2–3 columns
+    - Mobile: 2 columns
+    - Keep the product cards compact and visually balanced on mobile.
+    - Make the filter and sort controls responsive.
+    
+    STYLE:
+    - Use a premium natural gardening aesthetic.
+    - Use dark green for buttons and important accents.
+    - Use warm off-white/cream for the page background.
+    - Use clean typography with an elegant serif style for product names and a simple readable font for prices and controls.
+    - Match the visual proportions and spacing of the uploaded reference as closely as possible.
+    
+    FUNCTIONAL REQUIREMENTS:
+    - Use Shopify's native collection/product data.
+    - Automatically display products from the current Pots collection.
+    - Support Shopify product variants, prices, compare-at prices, discounts, ratings, and product links.
+    - “View Product” should open the corresponding product page.
+    - Filter and Sort must work correctly.
+    - The section should be fully editable from the Shopify Theme Editor.
+    - Allow the merchant to control the number of products displayed per row and number of products shown.
+    - Do not hardcode product names, prices, ratings, or images.
+    
+    Create this as a reusable Shopify theme section with clean, responsive Liquid, HTML, CSS, and JavaScript. Do not change the existing website header or footer. Only create the Pots collection/product grid section.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign pots_collection = block.settings.collection %}
+{% if pots_collection == blank %}
+  {% assign pots_collection = collection %}
+{% endif %}
+
+{% style %}
+  .ai-pots-grid-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-pots-grid-{{ ai_gen_id }}__inner {
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: {{ settings.page_width }}px;
+    margin: 0 auto;
+    padding: {{ block.settings.section_padding }}px 20px;
+  }
+
+  .ai-pots-grid-{{ ai_gen_id }}__heading {
+    margin: 0 0 24px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    line-height: 1.1;
+    color: {{ block.settings.heading_color }};
+  }
+
+  .ai-pots-grid-{{ ai_gen_id }}__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(20, 35, 26, .14);
+    padding-bottom: 16px;
+  }
+
+  .ai-pots-grid-{{ ai_gen_id }}__filter-toggle,
+  .ai-pots-grid-{{ ai_gen_id }}__sort-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: {{ block.settings.text_color }};
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .ai-pots-grid-{{ ai_gen_id }}__filter-toggle {
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    padding: 8px 0;
+  }
+
+  .ai-pots-grid-{{ ai_gen_id }}__sort {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ai-pots-grid-{{ ai_gen_id }}__sort select {
+    border: 1px solid rgba(20, 35, 26, .25);
+    border-radius: 999px;
+    background: #fff;
+    color: {{ block.settings.text_color }};
+    padding: 10px 34px 10px 14px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .ai-pots-grid-{{ ai_gen_id }}__filter-panel {
+    display: none;
+    padding: 18px;
+    margin-bottom: 24px;
+    background: rgba(255, 255, 255, .72);
+    border: 1px solid rgba(20, 35, 26, .12);
+    border-radius: {{ settings.card_radius }}px;
+  }
+
+  .ai-pots-grid-{{ ai_gen_id }}__filter-panel.is-open { display: block; }
+  .ai-pots-grid-{{ ai_gen_id }}__filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 18px; }
+  .ai-pots-grid-{{ ai_gen_id }}__filter-group { display: flex; flex-direction: column; gap: 8px; }
+  .ai-pots-grid-{{ ai_gen_id }}__filter-group label { font-size: 13px; font-weight: 700; }
+  .ai-pots-grid-{{ ai_gen_id }}__filter-group select,
+  .ai-pots-grid-{{ ai_gen_id }}__filter-group input { width: 100%; padding: 9px; border: 1px solid rgba(20, 35, 26, .25); border-radius: 8px; background: #fff; }
+
+  .ai-pots-grid-{{ ai_gen_id }}__products {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_desktop }}, minmax(0, 1fr));
+    gap: {{ block.settings.grid_gap }}px;
+  }
+
+  .ai-pots-grid-{{ ai_gen_id }}__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+    background: #fff;
+    border-radius: {{ settings.card_radius }}px;
+  }
+
+  .ai-pots-grid-{{ ai_gen_id }}__media { position: relative; aspect-ratio: 1 / 1.08; background: #eee9df; }
+  .ai-pots-grid-{{ ai_gen_id }}__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ai-pots-grid-{{ ai_gen_id }}__badge { position: absolute; top: 12px; right: 12px; padding: 6px 9px; border-radius: 999px; background: {{ block.settings.badge_color }}; color: #fff; font-size: 11px; font-weight: 700; }
+  .ai-pots-grid-{{ ai_gen_id }}__rating { position: absolute; left: 12px; bottom: 12px; padding: 6px 9px; border-radius: 999px; background: rgba(255,255,255,.94); color: {{ block.settings.text_color }}; font-size: 11px; font-weight: 700; }
+  .ai-pots-grid-{{ ai_gen_id }}__content { display: flex; flex: 1; flex-direction: column; padding: 16px; }
+  .ai-pots-grid-{{ ai_gen_id }}__title { margin: 0 0 10px; color: {{ block.settings.heading_color }}; font-family: Georgia, 'Times New Roman', serif; font-size: 19px; line-height: 1.2; }
+  .ai-pots-grid-{{ ai_gen_id }}__title a { color: inherit; text-decoration: none; }
+  .ai-pots-grid-{{ ai_gen_id }}__price { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: {{ block.settings.text_color }}; font-size: 15px; font-weight: 700; }
+  .ai-pots-grid-{{ ai_gen_id }}__compare { color: {{ block.settings.muted_color }}; font-size: 13px; font-weight: 400; text-decoration: line-through; }
+  .ai-pots-grid-{{ ai_gen_id }}__button { width: 100%; margin-top: auto; padding: 11px 14px; border-radius: 999px; background: {{ block.settings.button_color }}; color: #fff; text-align: center; font-size: 13px; font-weight: 700; text-decoration: none; }
+  .ai-pots-grid-{{ ai_gen_id }}__empty { padding: 40px 0; text-align: center; }
+
+  @media (max-width: 990px) { .ai-pots-grid-{{ ai_gen_id }}__products { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 749px) {
+    .ai-pots-grid-{{ ai_gen_id }}__inner { padding: 32px 12px; }
+    .ai-pots-grid-{{ ai_gen_id }}__products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .ai-pots-grid-{{ ai_gen_id }}__content { padding: 12px; }
+    .ai-pots-grid-{{ ai_gen_id }}__title { font-size: 16px; }
+    .ai-pots-grid-{{ ai_gen_id }}__sort-label { font-size: 0; }
+    .ai-pots-grid-{{ ai_gen_id }}__sort-label svg { width: 18px; }
+  }
+{% endstyle %}
+
+<collection-pots-grid-{{ ai_gen_id }} class="ai-pots-grid-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-pots-grid-{{ ai_gen_id }}__inner">
+    {% if block.settings.heading != blank %}<h2 class="ai-pots-grid-{{ ai_gen_id }}__heading">{{ block.settings.heading | escape }}</h2>{% endif %}
+    {% if pots_collection != blank %}
+      <form method="get" action="{{ pots_collection.url }}" id="ai-pots-form-{{ ai_gen_id }}">
+        <div class="ai-pots-grid-{{ ai_gen_id }}__toolbar">
+          <button type="button" class="ai-pots-grid-{{ ai_gen_id }}__filter-toggle" aria-expanded="false" aria-controls="ai-pots-filters-{{ ai_gen_id }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg> Filter
+          </button>
+          <div class="ai-pots-grid-{{ ai_gen_id }}__sort"><label class="ai-pots-grid-{{ ai_gen_id }}__sort-label" for="sort-by-{{ ai_gen_id }}">Sort by</label><select id="sort-by-{{ ai_gen_id }}" name="sort_by" onchange="this.form.submit()">{% for option in pots_collection.sort_options %}<option value="{{ option.value }}"{% if option.value == pots_collection.sort_by %} selected{% endif %}>{{ option.name }}</option>{% endfor %}</select></div>
+        </div>
+        <div id="ai-pots-filters-{{ ai_gen_id }}" class="ai-pots-grid-{{ ai_gen_id }}__filter-panel" aria-hidden="true">
+          <div class="ai-pots-grid-{{ ai_gen_id }}__filters">
+            {% for filter in pots_collection.filters %}
+              <div class="ai-pots-grid-{{ ai_gen_id }}__filter-group"><label for="filter-{{ ai_gen_id }}-{{ forloop.index }}">{{ filter.label }}</label>{% if filter.type == 'list' %}<select id="filter-{{ ai_gen_id }}-{{ forloop.index }}" name="{{ filter.param_name }}"> <option value="">All</option>{% for value in filter.values %}<option value="{{ value.value }}"{% if value.active %} selected{% endif %}>{{ value.label }} ({{ value.count }})</option>{% endfor %}</select>{% elsif filter.type == 'price_range' %}<input type="number" name="{{ filter.min_value.param_name }}" placeholder="Min" value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"><input type="number" name="{{ filter.max_value.param_name }}" placeholder="Max" value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}">{% endif %}</div>
+            {% endfor %}
+          </div>
+          <button type="submit" class="ai-pots-grid-{{ ai_gen_id }}__button" style="max-width:160px;margin-top:18px;border:0;cursor:pointer;">Apply filters</button>
+        </div>
+        {% paginate pots_collection.products by block.settings.products_to_show %}
+          {% if pots_collection.products.size > 0 %}
+            <div class="ai-pots-grid-{{ ai_gen_id }}__products">
+              {% for product in pots_collection.products %}
+                <article class="ai-pots-grid-{{ ai_gen_id }}__card">
+                  <div class="ai-pots-grid-{{ ai_gen_id }}__media">
+                    <a href="{{ product.url }}"><img src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" loading="lazy" width="900" height="972"></a>
+                    {% if product.compare_at_price > product.price %}{% assign discount = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}<span class="ai-pots-grid-{{ ai_gen_id }}__badge">{{ discount }}% OFF</span>{% endif %}
+                    {% assign rating = product.metafields.reviews.rating.value %}{% assign review_count = product.metafields.reviews.rating_count.value %}{% if rating != blank %}<span class="ai-pots-grid-{{ ai_gen_id }}__rating">★ {{ rating | round: 1 }}{% if review_count != blank %} ({{ review_count }}){% endif %}</span>{% endif %}
+                  </div>
+                  <div class="ai-pots-grid-{{ ai_gen_id }}__content"><h3 class="ai-pots-grid-{{ ai_gen_id }}__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3><div class="ai-pots-grid-{{ ai_gen_id }}__price">{{ product.price | money }}{% if product.compare_at_price > product.price %}<span class="ai-pots-grid-{{ ai_gen_id }}__compare">{{ product.compare_at_price | money }}</span>{% endif %}</div><a class="ai-pots-grid-{{ ai_gen_id }}__button" href="{{ product.url }}">View Product</a></div>
+                </article>
+              {% endfor %}
+            </div>
+          {% else %}<div class="ai-pots-grid-{{ ai_gen_id }}__empty">No pots match the selected filters.</div>{% endif %}
+        {% endpaginate %}
+      </form>
+    {% else %}<div class="ai-pots-grid-{{ ai_gen_id }}__empty">Select your Pots collection in the block settings.</div>{% endif %}
+  </div>
+</collection-pots-grid-{{ ai_gen_id }}>
+
+<script>
+(function(){
+  class PotsGrid{{ ai_gen_id }} extends HTMLElement {
+    connectedCallback(){
+      var button=this.querySelector('.ai-pots-grid-{{ ai_gen_id }}__filter-toggle');
+      var panel=this.querySelector('#ai-pots-filters-{{ ai_gen_id }}');
+      if(button&&panel){button.addEventListener('click',function(){var open=panel.classList.toggle('is-open');button.setAttribute('aria-expanded',open);panel.setAttribute('aria-hidden',!open);});}
+    }
+  }
+  if(!customElements.get('collection-pots-grid-{{ ai_gen_id }}')) customElements.define('collection-pots-grid-{{ ai_gen_id }}',PotsGrid{{ ai_gen_id }});
+})();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Pots product grid",
+  "tag": null,
+  "class": "pots-product-grid-block",
+  "settings": [
+    {"type":"collection","id":"collection","label":"Pots collection"},
+    {"type":"text","id":"heading","label":"Heading","default":"Pots"},
+    {"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},
+    {"type":"range","id":"columns_desktop","label":"Columns on desktop","min":2,"max":5,"step":1,"default":4},
+    {"type":"range","id":"products_to_show","label":"Products to show","min":4,"max":24,"step":4,"default":12},
+    {"type":"range","id":"grid_gap","label":"Card spacing","min":8,"max":32,"step":4,"unit":"px","default":16},
+    {"type":"range","id":"section_padding","label":"Section padding","min":20,"max":80,"step":10,"unit":"px","default":40},
+    {"type":"color","id":"background_color","label":"Background","default":"#f8f4ec"},
+    {"type":"color","id":"heading_color","label":"Heading","default":"#0d3a1d"},
+    {"type":"color","id":"text_color","label":"Text","default":"#14231a"},
+    {"type":"color","id":"muted_color","label":"Muted text","default":"#5b6660"},
+    {"type":"color","id":"button_color","label":"Button","default":"#0d3a1d"},
+    {"type":"color","id":"badge_color","label":"Discount badge","default":"#1f5130"}
+  ],
+  "presets": [{"name":"Pots product grid"}]
+}
 {% endschema %}
