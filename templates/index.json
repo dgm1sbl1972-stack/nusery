@@ -478,12 +478,12 @@
             "products_to_show": 8,
             "grid_gap": 16,
             "section_padding": 50,
-            "background_color": "#FFF0BE",
+            "background_color": "#fff0be",
             "heading_color": "#1f5130",
             "text_color": "#101010",
             "muted_color": "#101010",
             "button_color": "#1f5130",
-            "badge_color": "#1F5130"
+            "badge_color": "#1f5130"
           },
           "blocks": {}
         }
@@ -506,7 +506,7 @@
             "background_image": "shopify://shop_images/f1e021cb-377e-40d0-9083-3db7e22e964f.png",
             "background_position": "center center",
             "overlay_opacity": 50,
-            "overlay_color": "#1F5130",
+            "overlay_color": "#1f5130",
             "desktop_width_percent": 100,
             "min_height": 500,
             "mobile_min_height": 340,
@@ -514,8 +514,8 @@
             "content_alignment": "center",
             "heading_size": 60,
             "mobile_heading_size": 32,
-            "background_color": "#1F5130",
-            "text_color": "#FFFFFF",
+            "background_color": "#1f5130",
+            "text_color": "#ffffff",
             "button_color": "#ffd60a",
             "button_text_color": "#14231a",
             "button_hover_color": "#ffffff",
@@ -608,7 +608,7 @@
         "heading": "Rooted in  Passion,",
         "heading_accent": "",
         "heading_2": "Growing in Purpose",
-        "text": "<p>SBL Nursery started in a small Bangalore nursery with one simple belief — every home deserves the joy of greenery. What began as a weekend hobby grew into India's most trusted online plant store.</p><p>We work directly with skilled horticulturists and small-scale growers across India, ensuring every plant is nurtured with care before reaching your doorstep.</p><p>Today, we've helped over 3.5 lakh families across India build their own green sanctuaries — and we're just getting started.</p>"
+        "text": "<p>It started with one simple belief — <strong>every home deserves the joy of greenery.</strong> From a small Bangalore nursery, SBL Nursery has grown into a trusted online plant store.</p><p>We nurture every plant with care, working with skilled growers across India to bring healthy greenery to your doorstep.</p><p>Today, <strong>3.5 lakh+ families</strong> have grown with SBL Nursery — and our journey continues.</p>"
       }
     },
     "179022886862f2d4cd": {
@@ -642,7 +642,7 @@
             "video_description": "Share a helpful guide alongside your plant recommendations.",
             "video_url": "https://www.image2url.com/r2/default/videos/1790229592857-622ef34c-ccdd-44fa-b659-d3f4d1c1f980.mp4",
             "video_empty_text": "Add an uploaded video or an external video URL.",
-            "card_background": "#FFF0BE",
+            "card_background": "#fff0be",
             "card_border": "#d9e1d6",
             "text_color": "#0d3a1d",
             "heading_color": "#0d3a1d",
@@ -657,10 +657,43 @@
             "video_background": "#e5ebe3"
           },
           "blocks": {}
+        },
+        "ai_gen_block_08ce174_CEPk4G": {
+          "type": "ai_gen_block_08ce174",
+          "settings": {
+            "heading": "Transform Your Home.",
+            "desktop_width_percent": 100,
+            "desktop_cards_per_row": "4",
+            "mobile_cards_per_row": "2",
+            "heading_size": 36,
+            "card_title_size": 20,
+            "card_height": 280,
+            "mobile_card_height": 220,
+            "card_gap": 16,
+            "border_radius": 16,
+            "overlay_opacity": 45,
+            "background_color": "#f8f4ec",
+            "heading_color": "#0d3a1d",
+            "fallback_color": "#1f5130",
+            "placeholder_background": "#dfe8df",
+            "placeholder_color": "#5b6660",
+            "focus_color": "#ffd60a",
+            "collection_1": "",
+            "image_1": "shopify://shop_images/c2.png",
+            "title_1": "Living Room",
+            "collection_2": "",
+            "title_2": "Bedroom",
+            "collection_3": "",
+            "title_3": "Balcony",
+            "collection_4": "",
+            "title_4": "Office"
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "ai_gen_block_e2f69cb_tgpTUV"
+        "ai_gen_block_e2f69cb_tgpTUV",
+        "ai_gen_block_08ce174_CEPk4G"
       ],
       "settings": {}
     },
@@ -714,6 +747,13 @@
             "external_url": "",
             "title": "Herb Garden Tour"
           }
+        },
+        "reel_WU6rwq": {
+          "type": "reel",
+          "settings": {
+            "external_url": "",
+            "title": "Tiny Plant, Big Vibe"
+          }
         }
       },
       "block_order": [
@@ -722,57 +762,73 @@
         "reel_3",
         "reel_4",
         "reel_5",
-        "reel_6"
+        "reel_6",
+        "reel_WU6rwq"
       ],
       "settings": {
         "heading": "Explore Our Reels",
         "heading_accent": "",
-        "background": "#f8f4ec"
+        "background": "#F7F9EF"
       }
     },
-    "testimonials": {
-      "type": "testimonials",
+    "1790230434f3dff53d": {
+      "type": "_blocks",
       "blocks": {
-        "testimonial_1": {
-          "type": "testimonial",
+        "ai_gen_block_96287ba_GmUPiB": {
+          "type": "ai_gen_block_96287ba",
           "settings": {
-            "rating": 5,
-            "quote": "The plant arrived in excellent condition and was beautifully packed. The quality was even better than I expected. Highly recommended!",
-            "name": "Arun Kumar",
-            "role": "Plant Lover"
-          }
-        },
-        "testimonial_2": {
-          "type": "testimonial",
-          "settings": {
-            "rating": 5,
-            "quote": "Amazing collection of plants and excellent customer service. My Monstera arrived fresh, healthy and perfectly packed.",
-            "name": "Priya Sharma",
-            "role": "Interior Designer"
-          }
-        },
-        "testimonial_3": {
-          "type": "testimonial",
-          "settings": {
-            "rating": 4,
-            "quote": "Beautiful plants, great packaging and fast delivery. The entire buying experience was smooth and easy.",
-            "name": "Rahul Raj",
-            "role": "Business Owner"
-          }
+            "eyebrow": "Loved by plant people",
+            "heading": "What Our Customers Say",
+            "overall_rating": "4.9",
+            "review_count": "128",
+            "desktop_width_percent": 100,
+            "section_padding": 60,
+            "scroll_speed": 45,
+            "background_color": "#f8f4ec",
+            "card_background": "#ffffff",
+            "heading_color": "#0d3a1d",
+            "text_color": "#14231a",
+            "muted_color": "#5b6660",
+            "eyebrow_color": "#1f5130",
+            "badge_background": "#f4f7dc",
+            "badge_border_color": "#d5dfc0",
+            "card_border_color": "#e3e8dc",
+            "quote_color": "#9ab58d",
+            "avatar_background": "#1f5130",
+            "avatar_text_color": "#ffffff",
+            "review_1_photo": "shopify://shop_images/c8.png",
+            "review_1_name": "Aarav Sharma",
+            "review_1_rating": 5,
+            "review_1_text": "Beautiful, healthy plants and wonderful guidance. My balcony feels alive!",
+            "review_1_date": "2 weeks ago",
+            "review_2_name": "Meera Patel",
+            "review_2_rating": 5,
+            "review_2_text": "The team helped me choose the perfect low-light plants for our home.",
+            "review_2_date": "1 month ago",
+            "review_3_name": "Rohan Verma",
+            "review_3_rating": 5,
+            "review_3_text": "Fast delivery, carefully packed, and every plant arrived thriving.",
+            "review_3_date": "3 months ago",
+            "review_4_name": "Nisha Iyer",
+            "review_4_rating": 5,
+            "review_4_text": "A lovely nursery with a thoughtful selection and genuinely kind service.",
+            "review_4_date": "4 months ago",
+            "review_5_name": "Kabir Joshi",
+            "review_5_rating": 4,
+            "review_5_text": "Great quality and clear care instructions. I will definitely shop here again.",
+            "review_5_date": "5 months ago",
+            "review_6_name": "Ananya Rao",
+            "review_6_rating": 5,
+            "review_6_text": "My favourite place for gifting plants. Everything feels fresh and special.",
+            "review_6_date": "6 months ago"
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "testimonial_1",
-        "testimonial_2",
-        "testimonial_3"
+        "ai_gen_block_96287ba_GmUPiB"
       ],
-      "settings": {
-        "eyebrow": "Testimonials",
-        "heading": "What Our Customers",
-        "heading_accent": "Say",
-        "subheading": "Discover what our customers have to say about their experience with our plants and services.",
-        "background": "#fff3dc"
-      }
+      "settings": {}
     },
     "comparison_table": {
       "type": "comparison-table",
@@ -1014,7 +1070,7 @@
     "our_story",
     "179022886862f2d4cd",
     "trending_reels",
-    "testimonials",
+    "1790230434f3dff53d",
     "comparison_table",
     "blog_posts",
     "faq",
