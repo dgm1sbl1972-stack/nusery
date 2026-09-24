@@ -1,0 +1,82 @@
+{%- comment -%}
+  Product card for the plant-showcase section. Any empty field falls back to
+  the block's linked product, if one is picked.
+  Accepts:
+  - block: {Object} "card" block
+  - tab_name: {String} name of the tab the card belongs to
+  - index: {Number} used for placeholder image variety
+{%- endcomment -%}
+{%- liquid
+  assign s = block.settings
+  assign product = s.product
+  assign variant = product.selected_or_first_available_variant
+
+  assign image = s.image | default: product.featured_image
+  assign title = s.title | default: product.title
+  assign text = s.text
+  if text == blank and product != blank
+    assign text = product.description | strip_html | truncatewords: 12
+  endif
+  assign label = s.label | default: tab_name
+
+  assign price = s.price
+  if price == blank and product != blank
+    assign price = product.price | money_without_trailing_zeros
+  endif
+  assign compare_price = s.compare_price
+  if compare_price == blank and product.compare_at_price > product.price
+    assign compare_price = product.compare_at_price | money_without_trailing_zeros
+  endif
+
+  assign url = s.link | default: product.url
+-%}
+<div class="showcase-card" data-tab="{{ s.tab }}" {{ block.shopify_attributes }}>
+  {%- if url != blank -%}<a href="{{ url }}" class="showcase-card__media">{%- else -%}<div class="showcase-card__media">{%- endif -%}
+    {%- if image != blank -%}
+      {{ image | image_url: width: 700 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 300px, 50vw', widths: '300, 500, 700', alt: title, class: 'showcase-card__img' }}
+    {%- else -%}
+      {%- assign ph = index | default: 1 | minus: 1 | modulo: 6 | plus: 1 -%}
+      {{ 'product-' | append: ph | placeholder_svg_tag: 'showcase-card__img placeholder-svg' }}
+    {%- endif -%}
+    {%- if s.hover_image != blank -%}
+      {{ s.hover_image | image_url: width: 700 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 300px, 50vw', widths: '300, 500, 700', alt: '', class: 'showcase-card__img showcase-card__img--hover' }}
+    {%- endif -%}
+    {%- if s.badge != blank -%}<span class="showcase-card__badge">{{ s.badge }}</span>{%- endif -%}
+  {%- if url != blank -%}</a>{%- else -%}</div>{%- endif -%}
+
+  <div class="showcase-card__body">
+    {%- if label != blank -%}<p class="showcase-card__label">{{ label }}</p>{%- endif -%}
+    <h3 class="showcase-card__title">
+      {%- if url != blank -%}<a href="{{ url }}">{{ title }}</a>{%- else -%}{{ title }}{%- endif -%}
+    </h3>
+    {%- if s.rating > 0 -%}
+      <div class="stars stars--sm" aria-label="{{ s.rating }} out of 5 stars">
+        {%- for i in (1..5) -%}<span{% if i > s.rating %} class="is-empty"{% endif %}>★</span>{%- endfor -%}
+      </div>
+    {%- endif -%}
+    {%- if text != blank -%}<p class="showcase-card__desc">{{ text | escape | newline_to_br }}</p>{%- endif -%}
+
+    <div class="showcase-card__footer">
+      <div class="price">
+        {%- if price != blank -%}<strong>{{ price }}</strong>{%- endif -%}
+        {%- if compare_price != blank -%}<s>{{ compare_price }}</s>{%- endif -%}
+      </div>
+
+      {%- if s.button_label != blank -%}
+        {%- if product != blank and product.available -%}
+          <form action="{{ routes.cart_add_url }}" method="post" data-add-to-cart>
+            <input type="hidden" name="id" value="{{ variant.id }}">
+            <input type="hidden" name="quantity" value="1">
+            <button type="submit" class="btn btn--sm btn--green">{{ s.button_label }}</button>
+          </form>
+        {%- elsif product != blank -%}
+          <span class="btn btn--sm btn--disabled">{{ 'general.sold_out' | t }}</span>
+        {%- elsif url != blank -%}
+          <a href="{{ url }}" class="btn btn--sm btn--green">{{ s.button_label }}</a>
+        {%- else -%}
+          <span class="btn btn--sm btn--green">{{ s.button_label }}</span>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>

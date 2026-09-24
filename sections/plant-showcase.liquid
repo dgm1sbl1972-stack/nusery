@@ -1,10 +1,10 @@
 {%- comment -%}
-  "Handpicked Favourites" grid. Every product card is a block with its own
-  image, text and price, so it can be edited in the theme editor. Cards can
-  optionally be linked to a real Shopify product to make Add to Cart work.
-  A "Products from collection" block adds a collection's products instead.
+  Product showcase grid with filter tabs. Every product card is a block with
+  its own images, badge, text, rating and price, all editable in the theme
+  editor. A card can optionally be linked to a Shopify product so its
+  Add to Cart button works.
 {%- endcomment -%}
-<section class="product-tabs section-pad" style="background: {{ section.settings.background }};" data-filter-tabs>
+<section class="showcase section-pad" style="background: {{ section.settings.background }};" data-filter-tabs>
   <div class="page-width">
     <div class="section-head section-head--split">
       <div>
@@ -22,19 +22,9 @@
       </div>
     </div>
 
-    <div class="product-grid">
+    <div class="showcase__grid" style="--showcase-cols: {{ section.settings.columns }};">
       {%- for block in section.blocks -%}
-        {%- assign tab_name = section.settings[block.settings.tab] -%}
-        {%- case block.type -%}
-          {%- when 'card' -%}
-            {%- render 'editable-product-card', block: block, tab_name: tab_name, index: forloop.index -%}
-          {%- when 'collection' -%}
-            {%- for product in block.settings.collection.products limit: block.settings.limit -%}
-              <div class="product-grid__item" data-tab="{{ block.settings.tab }}" {{ block.shopify_attributes }}>
-                {%- render 'product-card', product: product -%}
-              </div>
-            {%- endfor -%}
-        {%- endcase -%}
+        {%- render 'showcase-card', block: block, tab_name: section.settings[block.settings.tab], index: forloop.index -%}
       {%- endfor -%}
     </div>
 
@@ -48,11 +38,12 @@
 
 {% schema %}
 {
-  "name": "Product tabs",
+  "name": "Plant showcase",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our collection" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Handpicked" },
-    { "type": "text", "id": "heading_accent", "label": "Heading accent", "default": "Favourites" },
+    { "type": "text", "id": "heading_accent", "label": "Heading accent (italic green)", "default": "Favourites" },
+    { "type": "range", "id": "columns", "label": "Cards per row on desktop", "min": 2, "max": 5, "step": 1, "default": 4 },
     { "type": "color", "id": "background", "label": "Background", "default": "#f8f4ec" },
     { "type": "header", "content": "Filter tabs" },
     { "type": "text", "id": "tab_all", "label": "\"Show all\" tab", "default": "All" },
@@ -60,16 +51,19 @@
     { "type": "text", "id": "tab_2", "label": "Tab 2", "default": "Seeds" },
     { "type": "text", "id": "tab_3", "label": "Tab 3", "default": "Kits" },
     { "type": "text", "id": "tab_4", "label": "Tab 4", "info": "Leave empty to hide this tab" },
-    { "type": "header", "content": "Button" },
+    { "type": "header", "content": "Button below the grid" },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "View All 500+ Products" },
     { "type": "url", "id": "button_link", "label": "Button link" }
   ],
   "blocks": [
     {
       "type": "card",
-      "name": "Product card",
+      "name": "Product",
       "settings": [
+        { "type": "header", "content": "Images" },
         { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "image_picker", "id": "hover_image", "label": "Second image (shown on hover)" },
+        { "type": "header", "content": "Text" },
         {
           "type": "select",
           "id": "tab",
@@ -82,9 +76,11 @@
           ],
           "default": "tab_1"
         },
+        { "type": "text", "id": "badge", "label": "Badge", "info": "E.g. Bestseller, New, -30%. Leave empty to hide" },
         { "type": "text", "id": "label", "label": "Small label", "info": "Leave empty to use the tab name" },
         { "type": "text", "id": "title", "label": "Title", "default": "Plant name" },
         { "type": "textarea", "id": "text", "label": "Description", "default": "Short description of this plant." },
+        { "type": "range", "id": "rating", "label": "Star rating (0 = hide)", "min": 0, "max": 5, "step": 1, "default": 5 },
         { "type": "header", "content": "Price" },
         { "type": "text", "id": "price", "label": "Price", "default": "₹499" },
         { "type": "text", "id": "compare_price", "label": "Old price (crossed out)", "default": "₹699", "info": "Leave empty to hide" },
@@ -96,42 +92,22 @@
           "label": "Shopify product (optional)",
           "info": "Pick a product so the button adds it to the cart. Empty fields above are filled from this product."
         },
-        { "type": "url", "id": "link", "label": "Link", "info": "Where the image, title and button go when no product is picked" }
-      ]
-    },
-    {
-      "type": "collection",
-      "name": "Products from collection",
-      "settings": [
-        { "type": "collection", "id": "collection", "label": "Collection" },
-        {
-          "type": "select",
-          "id": "tab",
-          "label": "Show under tab",
-          "options": [
-            { "value": "tab_1", "label": "Tab 1" },
-            { "value": "tab_2", "label": "Tab 2" },
-            { "value": "tab_3", "label": "Tab 3" },
-            { "value": "tab_4", "label": "Tab 4" }
-          ],
-          "default": "tab_1"
-        },
-        { "type": "range", "id": "limit", "label": "Number of products", "min": 1, "max": 16, "step": 1, "default": 4 }
+        { "type": "url", "id": "link", "label": "Link", "info": "Where the card goes when no product is picked" }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Product tabs",
+      "name": "Plant showcase",
       "blocks": [
-        { "type": "card", "settings": { "tab": "tab_1", "title": "Monstera Deliciosa", "text": "Iconic split-leaf tropical. Air-purifying & low-maintenance.", "price": "₹499", "compare_price": "₹699" } },
+        { "type": "card", "settings": { "tab": "tab_1", "badge": "Bestseller", "title": "Monstera Deliciosa", "text": "Iconic split-leaf tropical. Air-purifying & low-maintenance.", "price": "₹499", "compare_price": "₹699" } },
         { "type": "card", "settings": { "tab": "tab_1", "title": "Peace Lily", "text": "Elegant white blooms. Thrives in low light, purifies air.", "price": "₹349", "compare_price": "₹499" } },
-        { "type": "card", "settings": { "tab": "tab_1", "title": "Golden Pothos", "text": "Cascading vines for shelves & hanging planters. Nearly unkillable!", "price": "₹199", "compare_price": "₹299" } },
-        { "type": "card", "settings": { "tab": "tab_1", "title": "Cactus Mix", "text": "3 handpicked mini cacti. Minimal watering, maximum charm.", "price": "₹299", "compare_price": "₹440" } },
-        { "type": "card", "settings": { "tab": "tab_2", "title": "Tomato Seeds (Organic)", "text": "Non-GMO, 95% germination rate. Grow juicy tomatoes at home.", "price": "₹89", "compare_price": "₹149" } },
+        { "type": "card", "settings": { "tab": "tab_1", "badge": "-33%", "title": "Golden Pothos", "text": "Cascading vines for shelves & hanging planters. Nearly unkillable!", "price": "₹199", "compare_price": "₹299" } },
+        { "type": "card", "settings": { "tab": "tab_1", "title": "Cactus Mix", "text": "3 handpicked mini cacti. Minimal watering, maximum charm.", "rating": 4, "price": "₹299", "compare_price": "₹440" } },
+        { "type": "card", "settings": { "tab": "tab_2", "badge": "Organic", "title": "Tomato Seeds (Organic)", "text": "Non-GMO, 95% germination rate. Grow juicy tomatoes at home.", "price": "₹89", "compare_price": "₹149" } },
         { "type": "card", "settings": { "tab": "tab_2", "title": "Herb Garden Kit", "text": "Basil, coriander, mint & more. Your kitchen garden in a box.", "price": "₹249", "compare_price": "₹299" } },
-        { "type": "card", "settings": { "tab": "tab_3", "title": "Beginner Garden Kit", "text": "Everything to start gardening: pots, soil, tools & seeds.", "price": "₹799", "compare_price": "₹1199" } },
-        { "type": "card", "settings": { "tab": "tab_3", "title": "Self-Watering Planter", "text": "Smart planter with reservoir — waters itself for up to 2 weeks.", "price": "₹449", "compare_price": "₹649" } }
+        { "type": "card", "settings": { "tab": "tab_3", "badge": "New", "title": "Beginner Garden Kit", "text": "Everything to start gardening: pots, soil, tools & seeds.", "price": "₹799", "compare_price": "₹1199" } },
+        { "type": "card", "settings": { "tab": "tab_3", "title": "Self-Watering Planter", "text": "Smart planter with reservoir — waters itself for up to 2 weeks.", "rating": 4, "price": "₹449", "compare_price": "₹649" } }
       ]
     }
   ]

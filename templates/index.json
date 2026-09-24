@@ -994,6 +994,108 @@
     "17902271122abbfa04": {
       "type": "_blocks",
       "settings": {}
+    },
+    "plant_showcase": {
+      "type": "plant-showcase",
+      "blocks": {
+        "product_1": {
+          "type": "card",
+          "settings": {
+            "tab": "tab_1",
+            "badge": "Bestseller",
+            "title": "Monstera Deliciosa",
+            "text": "Iconic split-leaf tropical. Air-purifying & low-maintenance.",
+            "price": "₹499",
+            "compare_price": "₹699"
+          }
+        },
+        "product_2": {
+          "type": "card",
+          "settings": {
+            "tab": "tab_1",
+            "title": "Peace Lily",
+            "text": "Elegant white blooms. Thrives in low light, purifies air.",
+            "price": "₹349",
+            "compare_price": "₹499"
+          }
+        },
+        "product_3": {
+          "type": "card",
+          "settings": {
+            "tab": "tab_1",
+            "badge": "-33%",
+            "title": "Golden Pothos",
+            "text": "Cascading vines for shelves & hanging planters. Nearly unkillable!",
+            "price": "₹199",
+            "compare_price": "₹299"
+          }
+        },
+        "product_4": {
+          "type": "card",
+          "settings": {
+            "tab": "tab_1",
+            "title": "Cactus Mix",
+            "text": "3 handpicked mini cacti. Minimal watering, maximum charm.",
+            "rating": 4,
+            "price": "₹299",
+            "compare_price": "₹440"
+          }
+        },
+        "product_5": {
+          "type": "card",
+          "settings": {
+            "tab": "tab_2",
+            "badge": "Organic",
+            "title": "Tomato Seeds (Organic)",
+            "text": "Non-GMO, 95% germination rate. Grow juicy tomatoes at home.",
+            "price": "₹89",
+            "compare_price": "₹149"
+          }
+        },
+        "product_6": {
+          "type": "card",
+          "settings": {
+            "tab": "tab_2",
+            "title": "Herb Garden Kit",
+            "text": "Basil, coriander, mint & more. Your kitchen garden in a box.",
+            "price": "₹249",
+            "compare_price": "₹299"
+          }
+        },
+        "product_7": {
+          "type": "card",
+          "settings": {
+            "tab": "tab_3",
+            "badge": "New",
+            "title": "Beginner Garden Kit",
+            "text": "Everything to start gardening: pots, soil, tools & seeds.",
+            "price": "₹799",
+            "compare_price": "₹1199"
+          }
+        },
+        "product_8": {
+          "type": "card",
+          "settings": {
+            "tab": "tab_3",
+            "title": "Self-Watering Planter",
+            "text": "Smart planter with reservoir — waters itself for up to 2 weeks.",
+            "rating": 4,
+            "price": "₹449",
+            "compare_price": "₹649"
+          }
+        }
+      },
+      "block_order": [
+        "product_1",
+        "product_2",
+        "product_3",
+        "product_4",
+        "product_5",
+        "product_6",
+        "product_7",
+        "product_8"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -1005,6 +1107,7 @@
     "category_circles",
     "1790157062db4cdf4d",
     "1790161067735ca0dd",
+    "plant_showcase",
     "179022738232862195",
     "1790224367bff4ff77",
     "services_banner",

@@ -71,21 +71,6 @@
     }
   }
 
-  /* Product tabs. */
-  function initTabs(root) {
-    var tabs = root.querySelectorAll('[data-tab]');
-    var panels = root.querySelectorAll('[data-tab-panel]');
-    tabs.forEach(function (tab, i) {
-      tab.addEventListener('click', function () {
-        tabs.forEach(function (t, j) {
-          t.classList.toggle('is-active', i === j);
-          t.setAttribute('aria-selected', i === j ? 'true' : 'false');
-        });
-        panels.forEach(function (p, j) { p.hidden = i !== j; });
-      });
-    });
-  }
-
   /* Filter tabs: show only the cards whose data-tab matches the chosen tab. */
   function initFilterTabs(root) {
     var tabs = root.querySelectorAll('[data-filter]');
@@ -175,7 +160,6 @@
   function init(scope) {
     scope.querySelectorAll('.hero[data-slider]').forEach(initHero);
     scope.querySelectorAll('[data-scroller]').forEach(initScroller);
-    scope.querySelectorAll('[data-tabs]').forEach(initTabs);
     scope.querySelectorAll('[data-filter-tabs]').forEach(initFilterTabs);
     scope.querySelectorAll('[data-plant-finder]').forEach(initFinder);
     scope.querySelectorAll('.reels').forEach(initReels);
