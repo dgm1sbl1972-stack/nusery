@@ -1,6 +1,301 @@
+{% doc %}
+  @prompt
+    Create a plant carousel section that displays plant products in slides. Each slide should show a plant image, plant name, short description, price, and a "View Product" button that links to the product page. The carousel should have navigation arrows and/or dots, be responsive, and maintain the same visual style as a plant nursery store. Keep all existing carousel functionality intact and add a clearly visible "View Product" call-to-action button on each slide.in right side 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-plant-carousel-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: {{ block.settings.section_padding }}px 0;
+    background: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-plant-carousel__inner-{{ ai_gen_id }} {
+    width: min(100% - 32px, 1200px);
+    margin: 0 auto;
+  }
+
+  .ai-plant-carousel__heading-{{ ai_gen_id }} {
+    margin: 0 0 22px;
+    color: {{ block.settings.heading_color }};
+    font-size: clamp(24px, 4vw, 38px);
+    line-height: 1.15;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-plant-carousel__viewport-{{ ai_gen_id }} {
+    overflow: hidden;
+    border-radius: {{ block.settings.card_radius }}px;
+  }
+
+  .ai-plant-carousel__track-{{ ai_gen_id }} {
+    display: flex;
+    transition: transform 320ms ease;
+    will-change: transform;
+  }
+
+  .ai-plant-carousel__slide-{{ ai_gen_id }} {
+    min-width: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.9fr);
+    align-items: stretch;
+    background: {{ block.settings.card_background }};
+    border: 1px solid {{ block.settings.border_color }};
+  }
+
+  .ai-plant-carousel__image-wrap-{{ ai_gen_id }} {
+    min-height: 330px;
+    background: {{ block.settings.image_background }};
+  }
+
+  .ai-plant-carousel__image-wrap-{{ ai_gen_id }} img,
+  .ai-plant-carousel__placeholder-{{ ai_gen_id }} svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 330px;
+    object-fit: cover;
+  }
+
+  .ai-plant-carousel__placeholder-{{ ai_gen_id }} {
+    height: 100%;
+    min-height: 330px;
+  }
+
+  .ai-plant-carousel__content-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 15px;
+    padding: clamp(24px, 5vw, 52px);
+  }
+
+  .ai-plant-carousel__eyebrow-{{ ai_gen_id }} {
+    margin: 0;
+    color: {{ block.settings.accent_color }};
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .ai-plant-carousel__title-{{ ai_gen_id }} {
+    margin: 0;
+    color: {{ block.settings.heading_color }};
+    font-size: clamp(25px, 3.5vw, 36px);
+    line-height: 1.15;
+  }
+
+  .ai-plant-carousel__description-{{ ai_gen_id }} {
+    margin: 0;
+    color: {{ block.settings.text_color }};
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .ai-plant-carousel__price-{{ ai_gen_id }} {
+    color: {{ block.settings.heading_color }};
+    font-size: 21px;
+    font-weight: 700;
+  }
+
+  .ai-plant-carousel__button-{{ ai_gen_id }} {
+    align-self: flex-end;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 180ms ease, transform 180ms ease;
+  }
+
+  .ai-plant-carousel__button-{{ ai_gen_id }}:hover {
+    background: {{ block.settings.button_hover_color }};
+    transform: translateY(-1px);
+  }
+
+  .ai-plant-carousel__button-{{ ai_gen_id }}:focus-visible,
+  .ai-plant-carousel__nav-{{ ai_gen_id }}:focus-visible,
+  .ai-plant-carousel__dot-{{ ai_gen_id }}:focus-visible {
+    outline: 3px solid {{ block.settings.accent_color }};
+    outline-offset: 3px;
+  }
+
+  .ai-plant-carousel__controls-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .ai-plant-carousel__nav-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid {{ block.settings.border_color }};
+    border-radius: 50%;
+    background: {{ block.settings.card_background }};
+    color: {{ block.settings.heading_color }};
+    cursor: pointer;
+  }
+
+  .ai-plant-carousel__dots-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ai-plant-carousel__dot-{{ ai_gen_id }} {
+    width: 9px;
+    height: 9px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: {{ block.settings.border_color }};
+    cursor: pointer;
+  }
+
+  .ai-plant-carousel__dot-{{ ai_gen_id }}[aria-current="true"] {
+    width: 24px;
+    border-radius: 999px;
+    background: {{ block.settings.button_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-plant-carousel__slide-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-plant-carousel__image-wrap-{{ ai_gen_id }},
+    .ai-plant-carousel__image-wrap-{{ ai_gen_id }} img,
+    .ai-plant-carousel__placeholder-{{ ai_gen_id }},
+    .ai-plant-carousel__placeholder-{{ ai_gen_id }} svg {
+      min-height: 250px;
+      height: 250px;
+    }
+
+    .ai-plant-carousel__content-{{ ai_gen_id }} {
+      padding: 28px 22px;
+    }
+  }
+{% endstyle %}
+
+<plant-carousel-{{ ai_gen_id }} class="ai-plant-carousel-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-plant-carousel__inner-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank %}
+      <h2 class="ai-plant-carousel__heading-{{ ai_gen_id }}">{{ block.settings.heading | escape }}</h2>
+    {% endif %}
+
+    {% if block.settings.products != blank %}
+      <div class="ai-plant-carousel__viewport-{{ ai_gen_id }}" aria-live="polite">
+        <div class="ai-plant-carousel__track-{{ ai_gen_id }}">
+          {% for product in block.settings.products %}
+            <article class="ai-plant-carousel__slide-{{ ai_gen_id }}">
+              <div class="ai-plant-carousel__image-wrap-{{ ai_gen_id }}">
+                {% if product.featured_image %}
+                  <img src="{{ product.featured_image | image_url: width: 1000 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" loading="lazy" width="1000" height="750">
+                {% else %}
+                  <div class="ai-plant-carousel__placeholder-{{ ai_gen_id }}">{{ 'product-apparel-1' | placeholder_svg_tag }}</div>
+                {% endif %}
+              </div>
+              <div class="ai-plant-carousel__content-{{ ai_gen_id }}">
+                <p class="ai-plant-carousel__eyebrow-{{ ai_gen_id }}">{{ block.settings.eyebrow | escape }}</p>
+                <h3 class="ai-plant-carousel__title-{{ ai_gen_id }}">{{ product.title | escape }}</h3>
+                <p class="ai-plant-carousel__description-{{ ai_gen_id }}">{{ product.description | strip_html | truncate: 145 }}</p>
+                <div class="ai-plant-carousel__price-{{ ai_gen_id }}">{{ product.price | money }}</div>
+                <a class="ai-plant-carousel__button-{{ ai_gen_id }}" href="{{ product.url }}">{{ block.settings.button_label | escape }}</a>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="ai-plant-carousel__controls-{{ ai_gen_id }}">
+        <button class="ai-plant-carousel__nav-{{ ai_gen_id }}" type="button" data-direction="previous" aria-label="Previous plant">&#8592;</button>
+        <div class="ai-plant-carousel__dots-{{ ai_gen_id }}" role="tablist" aria-label="Plant slides">
+          {% for product in block.settings.products %}
+            <button class="ai-plant-carousel__dot-{{ ai_gen_id }}" type="button" role="tab" data-index="{{ forloop.index0 }}" aria-label="Go to {{ product.title | escape }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}"></button>
+          {% endfor %}
+        </div>
+        <button class="ai-plant-carousel__nav-{{ ai_gen_id }}" type="button" data-direction="next" aria-label="Next plant">&#8594;</button>
+      </div>
+    {% else %}
+      <div class="ai-plant-carousel__slide-{{ ai_gen_id }}">
+        <div class="ai-plant-carousel__placeholder-{{ ai_gen_id }}">{{ 'product-apparel-1' | placeholder_svg_tag }}</div>
+        <div class="ai-plant-carousel__content-{{ ai_gen_id }}"><h3 class="ai-plant-carousel__title-{{ ai_gen_id }}">Add plants to your carousel</h3><p class="ai-plant-carousel__description-{{ ai_gen_id }}">Choose products in the Theme Editor to display your nursery collection.</p></div>
+      </div>
+    {% endif %}
+  </div>
+</plant-carousel-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class PlantCarousel{{ ai_gen_id }} extends HTMLElement {
+      connectedCallback() {
+        this.track = this.querySelector('.ai-plant-carousel__track-{{ ai_gen_id }}');
+        this.slides = this.querySelectorAll('.ai-plant-carousel__slide-{{ ai_gen_id }}');
+        this.dots = this.querySelectorAll('.ai-plant-carousel__dot-{{ ai_gen_id }}');
+        this.index = 0;
+        if (!this.track || this.slides.length < 2) return;
+        this.querySelectorAll('[data-direction]').forEach((button) => button.addEventListener('click', () => this.move(button.dataset.direction === 'next' ? 1 : -1)));
+        this.dots.forEach((dot) => dot.addEventListener('click', () => this.goTo(Number(dot.dataset.index))));
+      }
+
+      move(step) {
+        this.goTo((this.index + step + this.slides.length) % this.slides.length);
+      }
+
+      goTo(index) {
+        this.index = index;
+        this.track.style.transform = 'translateX(-' + (index * 100) + '%)';
+        this.dots.forEach((dot, dotIndex) => dot.setAttribute('aria-current', dotIndex === index ? 'true' : 'false'));
+      }
+    }
+    if (!customElements.get('plant-carousel-{{ ai_gen_id }}')) customElements.define('plant-carousel-{{ ai_gen_id }}', PlantCarousel{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Plant carousel",
+  "settings": [
+    { "type": "product_list", "id": "products", "label": "Plants", "limit": 12 },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Bring home something green" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Nursery favourites" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "View Product" },
+    { "type": "range", "id": "desktop_width_percent", "label": "Desktop width", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "section_padding", "label": "Section spacing", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 36 },
+    { "type": "range", "id": "card_radius", "label": "Card radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
+    { "type": "select", "id": "text_alignment", "label": "Heading alignment", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }], "default": "left" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#f8f4ec" },
+    { "type": "color", "id": "card_background", "label": "Card", "default": "#f4f7dc" },
+    { "type": "color", "id": "image_background", "label": "Image area", "default": "#e3ecd8" },
+    { "type": "color", "id": "heading_color", "label": "Heading", "default": "#0d3a1d" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#14231a" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#0c8f45" },
+    { "type": "color", "id": "button_color", "label": "Button", "default": "#1f5130" },
+    { "type": "color", "id": "button_hover_color", "label": "Button hover", "default": "#0d3a1d" },
+    { "type": "color", "id": "button_text_color", "label": "Button text", "default": "#ffffff" },
+    { "type": "color", "id": "border_color", "label": "Border", "default": "#c9d6bf" }
+  ],
+  "presets": [{ "name": "Plant carousel" }],
+  "tag": null,
+  "class": "plant-carousel-block"
+}
 {% endschema %}
