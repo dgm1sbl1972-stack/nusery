@@ -306,42 +306,6 @@
         "buy_now_link": ""
       }
     },
-    "1790157062db4cdf4d": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_de7cc42_njHgBV": {
-          "type": "ai_gen_block_de7cc42",
-          "settings": {
-            "heading": "Find your plants categories",
-            "heading_size": 28,
-            "desktop_width_percent": 100,
-            "background_color": "#f8f4ec",
-            "shape_color": "#f4f7dc",
-            "accent_color": "#ffd60a",
-            "text_color": "#1f5130",
-            "shape_size": 130,
-            "item_gap": 16,
-            "label_size": 13,
-            "vertical_padding": 25,
-            "link_1": "",
-            "link_2": "",
-            "link_3": "",
-            "link_4": "",
-            "link_5": "",
-            "link_6": "",
-            "link_7": "",
-            "link_8": "",
-            "link_9": ""
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_de7cc42_njHgBV"
-      ],
-      "disabled": true,
-      "settings": {}
-    },
     "1790161067735ca0dd": {
       "type": "_blocks",
       "blocks": {
@@ -529,6 +493,44 @@
       ],
       "settings": {}
     },
+    "17902281242a4f0ec3": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_4d8a09d_KX6BNp": {
+          "type": "ai_gen_block_4d8a09d",
+          "settings": {
+            "heading": "Complete Garden Services by SBL Farms",
+            "description": "<p><br/>From <strong>green walls and landscaping to plant selection, garden transformation and ongoing care</strong>, SBL Farms offers complete services to create, refresh and maintain beautiful green spaces.<br/><br/></p>",
+            "button_label": "View all our services",
+            "button_link": "shopify://pages/contact",
+            "background_image": "shopify://shop_images/f1e021cb-377e-40d0-9083-3db7e22e964f.png",
+            "background_position": "center center",
+            "overlay_opacity": 50,
+            "overlay_color": "#1F5130",
+            "desktop_width_percent": 100,
+            "min_height": 500,
+            "mobile_min_height": 340,
+            "text_alignment": "center",
+            "content_alignment": "center",
+            "heading_size": 60,
+            "mobile_heading_size": 32,
+            "background_color": "#1F5130",
+            "text_color": "#FFFFFF",
+            "button_color": "#ffd60a",
+            "button_text_color": "#14231a",
+            "button_hover_color": "#ffffff",
+            "focus_color": "#ffd60a",
+            "border_radius": 0,
+            "button_radius": 8
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_4d8a09d_KX6BNp"
+      ],
+      "settings": {}
+    },
     "1790224367bff4ff77": {
       "type": "_blocks",
       "blocks": {
@@ -555,15 +557,9 @@
       ],
       "settings": {}
     },
-    "services_banner": {
-      "type": "services-banner",
-      "settings": {
-        "background": "#ffe9c4",
-        "heading": "Garden services by SBL Nursery",
-        "text": "<p>From balcony makeovers to full garden setups and regular maintenance — our horticulture experts bring the green to your doorstep.</p>",
-        "button_label": "View all Our Service",
-        "button_link": ""
-      }
+    "17902271122abbfa04": {
+      "type": "_blocks",
+      "settings": {}
     },
     "our_story": {
       "type": "our-story",
@@ -605,63 +601,68 @@
       ],
       "settings": {
         "background": "#fdf6ee",
+        "image_1": "shopify://shop_images/IMG_5346-_1.jpg",
+        "image_2": "shopify://shop_images/a11.png",
+        "image_3": "shopify://shop_images/6M29188-1.jpg",
         "eyebrow": "Our Story",
-        "heading": "Rooted in",
-        "heading_accent": "Passion,",
+        "heading": "Rooted in  Passion,",
+        "heading_accent": "",
         "heading_2": "Growing in Purpose",
         "text": "<p>SBL Nursery started in a small Bangalore nursery with one simple belief — every home deserves the joy of greenery. What began as a weekend hobby grew into India's most trusted online plant store.</p><p>We work directly with skilled horticulturists and small-scale growers across India, ensuring every plant is nurtured with care before reaching your doorstep.</p><p>Today, we've helped over 3.5 lakh families across India build their own green sanctuaries — and we're just getting started.</p>"
       }
     },
-    "plant_finder": {
-      "type": "plant-finder",
+    "179022886862f2d4cd": {
+      "type": "_blocks",
       "blocks": {
-        "question_1": {
-          "type": "question",
+        "ai_gen_block_e2f69cb_tgpTUV": {
+          "type": "ai_gen_block_e2f69cb",
           "settings": {
-            "question": "How much natural light does your space get?",
-            "answers": "☀️ Bright & sunny | flower-plant\n🌥️ Low light | leaf-plant\n⛅ Moderate light | herbs\n🪟 No windows | succulent-creepers"
-          }
-        },
-        "question_2": {
-          "type": "question",
-          "settings": {
-            "question": "How often can you water your plants?",
-            "answers": "💧 Every day | herbs\n🗓️ Twice a week | flower-plant\n🌵 Once in a while | succulent-creepers\n🤷 I often forget | succulent-creepers"
-          }
-        },
-        "question_3": {
-          "type": "question",
-          "settings": {
-            "question": "Where will the plant live?",
-            "answers": "🛋️ Living room | leaf-plant\n🌇 Balcony | flower-creepers\n🍳 Kitchen | herbs\n💻 Work desk | succulent-creepers"
-          }
-        },
-        "question_4": {
-          "type": "question",
-          "settings": {
-            "question": "What's your experience level?",
-            "answers": "🌱 Complete beginner | leaf-plant\n🌿 Some experience | flower-plant\n🌳 Plant pro | fruit-plant\n🎁 Buying as a gift | ornamental-flower"
-          }
+            "desktop_width_percent": 100,
+            "card_radius": 16,
+            "quiz_eyebrow": "Find your match",
+            "quiz_heading": "Which plant is right for you?",
+            "quiz_intro": "Answer two quick questions and discover a great place to start.",
+            "question_one": "How much natural light does your space get?",
+            "light_bright": "Bright, indirect light",
+            "light_low": "Low to moderate light",
+            "question_two": "How often would you like to care for it?",
+            "care_easy": "Occasionally",
+            "care_often": "Regularly",
+            "button_label": "Show my plant match",
+            "result_bright_often": "Try a flowering plant",
+            "result_bright_often_text": "Your space and routine suit a plant that rewards consistent care.",
+            "result_bright_easy": "Try a sun-loving succulent",
+            "result_bright_easy_text": "Choose a hardy plant that enjoys plenty of light and less frequent watering.",
+            "result_low_often": "Try a leafy tropical plant",
+            "result_low_often_text": "A lush foliage plant can thrive with attentive care in a gentler light spot.",
+            "result_low_easy": "Try a low-light plant",
+            "result_low_easy_text": "Look for a forgiving plant that is comfortable in lower light and needs less attention.",
+            "video_eyebrow": "Plant care tips",
+            "video_heading": "See how to get started",
+            "video_description": "Share a helpful guide alongside your plant recommendations.",
+            "video_url": "https://www.image2url.com/r2/default/videos/1790229592857-622ef34c-ccdd-44fa-b659-d3f4d1c1f980.mp4",
+            "video_empty_text": "Add an uploaded video or an external video URL.",
+            "card_background": "#FFF0BE",
+            "card_border": "#d9e1d6",
+            "text_color": "#0d3a1d",
+            "heading_color": "#0d3a1d",
+            "muted_color": "#5b6660",
+            "eyebrow_color": "#1f5130",
+            "option_background": "#ffffff",
+            "option_selected_background": "#e7f0df",
+            "result_background": "#e7f0df",
+            "button_background": "#1f5130",
+            "button_text_color": "#ffffff",
+            "focus_color": "#ffd60a",
+            "video_background": "#e5ebe3"
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "question_1",
-        "question_2",
-        "question_3",
-        "question_4"
+        "ai_gen_block_e2f69cb_tgpTUV"
       ],
-      "settings": {
-        "eyebrow": "Plant finder",
-        "heading": "Not Sure Which Plant to",
-        "heading_accent": "Choose?",
-        "text": "<p>Answer 4 quick questions and we'll match you with the perfect plant for your space, lifestyle and experience level. No green thumb required!</p>",
-        "point_1": "Takes less than 60 seconds",
-        "point_2": "Personalised to your home & lifestyle",
-        "point_3": "Instant results with care tips",
-        "result_heading": "Your perfect match:",
-        "result_button": "Shop my plants",
-        "fallback_link": ""
-      }
+      "settings": {}
     },
     "trending_reels": {
       "type": "trending-reels",
@@ -669,20 +670,23 @@
         "reel_1": {
           "type": "reel",
           "settings": {
-            "external_url": "",
+            "poster": "shopify://shop_images/bnr2_cdad5824-d762-42bf-b88f-6e0fb0bbafa5.png",
+            "external_url": "https://www.image2url.com/r2/default/videos/1790229592857-622ef34c-ccdd-44fa-b659-d3f4d1c1f980.mp4",
             "title": "Tiny Plant, Big Vibe"
           }
         },
         "reel_2": {
           "type": "reel",
           "settings": {
-            "external_url": "",
+            "poster": "shopify://shop_images/bnr3.png",
+            "external_url": "https://www.image2url.com/r2/default/videos/1790229592857-622ef34c-ccdd-44fa-b659-d3f4d1c1f980.mp4",
             "title": "Green Therapy Moment"
           }
         },
         "reel_3": {
           "type": "reel",
           "settings": {
+            "poster": "shopify://shop_images/6M29188-1.jpg",
             "external_url": "",
             "title": "Transform Your WFH Space"
           }
@@ -690,6 +694,7 @@
         "reel_4": {
           "type": "reel",
           "settings": {
+            "poster": "shopify://shop_images/IMG_5346-_1.jpg",
             "external_url": "",
             "title": "Balcony Makeover"
           }
@@ -697,6 +702,7 @@
         "reel_5": {
           "type": "reel",
           "settings": {
+            "poster": "shopify://shop_images/IMG_8433-1.jpg",
             "external_url": "",
             "title": "Repotting 101"
           }
@@ -704,6 +710,7 @@
         "reel_6": {
           "type": "reel",
           "settings": {
+            "poster": "shopify://shop_images/gardening.jpg",
             "external_url": "",
             "title": "Herb Garden Tour"
           }
@@ -986,116 +993,6 @@
     "17901651019ef06f4d": {
       "type": "_blocks",
       "settings": {}
-    },
-    "17901655219d915c8a": {
-      "type": "_blocks",
-      "settings": {}
-    },
-    "17902271122abbfa04": {
-      "type": "_blocks",
-      "settings": {}
-    },
-    "plant_showcase": {
-      "type": "plant-showcase",
-      "blocks": {
-        "product_1": {
-          "type": "card",
-          "settings": {
-            "tab": "tab_1",
-            "badge": "Bestseller",
-            "title": "Monstera Deliciosa",
-            "text": "Iconic split-leaf tropical. Air-purifying & low-maintenance.",
-            "price": "₹499",
-            "compare_price": "₹699"
-          }
-        },
-        "product_2": {
-          "type": "card",
-          "settings": {
-            "tab": "tab_1",
-            "title": "Peace Lily",
-            "text": "Elegant white blooms. Thrives in low light, purifies air.",
-            "price": "₹349",
-            "compare_price": "₹499"
-          }
-        },
-        "product_3": {
-          "type": "card",
-          "settings": {
-            "tab": "tab_1",
-            "badge": "-33%",
-            "title": "Golden Pothos",
-            "text": "Cascading vines for shelves & hanging planters. Nearly unkillable!",
-            "price": "₹199",
-            "compare_price": "₹299"
-          }
-        },
-        "product_4": {
-          "type": "card",
-          "settings": {
-            "tab": "tab_1",
-            "title": "Cactus Mix",
-            "text": "3 handpicked mini cacti. Minimal watering, maximum charm.",
-            "rating": 4,
-            "price": "₹299",
-            "compare_price": "₹440"
-          }
-        },
-        "product_5": {
-          "type": "card",
-          "settings": {
-            "tab": "tab_2",
-            "badge": "Organic",
-            "title": "Tomato Seeds (Organic)",
-            "text": "Non-GMO, 95% germination rate. Grow juicy tomatoes at home.",
-            "price": "₹89",
-            "compare_price": "₹149"
-          }
-        },
-        "product_6": {
-          "type": "card",
-          "settings": {
-            "tab": "tab_2",
-            "title": "Herb Garden Kit",
-            "text": "Basil, coriander, mint & more. Your kitchen garden in a box.",
-            "price": "₹249",
-            "compare_price": "₹299"
-          }
-        },
-        "product_7": {
-          "type": "card",
-          "settings": {
-            "tab": "tab_3",
-            "badge": "New",
-            "title": "Beginner Garden Kit",
-            "text": "Everything to start gardening: pots, soil, tools & seeds.",
-            "price": "₹799",
-            "compare_price": "₹1199"
-          }
-        },
-        "product_8": {
-          "type": "card",
-          "settings": {
-            "tab": "tab_3",
-            "title": "Self-Watering Planter",
-            "text": "Smart planter with reservoir — waters itself for up to 2 weeks.",
-            "rating": 4,
-            "price": "₹449",
-            "compare_price": "₹649"
-          }
-        }
-      },
-      "block_order": [
-        "product_1",
-        "product_2",
-        "product_3",
-        "product_4",
-        "product_5",
-        "product_6",
-        "product_7",
-        "product_8"
-      ],
-      "settings": {}
     }
   },
   "order": [
@@ -1105,14 +1002,13 @@
     "1790160288979da8b0",
     "hero_slider_6C6tqL",
     "category_circles",
-    "1790157062db4cdf4d",
     "1790161067735ca0dd",
-    "plant_showcase",
     "179022738232862195",
+    "17902281242a4f0ec3",
     "1790224367bff4ff77",
-    "services_banner",
+    "17902271122abbfa04",
     "our_story",
-    "plant_finder",
+    "179022886862f2d4cd",
     "trending_reels",
     "testimonials",
     "comparison_table",
@@ -1122,8 +1018,6 @@
     "17901580437110f3d4",
     "1790159110cf772009",
     "1790164970bcc216e6",
-    "17901651019ef06f4d",
-    "17901655219d915c8a",
-    "17902271122abbfa04"
+    "17901651019ef06f4d"
   ]
 }
