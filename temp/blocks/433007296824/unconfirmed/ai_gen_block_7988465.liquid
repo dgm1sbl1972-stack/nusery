@@ -1,6 +1,281 @@
+{% doc %}
+  @prompt
+    Create a responsive Shopify section matching the attached reference image.
+    
+    SECTION PURPOSE:
+    Create a “Why Choose SBL” comparison table for SBL Nursery.
+    
+    IMPORTANT CHANGES FROM REFERENCE:
+    - Remove the “Local Nurseries” column completely.
+    - Keep only 2 comparison columns:
+      1. SBL
+      2. Others
+    - Keep the leftmost column for feature names.
+    - Allow me to upload a custom background image for the entire section.
+    - The background image should cover the full section while keeping the table clearly readable.
+    
+    LAYOUT:
+    - Small top label: “WHY CHOOSE SBL”
+    - Main heading: “Your Monthly Green Dose”
+    - Short description below:
+      “Get curated plants, seeds and care products delivered to your door every month. Cancel anytime.”
+    - Center the heading and description.
+    - Place the comparison table below with rounded corners.
+    - Make the SBL column visually highlighted in green.
+    - Others column should use a clean white/light background.
+    - Feature-name column should be white/light.
+    - Use subtle borders between rows.
+    - Keep the same clean, premium, minimal style as the reference.
+    
+    TABLE COLUMNS:
+    Feature | SBL | Others
+    
+    ROWS:
+    Plant quality | ✓ Green, healthy & bushy | ~ Inconsistent
+    Pests | ✓ Pest-controlled | ✓
+    Repotting | ✓ Not required | ~ Varies; not consistent
+    Standard soil | ✓ Pre-mixed | ✓
+    Growing Conditions | ✓ Grown by experts on old farms | ✕ Outsourced
+    After-sale help | ✓ Expert support | ✕ None
+    Guaranteed | ✓ Assured quality, 14 days replacement | ~ Conditional
+    One-stop garden shop | ✓ | ✕
+    
+    SHOPIFY CUSTOMIZATION OPTIONS:
+    - Background image upload
+    - Section background overlay opacity
+    - Heading text
+    - Description text
+    - Top label text
+    - SBL column title
+    - Others column title
+    - Feature names
+    - SBL content for each row
+    - Others content for each row
+    - SBL column background color
+    - Header background color
+    - Text colors
+    - Border color
+    - Border radius
+    - Section top/bottom spacing
+    
+    RESPONSIVE:
+    - Desktop: centered comparison table with comfortable width.
+    - Mobile: make the table horizontally scrollable without breaking the layout.
+    - Keep the SBL column highlighted while scrolling.
+    - Do not remove or hide any table information on mobile.
+    
+    Do not add extra sections, cards, buttons, or unnecessary animations.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-why-sbl-{{ ai_gen_id }} {
+    display: block;
+    position: relative;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.section_spacing }}px 24px;
+    color: {{ block.settings.text_color }};
+    background-color: {{ block.settings.section_background }};
+    background-image: {% if block.settings.background_image %}linear-gradient(rgba(0, 0, 0, {{ block.settings.overlay_opacity | divided_by: 100.0 }}), rgba(0, 0, 0, {{ block.settings.overlay_opacity | divided_by: 100.0 }})), url('{{ block.settings.background_image | image_url: width: 2400 }}'){% else %}none{% endif %};
+    background-position: center;
+    background-size: cover;
+  }
+
+  .ai-why-sbl__inner-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .ai-why-sbl__intro-{{ ai_gen_id }} {
+    max-width: 760px;
+    margin: 0 auto 34px;
+    text-align: center;
+  }
+
+  .ai-why-sbl__eyebrow-{{ ai_gen_id }} {
+    margin: 0 0 12px;
+    color: {{ block.settings.label_color }};
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    line-height: 1.4;
+  }
+
+  .ai-why-sbl__heading-{{ ai_gen_id }} {
+    margin: 0 0 12px;
+    color: {{ block.settings.heading_color }};
+    font-size: clamp(30px, 4vw, 52px);
+    line-height: 1.08;
+  }
+
+  .ai-why-sbl__description-{{ ai_gen_id }} {
+    max-width: 650px;
+    margin: 0 auto;
+    color: {{ block.settings.description_color }};
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .ai-why-sbl__table-wrap-{{ ai_gen_id }} {
+    overflow-x: auto;
+    border: 1px solid {{ block.settings.border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    background: {{ block.settings.feature_background }};
+    box-shadow: 0 14px 40px rgba(13, 58, 29, 0.08);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .ai-why-sbl__table-{{ ai_gen_id }} {
+    width: 100%;
+    min-width: 690px;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+  }
+
+  .ai-why-sbl__table-{{ ai_gen_id }} th,
+  .ai-why-sbl__table-{{ ai_gen_id }} td {
+    padding: 17px 20px;
+    border-right: 1px solid {{ block.settings.border_color }};
+    border-bottom: 1px solid {{ block.settings.border_color }};
+    text-align: left;
+    vertical-align: middle;
+    line-height: 1.45;
+  }
+
+  .ai-why-sbl__table-{{ ai_gen_id }} tr:last-child td { border-bottom: 0; }
+  .ai-why-sbl__table-{{ ai_gen_id }} th:last-child,
+  .ai-why-sbl__table-{{ ai_gen_id }} td:last-child { border-right: 0; }
+
+  .ai-why-sbl__table-{{ ai_gen_id }} th {
+    color: {{ block.settings.header_text_color }};
+    background: {{ block.settings.header_background }};
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .ai-why-sbl__table-{{ ai_gen_id }} th:first-child { width: 31%; }
+  .ai-why-sbl__table-{{ ai_gen_id }} th:nth-child(2),
+  .ai-why-sbl__table-{{ ai_gen_id }} th:nth-child(3) { width: 34.5%; }
+
+  .ai-why-sbl__table-{{ ai_gen_id }} td {
+    color: {{ block.settings.text_color }};
+    background: {{ block.settings.feature_background }};
+    font-size: 14px;
+  }
+
+  .ai-why-sbl__table-{{ ai_gen_id }} td:first-child { font-weight: 700; }
+  .ai-why-sbl__table-{{ ai_gen_id }} th:nth-child(2),
+  .ai-why-sbl__table-{{ ai_gen_id }} td:nth-child(2) {
+    color: {{ block.settings.sbl_text_color }};
+    background: {{ block.settings.sbl_background }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-why-sbl-{{ ai_gen_id }} { padding-right: 16px; padding-left: 16px; }
+    .ai-why-sbl__intro-{{ ai_gen_id }} { margin-bottom: 24px; }
+    .ai-why-sbl__table-{{ ai_gen_id }} th,
+    .ai-why-sbl__table-{{ ai_gen_id }} td { padding: 14px 16px; }
+  }
+{% endstyle %}
+
+<why-choose-sbl-{{ ai_gen_id }} class="ai-why-sbl-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-why-sbl__inner-{{ ai_gen_id }}">
+    <div class="ai-why-sbl__intro-{{ ai_gen_id }}">
+      <p class="ai-why-sbl__eyebrow-{{ ai_gen_id }}">{{ block.settings.top_label }}</p>
+      <h2 class="ai-why-sbl__heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+      <div class="ai-why-sbl__description-{{ ai_gen_id }}">{{ block.settings.description }}</div>
+    </div>
+
+    <div class="ai-why-sbl__table-wrap-{{ ai_gen_id }}" tabindex="0" aria-label="Why choose SBL comparison table">
+      <table class="ai-why-sbl__table-{{ ai_gen_id }}">
+        <thead>
+          <tr>
+            <th scope="col">{{ block.settings.feature_heading }}</th>
+            <th scope="col">{{ block.settings.sbl_heading }}</th>
+            <th scope="col">{{ block.settings.others_heading }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in (1..8) %}
+            {% liquid
+              assign feature_key = 'feature_' | append: i
+              assign sbl_key = 'sbl_' | append: i
+              assign others_key = 'others_' | append: i
+            %}
+            <tr>
+              <td>{{ block.settings[feature_key] }}</td>
+              <td>{{ block.settings[sbl_key] }}</td>
+              <td>{{ block.settings[others_key] }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</why-choose-sbl-{{ ai_gen_id }}>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Why choose SBL",
+  "tag": null,
+  "class": "why-choose-sbl-block",
+  "settings": [
+    {"type":"header","content":"Content"},
+    {"type":"text","id":"top_label","label":"Top label","default":"WHY CHOOSE SBL"},
+    {"type":"text","id":"heading","label":"Heading","default":"Your Monthly Green Dose"},
+    {"type":"textarea","id":"description","label":"Description","default":"Get curated plants, seeds and care products delivered to your door every month. Cancel anytime."},
+    {"type":"text","id":"feature_heading","label":"Feature heading","default":"Feature"},
+    {"type":"text","id":"sbl_heading","label":"SBL heading","default":"SBL"},
+    {"type":"text","id":"others_heading","label":"Others heading","default":"Others"},
+    {"type":"header","content":"Comparison rows"},
+    {"type":"text","id":"feature_1","label":"Feature 1","default":"Plant quality"},
+    {"type":"text","id":"sbl_1","label":"SBL 1","default":"✓ Green, healthy & bushy"},
+    {"type":"text","id":"others_1","label":"Others 1","default":"~ Inconsistent"},
+    {"type":"text","id":"feature_2","label":"Feature 2","default":"Pests"},
+    {"type":"text","id":"sbl_2","label":"SBL 2","default":"✓ Pest-controlled"},
+    {"type":"text","id":"others_2","label":"Others 2","default":"✓"},
+    {"type":"text","id":"feature_3","label":"Feature 3","default":"Repotting"},
+    {"type":"text","id":"sbl_3","label":"SBL 3","default":"✓ Not required"},
+    {"type":"text","id":"others_3","label":"Others 3","default":"~ Varies; not consistent"},
+    {"type":"text","id":"feature_4","label":"Feature 4","default":"Standard soil"},
+    {"type":"text","id":"sbl_4","label":"SBL 4","default":"✓ Pre-mixed"},
+    {"type":"text","id":"others_4","label":"Others 4","default":"✓"},
+    {"type":"text","id":"feature_5","label":"Feature 5","default":"Growing Conditions"},
+    {"type":"text","id":"sbl_5","label":"SBL 5","default":"✓ Grown by experts on old farms"},
+    {"type":"text","id":"others_5","label":"Others 5","default":"✕ Outsourced"},
+    {"type":"text","id":"feature_6","label":"Feature 6","default":"After-sale help"},
+    {"type":"text","id":"sbl_6","label":"SBL 6","default":"✓ Expert support"},
+    {"type":"text","id":"others_6","label":"Others 6","default":"✕ None"},
+    {"type":"text","id":"feature_7","label":"Feature 7","default":"Guaranteed"},
+    {"type":"text","id":"sbl_7","label":"SBL 7","default":"✓ Assured quality, 14 days replacement"},
+    {"type":"text","id":"others_7","label":"Others 7","default":"~ Conditional"},
+    {"type":"text","id":"feature_8","label":"Feature 8","default":"One-stop garden shop"},
+    {"type":"text","id":"sbl_8","label":"SBL 8","default":"✓"},
+    {"type":"text","id":"others_8","label":"Others 8","default":"✕"},
+    {"type":"header","content":"Background and colors"},
+    {"type":"image_picker","id":"background_image","label":"Background image"},
+    {"type":"range","id":"overlay_opacity","label":"Overlay opacity","min":0,"max":90,"step":5,"unit":"%","default":25},
+    {"type":"color","id":"section_background","label":"Section background","default":"#f8f4ec"},
+    {"type":"color","id":"sbl_background","label":"SBL column background","default":"#dcefdc"},
+    {"type":"color","id":"header_background","label":"Header background","default":"#1f5130"},
+    {"type":"color","id":"feature_background","label":"Feature background","default":"#ffffff"},
+    {"type":"color","id":"heading_color","label":"Heading color","default":"#0d3a1d"},
+    {"type":"color","id":"label_color","label":"Label color","default":"#0c8f45"},
+    {"type":"color","id":"description_color","label":"Description color","default":"#5b6660"},
+    {"type":"color","id":"text_color","label":"Text color","default":"#14231a"},
+    {"type":"color","id":"sbl_text_color","label":"SBL text color","default":"#0d3a1d"},
+    {"type":"color","id":"header_text_color","label":"Header text color","default":"#ffffff"},
+    {"type":"color","id":"border_color","label":"Border color","default":"#d5dfd5"},
+    {"type":"header","content":"Layout"},
+    {"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},
+    {"type":"range","id":"border_radius","label":"Border radius","min":0,"max":32,"step":2,"unit":"px","default":16},
+    {"type":"range","id":"section_spacing","label":"Top and bottom spacing","min":20,"max":120,"step":5,"unit":"px","default":70}
+  ],
+  "presets": [{"name":"Why choose SBL"}]
+}
 {% endschema %}
