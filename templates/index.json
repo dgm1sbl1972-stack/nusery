@@ -467,30 +467,6 @@
     },
     "179022738232862195": {
       "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_e0fbcb6_RDUErV": {
-          "type": "ai_gen_block_e0fbcb6",
-          "settings": {
-            "collection": "pots",
-            "heading": "Your Plants Deserve Pots",
-            "desktop_width_percent": 70,
-            "columns_desktop": 4,
-            "products_to_show": 8,
-            "grid_gap": 16,
-            "section_padding": 50,
-            "background_color": "#fff0be",
-            "heading_color": "#1f5130",
-            "text_color": "#101010",
-            "muted_color": "#101010",
-            "button_color": "#1f5130",
-            "badge_color": "#1f5130"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_e0fbcb6_RDUErV"
-      ],
       "settings": {}
     },
     "17902281242a4f0ec3": {
@@ -508,6 +484,7 @@
             "desktop_columns": "4",
             "tablet_columns": "3",
             "mobile_columns": "2",
+            "background_image": "shopify://shop_images/9cc25877-94cd-46f3-88ac-b0ae6a8e8519.png",
             "background_color": "#f8f4ec",
             "overlay_opacity": 20,
             "card_radius": 18,
@@ -526,71 +503,11 @@
             "badge_background": "#0d3a1d"
           },
           "blocks": {}
-        },
-        "ai_gen_block_4d8a09d_KX6BNp": {
-          "type": "ai_gen_block_4d8a09d",
-          "settings": {
-            "heading": "Complete Garden Services by SBL Farms",
-            "description": "<p><br/>From <strong>green walls and landscaping to plant selection, garden transformation and ongoing care</strong>, SBL Farms offers complete services to create, refresh and maintain beautiful green spaces.<br/><br/></p>",
-            "button_label": "View all our services",
-            "button_link": "shopify://pages/contact",
-            "background_image": "shopify://shop_images/f1e021cb-377e-40d0-9083-3db7e22e964f.png",
-            "background_position": "center center",
-            "overlay_opacity": 50,
-            "overlay_color": "#1f5130",
-            "desktop_width_percent": 100,
-            "min_height": 500,
-            "mobile_min_height": 340,
-            "text_alignment": "center",
-            "content_alignment": "center",
-            "heading_size": 60,
-            "mobile_heading_size": 32,
-            "background_color": "#1f5130",
-            "text_color": "#ffffff",
-            "button_color": "#ffd60a",
-            "button_text_color": "#14231a",
-            "button_hover_color": "#ffffff",
-            "focus_color": "#ffd60a",
-            "border_radius": 0,
-            "button_radius": 8
-          },
-          "blocks": {}
         }
       },
       "block_order": [
-        "ai_gen_block_02acb7f_XMY4Yd",
-        "ai_gen_block_4d8a09d_KX6BNp"
+        "ai_gen_block_02acb7f_XMY4Yd"
       ],
-      "settings": {}
-    },
-    "1790224367bff4ff77": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_719033e_6naQEb": {
-          "type": "ai_gen_block_719033e",
-          "disabled": true,
-          "settings": {
-            "collection": "pots",
-            "desktop_width_percent": 100,
-            "products_per_page": 8,
-            "columns": "4",
-            "mobile_columns": "2",
-            "grid_gap": 20,
-            "mobile_gap": 12,
-            "button_label": "View more",
-            "loading_label": "Loading...",
-            "empty_message": "Select a collection to display products."
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_719033e_6naQEb"
-      ],
-      "settings": {}
-    },
-    "17902271122abbfa04": {
-      "type": "_blocks",
       "settings": {}
     },
     "our_story": {
@@ -642,6 +559,62 @@
         "heading_2": "Growing in Purpose",
         "text": "<p>It started with one simple belief — <strong>every home deserves the joy of greenery.</strong> From a small Bangalore nursery, SBL Nursery has grown into a trusted online plant store.</p><p>We nurture every plant with care, working with skilled growers across India to bring healthy greenery to your doorstep.</p><p>Today, <strong>3.5 lakh+ families</strong> have grown with SBL Nursery — and our journey continues.</p>"
       }
+    },
+    "1790224367bff4ff77": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_4d8a09d_VdjqYU": {
+          "type": "ai_gen_block_4d8a09d",
+          "settings": {
+            "heading": "Complete Garden Services by SBL Farms",
+            "description": "<p><br/>From <strong>green walls and landscaping to plant selection, garden transformation and ongoing care</strong>, SBL Farms offers complete services to create, refresh and maintain beautiful green spaces.<br/><br/></p>",
+            "button_label": "View all our services",
+            "button_link": "shopify://pages/contact",
+            "background_image": "shopify://shop_images/f1e021cb-377e-40d0-9083-3db7e22e964f.png",
+            "background_position": "center center",
+            "overlay_opacity": 50,
+            "overlay_color": "#1f5130",
+            "desktop_width_percent": 100,
+            "min_height": 500,
+            "mobile_min_height": 340,
+            "text_alignment": "center",
+            "content_alignment": "center",
+            "heading_size": 60,
+            "mobile_heading_size": 32,
+            "background_color": "#1f5130",
+            "text_color": "#ffffff",
+            "button_color": "#ffd60a",
+            "button_text_color": "#14231a",
+            "button_hover_color": "#ffffff",
+            "focus_color": "#ffd60a",
+            "border_radius": 0,
+            "button_radius": 8
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_719033e_6naQEb": {
+          "type": "ai_gen_block_719033e",
+          "disabled": true,
+          "settings": {
+            "collection": "pots",
+            "desktop_width_percent": 100,
+            "products_per_page": 8,
+            "columns": "4",
+            "mobile_columns": "2",
+            "grid_gap": 20,
+            "mobile_gap": 12,
+            "button_label": "View more",
+            "loading_label": "Loading...",
+            "empty_message": "Select a collection to display products."
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_4d8a09d_VdjqYU",
+        "ai_gen_block_719033e_6naQEb"
+      ],
+      "settings": {}
     },
     "179022886862f2d4cd": {
       "type": "_blocks",
@@ -1097,9 +1070,8 @@
     "1790161067735ca0dd",
     "179022738232862195",
     "17902281242a4f0ec3",
-    "1790224367bff4ff77",
-    "17902271122abbfa04",
     "our_story",
+    "1790224367bff4ff77",
     "179022886862f2d4cd",
     "trending_reels",
     "1790230434f3dff53d",
