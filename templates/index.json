@@ -802,61 +802,6 @@
     },
     "1790230434f3dff53d": {
       "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_96287ba_GmUPiB": {
-          "type": "ai_gen_block_96287ba",
-          "settings": {
-            "eyebrow": "Loved by plant people",
-            "heading": "What Our Customers Say",
-            "overall_rating": "4.9",
-            "review_count": "128",
-            "desktop_width_percent": 100,
-            "section_padding": 60,
-            "scroll_speed": 45,
-            "background_color": "#f8f4ec",
-            "card_background": "#ffffff",
-            "heading_color": "#0d3a1d",
-            "text_color": "#14231a",
-            "muted_color": "#5b6660",
-            "eyebrow_color": "#1f5130",
-            "badge_background": "#f4f7dc",
-            "badge_border_color": "#d5dfc0",
-            "card_border_color": "#e3e8dc",
-            "quote_color": "#9ab58d",
-            "avatar_background": "#1f5130",
-            "avatar_text_color": "#ffffff",
-            "review_1_photo": "shopify://shop_images/c8.png",
-            "review_1_name": "Aarav Sharma",
-            "review_1_rating": 5,
-            "review_1_text": "Beautiful, healthy plants and wonderful guidance. My balcony feels alive!",
-            "review_1_date": "14 days ago",
-            "review_2_name": "Meera Patel",
-            "review_2_rating": 5,
-            "review_2_text": "The team helped me choose the perfect low-light plants for our home.",
-            "review_2_date": "1 month ago",
-            "review_3_name": "Rohan Verma",
-            "review_3_rating": 5,
-            "review_3_text": "Fast delivery, carefully packed, and every plant arrived thriving.",
-            "review_3_date": "3 months ago",
-            "review_4_name": "Nisha Iyer",
-            "review_4_rating": 5,
-            "review_4_text": "A lovely nursery with a thoughtful selection and genuinely kind service.",
-            "review_4_date": "4 months ago",
-            "review_5_name": "Kabir Joshi",
-            "review_5_rating": 4,
-            "review_5_text": "Great quality and clear care instructions. I will definitely shop here again.",
-            "review_5_date": "5 months ago",
-            "review_6_name": "Ananya Rao",
-            "review_6_rating": 5,
-            "review_6_text": "My favourite place for gifting plants. Everything feels fresh and special.",
-            "review_6_date": "6 months ago"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_96287ba_GmUPiB"
-      ],
       "settings": {}
     },
     "comparison_table": {
@@ -1115,7 +1060,7 @@
             "background_color": "#f8f4ec",
             "card_background": "#ffffff",
             "card_border_color": "#d9e2d9",
-            "heading_color": "#0d3a1d",
+            "heading_color": "#1F5130",
             "text_color": "#14231a",
             "muted_color": "#5b6660",
             "rating_color": "#d99b00",
@@ -1196,13 +1141,13 @@
     "1790236138b706c727",
     "1790230434f3dff53d",
     "comparison_table",
+    "179024251235ac3a75",
+    "17901580437110f3d4",
+    "1790242364d2d2796d",
     "blog_posts",
     "faq",
     "cta_banner",
     "17902419438e913f8a",
-    "17901580437110f3d4",
-    "17902340700a400c12",
-    "1790242364d2d2796d",
-    "179024251235ac3a75"
+    "17902340700a400c12"
   ]
 }
