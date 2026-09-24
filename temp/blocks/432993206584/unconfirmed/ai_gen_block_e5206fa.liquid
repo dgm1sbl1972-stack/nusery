@@ -1,6 +1,283 @@
+{% doc %}
+  @prompt
+    Create a Shopify custom Liquid section inspired by the uploaded reference image.
+    
+    IMPORTANT: This section is for PLANT POTS / PLANTERS, NOT seeds. Replace all seed-related content, names, images, and wording with pots and planters.
+    
+    SECTION DESIGN:
+    - Create a clean, premium product collection grid for plant pots.
+    - Use a 4-column product grid on desktop.
+    - 2 columns on tablet.
+    - 2 columns on mobile.
+    - Maintain the same overall visual structure and spacing as the reference image.
+    - Use rounded corners on product cards.
+    - Use large product images at the top of each card.
+    - Product image should have a fixed aspect ratio and use object-fit: cover.
+    - Use a soft, warm off-white/cream background for the section.
+    - Keep the design minimal, elegant and plant-focused.
+    
+    TOP BAR:
+    - Left side: filter icon + "FILTER"
+    - Right side: "Sort by" with a dropdown arrow.
+    - Make the filter and sorting controls functional.
+    - Sort dropdown should include:
+      - Featured
+      - Most relevant
+      - Best selling
+      - Alphabetically, A-Z
+      - Alphabetically, Z-A
+      - Price, low to high
+      - Price, high to low
+      - Date, old to new
+      - Date, new to old
+    
+    PRODUCT CARDS:
+    Each card should contain:
+    1. Product image
+    2. Optional discount badge in the top-right corner, such as "20% OFF"
+    3. Product rating below the image
+    4. Product title
+    5. Current price
+    6. Original price with strikethrough when there is a discount
+    7. Dark green rounded "View Product" button
+    
+    POT PRODUCT EXAMPLES:
+    Use example content such as:
+    - Classic Ceramic Pot
+    - Minimal White Planter
+    - Terracotta Plant Pot
+    - Ribbed Ceramic Planter
+    - Self-Watering Pot
+    - Hanging Planter
+    - Indoor Decorative Pot
+    - Outdoor Garden Planter
+    
+    PRODUCT DATA:
+    - Make the section dynamic and compatible with Shopify products/collections.
+    - Allow the merchant to select a Shopify collection from the Theme Editor.
+    - Pull the actual product image, title, price, compare-at price, rating if available, and product URL dynamically.
+    - Do not hard-code seed products.
+    - The section should work with any selected POT / PLANTER collection.
+    
+    FILTER:
+    Create a working filter interface suitable for pot products. Include useful filters such as:
+    - Price
+    - Size
+    - Material
+    - Color
+    - Pot Type
+    - Indoor / Outdoor
+    - Availability
+    
+    DESIGN:
+    - Premium gardening/lifestyle aesthetic.
+    - Use dark green for buttons and important accents.
+    - Use a warm cream/off-white background.
+    - Typography should be clean and elegant.
+    - Keep product titles clearly readable.
+    - Buttons should have rounded pill-style corners.
+    - Add subtle hover effects to product cards.
+    - On hover, slightly lift the card and add a soft shadow.
+    - Product images can have a subtle zoom effect on hover.
+    - Keep animations smooth and lightweight.
+    
+    RESPONSIVE:
+    - Desktop: 4 products per row.
+    - Tablet: 2–3 products per row.
+    - Mobile: 2 products per row.
+    - Ensure there is no horizontal scrolling.
+    - Maintain good spacing and readable text on mobile.
+    
+    SHOPIFY REQUIREMENTS:
+    - Provide complete Shopify Liquid, HTML, CSS and JavaScript in ONE section file.
+    - Use Shopify's collection/product objects wherever possible.
+    - Add Theme Editor schema settings for:
+      - Collection selection
+      - Number of products
+      - Products per row
+      - Section heading
+      - Background color
+      - Button color
+      - Border radius
+    - Make the code self-contained and avoid external libraries.
+    - Make sure the code can be pasted directly into a Shopify Custom Liquid/section environment.
+    - Do not include any seed-related terminology anywhere in the final section.
+    
+    SECTION HEADING:
+    Use:
+    "Find Your Perfect Pot"
+    
+    The final result should visually resemble the uploaded reference image's product listing section, but clearly represent a premium PLANT POTS & PLANTERS collection., LAYOUT:
+    - Create a horizontal 4-column product card grid.
+    - Show 4 product cards in one row on desktop.
+    - Cards should have equal width and equal height.
+    - Keep very small and consistent gaps between cards.
+    - The overall section should have a soft warm cream/off-white background.
+    - Do NOT add a heading.
+    - Do NOT add a filter button.
+    - Do NOT add a sort dropdown.
+    - Do NOT add any extra text above the product cards.
+    
+    PRODUCT CARD DESIGN:
+    Each card should have:
+    1. Large product image at the top
+    2. Red rounded discount badge in the top-right corner
+    3. Small rating badge near the bottom-left of the image
+    4. Product title below the image
+    5. Current price
+    6. Original/compare-at price with strikethrough
+    7. Dark green rounded "View Product" button
+    
+    IMAGE AREA:
+    - Product image should occupy approximately 75% of the card's visual height.
+    - Use a large rectangular image.
+    - Image corners should be rounded at the top.
+    - Use object-fit: cover.
+    - Do not crop the actual pot product unnecessarily.
+    - Allow the Shopify product image to be used dynamically.
+    
+    POT PRODUCTS:
+    Use examples such as:
+    - Classic Ceramic Plant Pot
+    - Ribbed Ceramic Planter
+    - Terracotta Plant Pot
+    - Minimal White Planter
+    - Self-Watering Plant Pot
+    - Decorative Indoor Planter
+    - Hanging Plant Pot
+    - Outdoor Garden Pot
+    
+    IMPORTANT:
+    The product cards must dynamically pull products from a Shopify collection selected in the Theme Editor.
+    
+    PRODUCT INFORMATION:
+    - Product image → Shopify product image
+    - Product title → Shopify product title
+    - Current price → Shopify product price
+    - Original price → Shopify compare-at price
+    - Discount percentage → automatically calculate from price and compare-at price
+    - Product URL → Shopify product URL
+    - Rating → display if available through the store's rating/review data
+    
+    CARD STYLING:
+    - White card background
+    - Approximately 18–20px rounded corners
+    - No heavy borders
+    - Very subtle shadow
+    - Clean premium gardening-store appearance
+    - Product title should use an elegant serif-style font similar to the reference
+    - Price should be clean and bold
+    - Compare-at price should be light gray and crossed out
+    - "View Product" button should be dark green with white text
+    - Button should be pill-shaped
+    - Button should sit toward the bottom-right of the card
+    - Maintain consistent alignment across all cards
+    
+    DISCOUNT BADGE:
+    - Red background
+    - White bold text
+    - Rounded pill
+    - Positioned inside the top-right corner of the product image
+    - Example: "20% OFF"
+    - Calculate the percentage automatically instead of hard-coding it.
+    
+    RATING:
+    - Small cream/white rounded badge
+    - Example: "4.8 ★ | 40"
+    - Place it at the bottom-left of the product image
+    - If Shopify review data is unavailable, provide a Theme Editor option to manually enter rating/review count.
+    
+    RESPONSIVE DESIGN:
+    Desktop:
+    - 4 columns
+    
+    Tablet:
+    - 2 columns
+    
+    Mobile:
+    - 2 columns
+    - Reduce card spacing and typography appropriately
+    - Ensure the product cards remain visually clean and readable
+    
+    HOVER EFFECT:
+    - Slightly lift the card on hover
+    - Add a subtle shadow
+    - Slightly zoom the product image
+    - Smooth transition around 0.3 seconds
+    - Keep the effect elegant and minimal
+    
+    SHOPIFY THEME EDITOR SETTINGS:
+    Add settings for:
+    - Select collection
+    - Number of products
+    - Desktop columns
+    - Mobile columns
+    - Section background color
+    - Button color
+    - Button text
+    - Card corner radius
+    - Enable/disable discount badge
+    - Enable/disable rating
+    - Enable/disable hover animation
+    
+    DEFAULT SETTINGS:
+    - Collection: Pots / Planters
+    - Products per row: 4
+    - Mobile columns: 2
+    - Button text: "View Product"
+    
+    CRITICAL VISUAL REQUIREMENT:
+    The final design should closely reproduce the STRUCTURE, CARD PROPORTIONS, SPACING, IMAGE SIZE, TYPOGRAPHY HIERARCHY, PRICE PLACEMENT, DISCOUNT BADGE POSITION, RATING POSITION, and "View Product" button placement from the uploaded reference image.
+    
+    Only change the content from SEEDS to PLANT POTS / PLANTERS.
+    
+    Provide complete, production-ready Shopify Liquid code with HTML, CSS, JavaScript and Shopify schema in a single section file. Do not use external libraries., need layout where to show pots collection adding images with costing and size measure ments
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign selected_collection = block.settings.collection %}
+{% style %}
+  .ai-pot-display-{{ ai_gen_id }}{display:block;width:100%;background:{{ block.settings.background_color }};padding:32px 16px}
+  .ai-pot-display__inner-{{ ai_gen_id }}{width:{{ block.settings.desktop_width_percent }}%;max-width:1200px;margin:0 auto}
+  .ai-pot-display__heading-{{ ai_gen_id }}{margin:0 0 24px;color:#0d3a1d;font-family:Georgia,serif;font-size:clamp(25px,3vw,40px);text-align:center}
+  .ai-pot-display__grid-{{ ai_gen_id }}{display:grid;grid-template-columns:repeat({{ block.settings.desktop_columns }},minmax(0,1fr));gap:14px}
+  .ai-pot-display__card-{{ ai_gen_id }}{display:flex;min-width:0;flex-direction:column;background:#fff;border-radius:{{ block.settings.card_radius }}px;overflow:hidden;box-shadow:0 3px 12px rgba(13,58,29,.08);transition:transform .3s ease,box-shadow .3s ease}
+  .ai-pot-display__card-{{ ai_gen_id }}:hover{transform:translateY(-4px);box-shadow:0 12px 25px rgba(13,58,29,.15)}
+  .ai-pot-display__image-{{ ai_gen_id }}{position:relative;display:block;aspect-ratio:1/1.05;overflow:hidden;background:#eee9df}
+  .ai-pot-display__image-{{ ai_gen_id }} img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .3s ease}.ai-pot-display__card-{{ ai_gen_id }}:hover img{transform:scale(1.04)}
+  .ai-pot-display__placeholder-{{ ai_gen_id }}{height:100%;display:flex;align-items:center;justify-content:center}.ai-pot-display__placeholder-{{ ai_gen_id }} svg{width:60%;height:60%}
+  .ai-pot-display__sale-{{ ai_gen_id }}{position:absolute;top:10px;right:10px;padding:6px 9px;border-radius:999px;background:#c9362f;color:#fff;font-size:10px;font-weight:800}
+  .ai-pot-display__body-{{ ai_gen_id }}{display:flex;flex:1;flex-direction:column;padding:13px}.ai-pot-display__rating-{{ ai_gen_id }}{min-height:18px;color:#b27424;font-size:11px}.ai-pot-display__rating span{color:#657168;margin-left:4px}.ai-pot-display__title-{{ ai_gen_id }}{margin:4px 0 7px;color:#0d3a1d;font-family:Georgia,serif;font-size:15px;line-height:1.25;text-decoration:none}.ai-pot-display__price-row-{{ ai_gen_id }}{display:flex;gap:7px;align-items:center;margin-bottom:6px}.ai-pot-display__price-{{ ai_gen_id }}{color:#0d3a1d;font-size:15px;font-weight:800}.ai-pot-display__compare-{{ ai_gen_id }}{color:#8b938d;font-size:12px;text-decoration:line-through}.ai-pot-display__size-{{ ai_gen_id }}{min-height:18px;margin-bottom:12px;color:#657168;font-size:11px}.ai-pot-display__button-{{ ai_gen_id }}{margin-top:auto;padding:10px;border-radius:999px;background:{{ block.settings.button_color }};color:#fff;text-align:center;font-size:11px;font-weight:700;text-decoration:none}.ai-pot-display__empty-{{ ai_gen_id }}{grid-column:1/-1;padding:35px;text-align:center;color:#526158}
+  @media(max-width:989px){.ai-pot-display__grid-{{ ai_gen_id }}{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:749px){.ai-pot-display-{{ ai_gen_id }}{padding:22px 10px}.ai-pot-display__inner-{{ ai_gen_id }}{width:100%}.ai-pot-display__grid-{{ ai_gen_id }}{gap:8px}.ai-pot-display__body-{{ ai_gen_id }}{padding:10px}.ai-pot-display__title-{{ ai_gen_id }}{font-size:12px}.ai-pot-display__price-{{ ai_gen_id }}{font-size:12px}.ai-pot-display__button-{{ ai_gen_id }}{font-size:10px;padding:9px 5px}}
+{% endstyle %}
+<pot-display-{{ ai_gen_id }} class="ai-pot-display-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-pot-display__inner-{{ ai_gen_id }}">
+    {% if block.settings.show_heading %}<h2 class="ai-pot-display__heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>{% endif %}
+    <div class="ai-pot-display__grid-{{ ai_gen_id }}">
+      {% if selected_collection != blank %}
+        {% for product in selected_collection.products limit:block.settings.products_to_show %}
+          {% assign discount = 0 %}{% if product.compare_at_price_max > product.price %}{% assign discount = product.compare_at_price_max | minus:product.price | times:100 | divided_by:product.compare_at_price_max %}{% endif %}
+          {% assign dimensions = product.metafields.custom.dimensions.value | default:product.metafields.custom.size.value | default:product.metafields.details.dimensions.value %}
+          {% assign rating = product.metafields.reviews.rating.value | default:product.metafields.custom.rating.value %}
+          <article class="ai-pot-display__card-{{ ai_gen_id }}">
+            <a class="ai-pot-display__image-{{ ai_gen_id }}" href="{{ product.url }}">
+              {% if product.featured_image %}<img src="{{ product.featured_image | image_url:width:900 }}" alt="{{ product.featured_image.alt | default:product.title | escape }}" loading="lazy" width="900" height="945">{% else %}<div class="ai-pot-display__placeholder-{{ ai_gen_id }}">{{ 'product-apparel-1' | placeholder_svg_tag }}</div>{% endif %}
+              {% if discount > 0 %}<span class="ai-pot-display__sale-{{ ai_gen_id }}">{{ discount }}% OFF</span>{% endif %}
+            </a>
+            <div class="ai-pot-display__body-{{ ai_gen_id }}">
+              <div class="ai-pot-display__rating-{{ ai_gen_id }}">{% if block.settings.show_rating and rating != blank %}★★★★★<span>{{ rating | round:1 }}</span>{% endif %}</div>
+              <a class="ai-pot-display__title-{{ ai_gen_id }}" href="{{ product.url }}">{{ product.title }}</a>
+              <div class="ai-pot-display__price-row-{{ ai_gen_id }}"><span class="ai-pot-display__price-{{ ai_gen_id }}">{{ product.price | money }}</span>{% if product.compare_at_price_max > product.price %}<span class="ai-pot-display__compare-{{ ai_gen_id }}">{{ product.compare_at_price_max | money }}</span>{% endif %}</div>
+              {% if block.settings.show_dimensions %}<div class="ai-pot-display__size-{{ ai_gen_id }}">{% if dimensions != blank %}Size: {{ dimensions }}{% else %}Size details available on product page{% endif %}</div>{% endif %}
+              <a class="ai-pot-display__button-{{ ai_gen_id }}" href="{{ product.url }}">{{ block.settings.button_text }}</a>
+            </div>
+          </article>
+        {% else %}<div class="ai-pot-display__empty-{{ ai_gen_id }}">No pots or planters found in this collection.</div>{% endfor %}
+      {% else %}<div class="ai-pot-display__empty-{{ ai_gen_id }}">Select a pots and planters collection to display images, prices, and sizes.</div>{% endif %}
+    </div>
+  </div>
+</pot-display-{{ ai_gen_id }}>
+<script>(function(){class PotDisplay{{ ai_gen_id }} extends HTMLElement{}customElements.define('pot-display-{{ ai_gen_id }}',PotDisplay{{ ai_gen_id }})})();</script>
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{"name":"Pot display grid","settings":[{"type":"collection","id":"collection","label":"Pot collection"},{"type":"checkbox","id":"show_heading","label":"Show heading","default":true},{"type":"text","id":"heading","label":"Heading","default":"Find Your Perfect Pot"},{"type":"range","id":"products_to_show","label":"Products to show","min":4,"max":24,"step":4,"default":12},{"type":"select","id":"desktop_columns","label":"Desktop columns","options":[{"value":"4","label":"4"},{"value":"3","label":"3"}],"default":"4"},{"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},{"type":"color","id":"background_color","label":"Background","default":"#f8f4ec"},{"type":"color","id":"button_color","label":"Button","default":"#0d3a1d"},{"type":"text","id":"button_text","label":"Button text","default":"View Product"},{"type":"range","id":"card_radius","label":"Card radius","min":10,"max":30,"step":2,"unit":"px","default":18},{"type":"checkbox","id":"show_dimensions","label":"Show size measurements","default":true},{"type":"checkbox","id":"show_rating","label":"Show rating","default":true}],"presets":[{"name":"Pot display grid"}],"tag":null,"class":"pot-display-grid"}
 {% endschema %}
