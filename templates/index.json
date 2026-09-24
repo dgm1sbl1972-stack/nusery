@@ -975,8 +975,50 @@
         "heading_accent": "",
         "button_label": "All Articles",
         "background": "#ffffff",
-        "blog": ""
-      }
+        "blog": "",
+        "columns": 4,
+        "blog_button_label": "Read more"
+      },
+      "blocks": {
+        "post_1": {
+          "type": "post",
+          "settings": {
+            "title": "Bangalore's Hidden Natural Farm",
+            "excerpt": "There's something quietly powerful about the idea of natural farming. No chemicals, no shortcuts, no forced growth...",
+            "button_label": "Read more"
+          }
+        },
+        "post_2": {
+          "type": "post",
+          "settings": {
+            "title": "Nature's Best, Grown Organically Here",
+            "excerpt": "There's a growing curiosity today around where our food comes from. More people are reading labels...",
+            "button_label": "Read more"
+          }
+        },
+        "post_3": {
+          "type": "post",
+          "settings": {
+            "title": "Why landscapers & Gardeners Choose SBL Farms",
+            "excerpt": "There's a difference between buying plants for a personal space and sourcing...",
+            "button_label": "Read more"
+          }
+        },
+        "post_4": {
+          "type": "post",
+          "settings": {
+            "title": "Visit Karnataka's Largest SBL Plant Nursery",
+            "excerpt": "There comes a point where plants stop being just decorative elements and start becoming part of...",
+            "button_label": "Read more"
+          }
+        }
+      },
+      "block_order": [
+        "post_1",
+        "post_2",
+        "post_3",
+        "post_4"
+      ]
     },
     "1790246288989fe778": {
       "type": "_blocks",
