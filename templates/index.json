@@ -158,55 +158,6 @@
       "type": "_blocks",
       "settings": {}
     },
-    "1790155594988dd5fc": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_e96aa26_C4xzyE": {
-          "type": "ai_gen_block_e96aa26",
-          "settings": {
-            "autoplay_seconds": 4,
-            "banner_height": 550,
-            "mobile_height": 420,
-            "content_position": "center",
-            "text_alignment": "center",
-            "slide_1_image": "shopify://shop_images/bnr2.png",
-            "slide_1_heading": "Bring your garden to life",
-            "slide_1_text": "Discover beautiful plants and everything you need to grow.",
-            "slide_1_button": "Shop plants",
-            "slide_1_link": "",
-            "slide_2_image": "shopify://shop_images/bnr1.png",
-            "slide_2_heading": "Create a greener home",
-            "slide_2_text": "Fresh ideas and healthy plants for every space.",
-            "slide_2_button": "Explore now",
-            "slide_2_link": "",
-            "slide_3_image": "shopify://shop_images/bnr.png",
-            "slide_3_heading": "Grow something wonderful",
-            "slide_3_text": "Find simple ways to make your garden thrive.",
-            "slide_3_button": "Get started",
-            "slide_3_link": "",
-            "fallback_background": "#1f5130",
-            "overlay_color": "#0d3a1d",
-            "overlay_opacity": 35,
-            "text_color": "#ffd60a",
-            "button_background": "#ffd60a",
-            "button_text_color": "#14231a",
-            "arrow_background": "#ffffff",
-            "arrow_color": "#14231a",
-            "dot_color": "#ffffff",
-            "focus_color": "#ffd60a",
-            "heading_size": 72,
-            "text_size": 16,
-            "button_radius": 8
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_e96aa26_C4xzyE"
-      ],
-      "disabled": true,
-      "settings": {}
-    },
     "hero_slider_6C6tqL": {
       "type": "hero-slider",
       "blocks": {
@@ -549,55 +500,6 @@
       ],
       "settings": {}
     },
-    "featured_banner_MJbLAg": {
-      "type": "featured-banner",
-      "blocks": {
-        "card_9mULMT": {
-          "type": "card",
-          "settings": {
-            "title": "",
-            "link": ""
-          }
-        },
-        "card_Dnj8Lg": {
-          "type": "card",
-          "settings": {
-            "title": "",
-            "link": ""
-          }
-        },
-        "card_N7TNxc": {
-          "type": "card",
-          "settings": {
-            "title": "",
-            "link": ""
-          }
-        },
-        "card_TnzJWR": {
-          "type": "card",
-          "settings": {
-            "title": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "card_9mULMT",
-        "card_Dnj8Lg",
-        "card_N7TNxc",
-        "card_TnzJWR"
-      ],
-      "disabled": true,
-      "settings": {
-        "background": "#e3b92c",
-        "eyebrow": "Explore our collections",
-        "heading": "Discover Hidden Wonders",
-        "text": "<p>From misty mountain peaks to golden coastlines — every destination holds a story waiting to unfold. Let yours begin here.</p>",
-        "button_label": "Start Exploring",
-        "button_link": "shopify://collections/all",
-        "gallery_label": "Featured destinations"
-      }
-    },
     "product_tabs": {
       "type": "product-tabs",
       "blocks": {
@@ -636,6 +538,7 @@
         "tab_3",
         "tab_4"
       ],
+      "disabled": true,
       "settings": {
         "eyebrow": "Our collection",
         "heading": "Handpicked",
@@ -645,6 +548,29 @@
         "button_label": "View All 500+ Products",
         "button_link": ""
       }
+    },
+    "1790224367bff4ff77": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_0774df5_FdKV4n": {
+          "type": "ai_gen_block_0774df5",
+          "settings": {
+            "collection": "pots",
+            "heading": "Find Your Perfect Pot",
+            "products_to_show": 12,
+            "products_per_row": "4",
+            "desktop_width_percent": 100,
+            "background_color": "#f8f4ec",
+            "button_color": "#0d3a1d",
+            "border_radius": 16
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_0774df5_FdKV4n"
+      ],
+      "settings": {}
     },
     "services_banner": {
       "type": "services-banner",
@@ -1088,13 +1014,12 @@
     "17901562549d3a41e6",
     "179015930923a1b439",
     "1790160288979da8b0",
-    "1790155594988dd5fc",
     "hero_slider_6C6tqL",
     "category_circles",
     "1790157062db4cdf4d",
     "1790161067735ca0dd",
-    "featured_banner_MJbLAg",
     "product_tabs",
+    "1790224367bff4ff77",
     "services_banner",
     "our_story",
     "plant_finder",
