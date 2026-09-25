@@ -1,6 +1,25 @@
 {%- liquid
   assign menu = linklists[section.settings.menu]
 -%}
+<style>
+  .site-header__inner { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; }
+  .site-header__logo { justify-self: start; min-width: 0; }
+  .site-nav { margin: 0; justify-self: center; }
+  .site-header__actions { justify-content: flex-end; justify-self: end; margin-left: 0; }
+  .header-search-toggle > summary { list-style: none; cursor: pointer; }
+  .header-search-toggle > summary::-webkit-details-marker { display: none; }
+  .header-search-panel { position: absolute; left: 0; right: 0; top: 100%; background: #fff; padding: 16px 0; box-shadow: 0 12px 24px rgba(0,0,0,.08); border-top: 1px solid #f0f0f0; }
+  .header-search-panel .header-search { display: flex; width: calc(100% - 32px); margin: 0 auto; }
+  .header-search-panel .header-search input { width: 100%; }
+  @media (max-width: 900px) {
+    .site-header__inner { gap: 12px; }
+    .menu-toggle { justify-self: start; }
+    .site-header__logo { justify-self: center; }
+    .site-header__brand small { display: none; }
+    .site-header__actions { gap: 10px; }
+  }
+</style>
+
 <header class="site-header" data-header>
   <div class="page-width site-header__inner">
     <button class="icon-btn menu-toggle" type="button" aria-label="Menu" aria-expanded="false" data-menu-toggle>
@@ -47,13 +66,13 @@
 
     <div class="site-header__actions">
       <details class="header-search-toggle" data-search-toggle>
-        <summary class="icon-btn" aria-label="{{ 'general.search_label' | t }}">
+        <summary class="icon-btn" aria-label="Search">
           <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
         </summary>
         <div class="header-search-panel">
           <form action="{{ routes.search_url }}" method="get" role="search" class="header-search header-search--lg">
             <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search' | t }}" aria-label="{{ 'general.search_label' | t }}">
+            <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search' | t }}" aria-label="Search">
             <input type="hidden" name="options[prefix]" value="last">
           </form>
         </div>
@@ -78,6 +97,19 @@
     </div>
   </div>
 </header>
+
+<script>
+  (function () {
+    var search = document.querySelector('[data-search-toggle]');
+    if (!search) return;
+    search.addEventListener('toggle', function () {
+      if (search.open) { var input = search.querySelector('input[type="search"]'); if (input) input.focus(); }
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && search.open) search.open = false; });
+    document.addEventListener('click', function (e) { if (search.open && !search.contains(e.target)) search.open = false; });
+  })();
+</script>
+
 
 {% schema %}
 {

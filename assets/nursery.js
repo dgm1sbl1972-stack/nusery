@@ -203,15 +203,6 @@
       });
     }
 
-    var search = document.querySelector('[data-search-toggle]');
-    if (search) {
-      search.addEventListener('toggle', function () {
-        if (search.open) { var input = search.querySelector('input[type="search"]'); if (input) input.focus(); }
-      });
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && search.open) search.open = false; });
-      document.addEventListener('click', function (e) { if (search.open && !search.contains(e.target)) search.open = false; });
-    }
-
     var top = document.querySelector('[data-back-to-top]');
     if (top) {
       window.addEventListener('scroll', function () { top.classList.toggle('is-visible', window.scrollY > 600); }, { passive: true });
