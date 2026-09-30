@@ -63,8 +63,41 @@
     "1790160288979da8b0": {
       "type": "_blocks",
       "blocks": {
+        "ai_gen_block_c92082c_BcPakL": {
+          "type": "ai_gen_block_c92082c",
+          "settings": {
+            "logo_link": "",
+            "logo_width": 140,
+            "desktop_width_percent": 100,
+            "link_gap": 20,
+            "search_width": 130,
+            "search_placeholder": "Search plants",
+            "wishlist_link": "",
+            "plants_title": "Plants",
+            "plants_url": "",
+            "plants_menu": "",
+            "seeds_title": "Seeds",
+            "seeds_url": "",
+            "seeds_menu": "",
+            "pots_title": "Pots",
+            "pots_url": "",
+            "pots_menu": "",
+            "gifting_title": "Gifting",
+            "gifting_url": "",
+            "gifting_menu": "",
+            "services_title": "Services",
+            "services_url": "",
+            "services_menu": "",
+            "extra_label_1": "Blog",
+            "extra_dest_1": "",
+            "extra_label_2": "Contact",
+            "extra_dest_2": ""
+          },
+          "blocks": {}
+        },
         "ai_gen_block_623c821_rpqmmP": {
           "type": "ai_gen_block_623c821",
+          "disabled": true,
           "settings": {
             "logo": "shopify://shop_images/Untitled_design_25_XC.png",
             "store_name": "SBL Nursery",
@@ -151,6 +184,7 @@
         }
       },
       "block_order": [
+        "ai_gen_block_c92082c_BcPakL",
         "ai_gen_block_623c821_rpqmmP"
       ],
       "settings": {}
