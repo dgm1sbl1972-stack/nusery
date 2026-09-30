@@ -1434,6 +1434,40 @@
         "background": "#f8f4ec"
       }
     },
+    "1790763684301c8e59": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_fea221c_4CFF6K": {
+          "type": "ai_gen_block_fea221c",
+          "settings": {
+            "heading": "Think SBL Farms Is Just About Plants? Think Again.",
+            "description": "Explore a world of nature, adventure, animals, agritour, aquarium, rain dance, DJ, Swimming Pool & unforgettable experiences at SBL Farms",
+            "button_label": "Explore SBL Farms",
+            "button_link": "https://www.sblfarms.com/",
+            "background_image": "shopify://shop_images/22295fe0-9cae-429b-a563-417adf4cd6c6.png",
+            "overlay_color": "#0d3a1d",
+            "overlay_opacity": 45,
+            "fallback_color": "#1f5130",
+            "desktop_width_percent": 100,
+            "min_height": 440,
+            "text_alignment": "center",
+            "section_radius": 0,
+            "text_color": "#ffffff",
+            "heading_size": 48,
+            "description_size": 18,
+            "button_color": "#EED433",
+            "button_hover_color": "#1f5130",
+            "button_text_color": "#1F5130",
+            "button_radius": 8
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_fea221c_4CFF6K"
+      ],
+      "settings": {}
+    },
     "cta_banner": {
       "type": "cta-banner",
       "disabled": true,
@@ -1448,22 +1482,6 @@
     "17902340700a400c12": {
       "type": "_blocks",
       "blocks": {
-        "ai_gen_block_1518057_X8RYVU": {
-          "type": "ai_gen_block_1518057",
-          "settings": {
-            "show_overlay": true,
-            "overlay_opacity": 50,
-            "background_color": "#1f5130",
-            "heading": "Think SBL Farms Is Just About Plants? Think Again.",
-            "description": "Explore a world of nature, adventure, animals, agritour, aquarium, rain dance, DJ, swimming pool and unforgettable experiences at SBL Farms",
-            "button_label": "Explore SBL Farms",
-            "button_link": "https://www.sblfarms.com/",
-            "button_color": "#1f5130",
-            "button_text_color": "#ffffff",
-            "desktop_width_percent": 100
-          },
-          "blocks": {}
-        },
         "ai_gen_block_36a56e1_NAfBrE": {
           "type": "ai_gen_block_36a56e1",
           "disabled": true,
@@ -1531,7 +1549,6 @@
         }
       },
       "block_order": [
-        "ai_gen_block_1518057_X8RYVU",
         "ai_gen_block_36a56e1_NAfBrE",
         "ai_gen_block_fc7c0d1_FHEhmT"
       ],
@@ -1559,6 +1576,7 @@
     "179024742622a7c64a",
     "1790246288989fe778",
     "faq",
+    "1790763684301c8e59",
     "cta_banner",
     "17902340700a400c12"
   ]
