@@ -1183,60 +1183,57 @@
     },
     "1790741813e4ec97d9": {
       "type": "_blocks",
+      "settings": {}
+    },
+    "1790742646672c3ebc": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "179074274345697b99": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "17907434622443afbe": {
+      "type": "_blocks",
       "blocks": {
-        "ai_gen_block_d2fa6d2_faTQhb": {
-          "type": "ai_gen_block_d2fa6d2",
+        "ai_gen_block_3e86ce0_MMPRbG": {
+          "type": "ai_gen_block_3e86ce0",
           "settings": {
             "logo": "shopify://shop_images/Untitled_design_25.png",
-            "logo_width": 80,
-            "header_height": 50,
-            "bold_text": false,
-            "desktop_width_percent": 100,
-            "plants_1": "",
-            "plants_2": "",
-            "plants_3": "",
-            "plants_4": "",
-            "plants_5": "",
-            "plants_6": "",
-            "plants_7": "",
-            "plants_8": "",
-            "plants_9": "",
-            "plants_10": "",
-            "seeds_1": "",
-            "seeds_2": "",
-            "seeds_3": "",
-            "seeds_4": "",
-            "seeds_5": "",
-            "seeds_6": "",
-            "seeds_7": "",
-            "seeds_8": "",
-            "seeds_9": "",
-            "seeds_10": "",
-            "pots_1": "",
-            "pots_2": "",
-            "pots_3": "",
-            "pots_4": "",
-            "pots_5": "",
-            "pots_6": "",
-            "pots_7": "",
-            "pots_8": "",
-            "pots_9": "",
-            "pots_10": "",
-            "services_1": "",
-            "services_2": "",
-            "services_3": "",
-            "services_4": "",
-            "gifting_1": "",
-            "gifting_2": "",
             "blog_url": "",
             "contact_url": "",
-            "wishlist_url": ""
+            "wishlist_url": "",
+            "plants_items": "",
+            "seeds_items": "",
+            "pots_items": "",
+            "services_items": "",
+            "gifting_items": "",
+            "desktop_height": 85,
+            "tablet_height": 70,
+            "mobile_height": 65,
+            "logo_size": 60,
+            "nav_gap": 22,
+            "search_width": 190,
+            "search_height": 40,
+            "icon_size": 22,
+            "header_padding": 8,
+            "dropdown_width": 250,
+            "dropdown_item_height": 42,
+            "dropdown_font_size": 15,
+            "dropdown_spacing": 10,
+            "chevron_size": 11,
+            "chevron_speed": 250,
+            "mobile_sidebar_width": 340,
+            "header_bg": "#F8F4EC",
+            "dropdown_bg": "#FFFFFF",
+            "dropdown_text": "#0D3A1D",
+            "chevron_color": "#0D3A1D"
           },
           "blocks": {}
         }
       },
       "block_order": [
-        "ai_gen_block_d2fa6d2_faTQhb"
+        "ai_gen_block_3e86ce0_MMPRbG"
       ],
       "settings": {}
     }
@@ -1262,6 +1259,9 @@
     "faq",
     "cta_banner",
     "17902340700a400c12",
-    "1790741813e4ec97d9"
+    "1790741813e4ec97d9",
+    "1790742646672c3ebc",
+    "179074274345697b99",
+    "17907434622443afbe"
   ]
 }
