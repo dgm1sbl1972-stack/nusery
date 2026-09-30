@@ -1045,8 +1045,8 @@
         "ai_gen_block_a4764a3_JGREHi": {
           "type": "ai_gen_block_a4764a3",
           "settings": {
-            "background_type": "solid",
-            "background_color": "#f8f4ec",
+            "background_type": "image",
+            "background_color": "#FFFFFF",
             "background_image": "shopify://shop_images/886bde77-2bc0-4850-817c-0e3d419589a8.png",
             "background_position": "center",
             "background_size": "cover",
@@ -1065,7 +1065,7 @@
             "story_text": "<p>We believe every home can grow a little greener. Discover plants and garden essentials selected with care.</p>",
             "text_color": "#14231a",
             "eyebrow_color": "#1f5130",
-            "ticker_speed": 35,
+            "ticker_speed": 45,
             "stat_1_value": "100+",
             "stat_1_label": "Plants to explore",
             "stat_2_value": "Carefully grown",
