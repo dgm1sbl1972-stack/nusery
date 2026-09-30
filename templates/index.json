@@ -1432,6 +1432,63 @@
     },
     "1790746524fdbf68b7": {
       "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_36a56e1_3Q3iHJ": {
+          "type": "ai_gen_block_36a56e1",
+          "settings": {
+            "heading": "Handpicked favourites",
+            "cart_label": "Add to cart",
+            "view_all_text": "View all products",
+            "view_all_link": "",
+            "desktop_width_percent": 100,
+            "background": "#FFF9E8",
+            "show_badge": true,
+            "badge_text": "Bestseller",
+            "rating": "4.8",
+            "reviews": "440",
+            "product_1": "",
+            "title_1": "Peace Lily Plant",
+            "description_1": "Beautiful indoor plant",
+            "price_1": "₹299",
+            "compare_1": "₹350",
+            "link_1": "",
+            "product_2": "",
+            "title_2": "Anthurium Red Plant",
+            "description_2": "Long-lasting indoor plant",
+            "price_2": "₹699",
+            "compare_2": "₹800",
+            "link_2": "",
+            "product_3": "",
+            "title_3": "Jade Mini Plant",
+            "description_3": "Easy-care lucky succulent",
+            "price_3": "₹249",
+            "compare_3": "₹300",
+            "link_3": "",
+            "product_4": "",
+            "title_4": "Plant four",
+            "description_4": "Add plant description",
+            "price_4": "₹0",
+            "compare_4": "₹0",
+            "link_4": "",
+            "product_5": "",
+            "title_5": "Plant five",
+            "description_5": "Add plant description",
+            "price_5": "₹0",
+            "compare_5": "₹0",
+            "link_5": "",
+            "product_6": "",
+            "title_6": "Plant six",
+            "description_6": "Add plant description",
+            "price_6": "₹0",
+            "compare_6": "₹0",
+            "link_6": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_36a56e1_3Q3iHJ"
+      ],
       "settings": {}
     },
     "179074685764dbe338": {
