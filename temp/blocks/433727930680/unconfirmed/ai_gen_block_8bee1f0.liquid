@@ -1,6 +1,187 @@
-{% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
-{% endschema %}
+{% doc %}
+  @prompt
+    Create a new Shopify Online Store 2.0 custom section called:
+    
+    "Handpicked Favourites"
+    
+    Use the attached reference image as the visual design reference. Do NOT copy any brand name, logo, watermark, or exact product content from the reference. Recreate the overall layout and functionality for SBL Nursery.
+    
+    SECTION HEADING:
+    "Handpicked Favourites"
+    
+    DESIGN & LAYOUT:
+    - Create a premium horizontal product card carousel.
+    - Desktop: show 3 product cards at a time.
+    - Mobile: show 1.2–1.5 cards at a time so the next product is partially visible.
+    - Add horizontal scrolling/swiping on mobile.
+    - Add left/right navigation arrows on desktop.
+    - Use a soft warm cream/off-white section background.
+    - Product cards should have rounded corners around 18–22px.
+    - Keep the design clean, premium and realistic, suitable for a modern plant nursery website.
+    
+    PRODUCT CARD:
+    Each product card should contain:
+    
+    1. Product image
+       - Large image area at the top.
+       - Rounded top corners.
+       - Image should use Shopify product images dynamically.
+       - Use object-fit: cover.
+       - Maintain a consistent image ratio across all cards.
+    
+    2. Bestseller badge
+       - Small pill badge positioned at the top-left of the image.
+       - Text: "BESTSELLER"
+       - Editable from Shopify Theme Editor.
+       - Allow merchant to hide/show the badge.
+    
+    3. Discount badge
+       - Small pill badge positioned at the top-right.
+       - Automatically calculate the discount percentage from compare-at-price vs selling price.
+       - Example: "15% OFF"
+       - Allow merchant to hide/show this badge.
+    
+    4. Rating
+       - Display rating near the bottom of the product image.
+       - Example:
+         ★ 4.8 | 440
+       - Make rating and review count editable through Shopify metafields.
+       - If no rating data exists, hide this element rather than showing fake ratings.
+    
+    5. Product information
+       - Product title.
+       - Short product description/subtitle.
+       - Selling price.
+       - Compare-at-price with strikethrough when applicable.
+    
+    6. ADD TO CART AREA
+       - At the bottom-right of each product card, create a green circular cart icon.
+       - BESIDE the icon, add a clear text button:
+         "Add to Cart"
+       - The icon and "Add to Cart" text should work as ONE clickable add-to-cart action.
+       - Do not require the user to open the product page first.
+       - Use Shopify's AJAX Cart API / Shopify cart functionality to add the selected product directly to cart.
+       - After successful add-to-cart, REDIRECT THE CUSTOMER DIRECTLY TO:
+         /cart
+       - Do NOT only show a popup, drawer or toast.
+       - The customer must land on the cart page after clicking Add to Cart.
+       - Show a small loading state while the product is being added.
+       - Prevent double-clicking while the request is processing.
+       - If the product has required variants, open/select the variant before adding it rather than adding an invalid product.
+       - Make sure the functionality works with Shopify's standard product/variant IDs.
+    
+    SHOPIFY THEME EDITOR SETTINGS:
+    Make the entire section customizable from the Shopify Theme Editor.
+    
+    Include settings for:
+    - Section heading
+    - Heading alignment
+    - Number of products to display
+    - Product collection selection
+    - Maximum products
+    - Show/hide Bestseller badge
+    - Bestseller badge text
+    - Show/hide ratings
+    - Show/hide discount percentage
+    - Show/hide product description
+    - Show/hide compare-at-price
+    - Show/hide Add to Cart text
+    - Show/hide cart icon
+    - Card corner radius
+    - Section top/bottom padding
+    - Desktop cards per row
+    - Mobile cards per row
+    - Background color
+    - Heading color
+    - Product title color
+    - Description color
+    - Price color
+    - Add to Cart button color
+    - Add to Cart text color
+    
+    PRODUCT SOURCE:
+    Allow the merchant to select a Shopify collection from the Theme Editor.
+    
+    The section should automatically pull products from the selected collection.
+    
+    If no collection is selected, show a clean placeholder message in the Theme Editor preview.
+    
+    RESPONSIVE DESIGN:
+    Desktop:
+    - 3 cards visible.
+    - Spacious layout.
+    - Cards should have equal heights.
+    
+    Tablet:
+    - 2 cards visible.
+    
+    Mobile:
+    - 1 full card + part of the next card visible.
+    - Horizontal swipe.
+    - Hide unnecessary navigation arrows on mobile.
+    
+    VISUAL STYLE:
+    - Premium modern nursery/e-commerce aesthetic.
+    - Clean cream background.
+    - Dark green accents.
+    - Use rounded cards.
+    - Subtle shadows only.
+    - Avoid excessive gradients.
+    - Avoid overly decorative effects.
+    - Typography should feel elegant but highly readable.
+    - Use the existing Shopify theme's typography where possible.
+    - Do not introduce a completely different font system unless required.
+    
+    IMPORTANT:
+    - Write clean, modular Shopify Liquid, HTML, CSS and JavaScript.
+    - Make the section compatible with Shopify Online Store 2.0.
+    - Do not modify unrelated theme sections.
+    - Do not hardcode products.
+    - Do not hardcode product IDs.
+    - Use Shopify Liquid objects and dynamic collection/product data.
+    - Use proper Shopify escaping and accessibility attributes.
+    - Buttons must be keyboard accessible.
+    - Add meaningful aria-labels.
+    - Ensure the Add to Cart functi, need desktop with option to increase or to reduce the width
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign chosen_collection = block.settings.collection %}
+{% assign product_limit = block.settings.max_products %}
+{% style %}
+.ai-favourites-{{ ai_gen_id }}{display:block;width:{{ block.settings.desktop_width_percent }}%;max-width:100%;margin-left:auto;margin-right:auto;background:{{ block.settings.background_color }};padding:{{ block.settings.padding_top }}px 24px {{ block.settings.padding_bottom }}px;box-sizing:border-box}
+.ai-favourites-{{ ai_gen_id }}__inner{width:100%;max-width:1400px;margin:0 auto}
+.ai-favourites-{{ ai_gen_id }}__heading-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.ai-favourites-{{ ai_gen_id }}__heading{margin:0;color:{{ block.settings.heading_color }};text-align:{{ block.settings.heading_alignment }};font-size:clamp(26px,3vw,38px);line-height:1.15;width:100%}
+.ai-favourites-{{ ai_gen_id }}__arrows{display:flex;gap:10px;flex-shrink:0;margin-left:20px}
+.ai-favourites-{{ ai_gen_id }}__arrow{width:42px;height:42px;border:1px solid #d8dfd5;border-radius:50%;background:#fff;color:#1f5130;display:grid;place-items:center;cursor:pointer}
+.ai-favourites-{{ ai_gen_id }}__arrow:focus-visible,.ai-favourites-{{ ai_gen_id }}__add:focus-visible{outline:3px solid #0c8f45;outline-offset:3px}
+.ai-favourites-{{ ai_gen_id }}__track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 40px)/{{ block.settings.desktop_cards }});gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:2px 1px 10px}
+.ai-favourites-{{ ai_gen_id }}__track::-webkit-scrollbar{display:none}
+.ai-favourites-{{ ai_gen_id }}__card{min-width:0;display:flex;flex-direction:column;overflow:hidden;border-radius:{{ block.settings.card_radius }}px;background:#fff;box-shadow:0 5px 20px rgba(25,55,35,.07);scroll-snap-align:start}
+.ai-favourites-{{ ai_gen_id }}__media{position:relative;aspect-ratio:4/3;overflow:hidden;background:#eee9df}
+.ai-favourites-{{ ai_gen_id }}__media img{width:100%;height:100%;object-fit:cover;display:block}
+.ai-favourites-{{ ai_gen_id }}__placeholder{width:100%;height:100%}.ai-favourites-{{ ai_gen_id }}__placeholder svg{width:100%;height:100%;object-fit:cover}
+.ai-favourites-{{ ai_gen_id }}__badge{position:absolute;top:14px;left:14px;border-radius:999px;padding:7px 11px;background:#fff;color:#173d25;font-size:10px;font-weight:700;letter-spacing:.08em}
+.ai-favourites-{{ ai_gen_id }}__discount{position:absolute;top:14px;right:14px;border-radius:999px;padding:7px 11px;background:#1f5130;color:#fff;font-size:11px;font-weight:700}
+.ai-favourites-{{ ai_gen_id }}__rating{position:absolute;bottom:12px;left:12px;padding:6px 9px;border-radius:999px;background:#fff;color:#173d25;font-size:12px;font-weight:600}
+.ai-favourites-{{ ai_gen_id }}__body{display:flex;flex:1;flex-direction:column;padding:18px}
+.ai-favourites-{{ ai_gen_id }}__title{margin:0 0 7px;color:{{ block.settings.title_color }};font-size:18px;line-height:1.3}.ai-favourites-{{ ai_gen_id }}__title a{color:inherit;text-decoration:none}
+.ai-favourites-{{ ai_gen_id }}__description{color:{{ block.settings.description_color }};font-size:14px;line-height:1.5;margin:0 0 14px}
+.ai-favourites-{{ ai_gen_id }}__price-row{display:flex;align-items:center;gap:9px;margin-top:auto;padding-top:5px;color:{{ block.settings.price_color }};font-size:17px;font-weight:700}.ai-favourites-{{ ai_gen_id }}__compare{color:#778078;font-size:14px;font-weight:400;text-decoration:line-through}
+.ai-favourites-{{ ai_gen_id }}__actions{display:flex;justify-content:flex-end;align-items:center;gap:9px;margin-top:16px}
+.ai-favourites-{{ ai_gen_id }}__add{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;padding:9px 15px;border:0;border-radius:999px;background:{{ block.settings.button_color }};color:{{ block.settings.button_text_color }};font:inherit;font-size:14px;font-weight:650;text-decoration:none;cursor:pointer}
+.ai-favourites-{{ ai_gen_id }}__cart-icon{width:34px;height:34px;display:grid;place-items:center;flex:0 0 34px;border-radius:50%;background:{{ block.settings.button_color }};color:{{ block.settings.button_text_color }}}.ai-favourites-{{ ai_gen_id }}__cart-icon svg{width:18px;height:18px}.ai-favourites-{{ ai_gen_id }}__add[disabled]{opacity:.65;cursor:wait}
+.ai-favourites-{{ ai_gen_id }}__empty{padding:48px 20px;text-align:center;border:1px dashed #b8c4b8;border-radius:16px;color:#415347;background:rgba(255,255,255,.55)}.ai-favourites-{{ ai_gen_id }}__empty p{margin:0}
+@media(max-width:989px){.ai-favourites-{{ ai_gen_id }}__track{grid-auto-columns:calc((100% - 20px)/2)}}
+@media(max-width:749px){.ai-favourites-{{ ai_gen_id }}{width:100%!important;padding-left:18px;padding-right:0}.ai-favourites-{{ ai_gen_id }}__heading-row{margin-right:18px;margin-bottom:20px}.ai-favourites-{{ ai_gen_id }}__arrows{display:none}.ai-favourites-{{ ai_gen_id }}__track{grid-auto-columns:calc(100%/{{ block.settings.mobile_cards }});gap:12px;padding-right:18px}.ai-favourites-{{ ai_gen_id }}__body{padding:15px}.ai-favourites-{{ ai_gen_id }}__title{font-size:16px}.ai-favourites-{{ ai_gen_id }}__actions{gap:6px}.ai-favourites-{{ ai_gen_id }}__add{padding:8px 11px;font-size:13px}}
+{% endstyle %}
+<handpicked-favourites-{{ ai_gen_id }} class="ai-favourites-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+<div class="ai-favourites-{{ ai_gen_id }}__inner"><div class="ai-favourites-{{ ai_gen_id }}__heading-row"><h2 class="ai-favourites-{{ ai_gen_id }}__heading">{{ block.settings.heading | escape }}</h2>{% if chosen_collection != blank and chosen_collection.products.size > 0 %}<div class="ai-favourites-{{ ai_gen_id }}__arrows"><button class="ai-favourites-{{ ai_gen_id }}__arrow" type="button" data-direction="left" aria-label="Scroll products left">&#8592;</button><button class="ai-favourites-{{ ai_gen_id }}__arrow" type="button" data-direction="right" aria-label="Scroll products right">&#8594;</button></div>{% endif %}</div>
+{% if chosen_collection != blank and chosen_collection.products.size > 0 %}<div class="ai-favourites-{{ ai_gen_id }}__track" data-track tabindex="0" aria-label="Handpicked favourite products">
+{% for product in chosen_collection.products limit: product_limit %}{% assign current_variant = product.selected_or_first_available_variant %}{% assign rating_value = product.metafields.reviews.rating.value.rating | default: product.metafields.reviews.rating.value %}{% assign review_count = product.metafields.reviews.rating_count.value | default: product.metafields.reviews.rating_count %}{% assign short_description = product.metafields.custom.subtitle.value | default: product.description | strip_html | truncate: 90 %}{% assign discount_amount = current_variant.compare_at_price | minus: current_variant.price %}{% assign discount_percent = discount_amount | times: 100.0 | divided_by: current_variant.compare_at_price | round %}
+<article class="ai-favourites-{{ ai_gen_id }}__card"><div class="ai-favourites-{{ ai_gen_id }}__media"><a href="{{ product.url }}" aria-label="View {{ product.title | escape }}">{% if product.featured_image %}<img src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" loading="lazy" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}">{% else %}<div class="ai-favourites-{{ ai_gen_id }}__placeholder">{{ 'product-apparel-1' | placeholder_svg_tag }}</div>{% endif %}</a>
+{% if block.settings.show_bestseller %}<span class="ai-favourites-{{ ai_gen_id }}__badge">{{ block.settings.bestseller_text | escape }}</span>{% endif %}{% if block.settings.show_discount and current_variant.compare_at_price > current_variant.price %}<span class="ai-favourites-{{ ai_gen_id }}__discount">{{ discount_percent }}% OFF</span>{% endif %}{% if block.settings.show_ratings and rating_value != blank and review_count != blank %}<span class="ai-favourites-{{ ai_gen_id }}__rating" aria-label="Rated {{ rating_value }} out of 5, {{ review_count }} reviews">★ {{ rating_value }} | {{ review_count }}</span>{% endif %}</div>
+<div class="ai-favourites-{{ ai_gen_id }}__body"><h3 class="ai-favourites-{{ ai_gen_id }}__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>{% if block.settings.show_description and short_description != blank %}<p class="ai-favourites-{{ ai_gen_id }}__description">{{ short_description | escape }}</p>{% endif %}<div class="ai-favourites-{{ ai_gen_id }}__price-row"><span>{{ current_variant.price | money }}</span>{% if block.settings.show_compare and current_variant.compare_at_price > current_variant.price %}<span class="ai-favourites-{{ ai_gen_id }}__compare">{{ current_variant.compare_at_price | money }}</span>{% endif %}</div>
+<div class="ai-favourites-{{ ai_gen_id }}__actions"><form action="{{ routes.cart_add_url }}" method="post" data-add-form><input type="hidden" name="id" value="{{ current_variant.id }}"><input type="hidden" name="quantity" value="1"><button class="ai-favourites-{{ ai_gen_id }}__add" type="submit" {% unless current_variant.available %}disabled{% endunless %} aria-label="{% if current_variant.available %}Add {{ product.title | escape }} to cart{% else %}{{ product.title | escape }} is sold out{% endif %}">{% if block.settings.show_cart_icon %}<span class="ai-favourites-{{ ai_gen_id }}__cart-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"></path></svg></span>{% endif %}{% if block.settings.show_add_text %}<span data-label>{% if current_variant.available %}Add to Cart{% else %}Sold out{% endif %}</span>{% endif %}</button></form></div></div></article>{% endfor %}</div>{% else %}<div class="ai-favourites-{{ ai_gen_id }}__empty"><p>Select a collection in this block’s settings to display your nursery favourites.</p></div>{% endif %}</div></handpicked-favourites-{{ ai_gen_id }}>
+<script>(function(){const tagName='handpicked-favourites-{{ ai_gen_id }}';if(customElements.get(tagName))return;class HandpickedFavourites extends HTMLElement{connectedCallback(){if(this.dataset.ready)return;this.dataset.ready='true';const track=this.querySelector('[data-track]');this.querySelectorAll('[data-direction]').forEach(button=>button.addEventListener('click',()=>{if(!track)return;const card=track.querySelector('article');track.scrollBy({left:(card?card.getBoundingClientRect().width:track.clientWidth*.8)*(button.dataset.direction==='right'?1:-1),behavior:'smooth'})}));this.querySelectorAll('[data-add-form]').forEach(form=>form.addEventListener('submit',async event=>{event.preventDefault();const button=form.querySelector('button[type="submit"]');if(!button||button.disabled)return;button.disabled=true;const label=button.querySelector('[data-label]');const original=label?label.textContent:'';if(label)label.textContent='Adding…';try{const response=await fetch(`${window.Shopify?.routes?.root||'/'}cart/add.js`,{method:'POST',headers:{Accept:'application/json'},body:new FormData(form)});if(!response.ok)throw new Error('Cart request failed');window.location.assign(`${window.Shopify?.routes?.root||'/'}cart`)}catch(error){form.submit()}}))}}customElements.define(tagName,HandpickedFavourites)})();</script>
+{% schema %}{"name":"Handpicked favourites","settings":[{"type":"header","content":"Content"},{"type":"text","id":"heading","label":"Section heading","default":"Handpicked Favourites"},{"type":"select","id":"heading_alignment","label":"Heading alignment","options":[{"value":"left","label":"Left"},{"value":"center","label":"Center"}],"default":"left"},{"type":"collection","id":"collection","label":"Product collection"},{"type":"range","id":"max_products","label":"Maximum products","min":3,"max":12,"step":1,"default":8},{"type":"header","content":"Product details"},{"type":"checkbox","id":"show_bestseller","label":"Show bestseller badge","default":true},{"type":"text","id":"bestseller_text","label":"Bestseller text","default":"BESTSELLER"},{"type":"checkbox","id":"show_ratings","label":"Show ratings","default":true},{"type":"checkbox","id":"show_discount","label":"Show discount percentage","default":true},{"type":"checkbox","id":"show_description","label":"Show description","default":true},{"type":"checkbox","id":"show_compare","label":"Show compare-at price","default":true},{"type":"checkbox","id":"show_add_text","label":"Show Add to Cart text","default":true},{"type":"checkbox","id":"show_cart_icon","label":"Show cart icon","default":true},{"type":"header","content":"Layout"},{"type":"range","id":"desktop_cards","label":"Desktop cards per row","min":2,"max":4,"step":1,"default":3},{"type":"range","id":"mobile_cards","label":"Mobile cards per row","min":1,"max":2,"step":0.1,"default":1.3},{"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},{"type":"range","id":"card_radius","label":"Card corner radius","min":12,"max":28,"step":2,"unit":"px","default":20},{"type":"range","id":"padding_top","label":"Top padding","min":0,"max":100,"step":5,"unit":"px","default":50},{"type":"range","id":"padding_bottom","label":"Bottom padding","min":0,"max":100,"step":5,"unit":"px","default":50},{"type":"header","content":"Colors"},{"type":"color","id":"background_color","label":"Background","default":"#F8F4EC"},{"type":"color","id":"heading_color","label":"Heading","default":"#0D3A1D"},{"type":"color","id":"title_color","label":"Product title","default":"#14231A"},{"type":"color","id":"description_color","label":"Description","default":"#5B6660"},{"type":"color","id":"price_color","label":"Price","default":"#1F5130"},{"type":"color","id":"button_color","label":"Add to Cart button","default":"#1F5130"},{"type":"color","id":"button_text_color","label":"Add to Cart text","default":"#FFFFFF"}],"presets":[{"name":"Handpicked favourites"}],"tag":null,"class":"handpicked-favourites-block"}{% endschema %}
