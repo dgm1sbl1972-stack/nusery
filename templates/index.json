@@ -1426,6 +1426,24 @@
     },
     "179074685764dbe338": {
       "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_bc7e233_weYwQh": {
+          "type": "ai_gen_block_bc7e233",
+          "settings": {
+            "desktop_width_percent": 100,
+            "heading": "Think SBL Farms Is Just About Plants? Think Again.",
+            "description": "Explore a world of nature, adventure, animals, agritour, aquarium, rain dance, DJ, swimming pool and unforgettable experiences at SBL Farms.",
+            "button_label": "Explore SBL Farms",
+            "button_link": "https://www.sblfarms.com/",
+            "background_image": "shopify://shop_images/35b05054-0a08-4636-9403-2b9039d1b70f.png",
+            "overlay_opacity": 40
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_bc7e233_weYwQh"
+      ],
       "settings": {}
     }
   },
