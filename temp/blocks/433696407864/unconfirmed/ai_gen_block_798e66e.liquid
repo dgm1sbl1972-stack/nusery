@@ -1,6 +1,318 @@
+{% doc %}
+  @prompt
+    Create a Shopify Online Store 2.0 "Find Plant Category" section for a premium plant nursery.
+    
+    DESIGN:
+    - Light cream/off-white background (#f9f6f1 or similar)
+    - Section heading: "Find Plant Category" where "Category" is in elegant italic style
+    - Plant categories displayed in a responsive grid
+    - Each category has a large circular/oval image with white border and subtle drop shadow
+    - Category name centered below each image
+    - Final "Buy Now!" CTA card at the end of the grid, fully editable
+    
+    CATEGORY CARDS (each is an editable block):
+    - Category name (text)
+    - Main/default image (Shopify image picker)
+    - Separate hover image (Shopify image picker)
+    - Shopify link picker (per card, independent URL)
+    - Enable/disable toggle
+    - Image size control
+    - Border width, color, radius
+    - Shadow toggle
+    - Text size, text color
+    
+    HOVER EFFECT:
+    - Show main image normally; on hover, smoothly fade to the hover image
+    - CSS opacity transition only (no zoom/crop/distort/stretch)
+    - Keep images perfectly aligned and same size during hover
+    - On mobile/touch: show normal image, entire card is clickable
+    
+    LINK BEHAVIOR:
+    - Entire image + category name is clickable
+    - Each block has its own independent Shopify URL (url type)
+    
+    LAYOUT:
+    - Desktop: configurable columns (default 5), responsive grid
+    - Tablet: auto-reduced columns
+    - Mobile: 2-column layout
+    - No horizontal scroll, long names wrap naturally
+    
+    THEME EDITOR SETTINGS (section level):
+    - Heading text, font size, weight, color
+    - Italic toggle for "Category" word
+    - Background color
+    - Columns: desktop, tablet, mobile
+    - Grid gap, image size, border width/color/radius
+    - Shadow on/off, category font size/weight/color
+    - Hover transition speed
+    - Section padding top/bottom
+    
+    CTA BLOCK (separate block type):
+    - CTA heading, subtext, button label, button link
+    - CTA background color, text color, button color, button text color, border radius
+    
+    TECHNICAL:
+    - Shopify OS 2.0 section with blocks
+    - Pure Liquid, scoped CSS, minimal vanilla JS only if needed
+    - image_picker and url type for each block
+    - Complete schema with presets
+    - No hardcoded names, images, or URLs
+    - Fully responsive, lightweight
+    Create a Shopify Online Store 2.0 "Find Plant Category" section matching the uploaded reference images.
+    
+    DESIGN:
+    - Premium, clean plant-nursery category section.
+    - Light cream/off-white background.
+    - Heading at top: "Find Plant Category"
+    - "Category" should have an elegant italic style similar to the reference.
+    - Display plant categories in a clean responsive grid.
+    - Each category should have a large circular/oval image with a clean white border and subtle shadow.
+    - Category name centered below each image.
+    - Include a final "Buy Now!" CTA card similar to the reference, with editable text and link.
+    
+    CATEGORY CARDS:
+    Each category must be an editable block with:
+    - Category name
+    - Main/default image
+    - Separate hover image
+    - Shopify link picker
+    - Enable/disable
+    - Image size
+    - Border width
+    - Border color
+    - Border radius
+    - Shadow
+    - Text size
+    - Text color
+    
+    HOVER EFFECT:
+    - Show the main image normally.
+    - When the user hovers over the image/card, smoothly replace the main image with the separate hover image from the Theme Editor.
+    - Use a smooth fade/opacity transition.
+    - Keep the image perfectly aligned and the same size during hover.
+    - Add a subtle premium hover effect without excessive animation.
+    - On mobile/touch devices, keep the normal image visible and make the entire card clickable.
+    - Do NOT zoom, crop, stretch, or distort the images.
+    
+    LINK:
+    - Make the entire image and category name clickable.
+    - Each category must have its own editable Shopify URL.
+    - Clicking a category should redirect to its assigned collection/product/page/custom URL.
+    - Do not use one common link for all categories.
+    
+    LAYOUT:
+    - Desktop: responsive grid similar to the reference, with multiple categories per row.
+    - Tablet: automatically reduce columns and spacing.
+    - Mobile: 2-column layout where appropriate, with properly sized circular images.
+    - No horizontal scrolling.
+    - No overlapping or clipped text.
+    - Long category names should wrap naturally.
+    
+    THEME EDITOR SETTINGS:
+    Make everything editable:
+    - Section heading
+    - Heading font size
+    - Heading font weight
+    - Heading color
+    - Italic/normal styling for "Category"
+    - Background color
+    - Number of columns desktop/tablet/mobile
+    - Grid gap
+    - Image size
+    - Image border
+    - Border color
+    - Border radius
+    - Shadow
+    - Category font size
+    - Category font weight
+    - Category text color
+    - Hover transition speed
+    - Section top/bottom padding
+    - CTA text
+    - CTA link
+    - CTA background
+    - CTA text color
+    - CTA size
+    - CTA border radius
+    
+    IMPORTANT:
+    - Do not hard-code category names, images or URLs.
+    - Every category must be editable from the Shopify Theme Editor.
+    - Each category must support TWO images: normal image + hover image.
+    - Each category must have its OWN link.
+    - Use Shopify image picker and Shopify link picker.
+    - Make the complete section responsive, lightweight and compatible with Shopify Online Store 2.0.
+    - Use Liquid, CSS and minimal 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% style %}
+  .ai-plant-categories-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    background: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding_top }}px 20px {{ block.settings.padding_bottom }}px;
+  }
+  .ai-plant-categories-{{ ai_gen_id }} *, .ai-plant-categories-{{ ai_gen_id }} *::before, .ai-plant-categories-{{ ai_gen_id }} *::after { box-sizing: border-box; }
+  .ai-plant-categories-{{ ai_gen_id }}__inner { width: 100%; max-width: 1200px; margin: 0 auto; }
+  .ai-plant-categories-{{ ai_gen_id }}__heading { margin: 0 0 38px; text-align: center; color: {{ block.settings.heading_color }}; font-size: {{ block.settings.heading_size }}px; font-weight: {{ block.settings.heading_weight }}; line-height: 1.15; }
+  .ai-plant-categories-{{ ai_gen_id }}__italic { {% if block.settings.italic_category %}font-style: italic; font-family: Georgia, 'Times New Roman', serif;{% endif %} }
+  .ai-plant-categories-{{ ai_gen_id }}__grid { display: grid; grid-template-columns: repeat({{ block.settings.desktop_columns }}, minmax(0, 1fr)); gap: {{ block.settings.grid_gap }}px; align-items: start; }
+  .ai-plant-categories-{{ ai_gen_id }}__card { min-width: 0; text-align: center; }
+  .ai-plant-categories-{{ ai_gen_id }}__link { display: block; width: 100%; color: {{ block.settings.category_color }}; text-decoration: none; }
+  .ai-plant-categories-{{ ai_gen_id }}__media { position: relative; width: {{ block.settings.image_size }}px; max-width: 100%; aspect-ratio: 1 / 1; margin: 0 auto 15px; overflow: hidden; border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }}; border-radius: {{ block.settings.border_radius }}%; background: #fff; {% if block.settings.show_shadow %}box-shadow: 0 5px 18px rgba(20, 35, 26, .12);{% endif %} }
+  .ai-plant-categories-{{ ai_gen_id }}__media img, .ai-plant-categories-{{ ai_gen_id }}__placeholder svg { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+  .ai-plant-categories-{{ ai_gen_id }}__hover { opacity: 0; transition: opacity {{ block.settings.transition_speed }}ms ease; }
+  .ai-plant-categories-{{ ai_gen_id }}__link:hover .ai-plant-categories-{{ ai_gen_id }}__hover, .ai-plant-categories-{{ ai_gen_id }}__link:focus-visible .ai-plant-categories-{{ ai_gen_id }}__hover { opacity: 1; }
+  .ai-plant-categories-{{ ai_gen_id }}__name { display: block; font-size: {{ block.settings.category_size }}px; font-weight: {{ block.settings.category_weight }}; line-height: 1.35; overflow-wrap: anywhere; }
+  .ai-plant-categories-{{ ai_gen_id }}__cta { display: flex; min-height: 100%; flex-direction: column; justify-content: center; align-items: center; gap: 11px; padding: 22px; border-radius: {{ block.settings.cta_radius }}px; background: {{ block.settings.cta_background }}; color: {{ block.settings.cta_text_color }}; text-align: center; text-decoration: none; }
+  .ai-plant-categories-{{ ai_gen_id }}__cta-title { margin: 0; font-size: 22px; line-height: 1.2; }
+  .ai-plant-categories-{{ ai_gen_id }}__cta-copy { margin: 0; font-size: 14px; line-height: 1.45; }
+  .ai-plant-categories-{{ ai_gen_id }}__cta-button { display: inline-flex; justify-content: center; align-items: center; padding: 10px 18px; border-radius: {{ block.settings.cta_radius }}px; background: {{ block.settings.cta_button_color }}; color: {{ block.settings.cta_button_text }}; font-weight: 600; }
+  .ai-plant-categories-{{ ai_gen_id }}__link:focus-visible, .ai-plant-categories-{{ ai_gen_id }}__cta:focus-visible { outline: 3px solid #1f5130; outline-offset: 4px; }
+  @media (max-width: 989px) { .ai-plant-categories-{{ ai_gen_id }}__grid { grid-template-columns: repeat({{ block.settings.tablet_columns }}, minmax(0, 1fr)); } }
+  @media (max-width: 749px) {
+    .ai-plant-categories-{{ ai_gen_id }} { padding-left: 14px; padding-right: 14px; }
+    .ai-plant-categories-{{ ai_gen_id }}__grid { grid-template-columns: repeat({{ block.settings.mobile_columns }}, minmax(0, 1fr)); gap: {{ block.settings.grid_gap | times: 0.7 }}px; }
+    .ai-plant-categories-{{ ai_gen_id }}__heading { margin-bottom: 26px; }
+    .ai-plant-categories-{{ ai_gen_id }}__media { width: min({{ block.settings.image_size }}px, 100%); }
+    .ai-plant-categories-{{ ai_gen_id }}__cta { padding: 16px 10px; }
+  }
+  @media (hover: none) { .ai-plant-categories-{{ ai_gen_id }}__hover { display: none; } }
+{% endstyle %}
+<section class="ai-plant-categories-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-plant-categories-{{ ai_gen_id }}__inner">
+    {% if block.settings.heading != blank %}<h2 class="ai-plant-categories-{{ ai_gen_id }}__heading">{{ block.settings.heading | escape }}{% if block.settings.italic_category %} <span class="ai-plant-categories-{{ ai_gen_id }}__italic">{{ block.settings.italic_word | escape }}</span>{% endif %}</h2>{% endif %}
+    <div class="ai-plant-categories-{{ ai_gen_id }}__grid">
+      {% for i in (1..8) %}
+        {% liquid
+          assign enabled_key = 'category_' | append: i | append: '_enabled'
+          assign title_key = 'category_' | append: i | append: '_name'
+          assign image_key = 'category_' | append: i | append: '_image'
+          assign hover_key = 'category_' | append: i | append: '_hover_image'
+          assign link_key = 'category_' | append: i | append: '_link'
+          assign enabled = block.settings[enabled_key]
+          assign title = block.settings[title_key]
+          assign image = block.settings[image_key]
+          assign hover_image = block.settings[hover_key]
+          assign category_link = block.settings[link_key]
+        %}
+        {% if enabled and title != blank %}
+          <div class="ai-plant-categories-{{ ai_gen_id }}__card">
+            {% if category_link != blank %}<a class="ai-plant-categories-{{ ai_gen_id }}__link" href="{{ category_link }}" aria-label="{{ title | escape }}">{% else %}<div class="ai-plant-categories-{{ ai_gen_id }}__link">{% endif %}
+              <div class="ai-plant-categories-{{ ai_gen_id }}__media">
+                {% if image %}<img src="{{ image | image_url: width: 900 }}" alt="{{ image.alt | default: title | escape }}" loading="lazy" width="{{ image.width }}" height="{{ image.height }}">{% else %}<div class="ai-plant-categories-{{ ai_gen_id }}__placeholder">{{ 'image' | placeholder_svg_tag }}</div>{% endif %}
+                {% if hover_image %}<img class="ai-plant-categories-{{ ai_gen_id }}__hover" src="{{ hover_image | image_url: width: 900 }}" alt="" loading="lazy" width="{{ hover_image.width }}" height="{{ hover_image.height }}">{% endif %}
+              </div>
+              <span class="ai-plant-categories-{{ ai_gen_id }}__name">{{ title | escape }}</span>
+            {% if category_link != blank %}</a>{% else %}</div>{% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+      {% if block.settings.show_cta %}
+        <div class="ai-plant-categories-{{ ai_gen_id }}__card">
+          {% if block.settings.cta_link != blank %}<a class="ai-plant-categories-{{ ai_gen_id }}__cta" href="{{ block.settings.cta_link }}">{% else %}<div class="ai-plant-categories-{{ ai_gen_id }}__cta">{% endif %}
+            {% if block.settings.cta_heading != blank %}<h3 class="ai-plant-categories-{{ ai_gen_id }}__cta-title">{{ block.settings.cta_heading | escape }}</h3>{% endif %}
+            {% if block.settings.cta_subtext != blank %}<p class="ai-plant-categories-{{ ai_gen_id }}__cta-copy">{{ block.settings.cta_subtext | escape }}</p>{% endif %}
+            {% if block.settings.cta_label != blank %}<span class="ai-plant-categories-{{ ai_gen_id }}__cta-button">{{ block.settings.cta_label | escape }}</span>{% endif %}
+          {% if block.settings.cta_link != blank %}</a>{% else %}</div>{% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Find plant category",
+  "settings": [
+    {"type":"header","content":"Heading and layout"},
+    {"type":"text","id":"heading","label":"Heading","default":"Find Plant Category"},
+    {"type":"text","id":"italic_word","label":"Italic word","default":"Category"},
+    {"type":"checkbox","id":"italic_category","label":"Italicize word","default":true},
+    {"type":"range","id":"heading_size","label":"Heading size","min":20,"max":56,"step":2,"unit":"px","default":34},
+    {"type":"select","id":"heading_weight","label":"Heading weight","options":[{"value":"400","label":"Regular"},{"value":"500","label":"Medium"},{"value":"600","label":"Semibold"},{"value":"700","label":"Bold"}],"default":"600"},
+    {"type":"color","id":"heading_color","label":"Heading color","default":"#1f5130"},
+    {"type":"color","id":"background_color","label":"Background","default":"#f8f4ec"},
+    {"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},
+    {"type":"select","id":"desktop_columns","label":"Desktop columns","options":[{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"},{"value":"6","label":"6"}],"default":"5"},
+    {"type":"select","id":"tablet_columns","label":"Tablet columns","options":[{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"}],"default":"3"},
+    {"type":"select","id":"mobile_columns","label":"Mobile columns","options":[{"value":"1","label":"1"},{"value":"2","label":"2"}],"default":"2"},
+    {"type":"range","id":"grid_gap","label":"Grid gap","min":8,"max":48,"step":4,"unit":"px","default":24},
+    {"type":"range","id":"padding_top","label":"Top padding","min":0,"max":100,"step":5,"unit":"px","default":50},
+    {"type":"range","id":"padding_bottom","label":"Bottom padding","min":0,"max":100,"step":5,"unit":"px","default":50},
+    {"type":"header","content":"Category appearance"},
+    {"type":"range","id":"image_size","label":"Image size","min":100,"max":240,"step":10,"unit":"px","default":170},
+    {"type":"range","id":"border_width","label":"Border width","min":0,"max":10,"step":1,"unit":"px","default":5},
+    {"type":"color","id":"border_color","label":"Border color","default":"#ffffff"},
+    {"type":"range","id":"border_radius","label":"Border radius","min":0,"max":100,"step":5,"unit":"%","default":100},
+    {"type":"checkbox","id":"show_shadow","label":"Show image shadow","default":true},
+    {"type":"range","id":"category_size","label":"Category text size","min":12,"max":30,"step":1,"unit":"px","default":16},
+    {"type":"select","id":"category_weight","label":"Category text weight","options":[{"value":"400","label":"Regular"},{"value":"500","label":"Medium"},{"value":"600","label":"Semibold"},{"value":"700","label":"Bold"}],"default":"500"},
+    {"type":"color","id":"category_color","label":"Category text color","default":"#14231a"},
+    {"type":"range","id":"transition_speed","label":"Fade speed","min":100,"max":800,"step":100,"unit":"ms","default":300},
+    {"type":"header","content":"Buy now card"},
+    {"type":"checkbox","id":"show_cta","label":"Show CTA card","default":true},
+    {"type":"text","id":"cta_heading","label":"CTA heading","default":"Buy Now!"},
+    {"type":"text","id":"cta_subtext","label":"CTA subtext","default":"Bring home a little more green."},
+    {"type":"text","id":"cta_label","label":"Button label","default":"Shop all plants"},
+    {"type":"url","id":"cta_link","label":"CTA link"},
+    {"type":"color","id":"cta_background","label":"CTA background","default":"#1f5130"},
+    {"type":"color","id":"cta_text_color","label":"CTA text","default":"#ffffff"},
+    {"type":"color","id":"cta_button_color","label":"Button color","default":"#f8f4ec"},
+    {"type":"color","id":"cta_button_text","label":"Button text color","default":"#14231a"},
+    {"type":"range","id":"cta_radius","label":"CTA border radius","min":0,"max":32,"step":2,"unit":"px","default":16},
+    {"type":"header","content":"Category 1"},
+    {"type":"checkbox","id":"category_1_enabled","label":"Enable","default":true},
+    {"type":"text","id":"category_1_name","label":"Category name","default":"Category name"},
+    {"type":"image_picker","id":"category_1_image","label":"Main image"},
+    {"type":"image_picker","id":"category_1_hover_image","label":"Hover image"},
+    {"type":"url","id":"category_1_link","label":"Category link"},
+    {"type":"header","content":"Category 2"},
+    {"type":"checkbox","id":"category_2_enabled","label":"Enable","default":true},
+    {"type":"text","id":"category_2_name","label":"Category name","default":"Category name"},
+    {"type":"image_picker","id":"category_2_image","label":"Main image"},
+    {"type":"image_picker","id":"category_2_hover_image","label":"Hover image"},
+    {"type":"url","id":"category_2_link","label":"Category link"},
+    {"type":"header","content":"Category 3"},
+    {"type":"checkbox","id":"category_3_enabled","label":"Enable","default":true},
+    {"type":"text","id":"category_3_name","label":"Category name","default":"Category name"},
+    {"type":"image_picker","id":"category_3_image","label":"Main image"},
+    {"type":"image_picker","id":"category_3_hover_image","label":"Hover image"},
+    {"type":"url","id":"category_3_link","label":"Category link"},
+    {"type":"header","content":"Category 4"},
+    {"type":"checkbox","id":"category_4_enabled","label":"Enable","default":true},
+    {"type":"text","id":"category_4_name","label":"Category name","default":"Category name"},
+    {"type":"image_picker","id":"category_4_image","label":"Main image"},
+    {"type":"image_picker","id":"category_4_hover_image","label":"Hover image"},
+    {"type":"url","id":"category_4_link","label":"Category link"},
+    {"type":"header","content":"Category 5"},
+    {"type":"checkbox","id":"category_5_enabled","label":"Enable","default":true},
+    {"type":"text","id":"category_5_name","label":"Category name","default":"Category name"},
+    {"type":"image_picker","id":"category_5_image","label":"Main image"},
+    {"type":"image_picker","id":"category_5_hover_image","label":"Hover image"},
+    {"type":"url","id":"category_5_link","label":"Category link"},
+    {"type":"header","content":"Category 6"},
+    {"type":"checkbox","id":"category_6_enabled","label":"Enable","default":false},
+    {"type":"text","id":"category_6_name","label":"Category name","default":"Category name"},
+    {"type":"image_picker","id":"category_6_image","label":"Main image"},
+    {"type":"image_picker","id":"category_6_hover_image","label":"Hover image"},
+    {"type":"url","id":"category_6_link","label":"Category link"},
+    {"type":"header","content":"Category 7"},
+    {"type":"checkbox","id":"category_7_enabled","label":"Enable","default":false},
+    {"type":"text","id":"category_7_name","label":"Category name","default":"Category name"},
+    {"type":"image_picker","id":"category_7_image","label":"Main image"},
+    {"type":"image_picker","id":"category_7_hover_image","label":"Hover image"},
+    {"type":"url","id":"category_7_link","label":"Category link"},
+    {"type":"header","content":"Category 8"},
+    {"type":"checkbox","id":"category_8_enabled","label":"Enable","default":false},
+    {"type":"text","id":"category_8_name","label":"Category name","default":"Category name"},
+    {"type":"image_picker","id":"category_8_image","label":"Main image"},
+    {"type":"image_picker","id":"category_8_hover_image","label":"Hover image"},
+    {"type":"url","id":"category_8_link","label":"Category link"}
+  ],
+  "presets": [{"name":"Find plant category"}],
+  "tag": null,
+  "class": "find-plant-category-block"
+}
 {% endschema %}
