@@ -14,37 +14,37 @@
     "footer": {
       "type": "footer",
       "blocks": {
-        "shop": {
+        "menu_wwRYTL": {
           "type": "menu",
           "settings": {
-            "heading": "Shop",
-            "menu": ""
+            "heading": "",
+            "menu": "main-menu"
           }
         },
         "services": {
           "type": "menu",
           "settings": {
             "heading": "Services",
-            "menu": ""
+            "menu": "main-menu"
           }
         },
         "about": {
           "type": "menu",
           "settings": {
             "heading": "About us",
-            "menu": ""
+            "menu": "main-menu"
           }
         },
         "help": {
           "type": "menu",
           "settings": {
             "heading": "Help",
-            "menu": ""
+            "menu": "footer"
           }
         }
       },
       "block_order": [
-        "shop",
+        "menu_wwRYTL",
         "services",
         "about",
         "help"
