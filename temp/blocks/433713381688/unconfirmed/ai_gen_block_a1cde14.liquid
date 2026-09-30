@@ -1,6 +1,237 @@
+{% doc %}
+  @prompt
+    IMPORTANT:
+    - Do NOT include the human/person shown in the reference image.
+    - The section should be designed specifically for a plant nursery / plant e-commerce website.
+    - All plant/product images must be selectable through Shopify's Theme Editor using image upload/picker options.
+    - Do NOT hardcode image URLs.
+    - Make the section fully responsive for desktop, tablet and mobile.
+    
+    SECTION LAYOUT:
+    
+    1. MAIN SECTION
+    - Full-width horizontal section.
+    - Use a soft warm cream/off-white background.
+    - Add a subtle decorative abstract radial/sunburst shape in the background on the right side.
+    - Keep the overall design clean, premium and modern.
+    - Rounded corners where appropriate.
+    
+    2. PRODUCT CAROUSEL
+    Create a horizontally scrollable product carousel on the left/middle area.
+    
+    Display 3 plant product cards at a time on desktop.
+    
+    Each product card should contain:
+    
+    TOP AREA:
+    - Large product image.
+    - Image must be selectable/uploadable from Shopify Theme Editor.
+    - Image should automatically fit inside the image area without distortion.
+    - Rounded top corners.
+    - Bestseller badge at top-left.
+    - Discount badge at top-right.
+    
+    PRODUCT DETAILS:
+    - Small rating badge such as:
+      ★ 4.8 | 440
+    - Product title.
+    - Short product description.
+    - Current price.
+    - Original price with strikethrough.
+    - Discount percentage.
+    - Circular dark-green Add to Cart icon/button at bottom-right.
+    
+    Example content:
+    Product 1:
+    Title: Peace Lily Plant
+    Description: Stunning air-purifying plant
+    Price: ₹299
+    Original Price: ₹350
+    Discount: 15% OFF
+    Rating: 4.8
+    Reviews: 440
+    
+    Product 2:
+    Title: Anthurium Red Plant
+    Description: Long-lasting indoor plant
+    Price: ₹699
+    Original Price: ₹800
+    Discount: 13% OFF
+    Rating: 4.8
+    Reviews: 111
+    
+    Product 3:
+    Title: Jade Mini Plant
+    Description: Easy-care lucky succulent
+    Price: ₹249
+    Original Price: ₹300
+    Discount: 17% OFF
+    Rating: 4.8
+    Reviews: 414
+    
+    3. SHOPIFY CUSTOMIZATION OPTIONS
+    
+    In the Shopify Theme Editor, provide settings for each product card:
+    
+    - Product image upload/picker
+    - Product title
+    - Product description
+    - Current price
+    - Original price
+    - Discount text
+    - Bestseller badge ON/OFF
+    - Bestseller text
+    - Rating
+    - Review count
+    - Product link
+    - Add to cart button
+    - Card background color
+    
+    Allow at least 6 product cards to be added dynamically using Shopify blocks.
+    
+    Each block should have its own image picker.
+    
+    4. CAROUSEL FUNCTIONALITY
+    
+    - Desktop: show 3 cards.
+    - Tablet: show 2 cards.
+    - Mobile: show 1 card with part of the next card visible.
+    - Add a circular dark-green right arrow button overlapping the carousel.
+    - Add a left arrow as well, but keep it subtle.
+    - Smooth horizontal sliding animation.
+    - Touch/swipe support on mobile.
+    - Do not use external carousel libraries.
+    - Use lightweight JavaScript/CSS.
+    - Infinite or smooth looping is preferred.
+    - Disable arrows when there are no more slides if infinite looping is not used.
+    
+    5. DESIGN STYLE
+    
+    Use a premium nursery / botanical visual style.
+    
+    Colors:
+    - Dark green: #1F5130
+    - Yellow/golden accent: #FFD60A
+    - Cream background: #FFF9E8
+    - White product card: #FFFFFF
+    - Muted gray for secondary text.
+    
+    Typography:
+    - Product titles should have a slightly elegant serif style.
+    - Descriptions and prices should use a clean modern sans-serif font.
+    - Use responsive font sizes.
+    
+    6. IMAGE SETTINGS
+    
+    VERY IMPORTANT:
+    Every product card must have a Shopify image picker.
+    
+    Example schema structure:
+    
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Plant Image"
+    }
+    
+    The uploaded image should be displayed dynamically.
+    
+    Also provide an optional image picker for:
+    - Background/decorative plant image
+    - Optional promotional image
+    
+    Do NOT use the human image from the reference.
+    
+    7. HOVER EFFECT
+    
+    When the user hovers over a product card:
+    - Slightly lift the card.
+    - Add a subtle shadow.
+    - Plant image should have a very subtle zoom effect.
+    - Add-to-cart button can slightly scale.
+    - Keep the animation smooth and premium.
+    - Do not make the animation excessive.
+    
+    8. ADD TO CART
+    
+    The circular shopping-bag/cart button should work with Shopify's cart functionality.
+    
+    If the block is connected to a Shopify product:
+    - Clicking the button should add the selected product to cart.
+    - Use Shopify's product/variant information.
+    - If necessary, provide a product selector in the Theme Editor.
+    
+    Provide:
+    - Product selector
+    - Variant support
+    - Add-to-cart functionality
+    
+    9. RESPONSIVE DESIGN
+    
+    Desktop:
+    - 3 product cards visible.
+    - Cards should have equal width.
+    - Carousel occupies approximately 65–70% of the section.
+    - Leave enough breathing space around the cards.
+    
+    Mobile:
+    - One card visible at a time.
+    - Horizontal swipe carousel.
+    - Product cards should remain visually large.
+    - Hide unnecessary decorative elements.
+    - Keep prices and buttons easy to tap.
+    - No horizontal page overflow.
+    
+    10. CODE REQUIREMENTS
+    
+    Generate a complete Shopify Online Store 2.0 section.
+    
+    Provide:
+    - Liquid
+    - HTML
+    - CSS
+    - JavaScript
+    - Shopify schema
+    
+    The code must be placed in ONE Shopify section file.
+    with view all products button and with link , i want in the image as cart icon button and view all products button with links 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% style %}
+.ai-plants-{{ ai_gen_id }}{display:block;width:100%;box-sizing:border-box;background:{{ block.settings.background }};padding:40px 20px;color:#14231a}.ai-plants-{{ ai_gen_id }}__inner{max-width:1240px;margin:auto}.ai-plants-{{ ai_gen_id }}__head{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:22px}.ai-plants-{{ ai_gen_id }}__heading{font:400 clamp(28px,4vw,42px)/1.15 Georgia,serif;color:#1f5130;margin:0}.ai-plants-{{ ai_gen_id }}__all{display:inline-flex;padding:12px 20px;border:1px solid #1f5130;border-radius:99px;color:#1f5130;text-decoration:none;font-weight:700}.ai-plants-{{ ai_gen_id }}__all:hover{background:#1f5130;color:#fff}.ai-plants-{{ ai_gen_id }}__track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:5px 4px 18px;scrollbar-width:none}.ai-plants-{{ ai_gen_id }}__track::-webkit-scrollbar{display:none}.ai-plants-{{ ai_gen_id }}__card{position:relative;flex:0 0 calc((100% - 36px)/3);overflow:hidden;border-radius:{{ block.settings.radius }}px;background:#fff;box-shadow:0 4px 18px rgba(20,45,27,.08);scroll-snap-align:start;transition:transform .25s,box-shadow .25s}.ai-plants-{{ ai_gen_id }}__card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(20,45,27,.14)}.ai-plants-{{ ai_gen_id }}__image{height:clamp(200px,23vw,290px);position:relative;background:#f1efe7;overflow:hidden}.ai-plants-{{ ai_gen_id }}__image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}.ai-plants-{{ ai_gen_id }}__card:hover .ai-plants-{{ ai_gen_id }}__image img{transform:scale(1.035)}.ai-plants-{{ ai_gen_id }}__placeholder,.ai-plants-{{ ai_gen_id }}__placeholder svg{width:100%;height:100%;display:block}.ai-plants-{{ ai_gen_id }}__badge{position:absolute;top:12px;padding:6px 10px;border-radius:99px;font-size:11px;font-weight:700}.ai-plants-{{ ai_gen_id }}__best{left:12px;background:#1f5130;color:#fff}.ai-plants-{{ ai_gen_id }}__sale{right:12px;background:#ffd60a;color:#14231a}.ai-plants-{{ ai_gen_id }}__cart{position:absolute;right:14px;bottom:14px;width:48px;height:48px;border:0;border-radius:50%;display:grid;place-items:center;background:#1f5130;color:#fff;cursor:pointer;box-shadow:0 3px 12px rgba(0,0,0,.2);transition:transform .2s,background .2s;z-index:2}.ai-plants-{{ ai_gen_id }}__cart:hover{background:#0d3a1d;transform:scale(1.07)}.ai-plants-{{ ai_gen_id }}__cart:focus-visible,.ai-plants-{{ ai_gen_id }}__all:focus-visible{outline:3px solid #ffd60a;outline-offset:3px}.ai-plants-{{ ai_gen_id }}__body{padding:14px 16px 17px}.ai-plants-{{ ai_gen_id }}__rating{font-size:12px;color:#315c3a;background:#f1f5e9;border-radius:99px;padding:5px 8px}.ai-plants-{{ ai_gen_id }}__title{font:400 21px/1.2 Georgia,serif;color:#1f5130;margin:10px 0 4px}.ai-plants-{{ ai_gen_id }}__desc{font-size:13px;color:#5b6660;margin:0 0 12px}.ai-plants-{{ ai_gen_id }}__price{font-weight:700}.ai-plants-{{ ai_gen_id }}__compare{font-size:12px;color:#68736c;text-decoration:line-through;margin-left:6px}.ai-plants-{{ ai_gen_id }}__arrows{display:flex;justify-content:flex-end;gap:8px;margin-top:2px}.ai-plants-{{ ai_gen_id }}__arrow{width:42px;height:42px;border-radius:50%;border:1px solid #cdd8cd;background:#fff;color:#1f5130;cursor:pointer;display:grid;place-items:center}.ai-plants-{{ ai_gen_id }}__arrow--next{background:#1f5130;color:#fff;border-color:#1f5130}.ai-plants-{{ ai_gen_id }}__arrow:disabled{opacity:.4;cursor:not-allowed}@media(max-width:900px){.ai-plants-{{ ai_gen_id }}__card{flex-basis:calc((100% - 18px)/2)}}@media(max-width:600px){.ai-plants-{{ ai_gen_id }}{padding:30px 14px}.ai-plants-{{ ai_gen_id }}__head{align-items:flex-start;flex-direction:column}.ai-plants-{{ ai_gen_id }}__card{flex-basis:84%}.ai-plants-{{ ai_gen_id }}__image{height:250px}}@media(prefers-reduced-motion:reduce){.ai-plants-{{ ai_gen_id }}__track{scroll-behavior:auto}.ai-plants-{{ ai_gen_id }}__card,.ai-plants-{{ ai_gen_id }}__image img,.ai-plants-{{ ai_gen_id }}__cart{transition:none}}
+{% endstyle %}
+<plant-products-{{ ai_gen_id }} class="ai-plants-{{ ai_gen_id }}" style="width:{{ block.settings.desktop_width_percent }}%;" {{ block.shopify_attributes }}>
+<div class="ai-plants-{{ ai_gen_id }}__inner"><div class="ai-plants-{{ ai_gen_id }}__head"><h2 class="ai-plants-{{ ai_gen_id }}__heading">{{ block.settings.heading | escape }}</h2>{% if block.settings.view_all_link != blank %}<a class="ai-plants-{{ ai_gen_id }}__all" href="{{ block.settings.view_all_link }}">{{ block.settings.view_all_label | escape }}</a>{% endif %}</div>
+<div class="ai-plants-{{ ai_gen_id }}__track" data-track aria-label="Plant products">
+{% for i in (1..6) %}{% liquid
+assign ik='image_' | append:i
+assign tk='title_' | append:i
+assign dk='description_' | append:i
+assign pk='price_' | append:i
+assign ck='compare_' | append:i
+assign sk='discount_' | append:i
+assign bk='bestseller_' | append:i
+assign rk='rating_' | append:i
+assign nk='reviews_' | append:i
+assign lk='link_' | append:i
+assign product_key='product_' | append:i
+assign image=block.settings[ik]
+assign title=block.settings[tk]
+assign description=block.settings[dk]
+assign price=block.settings[pk]
+assign compare=block.settings[ck]
+assign discount=block.settings[sk]
+assign bestseller=block.settings[bk]
+assign rating=block.settings[rk]
+assign reviews=block.settings[nk]
+assign link=block.settings[lk]
+assign product=block.settings[product_key]
+if product != blank
+assign title=product.title
+endif
+%}{% if title != blank or image != blank or product != blank %}<article class="ai-plants-{{ ai_gen_id }}__card"><div class="ai-plants-{{ ai_gen_id }}__image">{% if image != blank %}<img src="{{ image | image_url: width: 900 }}" alt="{{ image.alt | default:title | escape }}" loading="lazy" width="{{ image.width }}" height="{{ image.height }}">{% elsif product.featured_image %}<img src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.featured_image.alt | default:title | escape }}" loading="lazy">{% else %}<div class="ai-plants-{{ ai_gen_id }}__placeholder">{{ 'product-apparel-1' | placeholder_svg_tag }}</div>{% endif %}{% if bestseller %}<span class="ai-plants-{{ ai_gen_id }}__badge ai-plants-{{ ai_gen_id }}__best">{{ block.settings.bestseller_label | escape }}</span>{% endif %}{% if discount != blank %}<span class="ai-plants-{{ ai_gen_id }}__badge ai-plants-{{ ai_gen_id }}__sale">{{ discount | escape }}</span>{% endif %}
+{% if product != blank %}<form method="post" action="{{ routes.cart_add_url }}"><input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}"><input type="hidden" name="quantity" value="1"><button class="ai-plants-{{ ai_gen_id }}__cart" type="submit" aria-label="Add {{ product.title | escape }} to cart" {% unless product.available %}disabled{% endunless %}><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 8h14l1 13H4L5 8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 9V6a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></form>{% elsif link != blank %}<a class="ai-plants-{{ ai_gen_id }}__cart" href="{{ link }}" aria-label="View {{ title | escape }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 8h14l1 13H4L5 8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 9V6a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>{% endif %}</div><div class="ai-plants-{{ ai_gen_id }}__body"><span class="ai-plants-{{ ai_gen_id }}__rating">★ {{ rating | escape }} | {{ reviews | escape }}</span><h3 class="ai-plants-{{ ai_gen_id }}__title">{{ title | escape }}</h3>{% if description != blank %}<p class="ai-plants-{{ ai_gen_id }}__desc">{{ description | escape }}</p>{% endif %}<div class="ai-plants-{{ ai_gen_id }}__price">{% if product != blank %}{{ product.price | money }}{% else %}{{ price | escape }}{% endif %}{% if product != blank and product.compare_at_price > product.price %}<span class="ai-plants-{{ ai_gen_id }}__compare">{{ product.compare_at_price | money }}</span>{% elsif compare != blank %}<span class="ai-plants-{{ ai_gen_id }}__compare">{{ compare | escape }}</span>{% endif %}</div></div></article>{% endif %}{% endfor %}</div><div class="ai-plants-{{ ai_gen_id }}__arrows"><button class="ai-plants-{{ ai_gen_id }}__arrow" type="button" data-prev aria-label="Previous plants">‹</button><button class="ai-plants-{{ ai_gen_id }}__arrow ai-plants-{{ ai_gen_id }}__arrow--next" type="button" data-next aria-label="Next plants">›</button></div></div></plant-products-{{ ai_gen_id }}>
+<script>(function(){const tag='plant-products-{{ ai_gen_id }}';if(customElements.get(tag))return;class PlantProducts extends HTMLElement{connectedCallback(){this.track=this.querySelector('[data-track]');this.prev=this.querySelector('[data-prev]');this.next=this.querySelector('[data-next]');this.prev.addEventListener('click',()=>this.move(-1));this.next.addEventListener('click',()=>this.move(1));this.track.addEventListener('scroll',()=>this.update(),{passive:true});this.observer=new ResizeObserver(()=>this.update());this.observer.observe(this.track);this.update()}disconnectedCallback(){if(this.observer)this.observer.disconnect()}move(d){const c=this.track.querySelector('article');if(c)this.track.scrollBy({left:d*(c.getBoundingClientRect().width+18),behavior:'smooth'})}update(){const max=this.track.scrollWidth-this.track.clientWidth;this.prev.disabled=this.track.scrollLeft<=2;this.next.disabled=this.track.scrollLeft>=max-2}}customElements.define(tag,PlantProducts)})();</script>
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{"name":"Nursery product carousel","settings":[{"type":"text","id":"heading","label":"Heading","default":"Plants to love"},{"type":"url","id":"view_all_link","label":"View all products link"},{"type":"text","id":"view_all_label","label":"View all button label","default":"View all products"},{"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},{"type":"color","id":"background","label":"Background","default":"#FFF9E8"},{"type":"color","id":"card_background","label":"Card background","default":"#FFFFFF"},{"type":"range","id":"radius","label":"Card corner radius","min":0,"max":32,"step":2,"unit":"px","default":16},{"type":"text","id":"bestseller_label","label":"Bestseller badge label","default":"Bestseller"},{"type":"header","content":"Plant 1"},{"type":"image_picker","id":"image_1","label":"Plant image"},{"type":"text","id":"title_1","label":"Title","default":"Peace Lily Plant"},{"type":"text","id":"description_1","label":"Description","default":"Air-purifying indoor plant"},{"type":"text","id":"price_1","label":"Price","default":"₹299"},{"type":"text","id":"compare_1","label":"Original price","default":"₹350"},{"type":"text","id":"discount_1","label":"Discount","default":"15% OFF"},{"type":"checkbox","id":"bestseller_1","label":"Show bestseller badge","default":true},{"type":"text","id":"rating_1","label":"Rating","default":"4.8"},{"type":"text","id":"reviews_1","label":"Reviews","default":"440"},{"type":"url","id":"link_1","label":"Product link"},{"type":"product","id":"product_1","label":"Product for add to cart"},{"type":"header","content":"Plant 2"},{"type":"image_picker","id":"image_2","label":"Plant image"},{"type":"text","id":"title_2","label":"Title","default":"Anthurium Red Plant"},{"type":"text","id":"description_2","label":"Description","default":"Long-lasting indoor flowering plant"},{"type":"text","id":"price_2","label":"Price","default":"₹699"},{"type":"text","id":"compare_2","label":"Original price","default":"₹800"},{"type":"text","id":"discount_2","label":"Discount","default":"13% OFF"},{"type":"checkbox","id":"bestseller_2","label":"Show bestseller badge","default":false},{"type":"text","id":"rating_2","label":"Rating","default":"4.8"},{"type":"text","id":"reviews_2","label":"Reviews","default":"111"},{"type":"url","id":"link_2","label":"Product link"},{"type":"product","id":"product_2","label":"Product for add to cart"},{"type":"header","content":"Plant 3"},{"type":"image_picker","id":"image_3","label":"Plant image"},{"type":"text","id":"title_3","label":"Title","default":"Jade Mini Plant"},{"type":"text","id":"description_3","label":"Description","default":"Easy-care lucky succulent"},{"type":"text","id":"price_3","label":"Price","default":"₹249"},{"type":"text","id":"compare_3","label":"Original price","default":"₹300"},{"type":"text","id":"discount_3","label":"Discount","default":"17% OFF"},{"type":"checkbox","id":"bestseller_3","label":"Show bestseller badge","default":false},{"type":"text","id":"rating_3","label":"Rating","default":"4.8"},{"type":"text","id":"reviews_3","label":"Reviews","default":"414"},{"type":"url","id":"link_3","label":"Product link"},{"type":"product","id":"product_3","label":"Product for add to cart"},{"type":"header","content":"Plant 4"},{"type":"image_picker","id":"image_4","label":"Plant image"},{"type":"text","id":"title_4","label":"Title","default":"Add a plant name"},{"type":"text","id":"description_4","label":"Description","default":"Add a short description"},{"type":"text","id":"price_4","label":"Price","default":"₹0"},{"type":"text","id":"compare_4","label":"Original price","default":"₹0"},{"type":"text","id":"discount_4","label":"Discount","default":"Offer"},{"type":"checkbox","id":"bestseller_4","label":"Show bestseller badge","default":false},{"type":"text","id":"rating_4","label":"Rating","default":"4.8"},{"type":"text","id":"reviews_4","label":"Reviews","default":"0"},{"type":"url","id":"link_4","label":"Product link"},{"type":"product","id":"product_4","label":"Product for add to cart"},{"type":"header","content":"Plant 5"},{"type":"image_picker","id":"image_5","label":"Plant image"},{"type":"text","id":"title_5","label":"Title","default":"Add a plant name"},{"type":"text","id":"description_5","label":"Description","default":"Add a short description"},{"type":"text","id":"price_5","label":"Price","default":"₹0"},{"type":"text","id":"compare_5","label":"Original price","default":"₹0"},{"type":"text","id":"discount_5","label":"Discount","default":"Offer"},{"type":"checkbox","id":"bestseller_5","label":"Show bestseller badge","default":false},{"type":"text","id":"rating_5","label":"Rating","default":"4.8"},{"type":"text","id":"reviews_5","label":"Reviews","default":"0"},{"type":"url","id":"link_5","label":"Product link"},{"type":"product","id":"product_5","label":"Product for add to cart"},{"type":"header","content":"Plant 6"},{"type":"image_picker","id":"image_6","label":"Plant image"},{"type":"text","id":"title_6","label":"Title","default":"Add a plant name"},{"type":"text","id":"description_6","label":"Description","default":"Add a short description"},{"type":"text","id":"price_6","label":"Price","default":"₹0"},{"type":"text","id":"compare_6","label":"Original price","default":"₹0"},{"type":"text","id":"discount_6","label":"Discount","default":"Offer"},{"type":"checkbox","id":"bestseller_6","label":"Show bestseller badge","default":false},{"type":"text","id":"rating_6","label":"Rating","default":"4.8"},{"type":"text","id":"reviews_6","label":"Reviews","default":"0"},{"type":"url","id":"link_6","label":"Product link"},{"type":"product","id":"product_6","label":"Product for add to cart"}],"presets":[{"name":"Nursery product carousel"}],"tag":null,"class":"nursery-product-carousel-block"}
 {% endschema %}
