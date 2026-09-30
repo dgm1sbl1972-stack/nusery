@@ -832,7 +832,7 @@
             "button_link": "shopify://pages/contact",
             "background_image": "shopify://shop_images/f1e021cb-377e-40d0-9083-3db7e22e964f.png",
             "background_position": "center center",
-            "overlay_opacity": 50,
+            "overlay_opacity": 75,
             "overlay_color": "#1f5130",
             "desktop_width_percent": 100,
             "min_height": 540,
