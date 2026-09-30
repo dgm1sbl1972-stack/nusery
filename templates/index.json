@@ -527,8 +527,8 @@
             "hover_shadow": 35,
             "cta_text": "Buy Now!",
             "cta_link": "shopify://collections",
-            "cta_background": "#EED433",
-            "cta_text_color": "#1F5130",
+            "cta_background": "#eed433",
+            "cta_text_color": "#1f5130",
             "cta_text_size": 42,
             "category_1_image": "shopify://shop_images/Aptenia_7f1dd54a-f428-43ad-af64-9ffef36be980.png",
             "category_1_name": "Flower Creepers",
@@ -1047,6 +1047,7 @@
           "settings": {
             "background_type": "solid",
             "background_color": "#f8f4ec",
+            "background_image": "shopify://shop_images/886bde77-2bc0-4850-817c-0e3d419589a8.png",
             "background_position": "center",
             "background_size": "cover",
             "overlay_color": "#f8f4ec",
