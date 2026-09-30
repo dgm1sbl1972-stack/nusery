@@ -512,7 +512,7 @@
             "heading_size": 38,
             "heading_color": "#0d3a1d",
             "accent_color": "#1f5130",
-            "background_color": "#ffffff",
+            "background_color": "#F8F4EC",
             "desktop_width_percent": 100,
             "padding_top": 55,
             "padding_bottom": 55,
@@ -717,7 +717,7 @@
           "type": "ai_gen_block_6964778",
           "settings": {
             "heading": "Handpicked Favourites",
-            "heading_alignment": "left",
+            "heading_alignment": "center",
             "collection": "bestsellers",
             "max_products": 8,
             "view_all_label": "View all products",
