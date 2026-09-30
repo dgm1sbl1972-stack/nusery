@@ -1,0 +1,311 @@
+{% doc %}
+  @prompt
+    IMPORTANT:
+    - Do NOT include the human/person shown in the reference image.
+    - The section should be designed specifically for a plant nursery / plant e-commerce website.
+    - All plant/product images must be selectable through Shopify's Theme Editor using image upload/picker options.
+    - Do NOT hardcode image URLs.
+    - Make the section fully responsive for desktop, tablet and mobile.
+    
+    SECTION LAYOUT:
+    
+    1. MAIN SECTION
+    - Full-width horizontal section.
+    - Use a soft warm cream/off-white background.
+    - Add a subtle decorative abstract radial/sunburst shape in the background on the right side.
+    - Keep the overall design clean, premium and modern.
+    - Rounded corners where appropriate.
+    
+    2. PRODUCT CAROUSEL
+    Create a horizontally scrollable product carousel on the left/middle area.
+    
+    Display 3 plant product cards at a time on desktop.
+    
+    Each product card should contain:
+    
+    TOP AREA:
+    - Large product image.
+    - Image must be selectable/uploadable from Shopify Theme Editor.
+    - Image should automatically fit inside the image area without distortion.
+    - Rounded top corners.
+    - Bestseller badge at top-left.
+    - Discount badge at top-right.
+    
+    PRODUCT DETAILS:
+    - Small rating badge such as:
+      ★ 4.8 | 440
+    - Product title.
+    - Short product description.
+    - Current price.
+    - Original price with strikethrough.
+    - Discount percentage.
+    - Circular dark-green Add to Cart icon/button at bottom-right.
+    
+    Example content:
+    Product 1:
+    Title: Peace Lily Plant
+    Description: Stunning air-purifying plant
+    Price: ₹299
+    Original Price: ₹350
+    Discount: 15% OFF
+    Rating: 4.8
+    Reviews: 440
+    
+    Product 2:
+    Title: Anthurium Red Plant
+    Description: Long-lasting indoor plant
+    Price: ₹699
+    Original Price: ₹800
+    Discount: 13% OFF
+    Rating: 4.8
+    Reviews: 111
+    
+    Product 3:
+    Title: Jade Mini Plant
+    Description: Easy-care lucky succulent
+    Price: ₹249
+    Original Price: ₹300
+    Discount: 17% OFF
+    Rating: 4.8
+    Reviews: 414
+    
+    3. SHOPIFY CUSTOMIZATION OPTIONS
+    
+    In the Shopify Theme Editor, provide settings for each product card:
+    
+    - Product image upload/picker
+    - Product title
+    - Product description
+    - Current price
+    - Original price
+    - Discount text
+    - Bestseller badge ON/OFF
+    - Bestseller text
+    - Rating
+    - Review count
+    - Product link
+    - Add to cart button
+    - Card background color
+    
+    Allow at least 6 product cards to be added dynamically using Shopify blocks.
+    
+    Each block should have its own image picker.
+    
+    4. CAROUSEL FUNCTIONALITY
+    
+    - Desktop: show 3 cards.
+    - Tablet: show 2 cards.
+    - Mobile: show 1 card with part of the next card visible.
+    - Add a circular dark-green right arrow button overlapping the carousel.
+    - Add a left arrow as well, but keep it subtle.
+    - Smooth horizontal sliding animation.
+    - Touch/swipe support on mobile.
+    - Do not use external carousel libraries.
+    - Use lightweight JavaScript/CSS.
+    - Infinite or smooth looping is preferred.
+    - Disable arrows when there are no more slides if infinite looping is not used.
+    
+    5. DESIGN STYLE
+    
+    Use a premium nursery / botanical visual style.
+    
+    Colors:
+    - Dark green: #1F5130
+    - Yellow/golden accent: #FFD60A
+    - Cream background: #FFF9E8
+    - White product card: #FFFFFF
+    - Muted gray for secondary text.
+    
+    Typography:
+    - Product titles should have a slightly elegant serif style.
+    - Descriptions and prices should use a clean modern sans-serif font.
+    - Use responsive font sizes.
+    
+    6. IMAGE SETTINGS
+    
+    VERY IMPORTANT:
+    Every product card must have a Shopify image picker.
+    
+    Example schema structure:
+    
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Plant Image"
+    }
+    
+    The uploaded image should be displayed dynamically.
+    
+    Also provide an optional image picker for:
+    - Background/decorative plant image
+    - Optional promotional image
+    
+    Do NOT use the human image from the reference.
+    
+    7. HOVER EFFECT
+    
+    When the user hovers over a product card:
+    - Slightly lift the card.
+    - Add a subtle shadow.
+    - Plant image should have a very subtle zoom effect.
+    - Add-to-cart button can slightly scale.
+    - Keep the animation smooth and premium.
+    - Do not make the animation excessive.
+    
+    8. ADD TO CART
+    
+    The circular shopping-bag/cart button should work with Shopify's cart functionality.
+    
+    If the block is connected to a Shopify product:
+    - Clicking the button should add the selected product to cart.
+    - Use Shopify's product/variant information.
+    - If necessary, provide a product selector in the Theme Editor.
+    
+    Provide:
+    - Product selector
+    - Variant support
+    - Add-to-cart functionality
+    
+    9. RESPONSIVE DESIGN
+    
+    Desktop:
+    - 3 product cards visible.
+    - Cards should have equal width.
+    - Carousel occupies approximately 65–70% of the section.
+    - Leave enough breathing space around the cards.
+    
+    Mobile:
+    - One card visible at a time.
+    - Horizontal swipe carousel.
+    - Product cards should remain visually large.
+    - Hide unnecessary decorative elements.
+    - Keep prices and buttons easy to tap.
+    - No horizontal page overflow.
+    
+    10. CODE REQUIREMENTS
+    
+    Generate a complete Shopify Online Store 2.0 section.
+    
+    Provide:
+    - Liquid
+    - HTML
+    - CSS
+    - JavaScript
+    - Shopify schema
+    with middle of the this section i need "view all products" button, i need  small cart icon button and view all pro, i need position ofadd to cart button and icon with link in the right bottom corner, i need add to cart button with icon and link also in the position of image in right bottom corner, i need add to cart button in the postion of product image as right bottom corner in plant product , i need add to cart button in the postion of product image as right bottom corner in plant product , i need add to cart button in the postion of  for each product as right bottom corner, Add an **“Add to Cart” button to the bottom-right corner of every product image**. The button should be positioned absolutely inside the product image/card, remain visible on desktop and mobile, and add the respective product directly to the Shopify cart using AJAX without redirecting. Keep the existing product image, price, rating, and product-page link unchanged. Make the button size, colors, text, border radius, and position editable from the Shopify Theme Editor.
+    , Update the product section so that **each product card has an “Add to Cart” button positioned at the bottom-right corner of the product image/card**.
+    
+    Requirements:
+    
+    * Add a clearly visible **Add to Cart** button for every product.
+    * Position the button at the **bottom-right corner** of each product card.
+    * Keep the button inside the product card without affecting the product image or layout.
+    * Use a compact, modern button design that matches the existing website style.
+    * When clicked, the button should **add that specific product directly to the Shopify cart**.
+    * Do not redirect the customer to another page when adding to cart.
+    * Show a small visual confirmation such as **“Added to cart”** or update the cart count after successful addition.
+    * Make the button fully responsive on desktop, tablet, and mobile.
+    * Ensure the button does not overlap the product title, price, rating, or other important content.
+    * Keep all existing product images, prices, ratings, links, and styling unchanged.
+    * The product image and product title should remain clickable and continue redirecting to their respective product pages.
+    * Allow the button styling, text, size, border radius, background color, and text color to be edited from the Shopify Theme Editor.
+    , need add to cart icon and text and give the link also for that
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% capture plant_form_class %}plant-cart-card__form-{{ ai_gen_id }}{% endcapture %}
+{% style %}
+  .plant-cart-card-{{ ai_gen_id }} { position: relative; display: block; width: {{ block.settings.desktop_width_percent }}%; max-width: 100%; overflow: hidden; border-radius: 16px; background: #fff; color: #14231a; }
+  .plant-cart-card__media-{{ ai_gen_id }} { position: relative; aspect-ratio: 4 / 5; overflow: hidden; }
+  .plant-cart-card__media-{{ ai_gen_id }} > a { display: block; width: 100%; height: 100%; }
+  .plant-cart-card__media-{{ ai_gen_id }} img, .plant-cart-card__placeholder-{{ ai_gen_id }} svg { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .plant-cart-card__placeholder-{{ ai_gen_id }} { width: 100%; height: 100%; background: #f8f4ec; }
+  .plant-cart-card__form-{{ ai_gen_id }} { position: absolute; right: {{ block.settings.cart_inset }}px; bottom: {{ block.settings.cart_inset }}px; z-index: 2; margin: 0; }
+  .plant-cart-card__button-{{ ai_gen_id }} { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: {{ block.settings.cart_size }}px; padding: 0 14px; border: 0; border-radius: {{ block.settings.cart_radius }}px; background: {{ block.settings.cart_background }}; color: {{ block.settings.cart_text_color }}; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .plant-cart-card__button-{{ ai_gen_id }} svg { flex: 0 0 auto; width: 20px; height: 20px; }
+  .plant-cart-card__button-{{ ai_gen_id }}:focus-visible, .plant-cart-card__title-{{ ai_gen_id }} a:focus-visible { outline: 3px solid #ffd60a; outline-offset: 3px; }
+  .plant-cart-card__button-{{ ai_gen_id }}[disabled] { opacity: .65; cursor: wait; }
+  .plant-cart-card__content-{{ ai_gen_id }} { padding: 16px; }
+  .plant-cart-card__title-{{ ai_gen_id }} { margin: 0; font-family: Georgia, serif; font-size: 20px; }
+  .plant-cart-card__title-{{ ai_gen_id }} a { color: inherit; text-decoration: none; }
+  .plant-cart-card__price-{{ ai_gen_id }} { margin-top: 8px; font-weight: 600; }
+  .plant-cart-card__status-{{ ai_gen_id }} { min-height: 1.3em; margin: 6px 0 0; color: #1f5130; font-size: 13px; }
+  @media (max-width: 749px) { .plant-cart-card__content-{{ ai_gen_id }} { padding: 12px; } .plant-cart-card__button-{{ ai_gen_id }} { min-height: {{ block.settings.cart_size | at_least: 44 }}px; padding: 0 11px; font-size: 13px; } }
+{% endstyle %}
+<plant-cart-card-{{ ai_gen_id }} class="plant-cart-card-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% assign product = block.settings.product %}
+  {% assign card_image = block.settings.product_image %}
+  {% if card_image == blank and product != blank %}{% assign card_image = product.featured_image %}{% endif %}
+  <div class="plant-cart-card__media-{{ ai_gen_id }}">
+    <a href="{% if product != blank %}{{ product.url }}{% else %}#{% endif %}" aria-label="{% if product != blank %}{{ product.title | escape }}{% else %}{{ block.settings.product_title | escape }}{% endif %}">
+      {% if card_image != blank %}<img src="{{ card_image | image_url: width: 900 }}" alt="{{ card_image.alt | default: product.title | escape }}" loading="lazy" width="{{ card_image.width }}" height="{{ card_image.height }}">{% else %}<div class="plant-cart-card__placeholder-{{ ai_gen_id }}">{{ 'product-apparel-1' | placeholder_svg_tag }}</div>{% endif %}
+    </a>
+    {% if product != blank and product.available %}
+      {% form 'product', product, class: plant_form_class %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <button type="submit" class="plant-cart-card__button-{{ ai_gen_id }}">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M3 4h2l2.1 10.1a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 1.9-1.4L21 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1" fill="currentColor"/><circle cx="18" cy="20" r="1" fill="currentColor"/></svg>
+          <span>{{ block.settings.cart_button_text | escape }}</span>
+        </button>
+      {% endform %}
+    {% endif %}
+  </div>
+  <div class="plant-cart-card__content-{{ ai_gen_id }}">
+    {% if product != blank %}<h3 class="plant-cart-card__title-{{ ai_gen_id }}"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3><div class="plant-cart-card__price-{{ ai_gen_id }}">{{ product.price | money }}</div>{% else %}<h3 class="plant-cart-card__title-{{ ai_gen_id }}">{{ block.settings.product_title | escape }}</h3>{% endif %}
+    <p class="plant-cart-card__status-{{ ai_gen_id }}" aria-live="polite" role="status"></p>
+  </div>
+</plant-cart-card-{{ ai_gen_id }}>
+<script>
+(() => {
+  const tag = 'plant-cart-card-{{ ai_gen_id }}';
+  if (customElements.get(tag)) return;
+  class PlantCartCard extends HTMLElement {
+    connectedCallback() {
+      const form = this.querySelector('form');
+      const button = this.querySelector('button[type="submit"]');
+      const status = this.querySelector('[role="status"]');
+      if (!form || !button || this.dataset.ready) return;
+      this.dataset.ready = 'true';
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (button.disabled) return;
+        button.disabled = true;
+        status.textContent = '';
+        try {
+          const response = await fetch(`${form.action}.js`, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+          const result = await response.json();
+          if (!response.ok) throw new Error(result.description || 'Could not add this item. Please try again.');
+          status.textContent = {{ block.settings.success_message | json }};
+          document.dispatchEvent(new CustomEvent('cart:updated', { bubbles: true, detail: { product: result } }));
+          document.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true }));
+        } catch (error) {
+          status.textContent = error.message;
+        } finally {
+          button.disabled = false;
+        }
+      });
+    }
+  }
+  customElements.define(tag, PlantCartCard);
+})();
+</script>
+{% schema %}
+{
+  "name": "Plant cart card",
+  "settings": [
+    {"type":"product","id":"product","label":"Product"},
+    {"type":"image_picker","id":"product_image","label":"Product image"},
+    {"type":"text","id":"product_title","label":"Fallback title","default":"Choose a product"},
+    {"type":"text","id":"cart_button_text","label":"Button text","default":"Add to cart"},
+    {"type":"text","id":"success_message","label":"Success message","default":"Added to cart"},
+    {"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},
+    {"type":"range","id":"cart_size","label":"Button size","min":36,"max":60,"step":4,"unit":"px","default":44},
+    {"type":"range","id":"cart_radius","label":"Border radius","min":0,"max":40,"step":2,"unit":"px","default":24},
+    {"type":"range","id":"cart_inset","label":"Corner inset","min":4,"max":28,"step":2,"unit":"px","default":14},
+    {"type":"color","id":"cart_background","label":"Button background","default":"#1f5130"},
+    {"type":"color","id":"cart_text_color","label":"Button text","default":"#ffffff"}
+  ],
+  "presets": [{"name":"Plant cart card"}],
+  "tag": null,
+  "class": "plant-cart-card-block"
+}
+{% endschema %}
