@@ -1,6 +1,158 @@
-{% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{% doc %}
+  @prompt
+    Create a new responsive Shopify Online Store 2.0 header for SBL Farms based on the reference image.
+    
+    Keep the SBL Farms logo on the left, navigation in the center, and Search, Login/Account, Wishlist, and Cart on the right. Remove Home.
+    
+    Navigation:
+    Plants ▼ | Seeds ▼ | Pots ▼ | Services ▼ | Gifting ▼ | Blog | Contact
+    
+    Create 10 fully EDITABLE submenu items for EACH dropdown. Every item must have an editable label, URL, and enable/disable option in Shopify Theme Editor.
+    
+    Plants:
+    Indoor Plants, Outdoor Plants, Flowering Plants, Succulents, Cacti, Fruit Plants, Herbs, Air-Purifying Plants, Bonsai Plants, Climbers and Creepers.
+    
+    Seeds:
+    Vegetable Seeds, Flower Seeds, Herb Seeds, Fruit Seeds, Organic Seeds, Microgreen Seeds, Hybrid Seeds, Flower Mix Seeds, Lawn Grass Seeds, Seasonal Seeds.
+    
+    Pots:
+    Terracotta Pots, Ceramic Pots, Plastic Pots, Hanging Planters, Self-Watering Pots, Grow Bags, Window Planters, Decorative Planters, Seedling Trays, Plant Stands.
+    
+    Services:
+    Landscaping, Green Walls, AMC (Annual Maintenance Contract), Plant Rental, Indoor Plant Maintenance, Outdoor Plant Maintenance, Garden Maintenance, Terrace Gardening, Vertical Garden Installation, Plant Consultation.
+    
+    Gifting:
+    Corporate Gifting, Bulk Gifting, Plant Gifting, Personalized Plant Gifts, Employee Gifting, Client Gifting, Festive Plant Gifting, Wedding Plant Gifting, Eco-Friendly Gifts, Custom Gift Hampers.
+    
+    IMPORTANT:
+    - All 10 items in every dropdown must display and be editable.
+    - Do not show only 4 Services or 2 Gifting items.
+    - Do not hard-code submenu items.
+    - Every submenu item must have its own clickable Shopify link.
+    - Each dropdown must open directly below its own parent menu item.
+    - Use cream/off-white background, dark green text, subtle shadow, and clean spacing.
+    
+    HEADER SETTINGS:
+    Make these editable in Theme Editor:
+    - Desktop/tablet/mobile header height
+    - Logo and logo size
+    - Navigation spacing
+    - Dropdown width
+    - Dropdown item height
+    - Font size
+    - Header colors
+    - Dropdown colors
+    - Search width
+    - Icon size
+    - Header padding
+    - Border and shadow
+    - Mobile sidebar width
+    
+    DESKTOP:
+    Logo → Navigation → Search → Account → Wishlist → Cart.
+    
+    MOBILE:
+    Create a premium mobile-first header:
+    Logo on the left → Search icon → Cart icon → Hamburger icon.
+    
+    When hamburger is clicked, open a smooth full-height sidebar/drawer.
+    
+    Mobile sidebar:
+    - SBL Farms logo
+    - Close button
+    - Search
+    - Plants ▼
+    - Seeds ▼
+    - Pots ▼
+    - Services ▼
+    - Gifting ▼
+    - Blog
+    - Contact
+    - Account
+    - Wishlist
+    - Cart
+    
+    All dropdowns inside the mobile sidebar must work as smooth accordion menus and show all 10 submenu items.
+    
+    MOBILE RESPONSIVENESS:
+    - Optimize specifically for phones from 320px to 767px.
+    - No horizontal scrolling.
+    - No overlapping text or icons.
+    - No clipped dropdowns.
+    - Proper touch-friendly spacing.
+    - Minimum 44px tap area for buttons/icons.
+    - Sidebar should fit perfectly within the screen.
+    - Lock background scrolling while sidebar is open.
+    - Add a smooth overlay behind the sidebar.
+    - Close sidebar when the overlay or close button is clicked.
+    - Keep submenu text readable and properly aligned.
+    - Automatically adapt spacing and font sizes for smaller screens.
+    - Ensure the header remains compact without hiding important controls.
+    
+    Use Shopify's native Search, Customer Account, and Cart functionality. Make the wishlist URL editable.
+    
+    Make the complete header polished, lightweight, accessible, and fully responsive across desktop, tablet, and mobile.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% style %}
+.sbl-{{ ai_gen_id }}{display:block;width:100%;background:{{ block.settings.header_bg }};color:{{ block.settings.header_text }};box-shadow:0 2px 12px rgba(13,58,29,.1)}.sbl-{{ ai_gen_id }} *{box-sizing:border-box}.sbl-{{ ai_gen_id }}__bar{min-height:{{ block.settings.mobile_height }}px;padding:0 16px;display:flex;align-items:center;justify-content:space-between}.sbl-{{ ai_gen_id }}__logo img{display:block;width:{{ block.settings.logo_width }}px;max-height:70px;object-fit:contain}.sbl-{{ ai_gen_id }}__nav,.sbl-{{ ai_gen_id }}__desktop-actions{display:none}.sbl-{{ ai_gen_id }}__controls{display:flex;align-items:center}.sbl-{{ ai_gen_id }} button,.sbl-{{ ai_gen_id }}__controls a{min-width:44px;min-height:44px;border:0;background:none;color:inherit;display:inline-flex;align-items:center;justify-content:center}.sbl-{{ ai_gen_id }} svg{width:{{ block.settings.icon_size }}px;height:{{ block.settings.icon_size }}px}.sbl-{{ ai_gen_id }}__drawer{position:fixed;z-index:91;top:0;right:0;width:min({{ block.settings.sidebar_width }}px,88vw);height:100dvh;background:{{ block.settings.dropdown_bg }};color:{{ block.settings.dropdown_text }};transform:translateX(105%);transition:transform .25s;overflow:auto;padding:16px}.sbl-{{ ai_gen_id }}.open .sbl-{{ ai_gen_id }}__drawer{transform:translateX(0)}.sbl-{{ ai_gen_id }}__overlay{display:block;position:fixed;z-index:90;inset:0;background:#0008;opacity:0;visibility:hidden}.sbl-{{ ai_gen_id }}.open .sbl-{{ ai_gen_id }}__overlay{opacity:1;visibility:visible}.sbl-{{ ai_gen_id }}__group{border-bottom:1px solid #d8dfd3}.sbl-{{ ai_gen_id }}__toggle,.sbl-{{ ai_gen_id }}__link{display:flex;width:100%;min-height:48px;align-items:center;justify-content:space-between;padding:10px;color:inherit;text-decoration:none;background:none;border:0;text-align:left;font-size:16px}.sbl-{{ ai_gen_id }}__sub{display:none;padding-left:12px}.sbl-{{ ai_gen_id }}__group.expanded .sbl-{{ ai_gen_id }}__sub{display:block}.sbl-{{ ai_gen_id }}__sub a{display:flex;min-height:44px;align-items:center;padding:8px;color:inherit;text-decoration:none}.sbl-{{ ai_gen_id }}__mobile-search{display:flex;border:1px solid #d8dfd3;border-radius:24px;margin:12px 0}.sbl-{{ ai_gen_id }}__mobile-search input{min-width:0;flex:1;padding:12px;border:0;background:none}.sbl-{{ ai_gen_id }}__mobile-search button{min-width:44px}@media(min-width:768px){.sbl-{{ ai_gen_id }}__bar{min-height:{{ block.settings.desktop_height }}px;padding:0 {{ block.settings.header_padding }}px;gap:20px}.sbl-{{ ai_gen_id }}__nav{display:flex;flex:1;justify-content:center}.sbl-{{ ai_gen_id }}__nav ul{display:flex;gap:{{ block.settings.nav_spacing }}px;list-style:none;padding:0;margin:0}.sbl-{{ ai_gen_id }}__nav li{position:relative}.sbl-{{ ai_gen_id }}__nav a{color:inherit;text-decoration:none;white-space:nowrap;min-height:44px;display:flex;align-items:center;gap:5px;font-size:{{ block.settings.font_size }}px}.sbl-{{ ai_gen_id }}__dropdown{display:none;position:absolute;top:100%;left:0;width:{{ block.settings.dropdown_width }}px;background:{{ block.settings.dropdown_bg }};color:{{ block.settings.dropdown_text }};box-shadow:0 8px 24px #0002;padding:8px;z-index:4}.sbl-{{ ai_gen_id }}__nav li:hover .sbl-{{ ai_gen_id }}__dropdown,.sbl-{{ ai_gen_id }}__nav li:focus-within .sbl-{{ ai_gen_id }}__dropdown{display:block}.sbl-{{ ai_gen_id }}__dropdown a{min-height:{{ block.settings.dropdown_item_height }}px;padding:8px}.sbl-{{ ai_gen_id }}__desktop-actions{display:flex;align-items:center;gap:8px}.sbl-{{ ai_gen_id }}__search{width:{{ block.settings.search_width }}px}.sbl-{{ ai_gen_id }}__search input{width:75%;padding:10px}.sbl-{{ ai_gen_id }}__controls,.sbl-{{ ai_gen_id }}__drawer,.sbl-{{ ai_gen_id }}__overlay{display:none!important}}@media(prefers-reduced-motion:reduce){.sbl-{{ ai_gen_id }} *{transition:none!important}}
+{% endstyle %}
+<sbl-header-{{ ai_gen_id }} class="sbl-{{ ai_gen_id }}" {{ block.shopify_attributes }}><div class="sbl-{{ ai_gen_id }}__bar"><a class="sbl-{{ ai_gen_id }}__logo" href="{{ routes.root_url }}">{% if block.settings.logo %}<img src="{{ block.settings.logo | image_url: width: 500 }}" alt="{{ block.settings.logo.alt | default: 'SBL Farms' | escape }}">{% else %}<strong>SBL Farms</strong>{% endif %}</a><nav class="sbl-{{ ai_gen_id }}__nav" aria-label="Main navigation"><ul>{% assign groups='plants,seeds,pots,services,gifting'|split:',' %}{% for group in groups %}<li><a href="{{ block.settings[group] | default: routes.root_url }}">{{ group | capitalize }} ▼</a><div class="sbl-{{ ai_gen_id }}__dropdown">{% for i in (1..10) %}{% assign ek=group|append:'_item_'|append:i|append:'_enabled' %}{% assign lk=group|append:'_item_'|append:i|append:'_label' %}{% assign uk=group|append:'_item_'|append:i|append:'_url' %}{% if block.settings[ek] %}<a href="{{ block.settings[uk] | default: routes.root_url }}">{{ block.settings[lk] }}</a>{% endif %}{% endfor %}</div></li>{% endfor %}<li><a href="{{ block.settings.blog_url | default: routes.root_url }}">Blog</a></li><li><a href="{{ block.settings.contact_url | default: routes.root_url }}">Contact</a></li></ul></nav><div class="sbl-{{ ai_gen_id }}__desktop-actions"><form class="sbl-{{ ai_gen_id }}__search" action="{{ routes.search_url }}" method="get"><input name="q" type="search" aria-label="Search" placeholder="Search"><button aria-label="Search">⌕</button></form><a href="{{ routes.account_url }}" aria-label="Account">Account</a><a href="{{ block.settings.wishlist_url | default: routes.root_url }}" aria-label="Wishlist">♡</a><a href="{{ routes.cart_url }}" aria-label="Cart">Cart</a></div><div class="sbl-{{ ai_gen_id }}__controls"><a href="{{ routes.search_url }}" aria-label="Search">⌕</a><a href="{{ routes.cart_url }}" aria-label="Cart">♧</a><button type="button" class="openbtn" aria-label="Open menu">☰</button></div></div><button class="sbl-{{ ai_gen_id }}__overlay" aria-label="Close menu"></button><aside class="sbl-{{ ai_gen_id }}__drawer" aria-hidden="true"><div style="display:flex;justify-content:space-between;align-items:center"><strong>SBL Farms</strong><button class="closebtn" aria-label="Close menu">×</button></div><form class="sbl-{{ ai_gen_id }}__mobile-search" action="{{ routes.search_url }}" method="get"><input type="search" name="q" placeholder="Search products" aria-label="Search products"><button aria-label="Submit search">⌕</button></form>{% for group in groups %}<div class="sbl-{{ ai_gen_id }}__group"><button class="sbl-{{ ai_gen_id }}__toggle" aria-expanded="false">{{ group | capitalize }} <span>⌄</span></button><div class="sbl-{{ ai_gen_id }}__sub">{% for i in (1..10) %}{% assign ek=group|append:'_item_'|append:i|append:'_enabled' %}{% assign lk=group|append:'_item_'|append:i|append:'_label' %}{% assign uk=group|append:'_item_'|append:i|append:'_url' %}{% if block.settings[ek] %}<a href="{{ block.settings[uk] | default: routes.root_url }}">{{ block.settings[lk] }}</a>{% endif %}{% endfor %}</div></div>{% endfor %}<a class="sbl-{{ ai_gen_id }}__link" href="{{ block.settings.blog_url | default: routes.root_url }}">Blog</a><a class="sbl-{{ ai_gen_id }}__link" href="{{ block.settings.contact_url | default: routes.root_url }}">Contact</a><a class="sbl-{{ ai_gen_id }}__link" href="{{ routes.account_url }}">Account</a><a class="sbl-{{ ai_gen_id }}__link" href="{{ block.settings.wishlist_url | default: routes.root_url }}">Wishlist</a><a class="sbl-{{ ai_gen_id }}__link" href="{{ routes.cart_url }}">Cart</a></aside></sbl-header-{{ ai_gen_id }}>
+<script>(function(){const tag='sbl-header-{{ ai_gen_id }}';if(customElements.get(tag))return;customElements.define(tag,class extends HTMLElement{connectedCallback(){const drawer=this.querySelector('.sbl-{{ ai_gen_id }}__drawer'),trigger=this.querySelector('.openbtn'),close=this.querySelector('.closebtn'),overlay=this.querySelector('.sbl-{{ ai_gen_id }}__overlay');const shut=()=>{this.classList.remove('open');drawer.setAttribute('aria-hidden','true');document.body.style.overflow=''};trigger.addEventListener('click',()=>{this.classList.add('open');drawer.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'});close.addEventListener('click',shut);overlay.addEventListener('click',shut);this.querySelectorAll('.sbl-{{ ai_gen_id }}__toggle').forEach(b=>b.addEventListener('click',()=>{const g=b.parentElement;g.classList.toggle('expanded');b.setAttribute('aria-expanded',g.classList.contains('expanded'))}));this.addEventListener('keydown',e=>{if(e.key==='Escape')shut()})}})})();</script>
+{% schema %}{"name":"SBL Farms header","tag":null,"class":"sbl-farms-header","settings":[{"type":"image_picker","id":"logo","label":"Logo"},{"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},{"type":"range","id":"desktop_height","label":"Desktop height","min":60,"max":140,"step":5,"unit":"px","default":90},{"type":"range","id":"mobile_height","label":"Mobile height","min":50,"max":100,"step":5,"unit":"px","default":65},{"type":"range","id":"logo_width","label":"Logo width","min":60,"max":300,"step":10,"unit":"px","default":150},{"type":"range","id":"nav_spacing","label":"Navigation spacing","min":4,"max":30,"step":2,"unit":"px","default":14},{"type":"range","id":"font_size","label":"Font size","min":12,"max":20,"step":1,"unit":"px","default":14},{"type":"range","id":"dropdown_width","label":"Dropdown width","min":180,"max":360,"step":10,"unit":"px","default":250},{"type":"range","id":"dropdown_item_height","label":"Dropdown item height","min":36,"max":60,"step":2,"unit":"px","default":42},{"type":"range","id":"search_width","label":"Search width","min":100,"max":260,"step":10,"unit":"px","default":160},{"type":"range","id":"icon_size","label":"Icon size","min":16,"max":28,"step":2,"unit":"px","default":20},{"type":"range","id":"header_padding","label":"Header padding","min":8,"max":60,"step":4,"unit":"px","default":24},{"type":"range","id":"sidebar_width","label":"Mobile sidebar width","min":280,"max":440,"step":20,"unit":"px","default":360},{"type":"color","id":"header_bg","label":"Header background","default":"#f8f4ec"},{"type":"color","id":"header_text","label":"Header text","default":"#0d3a1d"},{"type":"color","id":"dropdown_bg","label":"Dropdown background","default":"#fffdf8"},{"type":"color","id":"dropdown_text","label":"Dropdown text","default":"#0d3a1d"},{"type":"url","id":"plants","label":"Plants link"},{"type":"url","id":"seeds","label":"Seeds link"},{"type":"url","id":"pots","label":"Pots link"},{"type":"url","id":"services","label":"Services link"},{"type":"url","id":"gifting","label":"Gifting link"},{"type":"url","id":"blog_url","label":"Blog link"},{"type":"url","id":"contact_url","label":"Contact link"},{"type":"url","id":"wishlist_url","label":"Wishlist link"},
+{"type":"header","content":"Plants dropdown"},
+{"type":"checkbox","id":"plants_item_1_enabled","label":"Show item 1","default":true},{"type":"text","id":"plants_item_1_label","label":"Item 1 label","default":"Indoor Plants"},{"type":"url","id":"plants_item_1_url","label":"Item 1 link"},
+{"type":"checkbox","id":"plants_item_2_enabled","label":"Show item 2","default":true},{"type":"text","id":"plants_item_2_label","label":"Item 2 label","default":"Outdoor Plants"},{"type":"url","id":"plants_item_2_url","label":"Item 2 link"},
+{"type":"checkbox","id":"plants_item_3_enabled","label":"Show item 3","default":true},{"type":"text","id":"plants_item_3_label","label":"Item 3 label","default":"Flowering Plants"},{"type":"url","id":"plants_item_3_url","label":"Item 3 link"},
+{"type":"checkbox","id":"plants_item_4_enabled","label":"Show item 4","default":true},{"type":"text","id":"plants_item_4_label","label":"Item 4 label","default":"Succulents"},{"type":"url","id":"plants_item_4_url","label":"Item 4 link"},
+{"type":"checkbox","id":"plants_item_5_enabled","label":"Show item 5","default":true},{"type":"text","id":"plants_item_5_label","label":"Item 5 label","default":"Cacti"},{"type":"url","id":"plants_item_5_url","label":"Item 5 link"},
+{"type":"checkbox","id":"plants_item_6_enabled","label":"Show item 6","default":true},{"type":"text","id":"plants_item_6_label","label":"Item 6 label","default":"Fruit Plants"},{"type":"url","id":"plants_item_6_url","label":"Item 6 link"},
+{"type":"checkbox","id":"plants_item_7_enabled","label":"Show item 7","default":true},{"type":"text","id":"plants_item_7_label","label":"Item 7 label","default":"Herbs"},{"type":"url","id":"plants_item_7_url","label":"Item 7 link"},
+{"type":"checkbox","id":"plants_item_8_enabled","label":"Show item 8","default":true},{"type":"text","id":"plants_item_8_label","label":"Item 8 label","default":"Air-Purifying Plants"},{"type":"url","id":"plants_item_8_url","label":"Item 8 link"},
+{"type":"checkbox","id":"plants_item_9_enabled","label":"Show item 9","default":true},{"type":"text","id":"plants_item_9_label","label":"Item 9 label","default":"Bonsai Plants"},{"type":"url","id":"plants_item_9_url","label":"Item 9 link"},
+{"type":"checkbox","id":"plants_item_10_enabled","label":"Show item 10","default":true},{"type":"text","id":"plants_item_10_label","label":"Item 10 label","default":"Climbers and Creepers"},{"type":"url","id":"plants_item_10_url","label":"Item 10 link"},
+{"type":"header","content":"Seeds dropdown"},
+{"type":"checkbox","id":"seeds_item_1_enabled","label":"Show item 1","default":true},{"type":"text","id":"seeds_item_1_label","label":"Item 1 label","default":"Vegetable Seeds"},{"type":"url","id":"seeds_item_1_url","label":"Item 1 link"},
+{"type":"checkbox","id":"seeds_item_2_enabled","label":"Show item 2","default":true},{"type":"text","id":"seeds_item_2_label","label":"Item 2 label","default":"Flower Seeds"},{"type":"url","id":"seeds_item_2_url","label":"Item 2 link"},
+{"type":"checkbox","id":"seeds_item_3_enabled","label":"Show item 3","default":true},{"type":"text","id":"seeds_item_3_label","label":"Item 3 label","default":"Herb Seeds"},{"type":"url","id":"seeds_item_3_url","label":"Item 3 link"},
+{"type":"checkbox","id":"seeds_item_4_enabled","label":"Show item 4","default":true},{"type":"text","id":"seeds_item_4_label","label":"Item 4 label","default":"Fruit Seeds"},{"type":"url","id":"seeds_item_4_url","label":"Item 4 link"},
+{"type":"checkbox","id":"seeds_item_5_enabled","label":"Show item 5","default":true},{"type":"text","id":"seeds_item_5_label","label":"Item 5 label","default":"Organic Seeds"},{"type":"url","id":"seeds_item_5_url","label":"Item 5 link"},
+{"type":"checkbox","id":"seeds_item_6_enabled","label":"Show item 6","default":true},{"type":"text","id":"seeds_item_6_label","label":"Item 6 label","default":"Microgreen Seeds"},{"type":"url","id":"seeds_item_6_url","label":"Item 6 link"},
+{"type":"checkbox","id":"seeds_item_7_enabled","label":"Show item 7","default":true},{"type":"text","id":"seeds_item_7_label","label":"Item 7 label","default":"Hybrid Seeds"},{"type":"url","id":"seeds_item_7_url","label":"Item 7 link"},
+{"type":"checkbox","id":"seeds_item_8_enabled","label":"Show item 8","default":true},{"type":"text","id":"seeds_item_8_label","label":"Item 8 label","default":"Flower Mix Seeds"},{"type":"url","id":"seeds_item_8_url","label":"Item 8 link"},
+{"type":"checkbox","id":"seeds_item_9_enabled","label":"Show item 9","default":true},{"type":"text","id":"seeds_item_9_label","label":"Item 9 label","default":"Lawn Grass Seeds"},{"type":"url","id":"seeds_item_9_url","label":"Item 9 link"},
+{"type":"checkbox","id":"seeds_item_10_enabled","label":"Show item 10","default":true},{"type":"text","id":"seeds_item_10_label","label":"Item 10 label","default":"Seasonal Seeds"},{"type":"url","id":"seeds_item_10_url","label":"Item 10 link"},
+{"type":"header","content":"Pots dropdown"},
+{"type":"checkbox","id":"pots_item_1_enabled","label":"Show item 1","default":true},{"type":"text","id":"pots_item_1_label","label":"Item 1 label","default":"Terracotta Pots"},{"type":"url","id":"pots_item_1_url","label":"Item 1 link"},
+{"type":"checkbox","id":"pots_item_2_enabled","label":"Show item 2","default":true},{"type":"text","id":"pots_item_2_label","label":"Item 2 label","default":"Ceramic Pots"},{"type":"url","id":"pots_item_2_url","label":"Item 2 link"},
+{"type":"checkbox","id":"pots_item_3_enabled","label":"Show item 3","default":true},{"type":"text","id":"pots_item_3_label","label":"Item 3 label","default":"Plastic Pots"},{"type":"url","id":"pots_item_3_url","label":"Item 3 link"},
+{"type":"checkbox","id":"pots_item_4_enabled","label":"Show item 4","default":true},{"type":"text","id":"pots_item_4_label","label":"Item 4 label","default":"Hanging Planters"},{"type":"url","id":"pots_item_4_url","label":"Item 4 link"},
+{"type":"checkbox","id":"pots_item_5_enabled","label":"Show item 5","default":true},{"type":"text","id":"pots_item_5_label","label":"Item 5 label","default":"Self-Watering Pots"},{"type":"url","id":"pots_item_5_url","label":"Item 5 link"},
+{"type":"checkbox","id":"pots_item_6_enabled","label":"Show item 6","default":true},{"type":"text","id":"pots_item_6_label","label":"Item 6 label","default":"Grow Bags"},{"type":"url","id":"pots_item_6_url","label":"Item 6 link"},
+{"type":"checkbox","id":"pots_item_7_enabled","label":"Show item 7","default":true},{"type":"text","id":"pots_item_7_label","label":"Item 7 label","default":"Window Planters"},{"type":"url","id":"pots_item_7_url","label":"Item 7 link"},
+{"type":"checkbox","id":"pots_item_8_enabled","label":"Show item 8","default":true},{"type":"text","id":"pots_item_8_label","label":"Item 8 label","default":"Decorative Planters"},{"type":"url","id":"pots_item_8_url","label":"Item 8 link"},
+{"type":"checkbox","id":"pots_item_9_enabled","label":"Show item 9","default":true},{"type":"text","id":"pots_item_9_label","label":"Item 9 label","default":"Seedling Trays"},{"type":"url","id":"pots_item_9_url","label":"Item 9 link"},
+{"type":"checkbox","id":"pots_item_10_enabled","label":"Show item 10","default":true},{"type":"text","id":"pots_item_10_label","label":"Item 10 label","default":"Plant Stands"},{"type":"url","id":"pots_item_10_url","label":"Item 10 link"},
+{"type":"header","content":"Services dropdown"},
+{"type":"checkbox","id":"services_item_1_enabled","label":"Show item 1","default":true},{"type":"text","id":"services_item_1_label","label":"Item 1 label","default":"Landscaping"},{"type":"url","id":"services_item_1_url","label":"Item 1 link"},
+{"type":"checkbox","id":"services_item_2_enabled","label":"Show item 2","default":true},{"type":"text","id":"services_item_2_label","label":"Item 2 label","default":"Green Walls"},{"type":"url","id":"services_item_2_url","label":"Item 2 link"},
+{"type":"checkbox","id":"services_item_3_enabled","label":"Show item 3","default":true},{"type":"text","id":"services_item_3_label","label":"Item 3 label","default":"AMC (Annual Maintenance Contract)"},{"type":"url","id":"services_item_3_url","label":"Item 3 link"},
+{"type":"checkbox","id":"services_item_4_enabled","label":"Show item 4","default":true},{"type":"text","id":"services_item_4_label","label":"Item 4 label","default":"Plant Rental"},{"type":"url","id":"services_item_4_url","label":"Item 4 link"},
+{"type":"checkbox","id":"services_item_5_enabled","label":"Show item 5","default":true},{"type":"text","id":"services_item_5_label","label":"Item 5 label","default":"Indoor Plant Maintenance"},{"type":"url","id":"services_item_5_url","label":"Item 5 link"},
+{"type":"checkbox","id":"services_item_6_enabled","label":"Show item 6","default":true},{"type":"text","id":"services_item_6_label","label":"Item 6 label","default":"Outdoor Plant Maintenance"},{"type":"url","id":"services_item_6_url","label":"Item 6 link"},
+{"type":"checkbox","id":"services_item_7_enabled","label":"Show item 7","default":true},{"type":"text","id":"services_item_7_label","label":"Item 7 label","default":"Garden Maintenance"},{"type":"url","id":"services_item_7_url","label":"Item 7 link"},
+{"type":"checkbox","id":"services_item_8_enabled","label":"Show item 8","default":true},{"type":"text","id":"services_item_8_label","label":"Item 8 label","default":"Terrace Gardening"},{"type":"url","id":"services_item_8_url","label":"Item 8 link"},
+{"type":"checkbox","id":"services_item_9_enabled","label":"Show item 9","default":true},{"type":"text","id":"services_item_9_label","label":"Item 9 label","default":"Vertical Garden Installation"},{"type":"url","id":"services_item_9_url","label":"Item 9 link"},
+{"type":"checkbox","id":"services_item_10_enabled","label":"Show item 10","default":true},{"type":"text","id":"services_item_10_label","label":"Item 10 label","default":"Plant Consultation"},{"type":"url","id":"services_item_10_url","label":"Item 10 link"},
+{"type":"header","content":"Gifting dropdown"},
+{"type":"checkbox","id":"gifting_item_1_enabled","label":"Show item 1","default":true},{"type":"text","id":"gifting_item_1_label","label":"Item 1 label","default":"Corporate Gifting"},{"type":"url","id":"gifting_item_1_url","label":"Item 1 link"},
+{"type":"checkbox","id":"gifting_item_2_enabled","label":"Show item 2","default":true},{"type":"text","id":"gifting_item_2_label","label":"Item 2 label","default":"Bulk Gifting"},{"type":"url","id":"gifting_item_2_url","label":"Item 2 link"},
+{"type":"checkbox","id":"gifting_item_3_enabled","label":"Show item 3","default":true},{"type":"text","id":"gifting_item_3_label","label":"Item 3 label","default":"Plant Gifting"},{"type":"url","id":"gifting_item_3_url","label":"Item 3 link"},
+{"type":"checkbox","id":"gifting_item_4_enabled","label":"Show item 4","default":true},{"type":"text","id":"gifting_item_4_label","label":"Item 4 label","default":"Personalized Plant Gifts"},{"type":"url","id":"gifting_item_4_url","label":"Item 4 link"},
+{"type":"checkbox","id":"gifting_item_5_enabled","label":"Show item 5","default":true},{"type":"text","id":"gifting_item_5_label","label":"Item 5 label","default":"Employee Gifting"},{"type":"url","id":"gifting_item_5_url","label":"Item 5 link"},
+{"type":"checkbox","id":"gifting_item_6_enabled","label":"Show item 6","default":true},{"type":"text","id":"gifting_item_6_label","label":"Item 6 label","default":"Client Gifting"},{"type":"url","id":"gifting_item_6_url","label":"Item 6 link"},
+{"type":"checkbox","id":"gifting_item_7_enabled","label":"Show item 7","default":true},{"type":"text","id":"gifting_item_7_label","label":"Item 7 label","default":"Festive Plant Gifting"},{"type":"url","id":"gifting_item_7_url","label":"Item 7 link"},
+{"type":"checkbox","id":"gifting_item_8_enabled","label":"Show item 8","default":true},{"type":"text","id":"gifting_item_8_label","label":"Item 8 label","default":"Wedding Plant Gifting"},{"type":"url","id":"gifting_item_8_url","label":"Item 8 link"},
+{"type":"checkbox","id":"gifting_item_9_enabled","label":"Show item 9","default":true},{"type":"text","id":"gifting_item_9_label","label":"Item 9 label","default":"Eco-Friendly Gifts"},{"type":"url","id":"gifting_item_9_url","label":"Item 9 link"},
+{"type":"checkbox","id":"gifting_item_10_enabled","label":"Show item 10","default":true},{"type":"text","id":"gifting_item_10_label","label":"Item 10 label","default":"Custom Gift Hampers"},{"type":"url","id":"gifting_item_10_url","label":"Item 10 link"}],"presets":[{"name":"SBL Farms header"}]}
 {% endschema %}
