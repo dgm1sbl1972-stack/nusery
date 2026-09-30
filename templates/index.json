@@ -1046,7 +1046,7 @@
           "type": "ai_gen_block_a4764a3",
           "settings": {
             "background_type": "image",
-            "background_color": "#FFFFFF",
+            "background_color": "#ffffff",
             "background_image": "shopify://shop_images/886bde77-2bc0-4850-817c-0e3d419589a8.png",
             "background_position": "center",
             "background_size": "cover",
@@ -1472,6 +1472,7 @@
       "blocks": {
         "ai_gen_block_36a56e1_3Q3iHJ": {
           "type": "ai_gen_block_36a56e1",
+          "disabled": true,
           "settings": {
             "heading": "Handpicked favourites",
             "cart_label": "Add to cart",
