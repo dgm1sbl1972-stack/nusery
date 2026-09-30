@@ -1,6 +1,259 @@
-{% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
-{% endschema %}
+{% doc %}
+  @prompt
+    I want you to redesign my existing Shopify PRODUCT PAGE for SBL Nursery.
+    
+    I am providing a reference screenshot of a premium online plant product page.
+    
+    Use the screenshot ONLY as a UX/layout reference. Do not copy the branding, logo, text, images, colors, or exact design.
+    
+    First inspect my existing Shopify product template and then implement the changes directly in the correct Shopify files.
+    
+    ==================================================
+    OVERALL PRODUCT PAGE STRUCTURE
+    ==================================================
+    
+    Create a clean two-column product page on desktop:
+    
+    LEFT:
+    Product image gallery
+    
+    RIGHT:
+    Product information + variants + price + cart + offers + delivery + plant information
+    
+    On mobile:
+    Stack everything vertically.
+    
+    The product page must remain fully responsive.
+    
+    ==================================================
+    1. PRODUCT IMAGE GALLERY
+    ==================================================
+    
+    Create a premium image gallery similar to the reference layout.
+    
+    Desktop:
+    
+    LEFT SIDE:
+    Vertical thumbnail gallery
+    
+    CENTER:
+    Large main product image
+    
+    Requirements:
+    
+    - Use Shopify product images dynamically.
+    - Show all available product images.
+    - Vertical thumbnails on desktop.
+    - Horizontal/swipe thumbnails on mobile.
+    - Clicking a thumbnail changes the main image.
+    - Main image should support zoom.
+    - Add smooth image transitions.
+    - Do not unnecessarily crop plant images.
+    - Maintain good image proportions.
+    - Support product videos if available.
+    
+    Add an optional image badge such as:
+    
+    NEW
+    BESTSELLER
+    SALE
+    
+    The badge should be controlled through Shopify product data/metafields.
+    
+    ==================================================
+    2. PRODUCT INFORMATION
+    ==================================================
+    
+    Right side should contain:
+    
+    Rating
+    Product title
+    Short description
+    
+    Example:
+    
+    ★★★★★ 4.8 | 120 Reviews
+    
+    Money Plant Golden
+    
+    Easy-care indoor plant that adds natural greenery to your home.
+    
+    The product title must come dynamically from Shopify.
+    
+    Rating should come from the existing review app if installed.
+    
+    Do NOT hardcode fake ratings.
+    
+    ==================================================
+    3. PLANT SIZE SELECTION
+    ==================================================
+    
+    Create a clearly visible:
+    
+    SELECT PLANT SIZE
+    
+    section.
+    
+    Example:
+    
+    Small
+    Medium
+    Large
+    
+    Use Shopify product variants.
+    
+    When the customer selects a size:
+    
+    - Update price.
+    - Update availability.
+    - Update product image if the variant has an image.
+    - Update selected state.
+    
+    Do not create a separate fake selection system.
+    
+    ==================================================
+    4. POT / PLANTER SELECTION
+    ==================================================
+    
+    If the product has pot/planter options, create:
+    
+    SELECT YOUR POT
+    
+    Display each available option as a visual selection card.
+    
+    Each card can contain:
+    
+    Pot image
+    Pot name
+    Additional price
+    
+    Example:
+    
+    Grow Pot
+    ₹599
+    
+    Black Pot
+    ₹699
+    
+    Decorative Pot
+    ₹999
+    
+    The selected option should have a clear active state.
+    
+    Use Shopify variants or product options wherever possible.
+    
+    Do not hardcode these options.
+    
+    If the product does not have pot variants, automatically hide this section.
+    
+    ==================================================
+    5. COLOR SELECTION
+    ==================================================
+    
+    If the product has a color variant:
+    
+    COLOR – Ivory
+    
+    Show color swatches.
+    
+    Use Shopify variant data.
+    
+    When a color is selected:
+    
+    - Update variant.
+    - Update image.
+    - Update price.
+    - Update availability.
+    
+    Hide the color selector when the product doesn't have a color option.
+    
+    ==================================================
+    6. PRICE
+    ==================================================
+    
+    Display:
+    
+    Current Price
+    Compare-at Price
+    Discount %
+    
+    Example:
+    
+    ₹699  ₹899
+    
+    20% OFF
+    
+    If there is no compare-at price, don't show the discount.
+    
+    Price should update dynamically when variants change.
+    
+    ==================================================
+    7. QUANTITY + ADD TO CART
+    ==================================================
+    
+    Create:
+    
+    [-] 1 [+]
+    
+    [ ADD TO CART ]
+    
+    Add to Cart should be the main CTA.
+    
+    Use the existing Shopify cart functionality.
+    
+    Do not replace Shopify cart logic with custom fake functionality.
+    
+    After clicking Add to Cart:
+    
+    - Follow the existing theme cart behavior.
+    - Support AJAX cart if the theme already uses it.
+    - Show confirmation/cart drawer if available.
+    
+    ==================================================
+    8. BUY NOW
+    ==================================================
+    
+    Add an optional:
+    
+    BUY IT NOW
+    
+    button using Shopify's dynamic checkout functionality.
+    
+    Make this controllable through Theme Customizer.
+    
+    ==================================================
+    9. OFFERS SECTION
+    ==================================================
+    
+    Create an attractive but minimal Offers section.
+    
+    Example:
+    
+    OFFERS FOR YOU
+    
+    10% OFF on orders above ₹1,499
+    Code: SBL10
+    
+    FREE SHIPPING on orders above ₹499
+    
+    The offers must be editable from Theme Customizer.
+    
+    Allow the admin to:
+    
+    - Add offer text.
+    - Add coupon code.
+    - Enable/disable offer rows.
+    - Change icon.
+    
+    Do not hardcode 
+{% enddoc %}
+{% assign ai_gen_id = block.id | remove: '_' | downcase %}
+{% style %}
+.ai-sbl-{{ ai_gen_id }}{display:block;width:{{ block.settings.desktop_width_percent }}%;max-width:100%;margin:auto;color:#14231a}.ai-sbl-{{ ai_gen_id }}__grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:40px}.ai-sbl-{{ ai_gen_id }}__gallery{display:grid;grid-template-columns:68px 1fr;gap:12px;align-items:start}.ai-sbl-{{ ai_gen_id }}__thumbs{display:flex;flex-direction:column;gap:8px;max-height:680px;overflow:auto}.ai-sbl-{{ ai_gen_id }}__thumb{width:64px;height:72px;padding:3px;border:1px solid #cbd5ca;border-radius:9px;background:white;cursor:pointer}.ai-sbl-{{ ai_gen_id }}__thumb[aria-current=true]{border:2px solid #1f5130}.ai-sbl-{{ ai_gen_id }}__thumb img{width:100%;height:100%;object-fit:contain}.ai-sbl-{{ ai_gen_id }}__stage{position:relative;background:#f8f4ec;border-radius:16px;overflow:hidden}.ai-sbl-{{ ai_gen_id }}__slide{display:none;aspect-ratio:1/1;align-items:center;justify-content:center}.ai-sbl-{{ ai_gen_id }}__slide.active{display:flex}.ai-sbl-{{ ai_gen_id }}__slide img,.ai-sbl-{{ ai_gen_id }}__slide video{width:100%;height:100%;max-height:760px;object-fit:contain}.ai-sbl-{{ ai_gen_id }}__slide img{cursor:zoom-in}.ai-sbl-{{ ai_gen_id }}__badge{position:absolute;top:14px;left:14px;background:#1f5130;color:white;border-radius:30px;padding:7px 12px;font-size:12px;font-weight:700;z-index:2}.ai-sbl-{{ ai_gen_id }}__info{min-width:0}.ai-sbl-{{ ai_gen_id }}__title{font-size:clamp(27px,3vw,38px);line-height:1.15;color:#0d3a1d;margin:0 0 12px}.ai-sbl-{{ ai_gen_id }}__rating{color:#1f5130}.ai-sbl-{{ ai_gen_id }}__desc{line-height:1.6;color:#5b6660}.ai-sbl-{{ ai_gen_id }}__price-line{display:flex;gap:10px;align-items:center;margin:18px 0}.ai-sbl-{{ ai_gen_id }}__price{font-size:26px;font-weight:700;color:#0d3a1d}.ai-sbl-{{ ai_gen_id }}__compare{text-decoration:line-through;color:#5b6660}.ai-sbl-{{ ai_gen_id }}__discount{background:#edf4e8;color:#1f5130;padding:5px 8px;border-radius:20px}.ai-sbl-{{ ai_gen_id }}__option{margin:18px 0}.ai-sbl-{{ ai_gen_id }}__option label{display:block;font-size:12px;font-weight:700;letter-spacing:.07em;margin-bottom:8px}.ai-sbl-{{ ai_gen_id }}__select{width:100%;padding:13px;border:1px solid #cbd5ca;border-radius:9px;background:white;color:#14231a;font:inherit}.ai-sbl-{{ ai_gen_id }}__qty{display:flex;align-items:center;margin:16px 0;border:1px solid #cbd5ca;border-radius:9px;width:max-content;overflow:hidden}.ai-sbl-{{ ai_gen_id }}__qty button{height:42px;width:42px;border:0;background:#f8f4ec;font-size:20px;cursor:pointer}.ai-sbl-{{ ai_gen_id }}__qty input{width:48px;height:42px;border:0;text-align:center}.ai-sbl-{{ ai_gen_id }}__add{width:100%;min-height:52px;background:#1f5130;color:#fff;border:0;border-radius:10px;font:inherit;font-weight:700;cursor:pointer}.ai-sbl-{{ ai_gen_id }}__add:disabled{opacity:.55}.ai-sbl-{{ ai_gen_id }}__offers{margin-top:22px;padding:16px;border-radius:14px;background:#f4f7dc}.ai-sbl-{{ ai_gen_id }}__offers h3{margin:0 0 8px;color:#0d3a1d}.ai-sbl-{{ ai_gen_id }}__offer{border-top:1px solid #dce5c8;padding:10px 0;font-size:14px}.ai-sbl-{{ ai_gen_id }}__code{display:inline-block;padding:4px 8px;margin-top:5px;background:#fff;border-radius:4px;font-weight:700}.ai-sbl-{{ ai_gen_id }}__empty{position:relative;display:flex;aspect-ratio:1/1;align-items:center;justify-content:center;background:#f8f4ec}.ai-sbl-{{ ai_gen_id }}__empty svg{width:75%;height:75%}.ai-sbl-{{ ai_gen_id }}__empty span{position:absolute;bottom:12px;color:#5b6660}.ai-sbl-{{ ai_gen_id }}__dialog{position:fixed;inset:0;z-index:9999;background:rgba(10,20,12,.92);border:0;max-width:100vw;max-height:100vh;width:100vw;height:100vh;align-items:center;justify-content:center}.ai-sbl-{{ ai_gen_id }}__dialog[open]{display:flex}.ai-sbl-{{ ai_gen_id }}__dialog img{max-width:94vw;max-height:90vh;object-fit:contain}.ai-sbl-{{ ai_gen_id }}__close{position:absolute;right:20px;top:12px;font-size:32px;color:white;background:none;border:0;cursor:pointer}@media(max-width:749px){.ai-sbl-{{ ai_gen_id }}{width:100%}.ai-sbl-{{ ai_gen_id }}__grid{grid-template-columns:1fr;gap:22px}.ai-sbl-{{ ai_gen_id }}__gallery{grid-template-columns:1fr}.ai-sbl-{{ ai_gen_id }}__thumbs{order:2;flex-direction:row;max-height:none;overflow-x:auto}.ai-sbl-{{ ai_gen_id }}__stage{order:1}.ai-sbl-{{ ai_gen_id }}__thumb{flex:0 0 62px}}
+{% endstyle %}
+<product-detail-{{ ai_gen_id }} class="ai-sbl-{{ ai_gen_id }}" data-product='{{ product | json | escape }}' {{ block.shopify_attributes }}>
+{% if product != blank %}<div class="ai-sbl-{{ ai_gen_id }}__grid"><div class="ai-sbl-{{ ai_gen_id }}__gallery">{% if product.media.size > 1 %}<div class="ai-sbl-{{ ai_gen_id }}__thumbs">{% for media in product.media %}<button type="button" class="ai-sbl-{{ ai_gen_id }}__thumb" data-thumb="{{ forloop.index0 }}" aria-label="Show image {{ forloop.index }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}">{% if media.preview_image %}<img src="{{ media.preview_image | image_url: width: 150 }}" alt="{{ media.alt | default: product.title | escape }}" loading="lazy" width="75" height="80">{% endif %}</button>{% endfor %}</div>{% endif %}<div class="ai-sbl-{{ ai_gen_id }}__stage">{% assign badge_text = product.metafields.custom.image_badge.value | default: product.metafields.custom.badge.value %}{% if badge_text != blank %}<span class="ai-sbl-{{ ai_gen_id }}__badge">{{ badge_text | escape }}</span>{% endif %}{% for media in product.media %}<div class="ai-sbl-{{ ai_gen_id }}__slide{% if forloop.first %} active{% endif %}" data-slide="{{ forloop.index0 }}">{% case media.media_type %}{% when 'image' %}<img src="{{ media | image_url: width: 1400 }}" alt="{{ media.alt | default: product.title | escape }}" width="{{ media.width }}" height="{{ media.height }}" loading="lazy" data-zoom>{% when 'video' %}{{ media | video_tag: controls: true, preload: 'metadata' }}{% when 'external_video' %}{{ media | external_video_tag }}{% when 'model' %}{{ media | model_viewer_tag }}{% endcase %}</div>{% else %}<div class="ai-sbl-{{ ai_gen_id }}__empty">{{ 'product-apparel-1' | placeholder_svg_tag }}<span>Add product images to show the gallery</span></div>{% endfor %}</div></div><div class="ai-sbl-{{ ai_gen_id }}__info">{% assign rating = product.metafields.reviews.rating.value %}{% assign count = product.metafields.reviews.rating_count.value %}{% if rating != blank %}<p class="ai-sbl-{{ ai_gen_id }}__rating">★ {{ rating }}{% if count != blank %} · {{ count }} reviews{% endif %}</p>{% endif %}<h1 class="ai-sbl-{{ ai_gen_id }}__title">{{ product.title | escape }}</h1>{% if block.settings.show_description and product.description != blank %}<div class="ai-sbl-{{ ai_gen_id }}__desc">{{ product.description | strip_html | truncate: 220 | escape }}</div>{% endif %}
+{% form 'product', product %}<input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-variant-id>{% unless product.has_only_default_variant %}{% for option in product.options_with_values %}{% assign opt_name = option.name | downcase %}<div class="ai-sbl-{{ ai_gen_id }}__option"><label for="sbl-{{ ai_gen_id }}-{{ forloop.index0 }}">{% if opt_name contains 'size' %}SELECT PLANT SIZE{% elsif opt_name contains 'pot' or opt_name contains 'planter' %}SELECT YOUR POT{% elsif opt_name contains 'color' or opt_name contains 'colour' %}COLOR – <span data-opt-label="{{ forloop.index0 }}">{{ option.selected_value | escape }}</span>{% else %}{{ option.name | escape }}{% endif %}</label><select class="ai-sbl-{{ ai_gen_id }}__select" id="sbl-{{ ai_gen_id }}-{{ forloop.index0 }}" data-option="{{ forloop.index0 }}">{% for value in option.values %}<option value="{{ value | escape }}"{% if option.selected_value == value %} selected{% endif %}>{{ value | escape }}</option>{% endfor %}</select></div>{% endfor %}{% endunless %}<div class="ai-sbl-{{ ai_gen_id }}__price-line"><span class="ai-sbl-{{ ai_gen_id }}__price" data-price>{{ product.selected_or_first_available_variant.price | money }}</span><s class="ai-sbl-{{ ai_gen_id }}__compare" data-compare{% unless product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %} hidden{% endunless %}>{{ product.selected_or_first_available_variant.compare_at_price | money }}</s><span class="ai-sbl-{{ ai_gen_id }}__discount" data-discount hidden></span></div><div class="ai-sbl-{{ ai_gen_id }}__qty"><button type="button" data-minus aria-label="Decrease quantity">−</button><input name="quantity" type="number" min="1" value="1" aria-label="Quantity" data-quantity><button type="button" data-plus aria-label="Increase quantity">+</button></div><button type="submit" name="add" class="ai-sbl-{{ ai_gen_id }}__add" data-add{% unless product.selected_or_first_available_variant.available %} disabled{% endunless %}>{% if product.selected_or_first_available_variant.available %}{{ block.settings.add_label | escape }}{% else %}Sold out{% endif %}</button>{% if block.settings.show_buy_now %}{{ form | payment_button }}{% endif %}{% endform %}
+{% if block.settings.show_offers %}<aside class="ai-sbl-{{ ai_gen_id }}__offers"><h3>{{ block.settings.offers_heading | escape }}</h3>{% for n in (1..3) %}{% assign enabled_key = 'offer_' | append: n | append: '_enabled' %}{% assign icon_key = 'offer_' | append: n | append: '_icon' %}{% assign text_key = 'offer_' | append: n | append: '_text' %}{% assign code_key = 'offer_' | append: n | append: '_code' %}{% if block.settings[enabled_key] %}<div class="ai-sbl-{{ ai_gen_id }}__offer"><span aria-hidden="true">{{ block.settings[icon_key] | escape }}</span> {{ block.settings[text_key] | escape }}{% if block.settings[code_key] != blank %}<br><span class="ai-sbl-{{ ai_gen_id }}__code">{{ block.settings[code_key] | escape }}</span>{% endif %}</div>{% endif %}{% endfor %}</aside>{% endif %}</div></div><dialog class="ai-sbl-{{ ai_gen_id }}__dialog" aria-label="Zoomed product image"><button type="button" class="ai-sbl-{{ ai_gen_id }}__close" aria-label="Close zoom">×</button><img alt=""></dialog>{% endif %}</product-detail-{{ ai_gen_id }}>
+<script>(function(){const tag='product-detail-{{ ai_gen_id }}';if(customElements.get(tag))return;class SblDetail extends HTMLElement{connectedCallback(){this.p=JSON.parse(this.dataset.product||'{}');this.slides=this.querySelectorAll('[data-slide]');this.thumbs=this.querySelectorAll('[data-thumb]');this.selects=this.querySelectorAll('[data-option]');this.thumbs.forEach(b=>b.addEventListener('click',()=>this.show(b.dataset.thumb)));this.selects.forEach(s=>s.addEventListener('change',()=>this.update()));const q=this.querySelector('[data-quantity]');this.querySelector('[data-minus]')?.addEventListener('click',()=>q.value=Math.max(1,(+q.value||1)-1));this.querySelector('[data-plus]')?.addEventListener('click',()=>q.value=(+q.value||1)+1);this.dialog=this.querySelector('dialog');this.querySelectorAll('[data-zoom]').forEach(i=>i.addEventListener('click',()=>{this.dialog.querySelector('img').src=i.src;this.dialog.querySelector('img').alt=i.alt;this.dialog.showModal()}));this.querySelector('.ai-sbl-{{ ai_gen_id }}__close')?.addEventListener('click',()=>this.dialog.close());this.update()}show(i){this.slides.forEach(s=>s.classList.toggle('active',s.dataset.slide===String(i)));this.thumbs.forEach(b=>b.setAttribute('aria-current',b.dataset.thumb===String(i)?'true':'false'))}update(){if(!this.selects.length)return;const opts=Array.from(this.selects).map(s=>s.value),v=this.p.variants.find(x=>x.options.every((o,i)=>o===opts[i]));if(!v)return;this.querySelector('[data-variant-id]').value=v.id;this.querySelector('[data-price]').textContent=this.money(v.price);const c=this.querySelector('[data-compare]'),d=this.querySelector('[data-discount]');if(v.compare_at_price>v.price){c.hidden=false;c.textContent=this.money(v.compare_at_price);d.hidden=false;d.textContent=Math.round((v.compare_at_price-v.price)*100/v.compare_at_price)+'% off'}else{c.hidden=true;d.hidden=true}const a=this.querySelector('[data-add]');a.disabled=!v.available;a.textContent=v.available?{{ block.settings.add_label | json }}:'Sold out';this.selects.forEach((s,i)=>{const l=this.querySelector('[data-opt-label="'+i+'"]');if(l)l.textContent=opts[i]});if(v.featured_media){const ix=this.p.media?.findIndex(m=>m.id===v.featured_media.id);if(ix>=0)this.show(ix)}}money(cents){return new Intl.NumberFormat(document.documentElement.lang||'en-IN',{style:'currency',currency:this.p.currency||'INR'}).format(cents/100)}}customElements.define(tag,SblDetail)})();</script>
+{% schema %}{"name":"SBL product detail","settings":[{"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},{"type":"checkbox","id":"show_description","label":"Show short description","default":true},{"type":"text","id":"add_label","label":"Add to cart label","default":"Add to cart"},{"type":"checkbox","id":"show_buy_now","label":"Show buy it now","default":false},{"type":"header","content":"Offers"},{"type":"checkbox","id":"show_offers","label":"Show offers","default":true},{"type":"text","id":"offers_heading","label":"Heading","default":"Offers for you"},{"type":"checkbox","id":"offer_1_enabled","label":"Show offer one","default":true},{"type":"text","id":"offer_1_icon","label":"Offer one icon","default":"✿"},{"type":"text","id":"offer_1_text","label":"Offer one text","default":"Enjoy a special saving on your order"},{"type":"text","id":"offer_1_code","label":"Offer one coupon code"},{"type":"checkbox","id":"offer_2_enabled","label":"Show offer two","default":true},{"type":"text","id":"offer_2_icon","label":"Offer two icon","default":"♧"},{"type":"text","id":"offer_2_text","label":"Offer two text","default":"Complimentary delivery on qualifying orders"},{"type":"text","id":"offer_2_code","label":"Offer two coupon code"},{"type":"checkbox","id":"offer_3_enabled","label":"Show offer three","default":false},{"type":"text","id":"offer_3_icon","label":"Offer three icon","default":"✓"},{"type":"text","id":"offer_3_text","label":"Offer three text","default":"Add a custom offer message"},{"type":"text","id":"offer_3_code","label":"Offer three coupon code"}],"presets":[{"name":"SBL product detail"}],"tag":null,"class":"sbl-product-detail"}{% endschema %}
