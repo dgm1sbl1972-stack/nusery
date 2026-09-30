@@ -137,7 +137,7 @@
             "show_account": true,
             "show_wishlist": true,
             "wishlist_link": "",
-            "background_color": "#F7F9EF",
+            "background_color": "#f7f9ef",
             "text_color": "#0d3a1d",
             "primary_color": "#1f5130",
             "border_color": "#dde5db",
@@ -1180,6 +1180,65 @@
         "ai_gen_block_fc7c0d1_FHEhmT"
       ],
       "settings": {}
+    },
+    "1790741813e4ec97d9": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_d2fa6d2_faTQhb": {
+          "type": "ai_gen_block_d2fa6d2",
+          "settings": {
+            "logo": "shopify://shop_images/Untitled_design_25.png",
+            "logo_width": 80,
+            "header_height": 50,
+            "bold_text": false,
+            "desktop_width_percent": 100,
+            "plants_1": "",
+            "plants_2": "",
+            "plants_3": "",
+            "plants_4": "",
+            "plants_5": "",
+            "plants_6": "",
+            "plants_7": "",
+            "plants_8": "",
+            "plants_9": "",
+            "plants_10": "",
+            "seeds_1": "",
+            "seeds_2": "",
+            "seeds_3": "",
+            "seeds_4": "",
+            "seeds_5": "",
+            "seeds_6": "",
+            "seeds_7": "",
+            "seeds_8": "",
+            "seeds_9": "",
+            "seeds_10": "",
+            "pots_1": "",
+            "pots_2": "",
+            "pots_3": "",
+            "pots_4": "",
+            "pots_5": "",
+            "pots_6": "",
+            "pots_7": "",
+            "pots_8": "",
+            "pots_9": "",
+            "pots_10": "",
+            "services_1": "",
+            "services_2": "",
+            "services_3": "",
+            "services_4": "",
+            "gifting_1": "",
+            "gifting_2": "",
+            "blog_url": "",
+            "contact_url": "",
+            "wishlist_url": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_d2fa6d2_faTQhb"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -1202,6 +1261,7 @@
     "1790246288989fe778",
     "faq",
     "cta_banner",
-    "17902340700a400c12"
+    "17902340700a400c12",
+    "1790741813e4ec97d9"
   ]
 }
