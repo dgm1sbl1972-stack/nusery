@@ -1,6 +1,123 @@
-{% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
-{% endschema %}
+{% doc %}
+  @prompt
+    Create a completely new custom Shopify header section for SBL Farms from scratch. Do not modify or depend on any existing header section.
+    
+    HEADER STRUCTURE:
+    - LEFT: SBL Farms logo (uploaded, maintain aspect ratio, width controllable from Theme Editor, vertically centered)
+    - CENTER: Navigation — Plants ▼, Seeds ▼, Pots ▼, Services ▼, Gifting ▼, Blog, Contact (NO Home, NO second nav bar)
+    - RIGHT: Search bar, Login/Account icon, Wishlist/Heart icon, Cart icon with item count badge
+    
+    DESIGN:
+    - Compact desktop header, short height
+    - Soft off-white / cream background (#f9f6f1 or similar)
+    - Dark green text and icons
+    - Clean, premium, modern, minimal aesthetic suitable for a professional plant nursery e-commerce site
+    
+    LOGO:
+    - Placed on the left
+    - Use the logo image uploaded via Theme Editor (image_picker setting)
+    - Maintain aspect ratio, no cropping or stretching
+    - Logo width controllable from Theme Editor (range setting)
+    - Vertically centered in header
+    
+    NAVIGATION (desktop, horizontally aligned, vertically centered, consistent spacing):
+    - Plants ▼ — dropdown with 10 items, each with editable Shopify URL setting: Indoor Plants, Outdoor Plants, Flowering Plants, Succulents, Cacti, Fruit Plants, Herbs, Air-Purifying Plants, Bonsai Plants, Climbers and Creepers
+    - Seeds ▼ — dropdown with 10 items, each with editable Shopify URL setting: Vegetable Seeds, Flower Seeds, Herb Seeds, Fruit Seeds, Organic Seeds, Microgreen Seeds, Hybrid Seeds, Flower Mix Seeds, Lawn Grass Seeds, Seasonal Seeds
+    - Pots ▼ — dropdown with 10 items, each with editable Shopify URL setting: Terracotta Pots, Ceramic Pots, Plastic Pots, Hanging Planters, Self-Watering Pots, Grow Bags, Window Planters, Decorative Planters, Seedling Trays, Plant Stands
+    - Services ▼ — dropdown with 4 items, each with editable Shopify URL setting: Landscaping, Green Walls, AMC (Annual Maintenance Contract), Plant Rental
+    - Gifting ▼ — dropdown with 2 items, each with editable Shopify URL setting: Corporate Gifting, Bulk Gifting
+    - Blog — plain link, URL editable from Theme Editor
+    - Contact — plain link, URL editable from Theme Editor
+    
+    DROPDOWN POSITIONING (CRITICAL):
+    - Each nav item must be a position:relative container
+    - Its dropdown must be position:absolute, top:100%, left:0 relative to THAT item only
+    - Plants dropdown must appear directly under Plants, Seeds dropdown directly under Seeds, etc.
+    - Dropdowns must NEVER shift or appear under the wrong nav item
+    - Dropdown widths: Plants ~220px, Seeds ~220px, Pots ~220px, Services ~200px, Gifting ~200px
+    - Dropdown opens on hover (desktop); smooth fade-in transition
+    - Dropdown has white/cream background, subtle shadow, rounded corners, dark green text, hover highlight on items
+    
+    RIGHT ICONS:
+    - Search bar (expandable on click or inline small input)
+    - Account/Login icon linking to customer account page
+    - Wishlist/Heart icon (links to /pages/wishlist or editable URL)
+    - Cart icon with dynamic cart item count badge (using Liquid cart.item_count)
+    
+    SETTINGS (all editable from Theme Editor via schema):
+    - Logo image (image_picker)
+    - Logo width (range, 80–200px)
+    - All dropdown item URLs (url type settings)
+    - Blog URL
+    - Contact URL
+    - Wishlist URL
+    
+    TECHNICAL:
+    - Standalone Shopify OS 2.0 section (.liquid file) with full schema
+    - Scoped CSS (no bleed into other sections)
+    - No dependencies on existing theme header
+    - Mobile: collapse nav into hamburger menu with slide-out drawer (basic mobile support)
+    - Use Liquid for cart count: {{ cart.item_count }}
+    Create a completely new custom Shopify header section for SBL Farms based on the uploaded reference images.
+    
+    IMPORTANT:
+    Build the header from scratch. Do not modify or depend on an existing header section.
+    
+    The final header should look clean, premium, modern, minimal, and suitable for a professional plant nursery and gardening e-commerce website.
+    
+    ==================================================
+    HEADER STRUCTURE
+    ==================================================
+    
+    Create a compact desktop header with this exact structure:
+    
+    LEFT:
+    - SBL Farms logo
+    
+    CENTER:
+    - Plants ▼
+    - Seeds ▼
+    - Pots ▼
+    - Services ▼
+    - Gifting ▼
+    - Blog
+    - Contact
+    
+    RIGHT:
+    - Search bar
+    - Login / Account icon
+    - Wishlist / Heart icon
+    - Cart icon with cart item count
+    
+    IMPORTANT:
+    - Do NOT include Home.
+    - Do NOT create a second navigation bar.
+    - Keep the header short and compact.
+    - Use a soft off-white / cream background.
+    - Use dark green text and icons.
+    - Keep the overall appearance similar to the uploaded reference image.
+    
+    ==================================================
+    LOGO
+    ==================================================
+    
+    - Add the SBL Farms logo on the left.
+    - Use the uploaded SBL Farms logo.
+    - Keep the logo aspect ratio unchanged.
+    - Do not crop, stretch, or redesign the logo.
+    - Allow logo width to be controlled from the Shopify Theme Editor.
+    - Vertically center the logo inside the header.
+    
+    ==================================================
+    DESKTOP NAVIGATION
+    ==================================================
+    
+    Navigation must cont, with all sections to be editable and header section i need height increase and decrease also with text will bold , make it again
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% style %}
+.sbl-head-{{ ai_gen_id }}{display:block;width:100%;background:#f8f4ec;color:#0d3a1d;position:relative;z-index:20}.sbl-head-{{ ai_gen_id }} *{box-sizing:border-box}.sbl-head-{{ ai_gen_id }}__bar{min-height:{{ block.settings.header_height }}px;width:100%;padding:8px 3%;display:flex;align-items:center;justify-content:space-between;gap:20px}.sbl-head-{{ ai_gen_id }}__logo{display:flex;align-items:center;flex:none}.sbl-head-{{ ai_gen_id }}__logo img{width:{{ block.settings.logo_width }}px;max-width:100%;height:auto;object-fit:contain;display:block}.sbl-head-{{ ai_gen_id }}__nav{display:flex;align-items:center;justify-content:center;gap:clamp(12px,1.5vw,24px);margin:auto}.sbl-head-{{ ai_gen_id }}__item{position:relative}.sbl-head-{{ ai_gen_id }}__link{display:inline-flex;align-items:center;gap:5px;color:#0d3a1d;text-decoration:none;white-space:nowrap;font-size:14px;font-weight:{% if block.settings.bold_text %}700{% else %}400{% endif %};padding:10px 0}.sbl-head-{{ ai_gen_id }}__link:hover,.sbl-head-{{ ai_gen_id }}__link:focus-visible{text-decoration:underline;text-underline-offset:4px}.sbl-head-{{ ai_gen_id }}__drop{position:absolute;top:100%;left:0;width:220px;margin:0;padding:8px;list-style:none;background:#fffefa;border-radius:10px;box-shadow:0 8px 24px #0d3a1d24;opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .16s ease,transform .16s ease,visibility .16s;z-index:5}.sbl-head-{{ ai_gen_id }}__item:hover .sbl-head-{{ ai_gen_id }}__drop,.sbl-head-{{ ai_gen_id }}__item:focus-within .sbl-head-{{ ai_gen_id }}__drop{opacity:1;visibility:visible;transform:translateY(0)}.sbl-head-{{ ai_gen_id }}__drop a{display:block;padding:8px 10px;border-radius:5px;color:#0d3a1d;text-decoration:none;font-size:13px;font-weight:{% if block.settings.bold_text %}700{% else %}400{% endif %}}.sbl-head-{{ ai_gen_id }}__drop a:hover,.sbl-head-{{ ai_gen_id }}__drop a:focus-visible{background:#f1f5eb}.sbl-head-{{ ai_gen_id }}__actions{display:flex;align-items:center;gap:13px}.sbl-head-{{ ai_gen_id }}__search{display:flex;align-items:center;border:1px solid #0d3a1d55;border-radius:20px;padding:5px 9px}.sbl-head-{{ ai_gen_id }}__search input{width:90px;border:0;background:transparent;color:#0d3a1d;outline:none;font-size:12px}.sbl-head-{{ ai_gen_id }}__icon{position:relative;display:flex;align-items:center;color:#0d3a1d}.sbl-head-{{ ai_gen_id }}__icon svg,.sbl-head-{{ ai_gen_id }}__search svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.sbl-head-{{ ai_gen_id }}__count{position:absolute;right:-8px;top:-7px;background:#1f5130;color:#fff;border-radius:50%;font-size:10px;min-width:16px;height:16px;text-align:center;line-height:16px}.sbl-head-{{ ai_gen_id }}__toggle{display:none;background:none;border:0;color:#0d3a1d;padding:6px}@media(max-width:1050px){.sbl-head-{{ ai_gen_id }}__bar{gap:12px}.sbl-head-{{ ai_gen_id }}__nav{gap:10px}.sbl-head-{{ ai_gen_id }}__search input{width:55px}}@media(max-width:800px){.sbl-head-{{ ai_gen_id }}__bar{flex-wrap:wrap}.sbl-head-{{ ai_gen_id }}__toggle{display:block;order:0}.sbl-head-{{ ai_gen_id }}__logo{order:1;margin-right:auto}.sbl-head-{{ ai_gen_id }}__actions{order:2;gap:9px}.sbl-head-{{ ai_gen_id }}__nav{display:none;order:3;flex-basis:100%;width:100%;flex-direction:column;align-items:stretch;gap:0;margin:0}.sbl-head-{{ ai_gen_id }}.is-open .sbl-head-{{ ai_gen_id }}__nav{display:flex}.sbl-head-{{ ai_gen_id }}__item{border-top:1px solid #0d3a1d20}.sbl-head-{{ ai_gen_id }}__link{width:100%;justify-content:space-between;padding:11px 2px}.sbl-head-{{ ai_gen_id }}__drop{position:static;display:none;width:100%;box-shadow:none;border-radius:0;opacity:1;visibility:visible;transform:none;padding:0 0 8px 12px}.sbl-head-{{ ai_gen_id }}__item:hover .sbl-head-{{ ai_gen_id }}__drop{display:block}.sbl-head-{{ ai_gen_id }}__search{border:0;padding:0}.sbl-head-{{ ai_gen_id }}__search input{width:55px}}
+{% endstyle %}
+<sbl-farms-header-{{ ai_gen_id }} class="sbl-head-{{ ai_gen_id }}" {{ block.shopify_attributes }}><div class="sbl-head-{{ ai_gen_id }}__bar"><button class="sbl-head-{{ ai_gen_id }}__toggle" type="button" aria-label="Toggle navigation" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button><a class="sbl-head-{{ ai_gen_id }}__logo" href="{{ routes.root_url }}" aria-label="SBL Farms home">{% if block.settings.logo %}<img src="{{ block.settings.logo | image_url: width: 500 }}" alt="{{ block.settings.logo.alt | default: 'SBL Farms' | escape }}" width="{{ block.settings.logo.width }}" height="{{ block.settings.logo.height }}">{% else %}<span>SBL Farms</span>{% endif %}</a><nav class="sbl-head-{{ ai_gen_id }}__nav" aria-label="Main navigation">{% assign menu_names='plants,seeds,pots,services,gifting' | split: ',' %}{% assign menu_labels='Plants,Seeds,Pots,Services,Gifting' | split: ',' %}{% assign plant_items='Indoor Plants|Outdoor Plants|Flowering Plants|Succulents|Cacti|Fruit Plants|Herbs|Air-Purifying Plants|Bonsai Plants|Climbers and Creepers' | split: '|' %}{% assign seed_items='Vegetable Seeds|Flower Seeds|Herb Seeds|Fruit Seeds|Organic Seeds|Microgreen Seeds|Hybrid Seeds|Flower Mix Seeds|Lawn Grass Seeds|Seasonal Seeds' | split: '|' %}{% assign pot_items='Terracotta Pots|Ceramic Pots|Plastic Pots|Hanging Planters|Self-Watering Pots|Grow Bags|Window Planters|Decorative Planters|Seedling Trays|Plant Stands' | split: '|' %}{% assign service_items='Landscaping|Green Walls|AMC (Annual Maintenance Contract)|Plant Rental' | split: '|' %}{% assign gifting_items='Corporate Gifting|Bulk Gifting' | split: '|' %}{% for menu in menu_names %}{% assign menu_index=forloop.index0 %}{% assign menu_title=menu_labels[menu_index] %}{% assign list_key=menu | append: '_items' %}{% case menu %}{% when 'plants' %}{% assign items=plant_items %}{% when 'seeds' %}{% assign items=seed_items %}{% when 'pots' %}{% assign items=pot_items %}{% when 'services' %}{% assign items=service_items %}{% when 'gifting' %}{% assign items=gifting_items %}{% endcase %}<div class="sbl-head-{{ ai_gen_id }}__item"><a class="sbl-head-{{ ai_gen_id }}__link" href="#{{ menu }}-{{ ai_gen_id }}">{{ menu_title }} <span aria-hidden="true">▾</span></a><ul class="sbl-head-{{ ai_gen_id }}__drop">{% for item in items %}{% assign url_key=menu | append: '_' | append: forloop.index %}<li><a href="{{ block.settings[url_key] | default: routes.root_url }}">{{ item }}</a></li>{% endfor %}</ul></div>{% endfor %}<a class="sbl-head-{{ ai_gen_id }}__link" href="{{ block.settings.blog_url | default: routes.root_url }}">Blog</a><a class="sbl-head-{{ ai_gen_id }}__link" href="{{ block.settings.contact_url | default: routes.root_url }}">Contact</a></nav><div class="sbl-head-{{ ai_gen_id }}__actions"><form class="sbl-head-{{ ai_gen_id }}__search" action="{{ routes.search_url }}" method="get" role="search"><input type="search" name="q" aria-label="Search" placeholder="Search"><button type="submit" aria-label="Submit search" style="border:0;background:none;color:inherit;padding:0"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></button></form><a class="sbl-head-{{ ai_gen_id }}__icon" href="{{ routes.account_url }}" aria-label="Account"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg></a><a class="sbl-head-{{ ai_gen_id }}__icon" href="{{ block.settings.wishlist_url | default: '/pages/wishlist' }}" aria-label="Wishlist"><svg viewBox="0 0 24 24"><path d="M20.8 8.7c0 5.1-8.8 11-8.8 11s-8.8-5.9-8.8-11a4.5 4.5 0 0 1 8.8-1.3 4.5 4.5 0 0 1 8.8 1.3Z"/></svg></a><a class="sbl-head-{{ ai_gen_id }}__icon" href="{{ routes.cart_url }}" aria-label="Cart, {{ cart.item_count }} items"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 2-1.6L22 8H6"/><circle cx="10" cy="21" r="1"/><circle cx="18" cy="21" r="1"/></svg><span class="sbl-head-{{ ai_gen_id }}__count">{{ cart.item_count }}</span></a></div></div></sbl-farms-header-{{ ai_gen_id }}>
+<script>(function(){const n='sbl-farms-header-{{ ai_gen_id }}';if(customElements.get(n))return;class SblFarmsHeader extends HTMLElement{connectedCallback(){const b=this.querySelector('.sbl-head-{{ ai_gen_id }}__toggle');b.addEventListener('click',()=>{const open=this.classList.toggle('is-open');b.setAttribute('aria-expanded',String(open))})}}customElements.define(n,SblFarmsHeader)})();</script>
+{% schema %}{"name":"SBL Farms header","tag":null,"class":"sbl-farms-header","settings":[{"type":"image_picker","id":"logo","label":"Logo image"},{"type":"range","id":"logo_width","label":"Logo width","min":80,"max":200,"step":10,"unit":"px","default":140},{"type":"range","id":"header_height","label":"Header height","min":50,"max":120,"step":5,"unit":"px","default":75},{"type":"checkbox","id":"bold_text","label":"Bold navigation text","default":false},{"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},{"type":"header","content":"Plants links"},{"type":"url","id":"plants_1","label":"Indoor plants"},{"type":"url","id":"plants_2","label":"Outdoor plants"},{"type":"url","id":"plants_3","label":"Flowering plants"},{"type":"url","id":"plants_4","label":"Succulents"},{"type":"url","id":"plants_5","label":"Cacti"},{"type":"url","id":"plants_6","label":"Fruit plants"},{"type":"url","id":"plants_7","label":"Herbs"},{"type":"url","id":"plants_8","label":"Air-purifying plants"},{"type":"url","id":"plants_9","label":"Bonsai plants"},{"type":"url","id":"plants_10","label":"Climbers and creepers"},{"type":"header","content":"Seeds links"},{"type":"url","id":"seeds_1","label":"Vegetable seeds"},{"type":"url","id":"seeds_2","label":"Flower seeds"},{"type":"url","id":"seeds_3","label":"Herb seeds"},{"type":"url","id":"seeds_4","label":"Fruit seeds"},{"type":"url","id":"seeds_5","label":"Organic seeds"},{"type":"url","id":"seeds_6","label":"Microgreen seeds"},{"type":"url","id":"seeds_7","label":"Hybrid seeds"},{"type":"url","id":"seeds_8","label":"Flower mix seeds"},{"type":"url","id":"seeds_9","label":"Lawn grass seeds"},{"type":"url","id":"seeds_10","label":"Seasonal seeds"},{"type":"header","content":"Pots links"},{"type":"url","id":"pots_1","label":"Terracotta pots"},{"type":"url","id":"pots_2","label":"Ceramic pots"},{"type":"url","id":"pots_3","label":"Plastic pots"},{"type":"url","id":"pots_4","label":"Hanging planters"},{"type":"url","id":"pots_5","label":"Self-watering pots"},{"type":"url","id":"pots_6","label":"Grow bags"},{"type":"url","id":"pots_7","label":"Window planters"},{"type":"url","id":"pots_8","label":"Decorative planters"},{"type":"url","id":"pots_9","label":"Seedling trays"},{"type":"url","id":"pots_10","label":"Plant stands"},{"type":"header","content":"Services links"},{"type":"url","id":"services_1","label":"Landscaping"},{"type":"url","id":"services_2","label":"Green walls"},{"type":"url","id":"services_3","label":"AMC"},{"type":"url","id":"services_4","label":"Plant rental"},{"type":"header","content":"Gifting links"},{"type":"url","id":"gifting_1","label":"Corporate gifting"},{"type":"url","id":"gifting_2","label":"Bulk gifting"},{"type":"header","content":"Other links"},{"type":"url","id":"blog_url","label":"Blog URL"},{"type":"url","id":"contact_url","label":"Contact URL"},{"type":"url","id":"wishlist_url","label":"Wishlist URL"}],"presets":[{"name":"SBL Farms header"}]}{% endschema %}
