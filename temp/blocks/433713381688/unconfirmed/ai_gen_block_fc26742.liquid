@@ -1,6 +1,302 @@
+{% doc %}
+  @prompt
+    Create a new custom Shopify Online Store 2.0 section that closely matches the attached reference image.
+    
+    SECTION TITLE:
+    - Add a large heading at the top: “Home Loves Green”.
+    - Make the heading editable from the Shopify Theme Editor.
+    - Use a dark green color and a clean, bold, modern font.
+    - Allow the merchant to change the heading text, font size, color, and alignment.
+    
+    PRODUCT SHOWCASE:
+    - Create a horizontal product carousel displaying 3 product cards on desktop.
+    - Products must be selected dynamically from a Shopify Collection Picker.
+    - Do not hard-code product names, prices, images, ratings, or links.
+    - Allow the merchant to select the collection from the Theme Editor.
+    - Add a setting to control how many products are displayed.
+    
+    PRODUCT CARD DESIGN:
+    - Use large product images at the top of each card.
+    - Give the cards rounded corners.
+    - Add a clean white card background with a subtle shadow.
+    - Add generous spacing between cards.
+    - Display the following product information:
+      1. Optional “Bestseller” badge in the top-left of the image.
+      2. Optional discount badge in the top-right showing the discount percentage.
+      3. Product rating and review count.
+      4. Product title.
+      5. Short product description.
+      6. Current product price.
+      7. Compare-at/original price with strikethrough.
+      8. Circular green add-to-cart button at the bottom-right.
+    - Use the actual Shopify product data wherever available.
+    - Product image should have a smooth hover zoom effect.
+    - Clicking the product card or product image should open that product’s Shopify product page.
+    - Clicking the add-to-cart button should add the product to the cart without taking the customer away from the collection section.
+    
+    CAROUSEL:
+    - Show exactly 3 product cards on desktop.
+    - Show 2 product cards on tablet.
+    - Show 1 product card on mobile.
+    - Add circular previous and next arrow buttons on the left and right sides of the carousel.
+    - Arrows should move through the products smoothly.
+    - Enable touch/swipe functionality on mobile.
+    - Make the carousel responsive with no horizontal page overflow.
+    - If there are fewer products than the number of visible cards, do not create unnecessary empty cards.
+    
+    VIEW ALL PRODUCTS BUTTON:
+    - Add a prominent “View All Products” button below the product carousel.
+    - Make the button text editable in the Theme Editor.
+    - Add a Shopify URL/link picker setting for the button.
+    - The merchant must be able to select any Shopify collection, page, product, blog, or custom URL.
+    - DO NOT hard-code the button URL.
+    - When the customer clicks “View All Products”, redirect them to exactly the URL selected in the Theme Editor.
+    - Default button text should be “View All Products”.
+    - Style the button with a dark green background, white text, rounded corners, and a smooth hover effect.
+    - Allow button alignment to be changed between left, center, and right.
+    
+    BACKGROUND:
+    - Add Theme Editor settings to either:
+      - Select a background color, OR
+      - Upload/select a background image.
+    - If a background image is selected, display it as the section background.
+    - Add controls for background image position, size, and overlay opacity.
+    - Default background should be a soft warm cream color similar to the reference image.
+    
+    THEME EDITOR SETTINGS:
+    Include the following customizable settings:
+    - Section heading
+    - Heading font size
+    - Heading color
+    - Heading alignment
+    - Product collection picker
+    - Number of products
+    - Show Bestseller badge
+    - Show discount badge
+    - Show rating
+    - Show product description
+    - Show compare-at price
+    - Show add-to-cart button
+    - View All Products button text
+    - View All Products button link
+    - Button alignment
+    - Background color
+    - Background image
+    - Background image position
+    - Background overlay
+    - Card background color
+    - Card border radius
+    - Card shadow
+    - Section top padding
+    - Section bottom padding
+    - Card gap
+    
+    DESIGN STYLE:
+    - Closely follow the visual structure of the attached reference image.
+    - Use a premium, modern indoor-plant/e-commerce aesthetic.
+    - Use dark green, cream, white, and subtle yellow/green accents.
+    - Keep the layout spacious, clean, and elegant.
+    - Do not copy any text or product information from the reference image.
+    - The design should look like a professional Shopify plant-store product section.
+    
+    TECHNICAL REQUIREMENTS:
+    - Build it as a completely independent Shopify Online Store 2.0 section.
+    - Use Liquid, HTML, CSS, and JavaScript only where necessary.
+    - Use Shopify's collection and product objects.
+    - Use Shopify's native URL setting/link picker for the “View All Products” button.
+    - Do not hard-code product URLs.
+    - Do not hard-code collection URLs.
+    - All important content and styling must be editable through the Shopify Theme Editor.
+    - Make the section compatible with Shopify's current theme architecture.
+    - Ensure the section works correctly on desktop, tablet, and mobile.
+    - Do not modify or depend on other theme sections.
+    - Make sure the generated code is valid and can be saved directly as a Shopify section.
+    
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-green-showcase-{{ ai_gen_id }} {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding: {{ block.settings.padding_top }}px 24px {{ block.settings.padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .ai-green-showcase-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background-image: {% if block.settings.background_image != blank %}url('{{ block.settings.background_image | image_url: width: 2400 }}'){% else %}none{% endif %};
+    background-position: {{ block.settings.background_position }};
+    background-size: {{ block.settings.background_size }};
+  }
+  .ai-green-showcase-{{ ai_gen_id }}::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: {{ block.settings.background_color }};
+    opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+    pointer-events: none;
+  }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__inner { max-width: 1200px; margin: 0 auto; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__heading { color: {{ block.settings.heading_color }}; font-size: clamp(28px, {{ block.settings.heading_size }}px, 64px); line-height: 1.1; font-weight: 700; text-align: {{ block.settings.heading_alignment }}; margin: 0 0 36px; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__carousel { position: relative; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__track { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - {{ block.settings.card_gap | times: 2 }}px) / 3); gap: {{ block.settings.card_gap }}px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; padding: 4px 2px 14px; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__track::-webkit-scrollbar { display: none; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__card { min-width: 0; scroll-snap-align: start; position: relative; overflow: hidden; background: {{ block.settings.card_color }}; border-radius: {{ block.settings.card_radius }}px; box-shadow: {% if block.settings.card_shadow %}0 8px 28px rgba(20, 45, 27, .11){% else %}none{% endif %}; color: #14231a; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__media { display: block; position: relative; aspect-ratio: 1 / 1; overflow: hidden; color: inherit; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .35s ease; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__media:hover img { transform: scale(1.045); }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__placeholder { width: 100%; height: 100%; background: #edf0e7; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__placeholder svg { width: 100%; height: 100%; object-fit: cover; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__badge { position: absolute; top: 14px; z-index: 1; padding: 7px 11px; border-radius: 30px; font-size: 12px; line-height: 1; font-weight: 700; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__badge--best { left: 14px; color: #fff; background: #1f5130; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__badge--discount { right: 14px; color: #172417; background: #e6edb7; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__body { padding: 18px 18px 20px; position: relative; min-height: 184px; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__rating { font-size: 13px; color: #516251; margin: 0 0 9px; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__stars { color: #bd8d16; letter-spacing: 1px; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__title { font-size: 18px; font-weight: 700; line-height: 1.3; margin: 0 48px 8px 0; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__title a { color: inherit; text-decoration: none; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__description { color: #5b6660; font-size: 14px; line-height: 1.45; margin: 0 0 12px; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__prices { display: flex; align-items: baseline; gap: 9px; padding-right: 44px; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__price { font-size: 17px; color: #1f5130; font-weight: 700; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__compare { color: #778078; font-size: 14px; text-decoration: line-through; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__add { position: absolute; right: 16px; bottom: 16px; width: 42px; height: 42px; display: grid; place-items: center; border: 0; border-radius: 50%; background: #1f5130; color: #fff; cursor: pointer; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__add:hover { background: #0d3a1d; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__add:focus-visible, .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__arrow:focus-visible, .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__view:focus-visible { outline: 3px solid #bd8d16; outline-offset: 3px; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__add svg { width: 20px; height: 20px; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__arrow { position: absolute; z-index: 2; top: 42%; width: 44px; height: 44px; border: 0; border-radius: 50%; background: #fff; color: #173d25; box-shadow: 0 3px 14px rgba(0,0,0,.15); display: grid; place-items: center; cursor: pointer; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__arrow--prev { left: -18px; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__arrow--next { right: -18px; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__view-wrap { display: flex; justify-content: {{ block.settings.button_alignment }}; margin-top: 28px; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__view { display: inline-flex; padding: 14px 26px; border-radius: 10px; background: #0d3a1d; color: #fff; font-weight: 700; text-decoration: none; transition: background .2s ease, transform .2s ease; }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__view:hover { background: #1f5130; transform: translateY(-1px); }
+  .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__status { font-size: 13px; color: #5b6660; margin-left: 7px; }
+  @media (max-width: 989px) { .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__track { grid-auto-columns: calc((100% - {{ block.settings.card_gap }}px) / 2); } }
+  @media (max-width: 600px) { .ai-green-showcase-{{ ai_gen_id }} { padding-left: 18px; padding-right: 18px; } .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__track { grid-auto-columns: 100%; } .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__arrow--prev { left: -10px; } .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__arrow--next { right: -10px; } .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__heading { margin-bottom: 24px; } }
+  @media (prefers-reduced-motion: reduce) { .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__track { scroll-behavior: auto; } .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__media img, .ai-green-showcase-{{ ai_gen_id }} .ai-green-showcase__view { transition: none; } }
+{% endstyle %}
+
+<plant-showcase-{{ ai_gen_id }} class="ai-green-showcase-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-green-showcase__inner">
+    {% if block.settings.heading != blank %}<h2 class="ai-green-showcase__heading">{{ block.settings.heading | escape }}</h2>{% endif %}
+    {% if block.settings.collection != blank %}
+      <div class="ai-green-showcase__carousel">
+        <button class="ai-green-showcase__arrow ai-green-showcase__arrow--prev" type="button" aria-label="Previous products"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button>
+        <div class="ai-green-showcase__track" data-track>
+          {% for product in block.settings.collection.products limit: block.settings.product_limit %}
+            {% assign current_variant = product.selected_or_first_available_variant %}
+            {% assign discount_percent = 0 %}
+            {% if current_variant.compare_at_price > current_variant.price and current_variant.compare_at_price > 0 %}{% assign discount_amount = current_variant.compare_at_price | minus: current_variant.price | times: 100.0 %}{% assign discount_percent = discount_amount | divided_by: current_variant.compare_at_price | round %}{% endif %}
+            <article class="ai-green-showcase__card">
+              <a class="ai-green-showcase__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+                {% if block.settings.show_bestseller and product.tags contains 'Bestseller' %}<span class="ai-green-showcase__badge ai-green-showcase__badge--best">Bestseller</span>{% endif %}
+                {% if block.settings.show_discount and discount_percent > 0 %}<span class="ai-green-showcase__badge ai-green-showcase__badge--discount">{{ discount_percent }}% off</span>{% endif %}
+                {% if product.featured_image %}<img src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" loading="lazy" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}">{% else %}<div class="ai-green-showcase__placeholder">{{ 'product-apparel-1' | placeholder_svg_tag }}</div>{% endif %}
+              </a>
+              <div class="ai-green-showcase__body">
+                {% if block.settings.show_rating %}
+                  {% assign rating_value = product.metafields.reviews.rating.value %}
+                  {% assign review_count = product.metafields.reviews.rating_count | default: product.metafields.reviews.count %}
+                  {% if rating_value != blank %}<p class="ai-green-showcase__rating"><span class="ai-green-showcase__stars" aria-label="Rated {{ rating_value }} out of 5">★★★★★</span> {{ rating_value }}{% if review_count != blank %}<span class="ai-green-showcase__status">({{ review_count }} reviews)</span>{% endif %}</p>{% endif %}
+                {% endif %}
+                <h3 class="ai-green-showcase__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+                {% if block.settings.show_description and product.description != blank %}<p class="ai-green-showcase__description">{{ product.description | strip_html | truncate: 88 | escape }}</p>{% endif %}
+                <div class="ai-green-showcase__prices"><span class="ai-green-showcase__price">{{ current_variant.price | money }}</span>{% if block.settings.show_compare and current_variant.compare_at_price > current_variant.price %}<span class="ai-green-showcase__compare">{{ current_variant.compare_at_price | money }}</span>{% endif %}</div>
+                {% if block.settings.show_add_to_cart %}<form method="post" action="/cart/add" class="ai-green-showcase__form" data-add-form><input type="hidden" name="id" value="{{ current_variant.id }}"><input type="hidden" name="quantity" value="1"><button class="ai-green-showcase__add" type="submit" aria-label="Add {{ product.title | escape }} to cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></form>{% endif %}
+              </div>
+            </article>
+          {% else %}<p>No products found in this collection.</p>{% endfor %}
+        </div>
+        <button class="ai-green-showcase__arrow ai-green-showcase__arrow--next" type="button" aria-label="Next products"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+    {% else %}<p>Select a collection in the block settings to display products.</p>{% endif %}
+    {% if block.settings.button_text != blank and block.settings.button_link != blank %}<div class="ai-green-showcase__view-wrap"><a class="ai-green-showcase__view" href="{{ block.settings.button_link }}">{{ block.settings.button_text | escape }}</a></div>{% endif %}
+  </div>
+</plant-showcase-{{ ai_gen_id }}>
+
+<script>
+(function() {
+  const tagName = 'plant-showcase-{{ ai_gen_id }}';
+  if (customElements.get(tagName)) return;
+  class PlantShowcase extends HTMLElement {
+    connectedCallback() {
+      this.track = this.querySelector('[data-track]');
+      if (!this.track) return;
+      this.querySelector('.ai-green-showcase__arrow--prev').addEventListener('click', () => this.move(-1));
+      this.querySelector('.ai-green-showcase__arrow--next').addEventListener('click', () => this.move(1));
+      this.querySelectorAll('[data-add-form]').forEach((form) => form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const button = form.querySelector('button');
+        button.disabled = true;
+        try {
+          const response = await fetch(`${window.Shopify.routes.root}cart/add.js`, { method: 'POST', headers: { 'Accept': 'application/json' }, body: new FormData(form) });
+          if (!response.ok) throw new Error('Unable to add item');
+          form.dispatchEvent(new CustomEvent('cart:item-added', { bubbles: true }));
+          document.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true }));
+        } catch (error) {
+          form.submit();
+        } finally {
+          button.disabled = false;
+        }
+      }));
+    }
+    move(direction) {
+      const card = this.track.querySelector('.ai-green-showcase__card');
+      if (!card) return;
+      const style = getComputedStyle(this.track);
+      const gap = parseFloat(style.columnGap) || 0;
+      this.track.scrollBy({ left: direction * (card.getBoundingClientRect().width + gap), behavior: 'smooth' });
+    }
+  }
+  customElements.define(tagName, PlantShowcase);
+})();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Green product showcase",
+  "settings": [
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Home Loves Green" },
+    { "type": "range", "id": "heading_size", "label": "Font size", "min": 24, "max": 60, "step": 2, "unit": "px", "default": 42 },
+    { "type": "color", "id": "heading_color", "label": "Color", "default": "#0d3a1d" },
+    { "type": "select", "id": "heading_alignment", "label": "Alignment", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }, { "value": "right", "label": "Right" }], "default": "left" },
+    { "type": "header", "content": "Products" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "product_limit", "label": "Number of products", "min": 3, "max": 12, "step": 1, "default": 6 },
+    { "type": "checkbox", "id": "show_bestseller", "label": "Show bestseller badge", "default": true },
+    { "type": "checkbox", "id": "show_discount", "label": "Show discount badge", "default": true },
+    { "type": "checkbox", "id": "show_rating", "label": "Show rating", "default": true },
+    { "type": "checkbox", "id": "show_description", "label": "Show description", "default": true },
+    { "type": "checkbox", "id": "show_compare", "label": "Show compare-at price", "default": true },
+    { "type": "checkbox", "id": "show_add_to_cart", "label": "Show add-to-cart button", "default": true },
+    { "type": "range", "id": "desktop_width_percent", "label": "Desktop width", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "header", "content": "View all button" },
+    { "type": "text", "id": "button_text", "label": "Button text", "default": "View All Products" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "select", "id": "button_alignment", "label": "Button alignment", "options": [{ "value": "flex-start", "label": "Left" }, { "value": "center", "label": "Center" }, { "value": "flex-end", "label": "Right" }], "default": "center" },
+    { "type": "header", "content": "Background" },
+    { "type": "color", "id": "background_color", "label": "Color", "default": "#f8f4ec" },
+    { "type": "image_picker", "id": "background_image", "label": "Image" },
+    { "type": "select", "id": "background_position", "label": "Image position", "options": [{ "value": "center center", "label": "Center" }, { "value": "center top", "label": "Top" }, { "value": "center bottom", "label": "Bottom" }, { "value": "left center", "label": "Left" }, { "value": "right center", "label": "Right" }], "default": "center center" },
+    { "type": "select", "id": "background_size", "label": "Image size", "options": [{ "value": "cover", "label": "Cover" }, { "value": "contain", "label": "Contain" }], "default": "cover" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 85 },
+    { "type": "header", "content": "Card style" },
+    { "type": "color", "id": "card_color", "label": "Background", "default": "#ffffff" },
+    { "type": "range", "id": "card_radius", "label": "Corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
+    { "type": "checkbox", "id": "card_shadow", "label": "Show card shadow", "default": true },
+    { "type": "range", "id": "card_gap", "label": "Card gap", "min": 12, "max": 48, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_top", "label": "Section top padding", "min": 0, "max": 100, "step": 5, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom", "label": "Section bottom padding", "min": 0, "max": 100, "step": 5, "unit": "px", "default": 60 }
+  ],
+  "presets": [{ "name": "Green product showcase" }],
+  "tag": null,
+  "class": "green-product-showcase"
+}
 {% endschema %}
