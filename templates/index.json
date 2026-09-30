@@ -504,8 +504,58 @@
     "1790161067735ca0dd": {
       "type": "_blocks",
       "blocks": {
+        "ai_gen_block_4752fb2_CYqGe7": {
+          "type": "ai_gen_block_4752fb2",
+          "settings": {
+            "heading": "Find Plant  Category",
+            "heading_emphasis": "",
+            "heading_size": 38,
+            "heading_color": "#0d3a1d",
+            "accent_color": "#1f5130",
+            "background_color": "#f4f7dc",
+            "desktop_width_percent": 100,
+            "padding_top": 55,
+            "padding_bottom": 55,
+            "desktop_columns": "6",
+            "tablet_columns": "3",
+            "mobile_columns": "3",
+            "card_spacing": 24,
+            "image_size": 150,
+            "name_size": 16,
+            "category_text_color": "#14231a",
+            "hover_scale": 106,
+            "hover_shadow": 15,
+            "cta_text": "Buy Now!",
+            "cta_link": "",
+            "cta_background": "#fff1b8",
+            "cta_text_color": "#0d3a1d",
+            "cta_text_size": 42,
+            "category_1_name": "Flower Creepers",
+            "category_1_link": "",
+            "category_2_name": "Leaf Creepers",
+            "category_2_link": "",
+            "category_3_name": "Succulent Creepers",
+            "category_3_link": "",
+            "category_4_name": "Flower Plant",
+            "category_4_link": "",
+            "category_5_name": "Herbs",
+            "category_5_link": "",
+            "category_6_name": "Leaf Plant",
+            "category_6_link": "",
+            "category_7_name": "Ornamental Flower",
+            "category_7_link": "",
+            "category_8_name": "Ornamental Leaf",
+            "category_8_link": "",
+            "category_9_name": "Ornamental Vegetable Plant",
+            "category_9_link": "",
+            "category_10_name": "Fruit Plant",
+            "category_10_link": ""
+          },
+          "blocks": {}
+        },
         "ai_gen_block_9681797_KTMUmV": {
           "type": "ai_gen_block_9681797",
+          "disabled": true,
           "settings": {
             "heading": "Find Your Plants Categories",
             "content_width": 1600,
@@ -548,17 +598,6 @@
             "category_10_title": "Fruit Plant",
             "category_10_image": "shopify://shop_images/f5fd3085-74cb-49cc-ba22-6a5761cf1c08.png",
             "category_10_link": ""
-          },
-          "blocks": {}
-        },
-        "ai_gen_block_aa94f13_pHYVA9": {
-          "type": "ai_gen_block_aa94f13",
-          "disabled": true,
-          "settings": {
-            "heading": "Home Loves Green",
-            "heading_size": 36,
-            "heading_color": "#1f5130",
-            "desktop_width_percent": 100
           },
           "blocks": {}
         },
@@ -654,8 +693,8 @@
         }
       },
       "block_order": [
+        "ai_gen_block_4752fb2_CYqGe7",
         "ai_gen_block_9681797_KTMUmV",
-        "ai_gen_block_aa94f13_pHYVA9",
         "ai_gen_block_8533040_YGgFmW"
       ],
       "settings": {}
