@@ -1,0 +1,218 @@
+{% doc %}
+  @prompt
+    IMPORTANT:
+    - Do NOT include the human/person shown in the reference image.
+    - The section should be designed specifically for a plant nursery / plant e-commerce website.
+    - All plant/product images must be selectable through Shopify's Theme Editor using image upload/picker options.
+    - Do NOT hardcode image URLs.
+    - Make the section fully responsive for desktop, tablet and mobile.
+    
+    SECTION LAYOUT:
+    
+    1. MAIN SECTION
+    - Full-width horizontal section.
+    - Use a soft warm cream/off-white background.
+    - Add a subtle decorative abstract radial/sunburst shape in the background on the right side.
+    - Keep the overall design clean, premium and modern.
+    - Rounded corners where appropriate.
+    
+    2. PRODUCT CAROUSEL
+    Create a horizontally scrollable product carousel on the left/middle area.
+    
+    Display 3 plant product cards at a time on desktop.
+    
+    Each product card should contain:
+    
+    TOP AREA:
+    - Large product image.
+    - Image must be selectable/uploadable from Shopify Theme Editor.
+    - Image should automatically fit inside the image area without distortion.
+    - Rounded top corners.
+    - Bestseller badge at top-left.
+    - Discount badge at top-right.
+    
+    PRODUCT DETAILS:
+    - Small rating badge such as:
+      ★ 4.8 | 440
+    - Product title.
+    - Short product description.
+    - Current price.
+    - Original price with strikethrough.
+    - Discount percentage.
+    - Circular dark-green Add to Cart icon/button at bottom-right.
+    
+    Example content:
+    Product 1:
+    Title: Peace Lily Plant
+    Description: Stunning air-purifying plant
+    Price: ₹299
+    Original Price: ₹350
+    Discount: 15% OFF
+    Rating: 4.8
+    Reviews: 440
+    
+    Product 2:
+    Title: Anthurium Red Plant
+    Description: Long-lasting indoor plant
+    Price: ₹699
+    Original Price: ₹800
+    Discount: 13% OFF
+    Rating: 4.8
+    Reviews: 111
+    
+    Product 3:
+    Title: Jade Mini Plant
+    Description: Easy-care lucky succulent
+    Price: ₹249
+    Original Price: ₹300
+    Discount: 17% OFF
+    Rating: 4.8
+    Reviews: 414
+    
+    3. SHOPIFY CUSTOMIZATION OPTIONS
+    
+    In the Shopify Theme Editor, provide settings for each product card:
+    
+    - Product image upload/picker
+    - Product title
+    - Product description
+    - Current price
+    - Original price
+    - Discount text
+    - Bestseller badge ON/OFF
+    - Bestseller text
+    - Rating
+    - Review count
+    - Product link
+    - Add to cart button
+    - Card background color
+    
+    Allow at least 6 product cards to be added dynamically using Shopify blocks.
+    
+    Each block should have its own image picker.
+    
+    4. CAROUSEL FUNCTIONALITY
+    
+    - Desktop: show 3 cards.
+    - Tablet: show 2 cards.
+    - Mobile: show 1 card with part of the next card visible.
+    - Add a circular dark-green right arrow button overlapping the carousel.
+    - Add a left arrow as well, but keep it subtle.
+    - Smooth horizontal sliding animation.
+    - Touch/swipe support on mobile.
+    - Do not use external carousel libraries.
+    - Use lightweight JavaScript/CSS.
+    - Infinite or smooth looping is preferred.
+    - Disable arrows when there are no more slides if infinite looping is not used.
+    
+    5. DESIGN STYLE
+    
+    Use a premium nursery / botanical visual style.
+    
+    Colors:
+    - Dark green: #1F5130
+    - Yellow/golden accent: #FFD60A
+    - Cream background: #FFF9E8
+    - White product card: #FFFFFF
+    - Muted gray for secondary text.
+    
+    Typography:
+    - Product titles should have a slightly elegant serif style.
+    - Descriptions and prices should use a clean modern sans-serif font.
+    - Use responsive font sizes.
+    
+    6. IMAGE SETTINGS
+    
+    VERY IMPORTANT:
+    Every product card must have a Shopify image picker.
+    
+    Example schema structure:
+    
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Plant Image"
+    }
+    
+    The uploaded image should be displayed dynamically.
+    
+    Also provide an optional image picker for:
+    - Background/decorative plant image
+    - Optional promotional image
+    
+    Do NOT use the human image from the reference.
+    
+    7. HOVER EFFECT
+    
+    When the user hovers over a product card:
+    - Slightly lift the card.
+    - Add a subtle shadow.
+    - Plant image should have a very subtle zoom effect.
+    - Add-to-cart button can slightly scale.
+    - Keep the animation smooth and premium.
+    - Do not make the animation excessive.
+    
+    8. ADD TO CART
+    
+    The circular shopping-bag/cart button should work with Shopify's cart functionality.
+    
+    If the block is connected to a Shopify product:
+    - Clicking the button should add the selected product to cart.
+    - Use Shopify's product/variant information.
+    - If necessary, provide a product selector in the Theme Editor.
+    
+    Provide:
+    - Product selector
+    - Variant support
+    - Add-to-cart functionality
+    
+    9. RESPONSIVE DESIGN
+    
+    Desktop:
+    - 3 product cards visible.
+    - Cards should have equal width.
+    - Carousel occupies approximately 65–70% of the section.
+    - Leave enough breathing space around the cards.
+    
+    Mobile:
+    - One card visible at a time.
+    - Horizontal swipe carousel.
+    - Product cards should remain visually large.
+    - Hide unnecessary decorative elements.
+    - Keep prices and buttons easy to tap.
+    - No horizontal page overflow.
+    
+    10. CODE REQUIREMENTS
+    
+    Generate a complete Shopify Online Store 2.0 section.
+    
+    Provide:
+    - Liquid
+    - HTML
+    - CSS
+    - JavaScript
+    - Shopify schema
+    
+    The code must be placed in ONE Shopify section file.
+    with view all products button and with link , i want in the image as cart icon button and view all products button with links , in the plant images i want cart icon button and view all products button with hovers, i need small cart icon button in the right down side with small icon and that left side of the cart icon i need view all  products
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% style %}.ai-plants-{{ ai_gen_id }}{display:block;width:{{ block.settings.desktop_width_percent }}%;background:#fff9e8;padding:28px 16px}.ai-plants-{{ ai_gen_id }}__track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;max-width:1200px;margin:auto}.ai-plants-{{ ai_gen_id }}__card{flex:0 0 calc((100% - 32px)/3);background:#fff;border-radius:16px;overflow:hidden;scroll-snap-align:start;box-shadow:0 4px 16px #1f51301a;transition:transform .22s,box-shadow .22s}.ai-plants-{{ ai_gen_id }}__card:hover{transform:translateY(-4px);box-shadow:0 12px 26px #1f513033}.ai-plants-{{ ai_gen_id }}__image{position:relative;height:270px;background:#f2efe6;overflow:hidden}.ai-plants-{{ ai_gen_id }}__image img{width:100%;height:100%;object-fit:cover;transition:transform .25s}.ai-plants-{{ ai_gen_id }}__card:hover img{transform:scale(1.03)}.ai-plants-{{ ai_gen_id }}__image svg{width:100%;height:100%}.ai-plants-{{ ai_gen_id }}__body{padding:14px}.ai-plants-{{ ai_gen_id }}__name{font:21px Georgia,serif;color:#1f5130;margin:0 0 12px}.ai-plants-{{ ai_gen_id }}__action{display:flex;justify-content:flex-end;align-items:center;gap:9px;margin-top:10px}.ai-plants-{{ ai_gen_id }}__view{font:600 12px/1.2 Arial,sans-serif;color:#1f5130;text-decoration:none;padding:9px 12px;border:1px solid #1f5130;border-radius:99px;transition:background .2s,color .2s,transform .2s}.ai-plants-{{ ai_gen_id }}__view:hover{background:#1f5130;color:#fff;transform:translateY(-1px)}.ai-plants-{{ ai_gen_id }}__cart{display:grid;place-items:center;width:38px;height:38px;flex:0 0 38px;border:0;border-radius:50%;background:#1f5130;color:#fff;cursor:pointer;transition:transform .2s,background .2s;box-shadow:0 2px 8px #1f513033}.ai-plants-{{ ai_gen_id }}__cart:hover{background:#0d3a1d;transform:scale(1.08)}.ai-plants-{{ ai_gen_id }}__cart:focus-visible,.ai-plants-{{ ai_gen_id }}__view:focus-visible{outline:3px solid #ffd60a;outline-offset:3px}.ai-plants-{{ ai_gen_id }}__controls{display:flex;justify-content:flex-end;gap:8px;max-width:1200px;margin:14px auto 0}.ai-plants-{{ ai_gen_id }}__arrow{border:1px solid #1f5130;background:#fff;color:#1f5130;width:38px;height:38px;border-radius:50%;cursor:pointer}.ai-plants-{{ ai_gen_id }}__arrow--next{background:#1f5130;color:#fff}@media(max-width:900px){.ai-plants-{{ ai_gen_id }}__card{flex-basis:calc((100% - 16px)/2)}}@media(max-width:600px){.ai-plants-{{ ai_gen_id }}__card{flex-basis:84%}.ai-plants-{{ ai_gen_id }}__image{height:245px}}{% endstyle %}
+<plant-slider-{{ ai_gen_id }} class="ai-plants-{{ ai_gen_id }}" {{ block.shopify_attributes }}><div class="ai-plants-{{ ai_gen_id }}__track" data-track>{% for i in (1..6) %}{% liquid
+assign image_key='image_' | append:i
+assign product_key='product_' | append:i
+assign title_key='title_' | append:i
+assign link_key='link_' | append:i
+assign image=block.settings[image_key]
+assign product=block.settings[product_key]
+assign title=block.settings[title_key]
+assign link=block.settings[link_key]
+if product != blank
+assign title=product.title
+if link == blank
+assign link=product.url
+endif
+endif
+%}{% if image != blank or product != blank or title != blank %}<article class="ai-plants-{{ ai_gen_id }}__card"><div class="ai-plants-{{ ai_gen_id }}__image">{% if image != blank %}<img src="{{ image | image_url: width: 900 }}" alt="{{ image.alt | default:title | escape }}" loading="lazy" width="{{ image.width }}" height="{{ image.height }}">{% elsif product.featured_image %}<img src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.featured_image.alt | escape }}" loading="lazy">{% else %}{{ 'product-apparel-1' | placeholder_svg_tag }}{% endif %}</div><div class="ai-plants-{{ ai_gen_id }}__body"><h3 class="ai-plants-{{ ai_gen_id }}__name">{{ title | escape }}</h3><div class="ai-plants-{{ ai_gen_id }}__action">{% if link != blank %}<a class="ai-plants-{{ ai_gen_id }}__view" href="{{ link }}">View all products</a>{% endif %}{% if product != blank %}<form method="post" action="{{ routes.cart_add_url }}"><input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}"><input type="hidden" name="quantity" value="1"><button class="ai-plants-{{ ai_gen_id }}__cart" type="submit" aria-label="Add {{ product.title | escape }} to cart" {% unless product.available %}disabled{% endunless %}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 8h14l1 13H4L5 8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 9V6a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></form>{% else %}<a class="ai-plants-{{ ai_gen_id }}__cart" href="{{ link | default: routes.all_products_collection_url }}" aria-label="Browse products"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 8h14l1 13H4L5 8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 9V6a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>{% endif %}</div></div></article>{% endif %}{% endfor %}</div><div class="ai-plants-{{ ai_gen_id }}__controls"><button type="button" class="ai-plants-{{ ai_gen_id }}__arrow" data-prev aria-label="Previous products">‹</button><button type="button" class="ai-plants-{{ ai_gen_id }}__arrow ai-plants-{{ ai_gen_id }}__arrow--next" data-next aria-label="Next products">›</button></div></plant-slider-{{ ai_gen_id }}>
+<script>(function(){const n='plant-slider-{{ ai_gen_id }}';if(customElements.get(n))return;class PlantSlider extends HTMLElement{connectedCallback(){this.t=this.querySelector('[data-track]');this.querySelector('[data-prev]').addEventListener('click',()=>this.move(-1));this.querySelector('[data-next]').addEventListener('click',()=>this.move(1))}move(d){const c=this.t.querySelector('article');if(c)this.t.scrollBy({left:d*(c.getBoundingClientRect().width+16),behavior:'smooth'})}}customElements.define(n,PlantSlider)})();</script>
+{% schema %}{"name":"Plant image actions","settings":[{"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},{"type":"header","content":"Plant 1"},{"type":"image_picker","id":"image_1","label":"Plant image"},{"type":"text","id":"title_1","label":"Title","default":"Plant one"},{"type":"product","id":"product_1","label":"Shopify product"},{"type":"url","id":"link_1","label":"Product link"},{"type":"header","content":"Plant 2"},{"type":"image_picker","id":"image_2","label":"Plant image"},{"type":"text","id":"title_2","label":"Title","default":"Plant two"},{"type":"product","id":"product_2","label":"Shopify product"},{"type":"url","id":"link_2","label":"Product link"},{"type":"header","content":"Plant 3"},{"type":"image_picker","id":"image_3","label":"Plant image"},{"type":"text","id":"title_3","label":"Title","default":"Plant three"},{"type":"product","id":"product_3","label":"Shopify product"},{"type":"url","id":"link_3","label":"Product link"},{"type":"header","content":"Plant 4"},{"type":"image_picker","id":"image_4","label":"Plant image"},{"type":"text","id":"title_4","label":"Title","default":"Plant four"},{"type":"product","id":"product_4","label":"Shopify product"},{"type":"url","id":"link_4","label":"Product link"},{"type":"header","content":"Plant 5"},{"type":"image_picker","id":"image_5","label":"Plant image"},{"type":"text","id":"title_5","label":"Title","default":"Plant five"},{"type":"product","id":"product_5","label":"Shopify product"},{"type":"url","id":"link_5","label":"Product link"},{"type":"header","content":"Plant 6"},{"type":"image_picker","id":"image_6","label":"Plant image"},{"type":"text","id":"title_6","label":"Title","default":"Plant six"},{"type":"product","id":"product_6","label":"Shopify product"},{"type":"url","id":"link_6","label":"Product link"}],"presets":[{"name":"Plant image actions"}],"tag":null,"class":"plant-image-actions"}{% endschema %}
