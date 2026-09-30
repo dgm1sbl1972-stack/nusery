@@ -66,8 +66,9 @@
         "ai_gen_block_c92082c_BcPakL": {
           "type": "ai_gen_block_c92082c",
           "settings": {
+            "logo": "shopify://shop_images/Untitled_design_25_XC.png",
             "logo_link": "",
-            "logo_width": 140,
+            "logo_width": 100,
             "desktop_width_percent": 100,
             "link_gap": 20,
             "search_width": 130,
