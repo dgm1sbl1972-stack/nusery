@@ -1,6 +1,265 @@
+{% doc %}
+  @prompt
+    Create a complete premium Shopify Online Store 2.0 custom header section for SBL Farms from scratch.
+    
+    IMPORTANT:
+    Make the ENTIRE header fully customizable through the Shopify Theme Editor. Do not hard-code important design values. Every major element, size, spacing, color, position, visibility, link, and behavior must have editable settings.
+    
+    HEADER STRUCTURE:
+    
+    Desktop:
+    [ SBL Farms Logo ] [ Plants ⌄ | Seeds ⌄ | Pots ⌄ | Services ⌄ | Gifting ⌄ | Blog | Contact ] [ Search Bar | Account | Wishlist | Cart ]
+    
+    Do NOT include Home.
+    
+    --------------------------------------------------
+    1. HEADER HEIGHT & GENERAL SETTINGS
+    --------------------------------------------------
+    
+    Create separate editable settings for:
+    
+    Desktop:
+    - Header height: 50px–140px
+    - Default: 80px
+    
+    Tablet:
+    - Header height: 50px–130px
+    - Default: 70px
+    
+    Mobile:
+    - Header height: 50px–100px
+    - Default: 64px
+    
+    Also make editable:
+    - Header background color
+    - Header text color
+    - Header hover color
+    - Header icon color
+    - Header active color
+    - Header border color
+    - Border thickness
+    - Header shadow
+    - Header top padding
+    - Header bottom padding
+    - Header left/right padding
+    - Maximum content width
+    - Header alignment
+    - Overall header spacing
+    
+    The header height must actually change when the Theme Editor value is changed.
+    
+    --------------------------------------------------
+    2. LOGO
+    --------------------------------------------------
+    
+    Add an editable Shopify image picker for the SBL Farms logo.
+    
+    Settings:
+    - Logo image
+    - Logo link
+    - Desktop logo width
+    - Tablet logo width
+    - Mobile logo width
+    - Logo height/max-height
+    - Logo spacing
+    - Show/hide logo
+    
+    Preserve the original logo aspect ratio.
+    
+    Never stretch, crop, or distort the logo.
+    
+    --------------------------------------------------
+    3. MAIN NAVIGATION
+    --------------------------------------------------
+    
+    Navigation:
+    
+    Plants ⌄
+    Seeds ⌄
+    Pots ⌄
+    Services ⌄
+    Gifting ⌄
+    Blog
+    Contact
+    
+    Do NOT add Home.
+    
+    Make navigation fully editable:
+    - Menu text color
+    - Hover color
+    - Active color
+    - Font family
+    - Font size
+    - Font weight
+    - Letter spacing
+    - Text transform
+    - Navigation gap
+    - Vertical alignment
+    - Navigation position
+    - Menu item padding
+    - Menu item spacing
+    - Show/hide navigation
+    
+    Do NOT use pills, buttons, boxes, or backgrounds around navigation items.
+    
+    Use clean premium text navigation.
+    
+    --------------------------------------------------
+    4. DROPDOWN CHEVRON
+    --------------------------------------------------
+    
+    For Plants, Seeds, Pots, Services and Gifting:
+    
+    Use a small elegant thin SVG chevron instead of the default ▼ character.
+    
+    Settings:
+    - Chevron size
+    - Chevron color
+    - Chevron spacing
+    - Animation speed
+    - Chevron stroke width
+    
+    Behavior:
+    - Closed = points downward
+    - Open = rotates 180 degrees upward
+    - Smooth rotation animation
+    - Vertically aligned with menu text
+    - Same chevron behavior on desktop, tablet and mobile
+    
+    Do not use a large arrow.
+    
+    --------------------------------------------------
+    5. PLANTS DROPDOWN
+    --------------------------------------------------
+    
+    Create exactly 10 editable submenu blocks:
+    
+    1. Indoor Plants
+    2. Outdoor Plants
+    3. Flowering Plants
+    4. Succulents
+    5. Cacti
+    6. Fruit Plants
+    7. Herbs
+    8. Air-Purifying Plants
+    9. Bonsai Plants
+    10. Climbers and Creepers
+    
+    Each item must have:
+    - Editable label
+    - Editable Shopify link/URL
+    - Enable/disable setting
+    
+    --------------------------------------------------
+    6. SEEDS DROPDOWN
+    --------------------------------------------------
+    
+    Create exactly 10 editable submenu blocks:
+    
+    1. Vegetable Seeds
+    2. Flower Seeds
+    3. Herb Seeds
+    4. Fruit Seeds
+    5. Organic Seeds
+    6. Microgreen Seeds
+    7. Hybrid Seeds
+    8. Flower Mix Seeds
+    9. Lawn Grass Seeds
+    10. Seasonal Seeds
+    
+    Each item must have:
+    - Editable label
+    - Editable Shopify link/URL
+    - Enable/disable setting
+    
+    --------------------------------------------------
+    7. POTS DROPDOWN
+    --------------------------------------------------
+    
+    Create exactly 10 editable submenu blocks:
+    
+    1. Terracotta Pots
+    2. Ceramic Pots
+    3. Plastic Pots
+    4. Hanging Planters
+    5. Self-Watering Pots
+    6. Grow Bags
+    7. Window Planters
+    8. Decorative Planters
+    9. Seedling Trays
+    10. Plant Stands
+    
+    Each item must have:
+    - Editable label
+    - Editable Shopify link/URL
+    - Enable/disable setting
+    
+    --------------------------------------------------
+    8. SERVICES DROPDOWN
+    --------------------------------------------------
+    
+    Create exactly 10 editable submenu blocks:
+    
+    1. Landscaping
+    2. Green Walls
+    3. AMC (Annual Maintenance Contract)
+    4. Plant Rental
+    5. Indoor Plant Maintenance
+    6. Outdoor Plant Maintenance
+    7. Garden Maintenance
+    8. Terrace Gardening
+    9. Vertical Garden Installation
+    10. Plant Consultation
+    
+    Each item must have:
+    - Editable label
+    - Editable Shopify link/URL
+    - Enable/disable setting
+    
+    --------------------------------------------------
+    9. GIFTING DROPDOWN
+    --------------------------------------------------
+    
+    Create exactly 10 editable submenu blocks:
+    
+    1. Corporate Gifting
+    2. Bulk Gifting
+    3. Plant Gifting
+    4. Personalized Plant Gifts
+    5. Employee Gifting
+    6. Client Gifting
+    7. Festive Plant Gifting
+    8. Wedding Plant Gifting
+    9. Ec
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% style %}
+.sbl-header-{{ ai_gen_id }}{display:block;width:100%;max-width:100%;color:{{ block.settings.text_color }};background:{{ block.settings.background_color }};border-bottom:{{ block.settings.border_thickness }}px solid {{ block.settings.border_color }};box-shadow:{% if block.settings.show_shadow %}0 4px 18px rgba(20,35,26,.09){% else %}none{% endif %};z-index:30;position:relative}
+.sbl-header-{{ ai_gen_id }}__inner{width:{{ block.settings.desktop_width_percent }}%;max-width:{{ block.settings.max_width }}px;min-height:{{ block.settings.desktop_height }}px;margin:0 auto;padding:{{ block.settings.padding_top }}px {{ block.settings.padding_horizontal }}px {{ block.settings.padding_bottom }}px;display:flex;align-items:{{ block.settings.alignment }};justify-content:space-between;gap:{{ block.settings.overall_spacing }}px;box-sizing:border-box}
+.sbl-header-{{ ai_gen_id }}__brand{display:flex;align-items:center;flex:0 0 auto;gap:{{ block.settings.logo_spacing }}px}.sbl-header-{{ ai_gen_id }}__logo{display:block;width:{{ block.settings.logo_width_desktop }}px;max-height:{{ block.settings.logo_max_height }}px;height:auto;object-fit:contain}.sbl-header-{{ ai_gen_id }}__brand-name{color:inherit;text-decoration:none;font-weight:700}
+.sbl-header-{{ ai_gen_id }}__nav{display:{% if block.settings.show_navigation %}flex{% else %}none{% endif %};align-items:center;justify-content:{{ block.settings.nav_position }};flex:1 1 auto;gap:{{ block.settings.nav_gap }}px}.sbl-header-{{ ai_gen_id }}__item{position:relative}.sbl-header-{{ ai_gen_id }}__trigger,.sbl-header-{{ ai_gen_id }}__link{color:{{ block.settings.nav_color }};font-family:{{ block.settings.nav_font.family }},{{ block.settings.nav_font.fallback_families }};font-size:{{ block.settings.nav_font_size }}px;font-weight:{{ block.settings.nav_font_weight }};letter-spacing:{{ block.settings.letter_spacing }}px;text-transform:{{ block.settings.text_transform }};text-decoration:none;white-space:nowrap}.sbl-header-{{ ai_gen_id }}__trigger{display:inline-flex;align-items:center;gap:{{ block.settings.chevron_spacing }}px;border:0;padding:{{ block.settings.item_padding }}px;background:transparent;cursor:pointer}.sbl-header-{{ ai_gen_id }}__link{display:inline-block;padding:{{ block.settings.item_padding }}px}.sbl-header-{{ ai_gen_id }}__trigger:hover,.sbl-header-{{ ai_gen_id }}__link:hover{color:{{ block.settings.hover_color }}}
+.sbl-header-{{ ai_gen_id }}__chevron{width:{{ block.settings.chevron_size }}px;height:{{ block.settings.chevron_size }}px;color:{{ block.settings.chevron_color }};transition:transform {{ block.settings.animation_speed }}ms ease;flex:0 0 auto}.sbl-header-{{ ai_gen_id }}__trigger[aria-expanded=true] .sbl-header-{{ ai_gen_id }}__chevron,.sbl-header-{{ ai_gen_id }}__mobile-nav-item.is-open .sbl-header-{{ ai_gen_id }}__chevron{transform:rotate(180deg)}
+.sbl-header-{{ ai_gen_id }}__dropdown{display:none;position:absolute;top:100%;left:0;min-width:230px;padding:12px;background:{{ block.settings.dropdown_background }};border:1px solid {{ block.settings.border_color }};border-radius:8px;box-shadow:0 8px 24px rgba(20,35,26,.12);z-index:40}.sbl-header-{{ ai_gen_id }}__item.is-open .sbl-header-{{ ai_gen_id }}__dropdown{display:block}.sbl-header-{{ ai_gen_id }}__dropdown a{display:block;padding:9px 10px;color:{{ block.settings.text_color }};text-decoration:none;font-size:14px;line-height:1.4}.sbl-header-{{ ai_gen_id }}__dropdown a:hover,.sbl-header-{{ ai_gen_id }}__dropdown a:focus-visible{color:{{ block.settings.hover_color }};background:{{ block.settings.dropdown_hover_background }};outline-offset:2px}
+.sbl-header-{{ ai_gen_id }}__actions{display:flex;align-items:center;gap:{{ block.settings.action_spacing }}px;flex:0 0 auto}.sbl-header-{{ ai_gen_id }}__search{display:flex;align-items:center;border:1px solid {{ block.settings.border_color }};border-radius:24px;overflow:hidden}.sbl-header-{{ ai_gen_id }}__search input{width:{{ block.settings.search_width }}px;min-width:0;padding:9px 12px;border:0;outline:0;background:transparent;color:{{ block.settings.text_color }}}.sbl-header-{{ ai_gen_id }}__search button,.sbl-header-{{ ai_gen_id }}__icon-link,.sbl-header-{{ ai_gen_id }}__mobile-toggle{display:inline-flex;align-items:center;justify-content:center;padding:6px;border:0;color:{{ block.settings.icon_color }};background:transparent;text-decoration:none;cursor:pointer}.sbl-header-{{ ai_gen_id }}__icon-link svg,.sbl-header-{{ ai_gen_id }}__search svg,.sbl-header-{{ ai_gen_id }}__mobile-toggle svg{width:{{ block.settings.icon_size }}px;height:{{ block.settings.icon_size }}px;stroke:currentColor}.sbl-header-{{ ai_gen_id }}__icon-link:hover,.sbl-header-{{ ai_gen_id }}__mobile-toggle:hover{color:{{ block.settings.hover_color }}}.sbl-header-{{ ai_gen_id }}__mobile-toggle,.sbl-header-{{ ai_gen_id }}__mobile-panel{display:none}
+@media(max-width:989px){.sbl-header-{{ ai_gen_id }}__inner{min-height:{{ block.settings.tablet_height }}px}.sbl-header-{{ ai_gen_id }}__logo{width:{{ block.settings.logo_width_tablet }}px}.sbl-header-{{ ai_gen_id }}__nav{gap:{{ block.settings.nav_gap | times: 0.65 }}px}.sbl-header-{{ ai_gen_id }}__trigger,.sbl-header-{{ ai_gen_id }}__link{font-size:{{ block.settings.nav_font_size | times: 0.9 }}px}}
+@media(max-width:749px){.sbl-header-{{ ai_gen_id }}__inner{min-height:{{ block.settings.mobile_height }}px;padding-left:16px;padding-right:16px}.sbl-header-{{ ai_gen_id }}__logo{width:{{ block.settings.logo_width_mobile }}px}.sbl-header-{{ ai_gen_id }}__nav,.sbl-header-{{ ai_gen_id }}__search,.sbl-header-{{ ai_gen_id }}__desktop-account,.sbl-header-{{ ai_gen_id }}__desktop-wishlist{display:none}.sbl-header-{{ ai_gen_id }}__mobile-toggle{display:inline-flex}.sbl-header-{{ ai_gen_id }}__mobile-panel{padding:8px 16px 18px;border-top:1px solid {{ block.settings.border_color }}}.sbl-header-{{ ai_gen_id }}__mobile-panel.is-open{display:block}.sbl-header-{{ ai_gen_id }}__mobile-nav-item{border-bottom:1px solid {{ block.settings.border_color }}}.sbl-header-{{ ai_gen_id }}__mobile-nav-item>button,.sbl-header-{{ ai_gen_id }}__mobile-nav-item>a{display:flex;justify-content:space-between;align-items:center;width:100%;padding:12px 4px;border:0;background:none;color:{{ block.settings.nav_color }};font:inherit;text-align:left;text-decoration:none}.sbl-header-{{ ai_gen_id }}__mobile-submenu{display:none;padding:0 0 8px 12px}.sbl-header-{{ ai_gen_id }}__mobile-nav-item.is-open .sbl-header-{{ ai_gen_id }}__mobile-submenu{display:block}.sbl-header-{{ ai_gen_id }}__mobile-submenu a{display:block;padding:8px 4px;color:{{ block.settings.text_color }};text-decoration:none}}
+{% endstyle %}
+<sbl-header-{{ ai_gen_id }} class="sbl-header-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+<div class="sbl-header-{{ ai_gen_id }}__inner">
+{% if block.settings.show_logo %}<a class="sbl-header-{{ ai_gen_id }}__brand" href="{{ block.settings.logo_link | default: routes.root_url }}" aria-label="{{ shop.name | escape }}">{% if block.settings.logo %}<img class="sbl-header-{{ ai_gen_id }}__logo" src="{{ block.settings.logo | image_url: width: 600 }}" alt="{{ block.settings.logo.alt | default: shop.name | escape }}" loading="eager" width="{{ block.settings.logo.width }}" height="{{ block.settings.logo.height }}">{% else %}<span class="sbl-header-{{ ai_gen_id }}__brand-name">SBL Farms</span>{% endif %}</a>{% endif %}
+{% assign nav_titles='Plants|Seeds|Pots|Services|Gifting' | split:'|' %}{% assign menu_keys='plants_menu|seeds_menu|pots_menu|services_menu|gifting_menu' | split:'|' %}
+<nav class="sbl-header-{{ ai_gen_id }}__nav" aria-label="Main navigation">{% for title in nav_titles %}{% assign idx=forloop.index0 %}{% assign menu_key=menu_keys[idx] %}{% assign menu=block.settings[menu_key] %}<div class="sbl-header-{{ ai_gen_id }}__item"><button class="sbl-header-{{ ai_gen_id }}__trigger" type="button" aria-expanded="false">{{ title }}<svg class="sbl-header-{{ ai_gen_id }}__chevron" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m2 4 4 4 4-4" stroke="currentColor" stroke-width="{{ block.settings.chevron_stroke }}" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="sbl-header-{{ ai_gen_id }}__dropdown">{% if menu != blank %}{% for link in menu.links limit:10 %}<a href="{{ link.url }}">{{ link.title | escape }}</a>{% endfor %}{% else %}<span style="display:block;padding:9px 10px">Choose a menu in block settings</span>{% endif %}</div></div>{% endfor %}{% if block.settings.blog_link != blank %}<a class="sbl-header-{{ ai_gen_id }}__link" href="{{ block.settings.blog_link }}">{{ block.settings.blog_label | escape }}</a>{% endif %}{% if block.settings.contact_link != blank %}<a class="sbl-header-{{ ai_gen_id }}__link" href="{{ block.settings.contact_link }}">{{ block.settings.contact_label | escape }}</a>{% endif %}</nav>
+<div class="sbl-header-{{ ai_gen_id }}__actions">{% if block.settings.show_search %}<form class="sbl-header-{{ ai_gen_id }}__search" action="{{ routes.search_url }}" method="get" role="search"><input type="search" name="q" placeholder="{{ block.settings.search_placeholder | escape }}" aria-label="Search store"><button type="submit" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></button></form>{% endif %}{% if block.settings.show_account %}<a class="sbl-header-{{ ai_gen_id }}__icon-link sbl-header-{{ ai_gen_id }}__desktop-account" href="{{ routes.account_url }}" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg></a>{% endif %}{% if block.settings.show_wishlist and block.settings.wishlist_link != blank %}<a class="sbl-header-{{ ai_gen_id }}__icon-link sbl-header-{{ ai_gen_id }}__desktop-wishlist" href="{{ block.settings.wishlist_link }}" aria-label="Wishlist"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M20.8 8.8c0 5.1-8.8 11-8.8 11s-8.8-5.9-8.8-11A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z"/></svg></a>{% endif %}{% if block.settings.show_cart %}<a class="sbl-header-{{ ai_gen_id }}__icon-link" href="{{ routes.cart_url }}" aria-label="Cart, {{ cart.item_count }} items"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 1.9-1.5L21 8H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg></a>{% endif %}<button class="sbl-header-{{ ai_gen_id }}__mobile-toggle" type="button" aria-expanded="false" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button></div>
+</div>
+<div class="sbl-header-{{ ai_gen_id }}__mobile-panel"><nav aria-label="Mobile navigation">{% for title in nav_titles %}{% assign idx=forloop.index0 %}{% assign menu_key=menu_keys[idx] %}{% assign menu=block.settings[menu_key] %}<div class="sbl-header-{{ ai_gen_id }}__mobile-nav-item"><button type="button" aria-expanded="false">{{ title }}<svg class="sbl-header-{{ ai_gen_id }}__chevron" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m2 4 4 4 4-4" stroke="currentColor" stroke-width="{{ block.settings.chevron_stroke }}" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="sbl-header-{{ ai_gen_id }}__mobile-submenu">{% if menu != blank %}{% for link in menu.links limit:10 %}<a href="{{ link.url }}">{{ link.title | escape }}</a>{% endfor %}{% endif %}</div></div>{% endfor %}{% if block.settings.blog_link != blank %}<div class="sbl-header-{{ ai_gen_id }}__mobile-nav-item"><a href="{{ block.settings.blog_link }}">{{ block.settings.blog_label | escape }}</a></div>{% endif %}{% if block.settings.contact_link != blank %}<div class="sbl-header-{{ ai_gen_id }}__mobile-nav-item"><a href="{{ block.settings.contact_link }}">{{ block.settings.contact_label | escape }}</a></div>{% endif %}</nav></div>
+</sbl-header-{{ ai_gen_id }}>
+<script>(()=>{const tag='sbl-header-{{ ai_gen_id }}';if(customElements.get(tag))return;class SblHeader extends HTMLElement{connectedCallback(){this.querySelectorAll('.sbl-header-{{ ai_gen_id }}__trigger,.sbl-header-{{ ai_gen_id }}__mobile-nav-item>button').forEach(button=>button.addEventListener('click',()=>{const item=button.closest('.sbl-header-{{ ai_gen_id }}__item,.sbl-header-{{ ai_gen_id }}__mobile-nav-item');const opening=!item.classList.contains('is-open');this.querySelectorAll('.sbl-header-{{ ai_gen_id }}__item.is-open,.sbl-header-{{ ai_gen_id }}__mobile-nav-item.is-open').forEach(other=>{other.classList.remove('is-open');const trigger=other.querySelector('button');if(trigger)trigger.setAttribute('aria-expanded','false')});item.classList.toggle('is-open',opening);button.setAttribute('aria-expanded',opening?'true':'false')}));const toggle=this.querySelector('.sbl-header-{{ ai_gen_id }}__mobile-toggle');const panel=this.querySelector('.sbl-header-{{ ai_gen_id }}__mobile-panel');if(toggle&&panel)toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',open);toggle.setAttribute('aria-label',open?'Close menu':'Open menu');panel.classList.toggle('is-open',open)});document.addEventListener('click',event=>{if(!this.contains(event.target))this.querySelectorAll('.is-open').forEach(item=>{item.classList.remove('is-open');const button=item.querySelector('button');if(button)button.setAttribute('aria-expanded','false')})})}}customElements.define(tag,SblHeader)})();</script>
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{"name":"SBL Farms header","tag":null,"class":"sbl-farms-header-block","settings":[
+{"type":"header","content":"Layout and colors"},{"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},{"type":"range","id":"desktop_height","label":"Desktop height","min":50,"max":140,"step":5,"unit":"px","default":80},{"type":"range","id":"tablet_height","label":"Tablet height","min":50,"max":130,"step":5,"unit":"px","default":70},{"type":"range","id":"mobile_height","label":"Mobile height","min":50,"max":100,"step":5,"unit":"px","default":65},{"type":"range","id":"max_width","label":"Maximum content width","min":900,"max":1600,"step":50,"unit":"px","default":1200},{"type":"range","id":"padding_top","label":"Top padding","min":0,"max":30,"step":2,"unit":"px","default":8},{"type":"range","id":"padding_bottom","label":"Bottom padding","min":0,"max":30,"step":2,"unit":"px","default":8},{"type":"range","id":"padding_horizontal","label":"Side padding","min":0,"max":50,"step":2,"unit":"px","default":16},{"type":"range","id":"overall_spacing","label":"Overall spacing","min":0,"max":50,"step":2,"unit":"px","default":20},{"type":"select","id":"alignment","label":"Vertical alignment","options":[{"value":"center","label":"Center"},{"value":"flex-start","label":"Top"},{"value":"flex-end","label":"Bottom"}],"default":"center"},{"type":"color","id":"background_color","label":"Background","default":"#F8F4EC"},{"type":"color","id":"text_color","label":"Text","default":"#14231A"},{"type":"color","id":"hover_color","label":"Hover and active","default":"#1F5130"},{"type":"color","id":"icon_color","label":"Icons","default":"#1F5130"},{"type":"color","id":"border_color","label":"Border","default":"#D9DFD3"},{"type":"range","id":"border_thickness","label":"Border thickness","min":0,"max":5,"step":1,"unit":"px","default":1},{"type":"checkbox","id":"show_shadow","label":"Show subtle shadow","default":false},
+{"type":"header","content":"Logo"},{"type":"checkbox","id":"show_logo","label":"Show logo","default":true},{"type":"image_picker","id":"logo","label":"Logo image"},{"type":"url","id":"logo_link","label":"Logo link"},{"type":"range","id":"logo_width_desktop","label":"Desktop logo width","min":60,"max":280,"step":10,"unit":"px","default":160},{"type":"range","id":"logo_width_tablet","label":"Tablet logo width","min":60,"max":240,"step":10,"unit":"px","default":130},{"type":"range","id":"logo_width_mobile","label":"Mobile logo width","min":50,"max":180,"step":10,"unit":"px","default":110},{"type":"range","id":"logo_max_height","label":"Logo maximum height","min":20,"max":100,"step":5,"unit":"px","default":55},{"type":"range","id":"logo_spacing","label":"Logo spacing","min":0,"max":30,"step":2,"unit":"px","default":8},
+{"type":"header","content":"Navigation"},{"type":"checkbox","id":"show_navigation","label":"Show navigation","default":true},{"type":"font_picker","id":"nav_font","label":"Font family","default":"helvetica_n4"},{"type":"color","id":"nav_color","label":"Menu text color","default":"#14231A"},{"type":"range","id":"nav_font_size","label":"Font size","min":12,"max":22,"step":1,"unit":"px","default":15},{"type":"select","id":"nav_font_weight","label":"Font weight","options":[{"value":"400","label":"Regular"},{"value":"500","label":"Medium"},{"value":"600","label":"Semi-bold"},{"value":"700","label":"Bold"}],"default":"500"},{"type":"range","id":"letter_spacing","label":"Letter spacing","min":0,"max":3,"step":1,"unit":"px","default":0},{"type":"select","id":"text_transform","label":"Text transform","options":[{"value":"none","label":"As entered"},{"value":"uppercase","label":"Uppercase"},{"value":"capitalize","label":"Capitalize"}],"default":"none"},{"type":"range","id":"nav_gap","label":"Navigation gap","min":0,"max":40,"step":2,"unit":"px","default":8},{"type":"range","id":"item_padding","label":"Menu item padding","min":0,"max":16,"step":2,"unit":"px","default":6},{"type":"select","id":"nav_position","label":"Navigation position","options":[{"value":"center","label":"Center"},{"value":"flex-start","label":"Left"},{"value":"flex-end","label":"Right"}],"default":"center"},
+{"type":"header","content":"Dropdown menus"},{"type":"paragraph","content":"Create and edit your menus in Online Store > Navigation. Each dropdown displays up to 10 links, with editable labels and destinations."},{"type":"link_list","id":"plants_menu","label":"Plants menu"},{"type":"link_list","id":"seeds_menu","label":"Seeds menu"},{"type":"link_list","id":"pots_menu","label":"Pots menu"},{"type":"link_list","id":"services_menu","label":"Services menu"},{"type":"link_list","id":"gifting_menu","label":"Gifting menu"},{"type":"range","id":"chevron_size","label":"Chevron size","min":8,"max":16,"step":1,"unit":"px","default":11},{"type":"color","id":"chevron_color","label":"Chevron color","default":"#1F5130"},{"type":"range","id":"chevron_spacing","label":"Chevron spacing","min":2,"max":14,"step":1,"unit":"px","default":5},{"type":"range","id":"animation_speed","label":"Chevron animation speed","min":100,"max":500,"step":50,"unit":"ms","default":200},{"type":"range","id":"chevron_stroke","label":"Chevron stroke width","min":1,"max":3,"step":1,"default":1},{"type":"color","id":"dropdown_background","label":"Dropdown background","default":"#FFFFFF"},{"type":"color","id":"dropdown_hover_background","label":"Dropdown hover background","default":"#F4F7DC"},
+{"type":"header","content":"Blog and contact links"},{"type":"text","id":"blog_label","label":"Blog label","default":"Blog"},{"type":"url","id":"blog_link","label":"Blog link"},{"type":"text","id":"contact_label","label":"Contact label","default":"Contact"},{"type":"url","id":"contact_link","label":"Contact link"},
+{"type":"header","content":"Search and icons"},{"type":"checkbox","id":"show_search","label":"Show search","default":true},{"type":"text","id":"search_placeholder","label":"Search placeholder","default":"Search plants"},{"type":"range","id":"search_width","label":"Search width","min":100,"max":260,"step":10,"unit":"px","default":160},{"type":"checkbox","id":"show_account","label":"Show account","default":true},{"type":"checkbox","id":"show_wishlist","label":"Show wishlist","default":false},{"type":"url","id":"wishlist_link","label":"Wishlist link"},{"type":"checkbox","id":"show_cart","label":"Show cart","default":true},{"type":"range","id":"icon_size","label":"Icon size","min":16,"max":28,"step":2,"unit":"px","default":22},{"type":"range","id":"action_spacing","label":"Action spacing","min":4,"max":24,"step":2,"unit":"px","default":10}],"presets":[{"name":"SBL Farms header"}]}
 {% endschema %}
