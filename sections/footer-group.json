@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "Footer group",
@@ -5,13 +14,43 @@
     "footer": {
       "type": "footer",
       "blocks": {
-        "shop": { "type": "menu", "settings": { "heading": "Shop" } },
-        "services": { "type": "menu", "settings": { "heading": "Services" } },
-        "about": { "type": "menu", "settings": { "heading": "About us" } },
-        "help": { "type": "menu", "settings": { "heading": "Help" } }
+        "shop": {
+          "type": "menu",
+          "settings": {
+            "heading": "Shop",
+            "menu": ""
+          }
+        },
+        "services": {
+          "type": "menu",
+          "settings": {
+            "heading": "Services",
+            "menu": ""
+          }
+        },
+        "about": {
+          "type": "menu",
+          "settings": {
+            "heading": "About us",
+            "menu": ""
+          }
+        },
+        "help": {
+          "type": "menu",
+          "settings": {
+            "heading": "Help",
+            "menu": ""
+          }
+        }
       },
-      "block_order": ["shop", "services", "about", "help"],
+      "block_order": [
+        "shop",
+        "services",
+        "about",
+        "help"
+      ],
       "settings": {
+        "logo": "shopify://shop_images/Untitled_design_25.png",
         "brand_name": "Nursery",
         "tagline": "Nursery & Garden Store",
         "show_newsletter": true,
@@ -19,5 +58,7 @@
       }
     }
   },
-  "order": ["footer"]
+  "order": [
+    "footer"
+  ]
 }
