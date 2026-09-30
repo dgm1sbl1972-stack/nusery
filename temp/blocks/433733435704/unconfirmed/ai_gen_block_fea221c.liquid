@@ -1,6 +1,194 @@
+{% doc %}
+  @prompt
+    Update the "Think SBL Farms Is Just About Plants?
+    Think Again." section to include a background image upload option. The section should allow merchants to upload a background image, with an overlay option for text readability. "Explore a world of nature, adventure, animals, agritour,aquarium,rain dance,DJ,Swimming Pool & unforgettable experiences at SBL Farms".Keep all existing content and settings intact, just add the background image upload functionality., i need one button and link for that,
+    give corner border straight
+    give the button curve adjustment, button small
+{% enddoc %}
+{% doc %}
+  @prompt
+    Update the existing SBL Farms feature block to make its button smaller while preserving all current settings and content.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-farm-feature-{{ ai_gen_id }} {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    min-height: {{ block.settings.min_height }}px;
+    border-radius: {{ block.settings.section_radius }}px;
+    color: {{ block.settings.text_color }};
+    background-color: {{ block.settings.fallback_color }};
+  }
+
+  .ai-farm-feature-{{ ai_gen_id }}__background,
+  .ai-farm-feature-{{ ai_gen_id }}__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .ai-farm-feature-{{ ai_gen_id }}__background img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-farm-feature-{{ ai_gen_id }}__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: {{ block.settings.min_height }}px;
+    background: {{ block.settings.fallback_color }};
+  }
+
+  .ai-farm-feature-{{ ai_gen_id }}__placeholder svg {
+    width: 100%;
+    height: 100%;
+    max-height: {{ block.settings.min_height }}px;
+    object-fit: cover;
+  }
+
+  .ai-farm-feature-{{ ai_gen_id }}__overlay {
+    background-color: {{ block.settings.overlay_color }};
+    opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+  }
+
+  .ai-farm-feature-{{ ai_gen_id }}__content {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: {% if block.settings.text_alignment == 'center' %}center{% else %}flex-start{% endif %};
+    min-height: {{ block.settings.min_height }}px;
+    width: 100%;
+    padding: clamp(32px, 7vw, 88px);
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-farm-feature-{{ ai_gen_id }}__heading {
+    max-width: 780px;
+    margin: 0 0 18px;
+    color: {{ block.settings.text_color }};
+    font-size: clamp(32px, 5vw, {{ block.settings.heading_size }}px);
+    line-height: 1.12;
+  }
+
+  .ai-farm-feature-{{ ai_gen_id }}__description {
+    max-width: 760px;
+    margin: 0 0 22px;
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.description_size }}px;
+    line-height: 1.65;
+  }
+
+  .ai-farm-feature-{{ ai_gen_id }}__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 8px 18px;
+    border: 1px solid {{ block.settings.button_color }};
+    border-radius: {{ block.settings.button_radius }}px;
+    background: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+  }
+
+  .ai-farm-feature-{{ ai_gen_id }}__button:hover {
+    background: {{ block.settings.button_hover_color }};
+    border-color: {{ block.settings.button_hover_color }};
+  }
+
+  .ai-farm-feature-{{ ai_gen_id }}__button:focus-visible {
+    outline: 3px solid {{ block.settings.button_text_color }};
+    outline-offset: 3px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-farm-feature-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-farm-feature-{{ ai_gen_id }}__content {
+      padding: 36px 22px;
+    }
+
+    .ai-farm-feature-{{ ai_gen_id }}__description {
+      font-size: {{ block.settings.description_size | at_most: 20 }}px;
+    }
+  }
+{% endstyle %}
+
+<section class="ai-farm-feature-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-farm-feature-{{ ai_gen_id }}__background" aria-hidden="true">
+    {% if block.settings.background_image != blank %}
+      <img
+        src="{{ block.settings.background_image | image_url: width: 2400 }}"
+        alt="{{ block.settings.background_image.alt | escape }}"
+        loading="lazy"
+        width="{{ block.settings.background_image.width }}"
+        height="{{ block.settings.background_image.height }}"
+      >
+    {% else %}
+      <div class="ai-farm-feature-{{ ai_gen_id }}__placeholder">
+        {{ 'image' | placeholder_svg_tag }}
+      </div>
+    {% endif %}
+  </div>
+  <div class="ai-farm-feature-{{ ai_gen_id }}__overlay" aria-hidden="true"></div>
+  <div class="ai-farm-feature-{{ ai_gen_id }}__content">
+    {% if block.settings.heading != blank %}
+      <h2 class="ai-farm-feature-{{ ai_gen_id }}__heading">{{ block.settings.heading | escape }}</h2>
+    {% endif %}
+    {% if block.settings.description != blank %}
+      <p class="ai-farm-feature-{{ ai_gen_id }}__description">{{ block.settings.description | escape }}</p>
+    {% endif %}
+    {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+      <a class="ai-farm-feature-{{ ai_gen_id }}__button" href="{{ block.settings.button_link }}">{{ block.settings.button_label | escape }}</a>
+    {% endif %}
+  </div>
+</section>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "SBL Farms feature",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Think SBL Farms Is Just About Plants? Think Again." },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Explore a world of nature, adventure, animals, agritour, aquarium, rain dance, DJ, Swimming Pool & unforgettable experiences at SBL Farms" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Explore SBL Farms" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "header", "content": "Background image" },
+    { "type": "image_picker", "id": "background_image", "label": "Background image" },
+    { "type": "color", "id": "overlay_color", "label": "Overlay color", "default": "#0d3a1d" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 90, "step": 5, "unit": "%", "default": 45 },
+    { "type": "color", "id": "fallback_color", "label": "Fallback background", "default": "#1f5130" },
+    { "type": "header", "content": "Layout and style" },
+    { "type": "range", "id": "desktop_width_percent", "label": "Desktop width", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "min_height", "label": "Section height", "min": 280, "max": 700, "step": 20, "unit": "px", "default": 440 },
+    { "type": "select", "id": "text_alignment", "label": "Text alignment", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }], "default": "center" },
+    { "type": "range", "id": "section_radius", "label": "Section corner radius", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 0 },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#ffffff" },
+    { "type": "range", "id": "heading_size", "label": "Heading size", "min": 28, "max": 64, "step": 2, "unit": "px", "default": 48 },
+    { "type": "range", "id": "description_size", "label": "Description size", "min": 14, "max": 24, "step": 1, "unit": "px", "default": 18 },
+    { "type": "color", "id": "button_color", "label": "Button background", "default": "#0d3a1d" },
+    { "type": "color", "id": "button_hover_color", "label": "Button hover background", "default": "#1f5130" },
+    { "type": "color", "id": "button_text_color", "label": "Button text", "default": "#ffffff" },
+    { "type": "range", "id": "button_radius", "label": "Button corner radius", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 8 }
+  ],
+  "presets": [{ "name": "SBL Farms feature" }],
+  "tag": null,
+  "class": "sbl-farms-feature"
+}
 {% endschema %}
