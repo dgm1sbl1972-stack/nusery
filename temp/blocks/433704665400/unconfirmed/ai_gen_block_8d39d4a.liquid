@@ -1,6 +1,356 @@
+{% doc %}
+  @prompt
+    so need an navigation header where i need plants(i need dropdown minimum 10 categories),seeds (dropdown min 10 categories,Pots dropdown(10 categroies)gifting(10 categories),services(10 categories),blog,contact and give some gap and have search bar and profile icon ,cart icon and whishlist icon,
+    
+    to connect it for each give link which can linck to persepective pages
+    and add logo in the left and give size inscrease decrease option also, dont add a box  for the catgeories option
+    
+    
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign logo_image = block.settings.logo %}
+{% style %}
+  .ai-nursery-header-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+    border-bottom: 1px solid {{ block.settings.divider_color }};
+    position: relative;
+    z-index: 20;
+  }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__inner {
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    min-height: 74px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__brand {
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    text-decoration: none;
+    color: inherit;
+  }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__brand img {
+    display: block;
+    width: {{ block.settings.logo_width }}px;
+    max-width: 30vw;
+    height: auto;
+  }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__brand-text {
+    color: {{ block.settings.text_color }};
+    font-size: 21px;
+    line-height: 1.1;
+    font-weight: 700;
+  }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: {{ block.settings.nav_gap }}px;
+    flex: 1 1 auto;
+  }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item { position: relative; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__link,
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__toggle {
+    color: {{ block.settings.text_color }};
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    background: transparent;
+    border: 0;
+    padding: 10px 0;
+    cursor: pointer;
+  }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__link:hover,
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__toggle:hover { color: {{ block.settings.accent_color }}; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__chevron {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    margin: 0 0 3px 7px;
+  }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -16px;
+    width: 460px;
+    max-width: min(80vw, 460px);
+    padding: 18px 20px;
+    background: {{ block.settings.background_color }};
+    box-shadow: 0 12px 28px rgba(20, 35, 26, .14);
+    border-top: 2px solid {{ block.settings.accent_color }};
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px 22px;
+  }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item.is-open .ai-nursery-header__dropdown,
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item:hover .ai-nursery-header__dropdown,
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item:focus-within .ai-nursery-header__dropdown { display: grid; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown a {
+    display: block;
+    color: {{ block.settings.text_color }};
+    padding: 8px 0;
+    font-size: 13px;
+    text-decoration: none;
+    border-bottom: 1px solid {{ block.settings.divider_color }};
+  }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown a:hover { color: {{ block.settings.accent_color }}; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__actions { display: flex; align-items: center; gap: 14px; flex: 0 0 auto; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__search { display: flex; align-items: center; border-bottom: 1px solid {{ block.settings.text_color }}; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__search input {
+    width: 112px;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: {{ block.settings.text_color }};
+    padding: 7px 2px;
+    font: inherit;
+    font-size: 12px;
+  }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__icon-link,
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__mobile-toggle {
+    width: 28px;
+    height: 34px;
+    color: {{ block.settings.text_color }};
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__icon-link svg,
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__search svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__mobile-toggle { display: none; }
+  @media screen and (max-width: 1100px) {
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__inner { gap: 16px; padding-inline: 14px; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__nav { gap: 13px; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__link,
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__toggle { font-size: 12px; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__search input { width: 75px; }
+  }
+  @media screen and (max-width: 749px) {
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__inner { min-height: 64px; flex-wrap: wrap; gap: 10px; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__mobile-toggle { display: inline-flex; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__nav {
+      display: none;
+      width: 100%;
+      order: 4;
+      flex: 1 0 100%;
+      align-items: stretch;
+      flex-direction: column;
+      gap: 0;
+      padding: 6px 0 12px;
+    }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__nav.is-open { display: flex; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item { width: 100%; border-top: 1px solid {{ block.settings.divider_color }}; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__link,
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__toggle { display: block; width: 100%; text-align: left; padding: 12px 2px; font-size: 14px; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown { position: static; width: 100%; max-width: none; box-shadow: none; border-top: 0; padding: 0 12px 10px; grid-template-columns: 1fr 1fr; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__actions { margin-left: auto; gap: 8px; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__search { display: none; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__brand img { width: min({{ block.settings.logo_width }}px, 34vw); }
+  }
+{% endstyle %}
+
+<site-navigation-{{ ai_gen_id }} class="ai-nursery-header-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-nursery-header__inner">
+    <button class="ai-nursery-header__mobile-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-menu-toggle>
+      <svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <a class="ai-nursery-header__brand" href="{{ block.settings.logo_link | default: routes.root_url }}" aria-label="{{ shop.name | escape }}">
+      {% if logo_image != blank %}
+        <img src="{{ logo_image | image_url: width: 600 }}" alt="{{ logo_image.alt | default: shop.name | escape }}" width="{{ logo_image.width }}" height="{{ logo_image.height }}" loading="lazy">
+      {% else %}
+        <span class="ai-nursery-header__brand-text">{{ shop.name | escape }}</span>
+      {% endif %}
+    </a>
+    <nav class="ai-nursery-header__nav" aria-label="Main navigation" data-navigation>
+      {% assign nav_groups = 'plants,seeds,pots,gifting,services' | split: ',' %}
+      {% for group in nav_groups %}
+        {% assign title_key = group | append: '_title' %}
+        {% assign url_key = group | append: '_link' %}
+        {% assign menu_key = group | append: '_menu' %}
+        {% assign menu_object = block.settings[menu_key] %}
+        <div class="ai-nursery-header__item" data-menu-item>
+          <button class="ai-nursery-header__toggle" type="button" aria-expanded="false" data-dropdown-toggle>{{ block.settings[title_key] | escape }}<span class="ai-nursery-header__chevron" aria-hidden="true"></span></button>
+          <div class="ai-nursery-header__dropdown">
+            {% if menu_object != blank and menu_object.links.size > 0 %}
+              {% for link in menu_object.links limit: 20 %}<a href="{{ link.url }}">{{ link.title | escape }}</a>{% endfor %}
+            {% else %}
+              {% for i in (1..10) %}
+                {% assign category_title_key = group | append: '_category_' | append: i | append: '_title' %}
+                {% assign category_link_key = group | append: '_category_' | append: i | append: '_link' %}
+                {% if block.settings[category_title_key] != blank %}<a href="{{ block.settings[category_link_key] | default: '#' }}">{{ block.settings[category_title_key] | escape }}</a>{% endif %}
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+      <a class="ai-nursery-header__link" href="{{ block.settings.blog_link | default: routes.root_url }}">{{ block.settings.blog_label | escape }}</a>
+      <a class="ai-nursery-header__link" href="{{ block.settings.contact_link | default: routes.root_url }}">{{ block.settings.contact_label | escape }}</a>
+    </nav>
+    <div class="ai-nursery-header__actions">
+      <form class="ai-nursery-header__search" action="{{ routes.search_url }}" method="get" role="search">
+        <input type="search" name="q" placeholder="{{ block.settings.search_placeholder | escape }}" aria-label="{{ block.settings.search_placeholder | escape }}">
+        <button class="ai-nursery-header__icon-link" type="submit" aria-label="Search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></button>
+      </form>
+      <a class="ai-nursery-header__icon-link" href="{{ routes.account_url }}" aria-label="Account"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 21c.7-4.2 3.3-6.3 7.5-6.3s6.8 2.1 7.5 6.3"/></svg></a>
+      <a class="ai-nursery-header__icon-link" href="{{ routes.cart_url }}" aria-label="Cart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.1 11.2a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.4L21 8H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg></a>
+      <a class="ai-nursery-header__icon-link" href="{{ block.settings.wishlist_link | default: routes.root_url }}" aria-label="Wishlist"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.7c0 5.2-8.8 11-8.8 11s-8.8-5.8-8.8-11A4.6 4.6 0 0 1 12 6.4a4.6 4.6 0 0 1 8.8 2.3Z"/></svg></a>
+    </div>
+  </div>
+</site-navigation-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    const tagName = 'site-navigation-{{ ai_gen_id }}';
+    if (customElements.get(tagName)) return;
+    class SiteNavigation extends HTMLElement {
+      connectedCallback() {
+        this.menuButton = this.querySelector('[data-menu-toggle]');
+        this.navigation = this.querySelector('[data-navigation]');
+        if (this.menuButton) this.menuButton.addEventListener('click', () => {
+          const expanded = this.menuButton.getAttribute('aria-expanded') === 'true';
+          this.menuButton.setAttribute('aria-expanded', String(!expanded));
+          this.menuButton.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
+          this.navigation.classList.toggle('is-open', !expanded);
+        });
+        this.querySelectorAll('[data-dropdown-toggle]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const item = button.closest('[data-menu-item]');
+            const expanded = button.getAttribute('aria-expanded') === 'true';
+            this.querySelectorAll('[data-dropdown-toggle]').forEach((other) => {
+              other.setAttribute('aria-expanded', 'false');
+              other.closest('[data-menu-item]').classList.remove('is-open');
+            });
+            button.setAttribute('aria-expanded', String(!expanded));
+            item.classList.toggle('is-open', !expanded);
+          });
+        });
+        this.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') {
+            this.querySelectorAll('[data-dropdown-toggle]').forEach((button) => {
+              button.setAttribute('aria-expanded', 'false');
+              button.closest('[data-menu-item]').classList.remove('is-open');
+            });
+            if (this.menuButton) this.menuButton.focus();
+          }
+        });
+      }
+    }
+    customElements.define(tagName, SiteNavigation);
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Botanical navigation",
+  "settings": [
+    { "type": "header", "content": "Brand and layout" },
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "url", "id": "logo_link", "label": "Logo link" },
+    { "type": "range", "id": "logo_width", "label": "Logo width", "min": 40, "max": 240, "step": 10, "unit": "px", "default": 140 },
+    { "type": "range", "id": "desktop_width_percent", "label": "Desktop width", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "nav_gap", "label": "Navigation spacing", "min": 8, "max": 36, "step": 2, "unit": "px", "default": 18 },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#F8F4EC" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#0D3A1D" },
+    { "type": "color", "id": "accent_color", "label": "Link accent", "default": "#1F5130" },
+    { "type": "color", "id": "divider_color", "label": "Divider", "default": "#D9DED3" },
+    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search plants" },
+    { "type": "url", "id": "wishlist_link", "label": "Wishlist page link" },
+    { "type": "paragraph", "content": "Each category can link directly to a page or collection. Use a navigation menu instead to manage category links in Shopify Navigation." },
+    { "type": "header", "content": "Plants dropdown" },
+    { "type": "text", "id": "plants_title", "label": "Menu label", "default": "Plants" },
+    { "type": "url", "id": "plants_link", "label": "Menu page link" },
+    { "type": "link_list", "id": "plants_menu", "label": "Use navigation menu" },
+    { "type": "text", "id": "plants_category_1_title", "label": "Category 1", "default": "Indoor plants" }, { "type": "url", "id": "plants_category_1_link", "label": "Category 1 link" },
+    { "type": "text", "id": "plants_category_2_title", "label": "Category 2", "default": "Outdoor plants" }, { "type": "url", "id": "plants_category_2_link", "label": "Category 2 link" },
+    { "type": "text", "id": "plants_category_3_title", "label": "Category 3", "default": "Flowering plants" }, { "type": "url", "id": "plants_category_3_link", "label": "Category 3 link" },
+    { "type": "text", "id": "plants_category_4_title", "label": "Category 4", "default": "Succulents" }, { "type": "url", "id": "plants_category_4_link", "label": "Category 4 link" },
+    { "type": "text", "id": "plants_category_5_title", "label": "Category 5", "default": "Cacti" }, { "type": "url", "id": "plants_category_5_link", "label": "Category 5 link" },
+    { "type": "text", "id": "plants_category_6_title", "label": "Category 6", "default": "Fruit plants" }, { "type": "url", "id": "plants_category_6_link", "label": "Category 6 link" },
+    { "type": "text", "id": "plants_category_7_title", "label": "Category 7", "default": "Medicinal plants" }, { "type": "url", "id": "plants_category_7_link", "label": "Category 7 link" },
+    { "type": "text", "id": "plants_category_8_title", "label": "Category 8", "default": "Air-purifying plants" }, { "type": "url", "id": "plants_category_8_link", "label": "Category 8 link" },
+    { "type": "text", "id": "plants_category_9_title", "label": "Category 9", "default": "Climbers" }, { "type": "url", "id": "plants_category_9_link", "label": "Category 9 link" },
+    { "type": "text", "id": "plants_category_10_title", "label": "Category 10", "default": "Bonsai plants" }, { "type": "url", "id": "plants_category_10_link", "label": "Category 10 link" },
+    { "type": "header", "content": "Seeds dropdown" },
+    { "type": "text", "id": "seeds_title", "label": "Menu label", "default": "Seeds" },
+    { "type": "url", "id": "seeds_link", "label": "Menu page link" },
+    { "type": "link_list", "id": "seeds_menu", "label": "Use navigation menu" },
+    { "type": "text", "id": "seeds_category_1_title", "label": "Category 1", "default": "Flower seeds" }, { "type": "url", "id": "seeds_category_1_link", "label": "Category 1 link" },
+    { "type": "text", "id": "seeds_category_2_title", "label": "Category 2", "default": "Vegetable seeds" }, { "type": "url", "id": "seeds_category_2_link", "label": "Category 2 link" },
+    { "type": "text", "id": "seeds_category_3_title", "label": "Category 3", "default": "Herb seeds" }, { "type": "url", "id": "seeds_category_3_link", "label": "Category 3 link" },
+    { "type": "text", "id": "seeds_category_4_title", "label": "Category 4", "default": "Fruit seeds" }, { "type": "url", "id": "seeds_category_4_link", "label": "Category 4 link" },
+    { "type": "text", "id": "seeds_category_5_title", "label": "Category 5", "default": "Microgreen seeds" }, { "type": "url", "id": "seeds_category_5_link", "label": "Category 5 link" },
+    { "type": "text", "id": "seeds_category_6_title", "label": "Category 6", "default": "Organic seeds" }, { "type": "url", "id": "seeds_category_6_link", "label": "Category 6 link" },
+    { "type": "text", "id": "seeds_category_7_title", "label": "Category 7", "default": "Exotic seeds" }, { "type": "url", "id": "seeds_category_7_link", "label": "Category 7 link" },
+    { "type": "text", "id": "seeds_category_8_title", "label": "Category 8", "default": "Seasonal seeds" }, { "type": "url", "id": "seeds_category_8_link", "label": "Category 8 link" },
+    { "type": "text", "id": "seeds_category_9_title", "label": "Category 9", "default": "Seed kits" }, { "type": "url", "id": "seeds_category_9_link", "label": "Category 9 link" },
+    { "type": "text", "id": "seeds_category_10_title", "label": "Category 10", "default": "Bulk seeds" }, { "type": "url", "id": "seeds_category_10_link", "label": "Category 10 link" },
+    { "type": "header", "content": "Pots dropdown" },
+    { "type": "text", "id": "pots_title", "label": "Menu label", "default": "Pots" },
+    { "type": "url", "id": "pots_link", "label": "Menu page link" },
+    { "type": "link_list", "id": "pots_menu", "label": "Use navigation menu" },
+    { "type": "text", "id": "pots_category_1_title", "label": "Category 1", "default": "Ceramic pots" }, { "type": "url", "id": "pots_category_1_link", "label": "Category 1 link" },
+    { "type": "text", "id": "pots_category_2_title", "label": "Category 2", "default": "Terracotta pots" }, { "type": "url", "id": "pots_category_2_link", "label": "Category 2 link" },
+    { "type": "text", "id": "pots_category_3_title", "label": "Category 3", "default": "Plastic pots" }, { "type": "url", "id": "pots_category_3_link", "label": "Category 3 link" },
+    { "type": "text", "id": "pots_category_4_title", "label": "Category 4", "default": "Hanging planters" }, { "type": "url", "id": "pots_category_4_link", "label": "Category 4 link" },
+    { "type": "text", "id": "pots_category_5_title", "label": "Category 5", "default": "Self-watering pots" }, { "type": "url", "id": "pots_category_5_link", "label": "Category 5 link" },
+    { "type": "text", "id": "pots_category_6_title", "label": "Category 6", "default": "Planter stands" }, { "type": "url", "id": "pots_category_6_link", "label": "Category 6 link" },
+    { "type": "text", "id": "pots_category_7_title", "label": "Category 7", "default": "Grow bags" }, { "type": "url", "id": "pots_category_7_link", "label": "Category 7 link" },
+    { "type": "text", "id": "pots_category_8_title", "label": "Category 8", "default": "Decorative planters" }, { "type": "url", "id": "pots_category_8_link", "label": "Category 8 link" },
+    { "type": "text", "id": "pots_category_9_title", "label": "Category 9", "default": "Seedling trays" }, { "type": "url", "id": "pots_category_9_link", "label": "Category 9 link" },
+    { "type": "text", "id": "pots_category_10_title", "label": "Category 10", "default": "Pot accessories" }, { "type": "url", "id": "pots_category_10_link", "label": "Category 10 link" },
+    { "type": "header", "content": "Gifting dropdown" },
+    { "type": "text", "id": "gifting_title", "label": "Menu label", "default": "Gifting" },
+    { "type": "url", "id": "gifting_link", "label": "Menu page link" },
+    { "type": "link_list", "id": "gifting_menu", "label": "Use navigation menu" },
+    { "type": "text", "id": "gifting_category_1_title", "label": "Category 1", "default": "Plant gifts" }, { "type": "url", "id": "gifting_category_1_link", "label": "Category 1 link" },
+    { "type": "text", "id": "gifting_category_2_title", "label": "Category 2", "default": "Gift hampers" }, { "type": "url", "id": "gifting_category_2_link", "label": "Category 2 link" },
+    { "type": "text", "id": "gifting_category_3_title", "label": "Category 3", "default": "Birthday gifts" }, { "type": "url", "id": "gifting_category_3_link", "label": "Category 3 link" },
+    { "type": "text", "id": "gifting_category_4_title", "label": "Category 4", "default": "Housewarming gifts" }, { "type": "url", "id": "gifting_category_4_link", "label": "Category 4 link" },
+    { "type": "text", "id": "gifting_category_5_title", "label": "Category 5", "default": "Corporate gifts" }, { "type": "url", "id": "gifting_category_5_link", "label": "Category 5 link" },
+    { "type": "text", "id": "gifting_category_6_title", "label": "Category 6", "default": "Gift cards" }, { "type": "url", "id": "gifting_category_6_link", "label": "Category 6 link" },
+    { "type": "text", "id": "gifting_category_7_title", "label": "Category 7", "default": "Gardening kits" }, { "type": "url", "id": "gifting_category_7_link", "label": "Category 7 link" },
+    { "type": "text", "id": "gifting_category_8_title", "label": "Category 8", "default": "Mini garden gifts" }, { "type": "url", "id": "gifting_category_8_link", "label": "Category 8 link" },
+    { "type": "text", "id": "gifting_category_9_title", "label": "Category 9", "default": "Thank-you gifts" }, { "type": "url", "id": "gifting_category_9_link", "label": "Category 9 link" },
+    { "type": "text", "id": "gifting_category_10_title", "label": "Category 10", "default": "Gift bundles" }, { "type": "url", "id": "gifting_category_10_link", "label": "Category 10 link" },
+    { "type": "header", "content": "Services dropdown" },
+    { "type": "text", "id": "services_title", "label": "Menu label", "default": "Services" },
+    { "type": "url", "id": "services_link", "label": "Menu page link" },
+    { "type": "link_list", "id": "services_menu", "label": "Use navigation menu" },
+    { "type": "text", "id": "services_category_1_title", "label": "Category 1", "default": "Plant care advice" }, { "type": "url", "id": "services_category_1_link", "label": "Category 1 link" },
+    { "type": "text", "id": "services_category_2_title", "label": "Category 2", "default": "Garden consultation" }, { "type": "url", "id": "services_category_2_link", "label": "Category 2 link" },
+    { "type": "text", "id": "services_category_3_title", "label": "Category 3", "default": "Repotting service" }, { "type": "url", "id": "services_category_3_link", "label": "Category 3 link" },
+    { "type": "text", "id": "services_category_4_title", "label": "Category 4", "default": "Landscaping" }, { "type": "url", "id": "services_category_4_link", "label": "Category 4 link" },
+    { "type": "text", "id": "services_category_5_title", "label": "Category 5", "default": "Balcony garden setup" }, { "type": "url", "id": "services_category_5_link", "label": "Category 5 link" },
+    { "type": "text", "id": "services_category_6_title", "label": "Category 6", "default": "Terrace garden setup" }, { "type": "url", "id": "services_category_6_link", "label": "Category 6 link" },
+    { "type": "text", "id": "services_category_7_title", "label": "Category 7", "default": "Plant maintenance" }, { "type": "url", "id": "services_category_7_link", "label": "Category 7 link" },
+    { "type": "text", "id": "services_category_8_title", "label": "Category 8", "default": "Bulk plant supply" }, { "type": "url", "id": "services_category_8_link", "label": "Category 8 link" },
+    { "type": "text", "id": "services_category_9_title", "label": "Category 9", "default": "Event plant styling" }, { "type": "url", "id": "services_category_9_link", "label": "Category 9 link" },
+    { "type": "text", "id": "services_category_10_title", "label": "Category 10", "default": "Workshops" }, { "type": "url", "id": "services_category_10_link", "label": "Category 10 link" },
+    { "type": "header", "content": "Other links" },
+    { "type": "text", "id": "blog_label", "label": "Blog label", "default": "Blog" },
+    { "type": "url", "id": "blog_link", "label": "Blog page link" },
+    { "type": "text", "id": "contact_label", "label": "Contact label", "default": "Contact" },
+    { "type": "url", "id": "contact_link", "label": "Contact page link" }
+  ],
+  "presets": [{ "name": "Botanical navigation" }],
+  "tag": null,
+  "class": "botanical-navigation-block"
+}
 {% endschema %}
