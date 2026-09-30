@@ -993,6 +993,58 @@
         "background": "#f7f9ef"
       }
     },
+    "1790749449ca91a0b9": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_a4764a3_JGREHi": {
+          "type": "ai_gen_block_a4764a3",
+          "settings": {
+            "background_type": "solid",
+            "background_color": "#f8f4ec",
+            "background_position": "center",
+            "background_size": "cover",
+            "overlay_color": "#f8f4ec",
+            "overlay_opacity": 25,
+            "gallery_layout": "editorial",
+            "gallery_width": 500,
+            "image_height": 350,
+            "desktop_width_percent": 100,
+            "section_padding_top": 60,
+            "section_padding_bottom": 60,
+            "desktop_spacing": 35,
+            "mobile_spacing": 24,
+            "eyebrow": "Rooted in nature",
+            "heading": "Our story",
+            "story_text": "<p>We believe every home can grow a little greener. Discover plants and garden essentials selected with care.</p>",
+            "text_color": "#14231a",
+            "eyebrow_color": "#1f5130",
+            "ticker_speed": 35,
+            "stat_1_value": "100+",
+            "stat_1_label": "Plants to explore",
+            "stat_2_value": "Carefully grown",
+            "stat_2_label": "Quality you can trust",
+            "stat_3_value": "For every space",
+            "stat_3_label": "From windowsills to gardens",
+            "stat_4_value": "Healthy plants",
+            "stat_4_label": "Chosen with care",
+            "stat_5_value": "Grown with care",
+            "stat_5_label": "From our nursery",
+            "stat_6_value": "Garden ready",
+            "stat_6_label": "For greener spaces",
+            "stat_7_value": "Made for growing",
+            "stat_7_label": "Tools for plant lovers",
+            "stat_8_value": "Bring nature home",
+            "stat_8_label": "Find your next favorite",
+            "stat_color": "#1f5130"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_a4764a3_JGREHi"
+      ],
+      "settings": {}
+    },
     "1790236138b706c727": {
       "type": "_blocks",
       "blocks": {
@@ -1375,58 +1427,6 @@
     "179074685764dbe338": {
       "type": "_blocks",
       "settings": {}
-    },
-    "1790749449ca91a0b9": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_a4764a3_JGREHi": {
-          "type": "ai_gen_block_a4764a3",
-          "settings": {
-            "background_type": "solid",
-            "background_color": "#f8f4ec",
-            "background_position": "center",
-            "background_size": "cover",
-            "overlay_color": "#f8f4ec",
-            "overlay_opacity": 25,
-            "gallery_layout": "editorial",
-            "gallery_width": 500,
-            "image_height": 350,
-            "desktop_width_percent": 100,
-            "section_padding_top": 60,
-            "section_padding_bottom": 60,
-            "desktop_spacing": 35,
-            "mobile_spacing": 24,
-            "eyebrow": "Rooted in nature",
-            "heading": "Our story",
-            "story_text": "<p>We believe every home can grow a little greener. Discover plants and garden essentials selected with care.</p>",
-            "text_color": "#14231a",
-            "eyebrow_color": "#1f5130",
-            "ticker_speed": 35,
-            "stat_1_value": "100+",
-            "stat_1_label": "Plants to explore",
-            "stat_2_value": "Carefully grown",
-            "stat_2_label": "Quality you can trust",
-            "stat_3_value": "For every space",
-            "stat_3_label": "From windowsills to gardens",
-            "stat_4_value": "Healthy plants",
-            "stat_4_label": "Chosen with care",
-            "stat_5_value": "Grown with care",
-            "stat_5_label": "From our nursery",
-            "stat_6_value": "Garden ready",
-            "stat_6_label": "For greener spaces",
-            "stat_7_value": "Made for growing",
-            "stat_7_label": "Tools for plant lovers",
-            "stat_8_value": "Bring nature home",
-            "stat_8_label": "Find your next favorite",
-            "stat_color": "#1f5130"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_a4764a3_JGREHi"
-      ],
-      "settings": {}
     }
   },
   "order": [
@@ -1442,6 +1442,7 @@
     "1790224367bff4ff77",
     "179022886862f2d4cd",
     "trending_reels",
+    "1790749449ca91a0b9",
     "1790236138b706c727",
     "179024251235ac3a75",
     "17901580437110f3d4",
@@ -1453,7 +1454,6 @@
     "17902340700a400c12",
     "1790741813e4ec97d9",
     "1790746524fdbf68b7",
-    "179074685764dbe338",
-    "1790749449ca91a0b9"
+    "179074685764dbe338"
   ]
 }
