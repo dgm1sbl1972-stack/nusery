@@ -713,14 +713,15 @@
     "17902281242a4f0ec3": {
       "type": "_blocks",
       "blocks": {
-        "ai_gen_block_c609297_PJMtb9": {
-          "type": "ai_gen_block_c609297",
+        "ai_gen_block_6964778_XQL7yV": {
+          "type": "ai_gen_block_6964778",
           "settings": {
             "heading": "Handpicked Favourites",
             "heading_alignment": "left",
             "collection": "bestsellers",
-            "product_count": 8,
             "max_products": 8,
+            "view_all_label": "View all products",
+            "view_all_link": "shopify://collections/bestsellers",
             "show_bestseller": true,
             "bestseller_text": "BESTSELLER",
             "show_ratings": true,
@@ -729,18 +730,19 @@
             "show_compare": true,
             "show_add_text": true,
             "show_cart_icon": true,
-            "card_radius": 20,
-            "section_padding": 55,
-            "desktop_cards": 3,
-            "mobile_cards": "1.5",
+            "desktop_cards": 4,
+            "mobile_cards": 1.3,
             "desktop_width_percent": 100,
+            "card_radius": 20,
+            "padding_top": 50,
+            "padding_bottom": 50,
             "background_color": "#F8F4EC",
             "heading_color": "#0D3A1D",
             "title_color": "#14231A",
             "description_color": "#5B6660",
             "price_color": "#1F5130",
-            "add_button_color": "#1F5130",
-            "add_text_color": "#1F5130"
+            "button_color": "#1F5130",
+            "button_text_color": "#FFFFFF"
           },
           "blocks": {}
         },
@@ -778,7 +780,7 @@
         }
       },
       "block_order": [
-        "ai_gen_block_c609297_PJMtb9",
+        "ai_gen_block_6964778_XQL7yV",
         "ai_gen_block_02acb7f_XMY4Yd"
       ],
       "settings": {}
