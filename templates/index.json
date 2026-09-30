@@ -519,11 +519,11 @@
             "desktop_columns": "6",
             "tablet_columns": "3",
             "mobile_columns": "3",
-            "card_spacing": 24,
+            "card_spacing": 28,
             "image_size": 150,
-            "name_size": 16,
+            "name_size": 17,
             "category_text_color": "#14231a",
-            "hover_scale": 112,
+            "hover_scale": 116,
             "hover_shadow": 35,
             "cta_text": "Buy Now!",
             "cta_link": "",
@@ -613,6 +613,7 @@
         },
         "ai_gen_block_8533040_YGgFmW": {
           "type": "ai_gen_block_8533040",
+          "disabled": true,
           "settings": {
             "heading": "Home Loves Green",
             "desktop_width_percent": 100,
@@ -712,6 +713,37 @@
     "17902281242a4f0ec3": {
       "type": "_blocks",
       "blocks": {
+        "ai_gen_block_c609297_PJMtb9": {
+          "type": "ai_gen_block_c609297",
+          "settings": {
+            "heading": "Handpicked Favourites",
+            "heading_alignment": "left",
+            "collection": "bestsellers",
+            "product_count": 8,
+            "max_products": 8,
+            "show_bestseller": true,
+            "bestseller_text": "BESTSELLER",
+            "show_ratings": true,
+            "show_discount": true,
+            "show_description": true,
+            "show_compare": true,
+            "show_add_text": true,
+            "show_cart_icon": true,
+            "card_radius": 20,
+            "section_padding": 55,
+            "desktop_cards": 3,
+            "mobile_cards": "1.5",
+            "desktop_width_percent": 100,
+            "background_color": "#F8F4EC",
+            "heading_color": "#0D3A1D",
+            "title_color": "#14231A",
+            "description_color": "#5B6660",
+            "price_color": "#1F5130",
+            "add_button_color": "#1F5130",
+            "add_text_color": "#1F5130"
+          },
+          "blocks": {}
+        },
         "ai_gen_block_02acb7f_XMY4Yd": {
           "type": "ai_gen_block_02acb7f",
           "settings": {
@@ -746,6 +778,7 @@
         }
       },
       "block_order": [
+        "ai_gen_block_c609297_PJMtb9",
         "ai_gen_block_02acb7f_XMY4Yd"
       ],
       "settings": {}
@@ -1441,7 +1474,7 @@
             "view_all_text": "View all products",
             "view_all_link": "",
             "desktop_width_percent": 100,
-            "background": "#FFF9E8",
+            "background": "#fff9e8",
             "show_badge": true,
             "badge_text": "Bestseller",
             "rating": "4.8",
