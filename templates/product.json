@@ -26,10 +26,10 @@
             "image_fit": "cover",
             "corner_radius": 16,
             "section_padding": 30,
-            "background": "#F8F4EC",
-            "green": "#1F5130",
-            "accent": "#FFD60A",
-            "text_color": "#14231A",
+            "background": "#f8f4ec",
+            "green": "#1f5130",
+            "accent": "#ffd60a",
+            "text_color": "#14231a",
             "show_description": true,
             "show_gift": true,
             "gift_label": "Send as a gift with a handwritten note",
@@ -72,8 +72,8 @@
             "section_padding": 55,
             "desktop_width_percent": 100,
             "background_color": "#f8f4ec",
-            "heading_color": "#085F27",
-            "title_color": "#085F27",
+            "heading_color": "#085f27",
+            "title_color": "#085f27",
             "description_color": "#5b6660",
             "price_color": "#1f5130",
             "button_color": "#1f5130",
@@ -180,8 +180,8 @@
     "product_reviews": {
       "type": "product-reviews",
       "settings": {
-        "heading": "Customer",
-        "heading_accent": "Reviews",
+        "heading": "Customer  Reviews",
+        "heading_accent": "",
         "background": "#ffffff"
       }
     }
