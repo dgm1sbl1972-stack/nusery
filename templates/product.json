@@ -29,7 +29,7 @@
             "background": "#f8f4ec",
             "green": "#1f5130",
             "accent": "#ffd60a",
-            "text_color": "#14231a",
+            "text_color": "#1F5130",
             "show_description": true,
             "show_gift": true,
             "gift_label": "Send as a gift with a handwritten note",
