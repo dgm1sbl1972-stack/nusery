@@ -11,10 +11,54 @@
   "sections": {
     "main": {
       "type": "main-product",
+      "disabled": true,
+      "settings": {}
+    },
+    "17908244705537fff5": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_966b8dc_eYicbU": {
+          "type": "ai_gen_block_966b8dc",
+          "settings": {
+            "desktop_width_percent": 100,
+            "background": "#F8F4EC",
+            "green": "#1F5130",
+            "accent": "#FFD60A",
+            "text_color": "#14231A",
+            "card_radius": 16,
+            "show_description": true,
+            "reviews_text": "★★★★★ Customer reviews",
+            "gift_label": "Send as a gift",
+            "note_label": "Handwritten note",
+            "note_placeholder": "Write your message",
+            "cart_label": "Add to cart",
+            "promo_text": "A thoughtful green gift for every home",
+            "offers_heading": "Available offers",
+            "offers": "<p>Add current product offers here.</p>",
+            "benefits_heading": "Why you’ll love it",
+            "benefits": "<p>Add the key benefits of this plant here.</p>",
+            "delivery_heading": "Check delivery availability",
+            "pin_placeholder": "Enter 6-digit PIN code",
+            "pin_button": "Check",
+            "pin_response": "PIN format looks valid. Contact us to confirm service availability.",
+            "pin_invalid": "Enter a valid 6-digit PIN code.",
+            "care_heading": "Plant care",
+            "care_content": "<p>Add care and watering guidance here.</p>",
+            "spec_heading": "Plant specifications",
+            "spec_metafield": "custom.plant_specifications",
+            "spec_content": "<p>Add additional specifications if needed.</p>"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_966b8dc_eYicbU"
+      ],
       "settings": {}
     }
   },
   "order": [
-    "main"
+    "main",
+    "17908244705537fff5"
   ]
 }
