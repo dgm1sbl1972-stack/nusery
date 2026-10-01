@@ -1,6 +1,22 @@
-{% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
-{% endschema %}
+{% doc %}
+  @prompt
+    Redesign my Shopify product page based on the attached reference image for SBL Nursery.
+    
+    - Background: #F8F4EC, Green: #1F5130, Accent: #FFD60A
+    - Left: product gallery with up to 10 Shopify product images.
+    - Show thumbnails vertically on desktop and horizontally on mobile.
+    - Clicking any thumbnail should show that image in the large main preview.
+    - Add image zoom/click-to-enlarge.
+    - Images must come dynamically from Shopify Product Media.
+    - Right: reviews, product title, description, plant size, planter, color, price and quantity.
+    - Size, Planter and Color must use actual Shopify variants dynamically.
+    - Add Gift option + handwritten note.
+    - Add Quantity + Add to Cart.
+    - Add editable Offers, Benefits, Promotional Banner, Delivery PIN checker, Plant Care and Product Specifications.
+    - Use Shopify metafields for plant specifications.
+    - Make everything responsive and editable through Shopify Theme Editor.
+    - Do not hardcode products, prices, images or variant values.
+    - Match the reference layout closely with a clean, premium SBL Nursery style., give to adjust the size of the image, make it whole protrait , desktop end to end 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}{% style %}.sbl-full-{{ ai_gen_id }}{display:block;width:100%;padding:24px 0;background:{{ block.settings.background }}}.sbl-full-{{ ai_gen_id }}__layout{width:100%;max-width:none;box-sizing:border-box;padding:0 clamp(18px,4vw,64px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start}.sbl-full-{{ ai_gen_id }}__gallery{display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px}.sbl-full-{{ ai_gen_id }}__thumbs{display:flex;flex-direction:column;gap:8px;max-height:80vh;overflow:auto}.sbl-full-{{ ai_gen_id }}__thumb{width:100%;aspect-ratio:1;padding:0;border:1px solid #d3d3cb;border-radius:8px;overflow:hidden;cursor:pointer;background:#fff}.sbl-full-{{ ai_gen_id }}__thumb img{width:100%;height:100%;object-fit:cover;display:block}.sbl-full-{{ ai_gen_id }}__main{width:100%;height:{{ block.settings.desktop_image_height }}px;aspect-ratio:3/4;object-fit:contain;background:#fff;border-radius:16px;display:block}.sbl-full-{{ ai_gen_id }}__content{color:{{ block.settings.text_color }}}.sbl-full-{{ ai_gen_id }}__content h1{color:{{ block.settings.green }}}@media(max-width:749px){.sbl-full-{{ ai_gen_id }}__layout{grid-template-columns:1fr;padding:0 14px}.sbl-full-{{ ai_gen_id }}__gallery{display:flex;flex-direction:column-reverse}.sbl-full-{{ ai_gen_id }}__thumbs{flex-direction:row;max-height:none;overflow:auto}.sbl-full-{{ ai_gen_id }}__thumb{flex:0 0 60px}.sbl-full-{{ ai_gen_id }}__main{height:{{ block.settings.mobile_image_height }}px}}
+{% endstyle %}<div class="sbl-full-{{ ai_gen_id }}" {{ block.shopify_attributes }}><div class="sbl-full-{{ ai_gen_id }}__layout"><div class="sbl-full-{{ ai_gen_id }}__gallery"><div class="sbl-full-{{ ai_gen_id }}__thumbs">{% for media in product.media limit: 10 %}{% if media.media_type == 'image' %}<button class="sbl-full-{{ ai_gen_id }}__thumb" type="button" data-src="{{ media | image_url: width: 1800 }}"><img src="{{ media | image_url: width: 140 }}" alt="{{ media.alt | default: product.title | escape }}" loading="lazy"></button>{% endif %}{% endfor %}</div>{% if product.featured_image %}<img class="sbl-full-{{ ai_gen_id }}__main" src="{{ product.featured_image | image_url: width: 1600 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}">{% else %}<div>{{ 'product-1' | placeholder_svg_tag }}</div>{% endif %}</div><div class="sbl-full-{{ ai_gen_id }}__content"><h1>{{ product.title | escape }}</h1>{{ product.description }}</div></div></div><script>(function(){const root=document.currentScript.previousElementSibling;root.querySelectorAll('.sbl-full-{{ ai_gen_id }}__thumb').forEach((button)=>button.addEventListener('click',()=>{const image=root.querySelector('.sbl-full-{{ ai_gen_id }}__main');image.src=button.dataset.src}))})();</script>{% schema %}{"name":"Full width product","settings":[{"type":"range","id":"desktop_image_height","label":"Desktop image height","min":300,"max":900,"step":50,"unit":"px","default":700},{"type":"range","id":"mobile_image_height","label":"Mobile image height","min":220,"max":600,"step":20,"unit":"px","default":420},{"type":"color","id":"background","label":"Background","default":"#F8F4EC"},{"type":"color","id":"green","label":"Green","default":"#1F5130"},{"type":"color","id":"text_color","label":"Text","default":"#14231A"}],"presets":[{"name":"Full width product"}],"tag":null,"class":"sbl-full-width-product"}{% endschema %}
