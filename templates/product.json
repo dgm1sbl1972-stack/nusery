@@ -54,6 +54,38 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_e8bee09_iqtRNg": {
+          "type": "ai_gen_block_e8bee09",
+          "name": "Handpicked favourites",
+          "settings": {
+            "heading": "You may also like",
+            "heading_alignment": "left",
+            "collection": "bestsellers",
+            "product_count": 8,
+            "max_products": 8,
+            "desktop_cards": 4,
+            "mobile_cards": 1.2,
+            "show_bestseller": true,
+            "bestseller_text": "BESTSELLER",
+            "show_ratings": true,
+            "show_discount": true,
+            "show_description": true,
+            "show_compare": true,
+            "show_add_text": true,
+            "show_cart_icon": true,
+            "card_radius": 20,
+            "section_padding": 55,
+            "desktop_width_percent": 100,
+            "background_color": "#f8f4ec",
+            "heading_color": "#0d3a1d",
+            "title_color": "#14231a",
+            "description_color": "#5b6660",
+            "price_color": "#1f5130",
+            "button_color": "#1f5130",
+            "add_text_color": "#0d3a1d"
+          },
+          "blocks": {}
+        },
         "ai_gen_block_966b8dc_eYicbU": {
           "type": "ai_gen_block_966b8dc",
           "disabled": true,
@@ -91,6 +123,7 @@
       },
       "block_order": [
         "ai_gen_block_1679586_4edBQK",
+        "ai_gen_block_e8bee09_iqtRNg",
         "ai_gen_block_966b8dc_eYicbU"
       ],
       "settings": {}
@@ -100,11 +133,12 @@
       "blocks": {
         "ai_gen_block_2a77e54_4Q68VH": {
           "type": "ai_gen_block_2a77e54",
+          "disabled": true,
           "settings": {
             "fallback_image": "shopify://shop_images/d760c6ee-2848-4f68-84ec-19b15fc2b69e.png",
             "desktop_width_percent": 100,
             "image_fit": "cover",
-            "background_color": "#F8F4EC",
+            "background_color": "#f8f4ec",
             "corner_radius": 0
           },
           "blocks": {}

@@ -715,6 +715,7 @@
       "blocks": {
         "ai_gen_block_e8bee09_wB6GQ3": {
           "type": "ai_gen_block_e8bee09",
+          "name": "caurosal items",
           "settings": {
             "heading": "Handpicked Favourites",
             "heading_alignment": "left",
