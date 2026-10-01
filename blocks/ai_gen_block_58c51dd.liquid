@@ -24,13 +24,14 @@
     max-width: 100%;
     margin: 0 auto;
     min-height: {{ block.settings.header_height }}px;
-    padding: 12px 20px;
+    padding: {{ block.settings.header_padding }}px 20px;
     display: flex;
     align-items: center;
     gap: 24px;
   }
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__brand { display: inline-flex; align-items: center; flex: 0 0 auto; text-decoration: none; color: inherit; }
-  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__brand img { display: block; width: {{ block.settings.logo_width }}px; max-width: 30vw; height: auto; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__brand { display: flex; align-items: center; flex-shrink: 0; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__brand img { display: block; height: {{ block.settings.logo_height }}px; width: auto; max-width: 40vw; object-fit: contain; transform: scale({{ block.settings.logo_zoom | divided_by: 100.0 }}); transform-origin: left center; }
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__brand-text { color: {{ block.settings.text_color }}; font-size: 21px; line-height: 1.1; font-weight: 700; }
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__nav { display: flex; align-items: center; justify-content: center; gap: {{ block.settings.nav_gap }}px; flex: 1 1 auto; }
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item { position: relative; }
@@ -71,7 +72,7 @@
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown { position: static; width: 100%; max-width: none; box-shadow: none; border-top: 0; padding: 0 12px 10px; grid-template-columns: 1fr 1fr; }
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__actions { margin-left: auto; gap: 8px; }
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__search { display: none; }
-    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__brand img { width: min({{ block.settings.logo_width }}px, 34vw); }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__brand img { height: {{ block.settings.logo_height | at_most: 48 }}px; max-width: 45vw; }
   }
 {% endstyle %}
 
@@ -158,9 +159,11 @@
     { "type": "header", "content": "Brand and layout" },
     { "type": "image_picker", "id": "logo", "label": "Logo" },
     { "type": "url", "id": "logo_link", "label": "Logo link" },
-    { "type": "range", "id": "logo_width", "label": "Logo width", "min": 40, "max": 240, "step": 10, "unit": "px", "default": 140 },
+    { "type": "range", "id": "logo_height", "label": "Logo size (height)", "min": 30, "max": 120, "step": 2, "unit": "px", "default": 56 },
+    { "type": "range", "id": "logo_zoom", "label": "Logo zoom", "min": 100, "max": 200, "step": 5, "unit": "%", "default": 100, "info": "Enlarges the logo without making the header taller. Useful if the logo image has empty space around it." },
     { "type": "range", "id": "desktop_width_percent", "label": "Desktop width", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
-    { "type": "range", "id": "header_height", "label": "Header height", "min": 50, "max": 150, "step": 5, "unit": "px", "default": 75 },
+    { "type": "range", "id": "header_height", "label": "Header height", "min": 40, "max": 150, "step": 2, "unit": "px", "default": 60 },
+    { "type": "range", "id": "header_padding", "label": "Header top/bottom padding", "min": 0, "max": 24, "step": 1, "unit": "px", "default": 4 },
     { "type": "range", "id": "nav_gap", "label": "Navigation spacing", "min": 8, "max": 36, "step": 2, "unit": "px", "default": 18 },
     { "type": "color", "id": "background_color", "label": "Background", "default": "#F8F4EC" },
     { "type": "color", "id": "text_color", "label": "Text", "default": "#0D3A1D" },

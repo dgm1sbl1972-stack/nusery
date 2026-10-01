@@ -65,9 +65,8 @@
           "settings": {
             "logo": "shopify://shop_images/Untitled_design_25.png",
             "logo_link": "",
-            "logo_width": 50,
             "desktop_width_percent": 70,
-            "header_height": 70,
+            "header_height": 60,
             "nav_gap": 34,
             "background_color": "#f8f4ec",
             "text_color": "#0d3a1d",
@@ -193,7 +192,10 @@
             "blog_label": "Blog",
             "blog_link": "",
             "contact_label": "Contact",
-            "contact_link": ""
+            "contact_link": "",
+            "logo_height": 60,
+            "logo_zoom": 100,
+            "header_padding": 2
           },
           "blocks": {}
         }
