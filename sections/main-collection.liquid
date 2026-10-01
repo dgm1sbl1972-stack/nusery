@@ -7,20 +7,87 @@
       {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
       {%- assign show_filters = false -%}
       {%- if section.settings.enable_filtering and collection.filters.size > 0 -%}{%- assign show_filters = true -%}{%- endif -%}
+      {%- assign show_sidebar = show_filters -%}
+      {%- if section.blocks.size > 0 -%}{%- assign show_sidebar = true -%}{%- endif -%}
 
       {%- assign form_id = 'CollectionFilters-' | append: section.id -%}
-      <div class="collection-layout mt-40{% unless show_filters %} collection-layout--no-filters{% endunless %}">
+      <div class="collection-layout mt-40{% unless show_sidebar %} collection-layout--no-filters{% endunless %}">
         {%- unless show_filters -%}
           <form id="{{ form_id }}" action="{{ collection.url }}" method="get" data-collection-filters hidden></form>
         {%- endunless -%}
-        {%- if show_filters -%}
-          <aside class="facets" aria-label="Filters">
-            <button type="button" class="facets__toggle btn btn--outline" aria-expanded="false" aria-controls="{{ form_id }}" data-facets-toggle>
+        {%- if show_sidebar -%}
+          <aside class="facets" aria-label="Categories and filters">
+            <button type="button" class="facets__toggle btn btn--outline" aria-expanded="false" aria-controls="Facets-{{ section.id }}" data-facets-toggle>
               <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M3 5h18M6 12h12M10 19h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              Filters
+              {% if section.blocks.size > 0 %}Categories &amp; filters{% else %}Filters{% endif %}
             </button>
 
-            <form class="facets__panel" id="{{ form_id }}" action="{{ collection.url }}" method="get" data-collection-filters>
+            <div class="facets__panel" id="Facets-{{ section.id }}">
+              {%- if section.blocks.size > 0 -%}
+                <nav class="cat-nav" aria-label="Shop by category">
+                  <h2 class="facets__title">{{ section.settings.categories_heading }}</h2>
+                  {%- for block in section.blocks -%}
+                    {%- liquid
+                      assign group_url = block.settings.link
+                      if group_url == blank
+                        assign group_handle = block.settings.title | handleize
+                        assign group_collection = collections[group_handle]
+                        if group_collection != empty and group_collection.id
+                          assign group_url = group_collection.url
+                        else
+                          assign group_q = block.settings.title | url_encode
+                          assign group_url = routes.search_url | append: '?type=product&q=' | append: group_q
+                        endif
+                      endif
+
+                      assign group_open = false
+                      if group_url == collection.url
+                        assign group_open = true
+                      endif
+                    -%}
+                    {%- capture sub_items -%}
+                      {%- for i in (1..10) -%}
+                        {%- liquid
+                          assign title_key = 'sub_' | append: i | append: '_title'
+                          assign link_key = 'sub_' | append: i | append: '_link'
+                          assign sub_title = block.settings[title_key]
+                          if sub_title == blank
+                            continue
+                          endif
+                          assign sub_url = block.settings[link_key]
+                          if sub_url == blank
+                            assign sub_handle = sub_title | handleize
+                            assign sub_collection = collections[sub_handle]
+                            if sub_collection != empty and sub_collection.id
+                              assign sub_url = sub_collection.url
+                            else
+                              assign sub_q = sub_title | url_encode
+                              assign sub_url = routes.search_url | append: '?type=product&q=' | append: sub_q
+                            endif
+                          endif
+                          assign sub_active = false
+                          if sub_url == collection.url
+                            assign sub_active = true
+                            assign group_open = true
+                          endif
+                        -%}
+                        <li><a href="{{ sub_url }}"{% if sub_active %} class="is-active" aria-current="page"{% endif %}>{{ sub_title }}</a></li>
+                      {%- endfor -%}
+                    {%- endcapture -%}
+
+                    <details class="facet cat-nav__group" {% if group_open or section.settings.open_categories %}open{% endif %} {{ block.shopify_attributes }}>
+                      <summary class="facet__summary">{{ block.settings.title }}</summary>
+                      <ul class="cat-nav__list" role="list">
+                        <li><a class="cat-nav__all{% if group_url == collection.url %} is-active{% endif %}" href="{{ group_url }}">All {{ block.settings.title | downcase }}</a></li>
+                        {{ sub_items }}
+                      </ul>
+                    </details>
+                  {%- endfor -%}
+                </nav>
+              {%- endif -%}
+
+              {%- if show_filters -%}
+              <form class="facets__form" id="{{ form_id }}" action="{{ collection.url }}" method="get" data-collection-filters>
               <div class="facets__head">
                 <h2 class="facets__title">Filters</h2>
                 <a class="facets__clear" href="{{ collection.url }}?sort_by={{ sort_by }}">Clear all</a>
@@ -68,7 +135,9 @@
               {%- endfor -%}
 
               <button type="submit" class="btn btn--dark facets__apply">Apply filters</button>
-            </form>
+              </form>
+              {%- endif -%}
+            </div>
           </aside>
         {%- endif -%}
 
@@ -123,9 +192,54 @@
   "name": "Collection products",
   "settings": [
     { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 16 },
+    { "type": "header", "content": "Categories" },
+    { "type": "text", "id": "categories_heading", "label": "Categories heading", "default": "Shop by category" },
+    { "type": "checkbox", "id": "open_categories", "label": "Expand all categories by default", "default": false },
+    { "type": "paragraph", "content": "Leave a link empty to use the collection whose name matches the category (e.g. \"Indoor plants\" → /collections/indoor-plants). If no such collection exists, it links to a product search." },
+    { "type": "header", "content": "Filters" },
     { "type": "checkbox", "id": "enable_filtering", "label": "Show filters on the left", "default": true, "info": "Choose which filters appear in the Shopify Search & Discovery app." },
     { "type": "checkbox", "id": "open_filters", "label": "Expand all filter groups by default", "default": true },
     { "type": "checkbox", "id": "enable_sorting", "label": "Show sort dropdown", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Category name", "default": "Plants" },
+        { "type": "url", "id": "link", "label": "Category link" },
+        { "type": "header", "content": "Sub-category 1" },
+        { "type": "text", "id": "sub_1_title", "label": "Name" },
+        { "type": "url", "id": "sub_1_link", "label": "Link" },
+        { "type": "header", "content": "Sub-category 2" },
+        { "type": "text", "id": "sub_2_title", "label": "Name" },
+        { "type": "url", "id": "sub_2_link", "label": "Link" },
+        { "type": "header", "content": "Sub-category 3" },
+        { "type": "text", "id": "sub_3_title", "label": "Name" },
+        { "type": "url", "id": "sub_3_link", "label": "Link" },
+        { "type": "header", "content": "Sub-category 4" },
+        { "type": "text", "id": "sub_4_title", "label": "Name" },
+        { "type": "url", "id": "sub_4_link", "label": "Link" },
+        { "type": "header", "content": "Sub-category 5" },
+        { "type": "text", "id": "sub_5_title", "label": "Name" },
+        { "type": "url", "id": "sub_5_link", "label": "Link" },
+        { "type": "header", "content": "Sub-category 6" },
+        { "type": "text", "id": "sub_6_title", "label": "Name" },
+        { "type": "url", "id": "sub_6_link", "label": "Link" },
+        { "type": "header", "content": "Sub-category 7" },
+        { "type": "text", "id": "sub_7_title", "label": "Name" },
+        { "type": "url", "id": "sub_7_link", "label": "Link" },
+        { "type": "header", "content": "Sub-category 8" },
+        { "type": "text", "id": "sub_8_title", "label": "Name" },
+        { "type": "url", "id": "sub_8_link", "label": "Link" },
+        { "type": "header", "content": "Sub-category 9" },
+        { "type": "text", "id": "sub_9_title", "label": "Name" },
+        { "type": "url", "id": "sub_9_link", "label": "Link" },
+        { "type": "header", "content": "Sub-category 10" },
+        { "type": "text", "id": "sub_10_title", "label": "Name" },
+        { "type": "url", "id": "sub_10_link", "label": "Link" }
+      ]
+    }
   ]
 }
 {% endschema %}

@@ -410,6 +410,14 @@ p { margin: 0 0 .75em; }
 .facet__price label { display: grid; gap: 4px; font-size: 12px; color: var(--c-muted); }
 .facet__price input { width: 100%; padding: 8px 10px; border: 1px solid #d9ded3; border-radius: 8px; font: inherit; font-size: 13px; }
 .facets__apply { width: 100%; margin-top: 14px; }
+.cat-nav { margin-bottom: 18px; }
+.cat-nav .facets__title { margin-bottom: 8px; }
+.cat-nav__list { list-style: none; margin: 8px 0 0; padding: 0 0 0 4px; }
+.cat-nav__list a { display: block; padding: 5px 0 5px 10px; font-size: 13.5px; color: var(--c-text); border-left: 2px solid transparent; }
+.cat-nav__list a:hover { color: var(--c-bright); }
+.cat-nav__list a.is-active { color: var(--c-primary); font-weight: 600; border-left-color: var(--c-primary); }
+.cat-nav__all { font-weight: 600; }
+.cat-nav + .facets__form .facets__head { border-top: 2px solid #e6ebe3; padding-top: 14px; }
 .js .facets__apply { display: none; }
 .collection-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
 .collection-toolbar__count { color: var(--c-muted); font-size: 14px; }
