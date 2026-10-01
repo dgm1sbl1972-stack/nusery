@@ -713,8 +713,40 @@
     "17902281242a4f0ec3": {
       "type": "_blocks",
       "blocks": {
+        "ai_gen_block_e8bee09_wB6GQ3": {
+          "type": "ai_gen_block_e8bee09",
+          "settings": {
+            "heading": "Handpicked Favourites",
+            "heading_alignment": "left",
+            "collection": "bestsellers",
+            "product_count": 8,
+            "max_products": 8,
+            "desktop_cards": 4,
+            "mobile_cards": 1.2,
+            "show_bestseller": true,
+            "bestseller_text": "BESTSELLER",
+            "show_ratings": true,
+            "show_discount": true,
+            "show_description": true,
+            "show_compare": true,
+            "show_add_text": true,
+            "show_cart_icon": true,
+            "card_radius": 20,
+            "section_padding": 55,
+            "desktop_width_percent": 100,
+            "background_color": "#f8f4ec",
+            "heading_color": "#0d3a1d",
+            "title_color": "#14231a",
+            "description_color": "#5b6660",
+            "price_color": "#1f5130",
+            "button_color": "#1f5130",
+            "add_text_color": "#0d3a1d"
+          },
+          "blocks": {}
+        },
         "ai_gen_block_6964778_XQL7yV": {
           "type": "ai_gen_block_6964778",
+          "disabled": true,
           "settings": {
             "heading": "Make Your Home Come Alive",
             "heading_alignment": "center",
@@ -780,6 +812,7 @@
         }
       },
       "block_order": [
+        "ai_gen_block_e8bee09_wB6GQ3",
         "ai_gen_block_6964778_XQL7yV",
         "ai_gen_block_02acb7f_XMY4Yd"
       ],
