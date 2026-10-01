@@ -42,10 +42,15 @@
             "benefits": "Describe the plant’s key benefits and what makes it special.",
             "show_delivery": true,
             "delivery_heading": "Check delivery availability",
-            "care_heading": "Plant care",
-            "plant_care": "Add light, watering, and care guidance for this plant.",
             "show_specs": true,
-            "specs_heading": "Plant specifications"
+            "specs_heading": "Plant specification",
+            "origin_label": "Country of origin",
+            "origin": "India",
+            "manufacturer_label": "Manufactured by",
+            "manufacturer": "SBL Nursery\nAdd your address here",
+            "support_label": "Customer support",
+            "support_email": "support@example.com",
+            "support_phone": "+91 00000 00000"
           },
           "blocks": {}
         },
