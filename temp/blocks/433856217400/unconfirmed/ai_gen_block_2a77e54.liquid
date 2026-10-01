@@ -1,0 +1,41 @@
+{% doc %}
+  @prompt
+    need an banner image to upload, no text only image, for each product information this banner will be changing , need the banner size  2171x724 size
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign banner_image = product.metafields.custom.product_banner.value %}
+{% style %}
+  .ai-product-image-banner-{{ ai_gen_id }} { display:block; width:{{ block.settings.desktop_width_percent }}%; max-width:100%; margin:0 auto; overflow:hidden; border-radius:{{ block.settings.corner_radius }}px; background:{{ block.settings.background_color }}; }
+  .ai-product-image-banner-{{ ai_gen_id }}__media { display:block; width:100%; aspect-ratio:2171 / 724; overflow:hidden; }
+  .ai-product-image-banner-{{ ai_gen_id }}__image { display:block; width:100%; height:100%; object-fit:{{ block.settings.image_fit }}; object-position:center; }
+  .ai-product-image-banner-{{ ai_gen_id }}__placeholder { display:block; width:100%; height:100%; background:{{ block.settings.background_color }}; }
+  .ai-product-image-banner-{{ ai_gen_id }}__placeholder svg { display:block; width:100%; height:100%; }
+  @media screen and (max-width:749px) { .ai-product-image-banner-{{ ai_gen_id }} { width:100%; } }
+{% endstyle %}
+<div class="ai-product-image-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-product-image-banner-{{ ai_gen_id }}__media">
+    {% if banner_image != blank %}
+      <img class="ai-product-image-banner-{{ ai_gen_id }}__image" src="{{ banner_image | image_url: width: 2400 }}" alt="{{ banner_image.alt | default: product.title | escape }}" loading="lazy" width="2171" height="724">
+    {% elsif block.settings.fallback_image != blank %}
+      <img class="ai-product-image-banner-{{ ai_gen_id }}__image" src="{{ block.settings.fallback_image | image_url: width: 2400 }}" alt="{{ block.settings.fallback_image.alt | escape }}" loading="lazy" width="2171" height="724">
+    {% else %}
+      <div class="ai-product-image-banner-{{ ai_gen_id }}__placeholder">{{ 'image' | placeholder_svg_tag }}</div>
+    {% endif %}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Product image banner",
+  "settings": [
+    { "type": "paragraph", "content": "Displays each product's banner at a 2171 × 724 aspect ratio. Create a product metafield definition custom.product_banner (File type) and upload a separate banner on each product." },
+    { "type": "image_picker", "id": "fallback_image", "label": "Fallback image" },
+    { "type": "range", "id": "desktop_width_percent", "label": "Desktop width", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "select", "id": "image_fit", "label": "Image fit", "options": [{ "value": "cover", "label": "Fill banner" }, { "value": "contain", "label": "Show full image" }], "default": "cover" },
+    { "type": "color", "id": "background_color", "label": "Placeholder background", "default": "#F8F4EC" },
+    { "type": "range", "id": "corner_radius", "label": "Corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 }
+  ],
+  "presets": [{ "name": "Product image banner" }],
+  "tag": null,
+  "class": "product-image-banner-block"
+}
+{% endschema %}
