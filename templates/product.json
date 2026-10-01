@@ -233,44 +233,6 @@
           },
           "blocks": {}
         },
-        "ai_gen_block_1679586_4edBQK": {
-          "type": "ai_gen_block_1679586",
-          "disabled": true,
-          "settings": {
-            "desktop_width_percent": 100,
-            "desktop_image_height": 700,
-            "mobile_image_height": 420,
-            "image_fit": "cover",
-            "background": "#f8f4ec",
-            "green": "#1f5130",
-            "accent": "#ffd60a",
-            "text_color": "#14231a",
-            "show_reviews": true,
-            "review_text": "★★★★★ Customer reviews",
-            "show_description": true,
-            "banner": "Carefully packed for a happy arrival",
-            "button_text": "Add to cart",
-            "enable_gift": true,
-            "gift_label": "Send as a gift",
-            "note_placeholder": "Add a handwritten note",
-            "show_pin": true,
-            "pin_label": "Check delivery availability",
-            "pin_placeholder": "Enter PIN code",
-            "pin_button": "Check",
-            "pin_response": "Please contact us to confirm delivery availability.",
-            "pin_empty": "Please enter a PIN code.",
-            "offers_title": "Offers",
-            "offers": "<p>Add current offers and terms here.</p>",
-            "benefits_title": "Benefits heading",
-            "benefits": "<p>Share the benefits of this plant.</p>",
-            "care_title": "Plant care",
-            "care": "<p>Provide care guidance for this plant.</p>",
-            "specs_title": "Product specifications",
-            "specifications": "<p>Add specifications here.</p>",
-            "metafield_title": "Plant specifications"
-          },
-          "blocks": {}
-        },
         "ai_gen_block_e8bee09_iqtRNg": {
           "type": "ai_gen_block_e8bee09",
           "name": "Handpicked favourites",
@@ -341,7 +303,6 @@
       "block_order": [
         "ai_gen_block_58c51dd_nbpT6E",
         "ai_gen_block_d70e081_RjnTLi",
-        "ai_gen_block_1679586_4edBQK",
         "ai_gen_block_e8bee09_iqtRNg",
         "ai_gen_block_966b8dc_eYicbU"
       ],
@@ -367,12 +328,46 @@
         "ai_gen_block_2a77e54_4Q68VH"
       ],
       "settings": {}
+    },
+    "17908370919931ea5b": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_a2c911a_J46GaH": {
+          "type": "ai_gen_block_a2c911a",
+          "settings": {
+            "banner_image": "shopify://shop_images/add92e02-5588-4832-9afd-0ec1427067fb.png",
+            "desktop_width_percent": 100,
+            "use_product_title": true,
+            "heading": "Discover this plant",
+            "description": "<p>Aster is a hardy flowering plant known for its star-shaped blooms, lush green foliage, and long-lasting flowering, making it a beautiful choice for gardens, borders, and decorative spaces.</p>",
+            "text_alignment": "left",
+            "content_position": "center",
+            "heading_size": 62,
+            "banner_height": 400,
+            "mobile_height": 280,
+            "overlay_opacity": 45,
+            "corner_radius": 0,
+            "icon_one": "leaf",
+            "feature_one": "Easy to care for",
+            "icon_two": "sun",
+            "feature_two": "Bright indirect light",
+            "icon_three": "drop",
+            "feature_three": "Water when soil is dry"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_a2c911a_J46GaH"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "announcement_marquee_wYhQda",
     "main",
     "17908244705537fff5",
-    "17908347013adc241e"
+    "17908347013adc241e",
+    "17908370919931ea5b"
   ]
 }
