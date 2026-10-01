@@ -53,7 +53,7 @@
       ],
       "name": "Announcement marquee",
       "settings": {
-        "speed": 65
+        "speed": 20
       }
     },
     "17907434622443afbe": {
@@ -510,7 +510,7 @@
             "heading": "A Plant for Every Space",
             "heading_emphasis": "",
             "heading_size": 38,
-            "heading_color": "#085F27",
+            "heading_color": "#085f27",
             "accent_color": "#1f5130",
             "background_color": "#f8f4ec",
             "desktop_width_percent": 100,
