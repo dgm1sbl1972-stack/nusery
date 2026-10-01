@@ -384,6 +384,42 @@ p { margin: 0 0 .75em; }
 .article__image img { border-radius: 18px; width: 100%; }
 .pagination span, .pagination a { display: inline-block; padding: 6px 10px; }
 
+/* ---------- Collection filters ---------- */
+.collection-layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 32px; align-items: start; }
+.collection-layout--no-filters { grid-template-columns: minmax(0, 1fr); }
+.collection-layout .product-grid { grid-template-columns: repeat(3, 1fr); }
+.collection-layout--no-filters .product-grid { grid-template-columns: repeat(4, 1fr); }
+.facets { position: sticky; top: 20px; }
+.facets__toggle { display: none; }
+.facets__panel { background: #fff; border-radius: var(--radius); padding: 20px; box-shadow: 0 6px 20px rgba(13,58,29,.06); }
+.facets__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 8px; }
+.facets__title { font-family: var(--font-display); font-size: 20px; color: var(--c-primary-dark); }
+.facets__clear { font-size: 12px; color: var(--c-bright); text-decoration: underline; }
+.facet { border-top: 1px solid #e6ebe3; padding: 12px 0; }
+.facet__summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; color: var(--c-text); }
+.facet__summary::-webkit-details-marker { display: none; }
+.facet__summary::after { content: "+"; margin-left: auto; font-size: 18px; line-height: 1; color: var(--c-muted); }
+.facet[open] > .facet__summary::after { content: "−"; }
+.facet__count { background: var(--c-primary); color: #fff; font-size: 11px; border-radius: 999px; padding: 1px 7px; }
+.facet__list { list-style: none; margin: 10px 0 0; padding: 0; max-height: 260px; overflow-y: auto; }
+.facet__option { display: flex; align-items: center; gap: 8px; padding: 5px 0; font-size: 13.5px; cursor: pointer; }
+.facet__option input { accent-color: var(--c-primary); width: 16px; height: 16px; }
+.facet__option.is-disabled { opacity: .45; cursor: default; }
+.facet__num { margin-left: auto; color: var(--c-muted); font-size: 12px; }
+.facet__price { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.facet__price label { display: grid; gap: 4px; font-size: 12px; color: var(--c-muted); }
+.facet__price input { width: 100%; padding: 8px 10px; border: 1px solid #d9ded3; border-radius: 8px; font: inherit; font-size: 13px; }
+.facets__apply { width: 100%; margin-top: 14px; }
+.js .facets__apply { display: none; }
+.collection-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+.collection-toolbar__count { color: var(--c-muted); font-size: 14px; }
+.collection-toolbar__sort { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--c-muted); }
+.collection-toolbar__sort select { padding: 8px 12px; border: 1px solid #d9ded3; border-radius: 999px; background: #fff; font: inherit; color: var(--c-text); }
+.active-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.active-filter { display: inline-flex; align-items: center; gap: 6px; background: var(--c-lime); color: var(--c-primary-dark); border: 1px solid #d9e8c5; border-radius: 999px; padding: 5px 12px; font-size: 12.5px; }
+.collection-empty { grid-column: 1 / -1; color: var(--c-muted); }
+.collection-empty a { color: var(--c-bright); text-decoration: underline; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1100px) {
   .site-nav__list { gap: 18px; }
@@ -430,4 +466,14 @@ p { margin: 0 0 .75em; }
   .product-card__footer, .showcase-card__footer { flex-direction: column; align-items: flex-start; }
   .finder__options { grid-template-columns: 1fr; }
   .section-head--split { align-items: flex-start; }
+}
+
+/* Collection filters: stack on tablet/mobile with a toggle button. */
+@media (max-width: 900px) {
+  .collection-layout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .collection-layout .product-grid { grid-template-columns: repeat(2, 1fr); }
+  .facets { position: static; }
+  .facets__toggle { display: inline-flex; align-items: center; gap: 8px; }
+  .js .facets__panel { display: none; margin-top: 12px; }
+  .js .facets.is-open .facets__panel { display: block; }
 }

@@ -210,6 +210,22 @@
     }
   });
 
+  /* Collection filters: submit on change, toggle the panel on mobile. */
+  document.addEventListener('change', function (e) {
+    var form = e.target.form;
+    if (!form || !form.hasAttribute('data-collection-filters') || !e.target.name) return;
+    var params = new URLSearchParams(new FormData(form));
+    Array.from(params.keys()).forEach(function (k) { if (params.get(k) === '') params.delete(k); });
+    window.location.search = params.toString();
+  });
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-facets-toggle]');
+    if (!btn) return;
+    var open = btn.closest('.facets').classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
   /* Re-initialise sections when edited in the Shopify theme editor. */
   document.addEventListener('shopify:section:load', function (e) { init(e.target); });
 

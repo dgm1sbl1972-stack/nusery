@@ -2,19 +2,130 @@
   <div class="page-width">
     <h1 class="section-title section-title--left">{{ collection.title }}</h1>
     {%- if collection.description != blank -%}<div class="rte section-sub">{{ collection.description }}</div>{%- endif -%}
-    {%- paginate collection.products by 16 -%}
-      <div class="product-grid mt-40">
-        {%- for product in collection.products -%}
-          {%- render 'product-card', product: product -%}
-        {%- else -%}
-          <p>No products found.</p>
-        {%- endfor -%}
+
+    {%- paginate collection.products by section.settings.products_per_page -%}
+      {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+      {%- assign show_filters = false -%}
+      {%- if section.settings.enable_filtering and collection.filters.size > 0 -%}{%- assign show_filters = true -%}{%- endif -%}
+
+      {%- assign form_id = 'CollectionFilters-' | append: section.id -%}
+      <div class="collection-layout mt-40{% unless show_filters %} collection-layout--no-filters{% endunless %}">
+        {%- unless show_filters -%}
+          <form id="{{ form_id }}" action="{{ collection.url }}" method="get" data-collection-filters hidden></form>
+        {%- endunless -%}
+        {%- if show_filters -%}
+          <aside class="facets" aria-label="Filters">
+            <button type="button" class="facets__toggle btn btn--outline" aria-expanded="false" aria-controls="{{ form_id }}" data-facets-toggle>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M3 5h18M6 12h12M10 19h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Filters
+            </button>
+
+            <form class="facets__panel" id="{{ form_id }}" action="{{ collection.url }}" method="get" data-collection-filters>
+              <div class="facets__head">
+                <h2 class="facets__title">Filters</h2>
+                <a class="facets__clear" href="{{ collection.url }}?sort_by={{ sort_by }}">Clear all</a>
+              </div>
+
+              {%- for filter in collection.filters -%}
+                <details class="facet" {% if section.settings.open_filters or filter.active_values.size > 0 or filter.min_value.value or filter.max_value.value %}open{% endif %}>
+                  <summary class="facet__summary">
+                    {{ filter.label }}
+                    {%- if filter.active_values.size > 0 -%}<span class="facet__count">{{ filter.active_values.size }}</span>{%- endif -%}
+                  </summary>
+
+                  {%- case filter.type -%}
+                    {%- when 'price_range' -%}
+                      <div class="facet__price">
+                        <label>
+                          <span>From {{ cart.currency.symbol }}</span>
+                          <input type="number" name="{{ filter.min_value.param_name }}" min="0" max="{{ filter.range_max | money_without_currency | remove: ',' }}"
+                            placeholder="0"
+                            {% if filter.min_value.value %}value="{{ filter.min_value.value | money_without_currency | remove: ',' }}"{% endif %}>
+                        </label>
+                        <label>
+                          <span>To {{ cart.currency.symbol }}</span>
+                          <input type="number" name="{{ filter.max_value.param_name }}" min="0" max="{{ filter.range_max | money_without_currency | remove: ',' }}"
+                            placeholder="{{ filter.range_max | money_without_currency | remove: ',' }}"
+                            {% if filter.max_value.value %}value="{{ filter.max_value.value | money_without_currency | remove: ',' }}"{% endif %}>
+                        </label>
+                      </div>
+                    {%- else -%}
+                      <ul class="facet__list" role="list">
+                        {%- for value in filter.values -%}
+                          <li>
+                            <label class="facet__option{% if value.count == 0 and value.active == false %} is-disabled{% endif %}">
+                              <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"
+                                {% if value.active %}checked{% endif %}
+                                {% if value.count == 0 and value.active == false %}disabled{% endif %}>
+                              <span class="facet__label">{{ value.label }}</span>
+                              <span class="facet__num">({{ value.count }})</span>
+                            </label>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                  {%- endcase -%}
+                </details>
+              {%- endfor -%}
+
+              <button type="submit" class="btn btn--dark facets__apply">Apply filters</button>
+            </form>
+          </aside>
+        {%- endif -%}
+
+        <div class="collection-main">
+          <div class="collection-toolbar">
+            <p class="collection-toolbar__count">{{ collection.products_count }} {{ collection.products_count | pluralize: 'product', 'products' }}</p>
+            {%- if section.settings.enable_sorting -%}
+              <label class="collection-toolbar__sort">
+                <span>Sort by</span>
+                <select name="sort_by" form="{{ form_id }}">
+                  {%- for option in collection.sort_options -%}
+                    <option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>{{ option.name }}</option>
+                  {%- endfor -%}
+                </select>
+              </label>
+            {%- endif -%}
+          </div>
+
+          {%- if show_filters -%}
+            {%- capture active_pills -%}
+              {%- for filter in collection.filters -%}
+                {%- for value in filter.active_values -%}
+                  <a class="active-filter" href="{{ value.url_to_remove }}">{{ value.label }} <span aria-hidden="true">×</span><span class="visually-hidden">Remove filter</span></a>
+                {%- endfor -%}
+                {%- if filter.type == 'price_range' and filter.min_value.value or filter.type == 'price_range' and filter.max_value.value -%}
+                  <a class="active-filter" href="{{ filter.url_to_remove }}">
+                    {{ filter.min_value.value | default: 0 | money }} – {{ filter.max_value.value | default: filter.range_max | money }}
+                    <span aria-hidden="true">×</span><span class="visually-hidden">Remove filter</span>
+                  </a>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endcapture -%}
+            {%- if active_pills != blank -%}<div class="active-filters">{{ active_pills }}</div>{%- endif -%}
+          {%- endif -%}
+
+          <div class="product-grid">
+            {%- for product in collection.products -%}
+              {%- render 'product-card', product: product -%}
+            {%- else -%}
+              <p class="collection-empty">No products match these filters. <a href="{{ collection.url }}">Clear filters</a></p>
+            {%- endfor -%}
+          </div>
+          {%- if paginate.pages > 1 -%}<div class="pagination center mt-40">{{ paginate | default_pagination }}</div>{%- endif -%}
+        </div>
       </div>
-      {%- if paginate.pages > 1 -%}<div class="pagination center mt-40">{{ paginate | default_pagination }}</div>{%- endif -%}
     {%- endpaginate -%}
   </div>
 </section>
 
 {% schema %}
-{ "name": "Collection products", "settings": [] }
+{
+  "name": "Collection products",
+  "settings": [
+    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 16 },
+    { "type": "checkbox", "id": "enable_filtering", "label": "Show filters on the left", "default": true, "info": "Choose which filters appear in the Shopify Search & Discovery app." },
+    { "type": "checkbox", "id": "open_filters", "label": "Expand all filter groups by default", "default": true },
+    { "type": "checkbox", "id": "enable_sorting", "label": "Show sort dropdown", "default": true }
+  ]
+}
 {% endschema %}
