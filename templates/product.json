@@ -332,8 +332,31 @@
     "17908370919931ea5b": {
       "type": "_blocks",
       "blocks": {
+        "ai_gen_block_a76c92b_YLBr7L": {
+          "type": "ai_gen_block_a76c92b",
+          "settings": {
+            "banner_image": "shopify://shop_images/aster_banner_2170x430_f88f5a00-4a3c-4a04-9e1c-9d0f7cad5188.png",
+            "show_leaf_icon": true,
+            "heading": "A little more green",
+            "description": "<p>aster description</p>",
+            "desktop_width_percent": 100,
+            "banner_height": 440,
+            "mobile_height": 360,
+            "corner_radius": 16,
+            "background_color": "#1f5130",
+            "text_color": "#ffffff",
+            "overlay_color": "#0d3a1d",
+            "overlay_opacity": 0.7,
+            "icon_color": "#ffffff",
+            "icon_size": 48,
+            "heading_size": 48,
+            "body_size": 18
+          },
+          "blocks": {}
+        },
         "ai_gen_block_a2c911a_J46GaH": {
           "type": "ai_gen_block_a2c911a",
+          "disabled": true,
           "settings": {
             "banner_image": "shopify://shop_images/add92e02-5588-4832-9afd-0ec1427067fb.png",
             "desktop_width_percent": 100,
@@ -358,6 +381,7 @@
         }
       },
       "block_order": [
+        "ai_gen_block_a76c92b_YLBr7L",
         "ai_gen_block_a2c911a_J46GaH"
       ],
       "settings": {}
