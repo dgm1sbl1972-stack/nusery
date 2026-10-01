@@ -24,10 +24,10 @@
             "desktop_image_height": 700,
             "mobile_image_height": 420,
             "image_fit": "cover",
-            "background": "#F8F4EC",
-            "green": "#1F5130",
-            "accent": "#FFD60A",
-            "text_color": "#14231A",
+            "background": "#f8f4ec",
+            "green": "#1f5130",
+            "accent": "#ffd60a",
+            "text_color": "#14231a",
             "show_reviews": true,
             "review_text": "★★★★★ Customer reviews",
             "show_description": true,
@@ -94,10 +94,31 @@
         "ai_gen_block_966b8dc_eYicbU"
       ],
       "settings": {}
+    },
+    "17908347013adc241e": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_2a77e54_4Q68VH": {
+          "type": "ai_gen_block_2a77e54",
+          "settings": {
+            "fallback_image": "shopify://shop_images/d760c6ee-2848-4f68-84ec-19b15fc2b69e.png",
+            "desktop_width_percent": 100,
+            "image_fit": "cover",
+            "background_color": "#F8F4EC",
+            "corner_radius": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_2a77e54_4Q68VH"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "main",
-    "17908244705537fff5"
+    "17908244705537fff5",
+    "17908347013adc241e"
   ]
 }
