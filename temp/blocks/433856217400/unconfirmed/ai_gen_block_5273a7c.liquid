@@ -1,6 +1,43 @@
+{% doc %}
+  @prompt
+    need an banner image to upload, no text only image, for each product information this banner will be changing 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign banner_image = product.metafields.custom.product_banner.value %}
+{% style %}
+  .ai-product-image-banner-{{ ai_gen_id }} { display:block; width:{{ block.settings.desktop_width_percent }}%; max-width:100%; margin:0 auto; overflow:hidden; border-radius:{{ block.settings.corner_radius }}px; background:{{ block.settings.background_color }}; }
+  .ai-product-image-banner-{{ ai_gen_id }}__media { display:block; width:100%; height:{{ block.settings.banner_height }}px; overflow:hidden; }
+  .ai-product-image-banner-{{ ai_gen_id }}__image { display:block; width:100%; height:100%; object-fit:{{ block.settings.image_fit }}; object-position:center; }
+  .ai-product-image-banner-{{ ai_gen_id }}__placeholder { display:block; width:100%; height:100%; background:{{ block.settings.background_color }}; }
+  .ai-product-image-banner-{{ ai_gen_id }}__placeholder svg { display:block; width:100%; height:100%; }
+  @media screen and (max-width:749px) { .ai-product-image-banner-{{ ai_gen_id }} { width:100%; } .ai-product-image-banner-{{ ai_gen_id }}__media { height:{{ block.settings.mobile_height }}px; } }
+{% endstyle %}
+<div class="ai-product-image-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-product-image-banner-{{ ai_gen_id }}__media">
+    {% if banner_image != blank %}
+      <img class="ai-product-image-banner-{{ ai_gen_id }}__image" src="{{ banner_image | image_url: width: 2400 }}" alt="{{ banner_image.alt | default: product.title | escape }}" loading="lazy" width="{{ banner_image.width }}" height="{{ banner_image.height }}">
+    {% elsif block.settings.fallback_image != blank %}
+      <img class="ai-product-image-banner-{{ ai_gen_id }}__image" src="{{ block.settings.fallback_image | image_url: width: 2400 }}" alt="{{ block.settings.fallback_image.alt | escape }}" loading="lazy" width="{{ block.settings.fallback_image.width }}" height="{{ block.settings.fallback_image.height }}">
+    {% else %}
+      <div class="ai-product-image-banner-{{ ai_gen_id }}__placeholder">{{ 'image' | placeholder_svg_tag }}</div>
+    {% endif %}
+  </div>
+</div>
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Product image banner",
+  "settings": [
+    { "type": "paragraph", "content": "Shows each product's own banner. Create a product metafield definition: custom.product_banner, type File, then add an image to each product. The fallback is shown when no product image is set." },
+    { "type": "image_picker", "id": "fallback_image", "label": "Fallback image" },
+    { "type": "range", "id": "desktop_width_percent", "label": "Desktop width", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "banner_height", "label": "Desktop height", "min": 200, "max": 700, "step": 25, "unit": "px", "default": 400 },
+    { "type": "range", "id": "mobile_height", "label": "Mobile height", "min": 180, "max": 500, "step": 20, "unit": "px", "default": 280 },
+    { "type": "select", "id": "image_fit", "label": "Image fit", "options": [{ "value": "cover", "label": "Fill banner" }, { "value": "contain", "label": "Show full image" }], "default": "cover" },
+    { "type": "color", "id": "background_color", "label": "Placeholder background", "default": "#F8F4EC" },
+    { "type": "range", "id": "corner_radius", "label": "Corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 }
+  ],
+  "presets": [{ "name": "Product image banner" }],
+  "tag": null,
+  "class": "product-image-banner-block"
+}
 {% endschema %}
