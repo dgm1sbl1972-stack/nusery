@@ -1,0 +1,25 @@
+{%- comment -%}
+  Star rating line for product cards. Reads Judge.me / Shopify review
+  metafields (reviews.rating, reviews.rating_count), falling back to
+  custom.rating / custom.review_count.
+  Accepts: product
+{%- endcomment -%}
+{%- liquid
+  assign rating = product.metafields.reviews.rating.value.rating
+  assign count = product.metafields.reviews.rating_count.value
+  if rating == blank
+    assign rating = product.metafields.custom.rating.value
+    assign count = product.metafields.custom.review_count.value | default: product.metafields.custom.rating_count.value
+  endif
+  assign rating_num = rating | default: 0 | times: 1.0
+  assign pct = rating_num | divided_by: 5.0 | times: 100 | round
+-%}
+<div class="card-rating"{% if rating != blank %} aria-label="Rated {{ rating_num | round: 1 }} out of 5{% if count != blank %}, {{ count }} reviews{% endif %}"{% else %} aria-label="No reviews yet"{% endif %}>
+  <span class="card-rating__stars" style="--rating: {{ pct }}%;" aria-hidden="true"></span>
+  {%- if rating != blank -%}
+    <span class="card-rating__value">{{ rating_num | round: 1 }}</span>
+    {%- if count != blank -%}<span class="card-rating__count">({{ count }})</span>{%- endif -%}
+  {%- else -%}
+    <span class="card-rating__count">(0)</span>
+  {%- endif -%}
+</div>

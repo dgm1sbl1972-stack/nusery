@@ -1,0 +1,12 @@
+{%- comment -%}
+  One-line subtext under a product card title. Uses the product metafield
+  custom.subtitle when set, otherwise a short line from the description.
+  Accepts: product, class (optional extra class)
+{%- endcomment -%}
+{%- liquid
+  assign subtext = product.metafields.custom.subtitle.value | default: product.metafields.custom.subtext.value
+  if subtext == blank
+    assign subtext = product.description | strip_html | strip_newlines | truncatewords: 10
+  endif
+-%}
+{%- if subtext != blank -%}<p class="card-subtext{% if class %} {{ class }}{% endif %}">{{ subtext | strip_html | escape }}</p>{%- endif -%}

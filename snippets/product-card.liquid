@@ -17,7 +17,8 @@
     <div class="product-card__body">
       <p class="product-card__type">{{ product.type | default: product.vendor }}</p>
       <h3 class="product-card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
-      <p class="product-card__desc">{{ product.description | strip_html | truncatewords: 12 }}</p>
+      {%- render 'card-subtext', product: product -%}
+      {%- render 'card-rating', product: product -%}
       <div class="product-card__footer">
         <div class="price">
           <strong>{{ product.price | money_without_trailing_zeros }}</strong>
@@ -42,7 +43,8 @@
     <div class="product-card__body">
       <p class="product-card__type">Plants</p>
       <h3 class="product-card__title">Example plant</h3>
-      <p class="product-card__desc">Add products to a collection to see them here.</p>
+      <p class="card-subtext">Add products to a collection to see them here.</p>
+      <div class="card-rating"><span class="card-rating__stars" style="--rating: 90%;" aria-hidden="true"></span><span class="card-rating__value">4.5</span><span class="card-rating__count">(24)</span></div>
       <div class="product-card__footer">
         <div class="price"><strong>₹499</strong> <s>₹699</s></div>
         <span class="btn btn--sm btn--green">{{ 'general.add_to_cart' | t }}</span>
