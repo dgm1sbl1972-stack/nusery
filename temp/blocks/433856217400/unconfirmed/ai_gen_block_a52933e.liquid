@@ -1,6 +1,244 @@
+{% doc %}
+  @prompt
+    view more products section , like related products showcase plants collection, give plant collection card with view product option add to cart option bestseller tag discount tag, give view all collection option  and that add to cart option give at the right side of the card, Edit the existing card while preserving the original background, layout, image, and proportions. Add a yellow rounded pill badge at the top-left with bold black uppercase text “BESTSELLER”, and a red rounded pill badge at the top-right with bold white text “1% OFF”. Make both badges compact, aligned horizontally, with smooth rounded corners and subtle shadows. Match the existing visual style and lighting exactly.
+    
+{% enddoc %}
+{% doc %}
+  @prompt
+    Edit the existing plant collection card to preserve the original background, layout, image, and proportions. Add compact horizontally aligned pill badges: BESTSELLER at top-left, yellow with bold black uppercase text, and 1% OFF at top-right, red with bold white text. Subtle shadows and rounded corners. Keep collection card and product actions.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-plant-card-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+  }
+
+  .ai-plant-card-{{ ai_gen_id }}__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: {{ block.settings.card_radius }}px;
+    background: #f4f7dc;
+  }
+
+  .ai-plant-card-{{ ai_gen_id }}__media img,
+  .ai-plant-card-{{ ai_gen_id }}__media svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-plant-card-{{ ai_gen_id }}__media svg {
+    background: #f4f7dc;
+  }
+
+  .ai-plant-card-{{ ai_gen_id }}__badges {
+    position: absolute;
+    z-index: 2;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    pointer-events: none;
+  }
+
+  .ai-plant-card-{{ ai_gen_id }}__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 25px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.18);
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.035em;
+    white-space: nowrap;
+  }
+
+  .ai-plant-card-{{ ai_gen_id }}__badge--bestseller {
+    background-color: #ffd60a;
+    color: #111111;
+    text-transform: uppercase;
+  }
+
+  .ai-plant-card-{{ ai_gen_id }}__badge--discount {
+    background-color: #c62828;
+    color: #ffffff;
+  }
+
+  .ai-plant-card-{{ ai_gen_id }}__body {
+    padding: 15px 0 0;
+    color: #0d3a1d;
+  }
+
+  .ai-plant-card-{{ ai_gen_id }}__title {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 650;
+  }
+
+  .ai-plant-card-{{ ai_gen_id }}__title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .ai-plant-card-{{ ai_gen_id }}__price {
+    margin-top: 7px;
+    font-size: 15px;
+  }
+
+  .ai-plant-card-{{ ai_gen_id }}__compare {
+    margin-left: 7px;
+    color: #5b6660;
+    text-decoration: line-through;
+  }
+
+  .ai-plant-card-{{ ai_gen_id }}__actions {
+    display: flex;
+    align-items: stretch;
+    gap: 9px;
+    margin-top: 14px;
+  }
+
+  .ai-plant-card-{{ ai_gen_id }}__button {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 12px;
+    border: 1px solid #1f5130;
+    border-radius: 8px;
+    background: #1f5130;
+    color: #ffffff;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 650;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .ai-plant-card-{{ ai_gen_id }}__button--secondary {
+    flex: 1 1 auto;
+    background: transparent;
+    color: #1f5130;
+  }
+
+  .ai-plant-card-{{ ai_gen_id }}__actions form {
+    flex: 0 0 auto;
+    margin: 0;
+  }
+
+  .ai-plant-card-{{ ai_gen_id }}__button:focus-visible,
+  .ai-plant-card-{{ ai_gen_id }}__title a:focus-visible {
+    outline: 3px solid #ffd60a;
+    outline-offset: 3px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-plant-card-{{ ai_gen_id }}__body {
+      padding-top: 11px;
+    }
+
+    .ai-plant-card-{{ ai_gen_id }}__actions {
+      gap: 6px;
+    }
+
+    .ai-plant-card-{{ ai_gen_id }}__button {
+      padding: 8px 9px;
+      font-size: 12px;
+    }
+
+    .ai-plant-card-{{ ai_gen_id }}__badges {
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      gap: 5px;
+    }
+
+    .ai-plant-card-{{ ai_gen_id }}__badge {
+      min-height: 23px;
+      padding: 5px 8px;
+      font-size: 10px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-plant-card-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% assign product = block.settings.product %}
+  {% if product != blank %}
+    {% assign current_variant = product.selected_or_first_available_variant %}
+    <article>
+      <div class="ai-plant-card-{{ ai_gen_id }}__media">
+        {% if product.featured_image %}
+          <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" loading="lazy" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}">
+        {% else %}
+          {{ 'product-apparel-1' | placeholder_svg_tag }}
+        {% endif %}
+        <div class="ai-plant-card-{{ ai_gen_id }}__badges" aria-label="Product highlights">
+          <span class="ai-plant-card-{{ ai_gen_id }}__badge ai-plant-card-{{ ai_gen_id }}__badge--bestseller">Bestseller</span>
+          <span class="ai-plant-card-{{ ai_gen_id }}__badge ai-plant-card-{{ ai_gen_id }}__badge--discount">1% OFF</span>
+        </div>
+      </div>
+      <div class="ai-plant-card-{{ ai_gen_id }}__body">
+        <h3 class="ai-plant-card-{{ ai_gen_id }}__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+        {% if block.settings.show_price %}
+          <div class="ai-plant-card-{{ ai_gen_id }}__price">
+            {{ product.price | money }}
+            {% if product.compare_at_price_max > product.price %}<span class="ai-plant-card-{{ ai_gen_id }}__compare">{{ product.compare_at_price_max | money }}</span>{% endif %}
+          </div>
+        {% endif %}
+        <div class="ai-plant-card-{{ ai_gen_id }}__actions">
+          <a class="ai-plant-card-{{ ai_gen_id }}__button ai-plant-card-{{ ai_gen_id }}__button--secondary" href="{{ product.url }}">{{ block.settings.view_label | escape }}</a>
+          {% if current_variant != blank and current_variant.available %}
+            <form method="post" action="{{ routes.cart_add_url }}">
+              <input type="hidden" name="id" value="{{ current_variant.id }}">
+              <input type="hidden" name="quantity" value="1">
+              <input type="hidden" name="return_to" value="{{ routes.cart_url }}">
+              <button class="ai-plant-card-{{ ai_gen_id }}__button" type="submit" aria-label="{{ block.settings.add_label | escape }} — {{ product.title | escape }}">{{ block.settings.add_label | escape }}</button>
+            </form>
+          {% else %}
+            <button class="ai-plant-card-{{ ai_gen_id }}__button" type="button" disabled>{{ block.settings.sold_out_label | escape }}</button>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+  {% else %}
+    <div class="ai-plant-card-{{ ai_gen_id }}__media">
+      {{ 'product-apparel-1' | placeholder_svg_tag }}
+      <div class="ai-plant-card-{{ ai_gen_id }}__badges" aria-label="Product highlights">
+        <span class="ai-plant-card-{{ ai_gen_id }}__badge ai-plant-card-{{ ai_gen_id }}__badge--bestseller">Bestseller</span>
+        <span class="ai-plant-card-{{ ai_gen_id }}__badge ai-plant-card-{{ ai_gen_id }}__badge--discount">1% OFF</span>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Plant product card",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product" },
+    { "type": "checkbox", "id": "show_price", "label": "Show price", "default": true },
+    { "type": "text", "id": "view_label", "label": "View product label", "default": "View product" },
+    { "type": "text", "id": "add_label", "label": "Add to cart label", "default": "Add to cart" },
+    { "type": "text", "id": "sold_out_label", "label": "Sold out label", "default": "Sold out" },
+    { "type": "range", "id": "desktop_width_percent", "label": "Desktop width", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "card_radius", "label": "Image corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 }
+  ],
+  "presets": [{ "name": "Plant product card" }],
+  "tag": null,
+  "class": "plant-product-card"
+}
 {% endschema %}
