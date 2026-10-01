@@ -184,14 +184,14 @@
       });
     },
     refresh: function () {
-      return fetch(cartRoot + '?sections=cart-drawer', { headers: { 'Accept': 'application/json' } })
+      return fetch(cartRoot + '?sections=smart-cart-drawer', { headers: { 'Accept': 'application/json' } })
         .then(function (r) { return r.json(); })
         .then(function (data) {
-          var current = document.getElementById('shopify-section-cart-drawer');
-          if (!current || !data['cart-drawer']) return;
+          var current = document.getElementById('shopify-section-smart-cart-drawer');
+          if (!current || !data['smart-cart-drawer']) return;
           var tmp = document.createElement('div');
-          tmp.innerHTML = data['cart-drawer'];
-          var next = tmp.querySelector('#shopify-section-cart-drawer');
+          tmp.innerHTML = data['smart-cart-drawer'];
+          var next = tmp.querySelector('#shopify-section-smart-cart-drawer');
           if (next) current.replaceWith(next);
           SBLCart.updateCounts();
         });
@@ -256,6 +256,23 @@
       var link = e.target.closest('a[data-cart-drawer-close]');
       if (!link || link.pathname === window.location.pathname) e.preventDefault();
       SBLCart.close();
+      return;
+    }
+    var quick = e.target.closest('[data-quick-add]');
+    if (quick) {
+      quick.disabled = true;
+      quick.classList.add('is-loading');
+      fetch(cartRoot + 'cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ items: [{ id: Number(quick.getAttribute('data-quick-add')), quantity: 1 }] })
+      }).then(SBLCart.refresh).catch(function () { quick.disabled = false; quick.classList.remove('is-loading'); });
+      return;
+    }
+    var scrollBtn = e.target.closest('[data-scd-scroll]');
+    if (scrollBtn) {
+      var track = scrollBtn.closest('[data-scd-recs]').querySelector('[data-scd-track]');
+      track.scrollBy({ left: Number(scrollBtn.getAttribute('data-scd-scroll')) * track.clientWidth * 0.8, behavior: 'smooth' });
       return;
     }
     var lineBtn = e.target.closest('[data-cart-line]');
