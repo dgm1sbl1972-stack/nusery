@@ -12,9 +12,18 @@
     "main": {
       "type": "main-product",
       "settings": {}
+    },
+    "product_reviews": {
+      "type": "product-reviews",
+      "settings": {
+        "heading": "Customer",
+        "heading_accent": "Reviews",
+        "background": "#ffffff"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "product_reviews"
   ]
 }

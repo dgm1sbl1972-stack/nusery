@@ -1,0 +1,33 @@
+<section class="product-reviews section-pad" id="reviews" style="background: {{ section.settings.background }};">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="section-title">{{ section.settings.heading }}{% if section.settings.heading_accent != blank %} <em>{{ section.settings.heading_accent }}</em>{% endif %}</h2>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      {%- for block in section.blocks -%}
+        {% render block %}
+      {%- endfor -%}
+    {%- elsif product -%}
+      {%- comment -%} Judge.me review widget; populated by the Judge.me app embed. {%- endcomment -%}
+      <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget jdgm-outside-widget" data-id="{{ product.id }}">
+        {{ product.metafields.judgeme.widget }}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product reviews",
+  "class": "section-product-reviews",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Customer" },
+    { "type": "text", "id": "heading_accent", "label": "Heading accent", "default": "Reviews" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#ffffff" }
+  ],
+  "blocks": [{ "type": "@app" }],
+  "enabled_on": { "templates": ["product"] },
+  "presets": [{ "name": "Product reviews" }]
+}
+{% endschema %}

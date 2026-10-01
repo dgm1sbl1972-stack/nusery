@@ -176,12 +176,21 @@
         "ai_gen_block_a2c911a_J46GaH"
       ],
       "settings": {}
+    },
+    "product_reviews": {
+      "type": "product-reviews",
+      "settings": {
+        "heading": "Customer",
+        "heading_accent": "Reviews",
+        "background": "#ffffff"
+      }
     }
   },
   "order": [
     "main",
     "17908244705537fff5",
     "17908347013adc241e",
-    "17908370919931ea5b"
+    "17908370919931ea5b",
+    "product_reviews"
   ]
 }
