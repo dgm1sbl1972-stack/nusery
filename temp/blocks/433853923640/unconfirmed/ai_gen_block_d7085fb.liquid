@@ -1,6 +1,21 @@
-{% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
-{% endschema %}
+{% doc %}
+  @prompt
+    Redesign my Shopify product page based on the attached reference image for SBL Nursery.
+    
+    - Background: #F8F4EC, Green: #1F5130, Accent: #FFD60A
+    - Left: product gallery with up to 10 Shopify product images.
+    - Show thumbnails vertically on desktop and horizontally on mobile.
+    - Clicking any thumbnail should show that image in the large main preview.
+    - Add image zoom/click-to-enlarge.
+    - Images must come dynamically from Shopify Product Media.
+    - Right: reviews, product title, description, plant size, planter, color, price and quantity.
+    - Size, Planter and Color must use actual Shopify variants dynamically.
+    - Add Gift option + handwritten note.
+    - Add Quantity + Add to Cart.
+    - Add editable Offers, Benefits, Promotional Banner, Delivery PIN checker, Plant Care and Product Specifications.
+    - Use Shopify metafields for plant specifications.
+    - Make everything responsive and editable through Shopify Theme Editor.
+    - Do not hardcode products, prices, images or variant values.
+    - Match the reference layout closely with a clean, premium SBL Nursery style., give to adjust the size of the image, make it whole protrait , desktop end to end , those product image make some bigger, instead of price and droptdown add pot size and drop down , keep all like this only now instead of price change to pot 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}{% assign pot_option_index = 0 %}{% for option in product.options_with_values %}{% assign option_key = option.name | downcase %}{% if option_key contains 'pot' or option_key contains 'size' %}{% assign pot_option_index = forloop.index %}{% endif %}{% endfor %}{% assign option_zero_index = pot_option_index | minus: 1 %}{% assign pot_option = product.options_with_values[option_zero_index] %}{% style %}.sbl-pot-choice-{{ ai_gen_id }}{display:block;width:{{ block.settings.desktop_width_percent }}%;color:#14231a}.sbl-pot-choice-{{ ai_gen_id }}__label{display:block;margin:0 0 7px;font-weight:700;color:#1f5130}.sbl-pot-choice-{{ ai_gen_id }}__select{width:100%;padding:12px 14px;border:1px solid #c8cec8;border-radius:9px;background:#fff;color:#14231a;font:inherit}.sbl-pot-choice-{{ ai_gen_id }}__select:focus-visible{outline:3px solid #1f5130;outline-offset:2px}@media(max-width:749px){.sbl-pot-choice-{{ ai_gen_id }}{width:100%}}{% endstyle %}<div class="sbl-pot-choice-{{ ai_gen_id }}" {{ block.shopify_attributes }}><label class="sbl-pot-choice-{{ ai_gen_id }}__label" for="sbl-pot-choice-{{ ai_gen_id }}">{{ block.settings.label | escape }}</label>{% if pot_option_index > 0 %}<select id="sbl-pot-choice-{{ ai_gen_id }}" class="sbl-pot-choice-{{ ai_gen_id }}__select" name="options[{{ pot_option.name | escape }}]">{% for value in pot_option.values %}<option value="{{ value | escape }}"{% if pot_option.selected_value == value %} selected{% endif %}>{{ value | escape }}</option>{% endfor %}</select>{% else %}<select id="sbl-pot-choice-{{ ai_gen_id }}" class="sbl-pot-choice-{{ ai_gen_id }}__select" disabled><option>{{ block.settings.no_option_text | escape }}</option></select>{% endif %}</div>{% schema %}{"name":"Pot size dropdown","settings":[{"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},{"type":"text","id":"label","label":"Dropdown label","default":"Pot size"},{"type":"text","id":"no_option_text","label":"Fallback text","default":"Standard pot"}],"presets":[{"name":"Pot size dropdown"}],"tag":null,"class":"sbl-pot-size-dropdown"}{% endschema %}
