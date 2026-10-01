@@ -277,7 +277,8 @@
             body: new FormData(form)
           });
           if (!response.ok) throw new Error('Unable to add product');
-          window.location.assign((window.Shopify && Shopify.routes && Shopify.routes.root ? Shopify.routes.root : '/') + 'cart');
+          if (window.SBLCart && window.SBLCart.enabled()) window.SBLCart.open();
+          else window.location.assign((window.Shopify && Shopify.routes && Shopify.routes.root ? Shopify.routes.root : '/') + 'cart');
         } catch (error) {
           form.submit();
         } finally {

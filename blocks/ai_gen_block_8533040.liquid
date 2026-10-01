@@ -288,7 +288,7 @@
     connectedCallback(){
       this.track=this.querySelector('[data-track]'); this.prev=this.querySelector('.ai-nursery-{{ ai_gen_id }}__arrow--prev'); this.next=this.querySelector('.ai-nursery-{{ ai_gen_id }}__arrow--next');
       this.prev.addEventListener('click',()=>this.track.scrollBy({left:-this.track.clientWidth*.8,behavior:'smooth'})); this.next.addEventListener('click',()=>this.track.scrollBy({left:this.track.clientWidth*.8,behavior:'smooth'}));
-      this.querySelectorAll('[data-variant]').forEach(button=>button.addEventListener('click',()=>fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({items:[{id:Number(button.dataset.variant),quantity:1}]})}).then(()=>button.setAttribute('aria-label','Added to cart')).catch(()=>{})));
+      this.querySelectorAll('[data-variant]').forEach(button=>button.addEventListener('click',()=>fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({items:[{id:Number(button.dataset.variant),quantity:1}]})}).then((r)=>{button.setAttribute('aria-label','Added to cart');if(r.ok&&window.SBLCart&&window.SBLCart.enabled())window.SBLCart.open()}).catch(()=>{})));
     }
   }
   customElements.define('plant-carousel-{{ ai_gen_id }}',PlantCarousel{{ ai_gen_id }});
