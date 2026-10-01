@@ -201,8 +201,41 @@
           },
           "blocks": {}
         },
+        "ai_gen_block_d70e081_RjnTLi": {
+          "type": "ai_gen_block_d70e081",
+          "settings": {
+            "desktop_width_percent": 85,
+            "image_height": 900,
+            "mobile_image_height": 480,
+            "image_fit": "cover",
+            "corner_radius": 16,
+            "section_padding": 30,
+            "background": "#F8F4EC",
+            "green": "#1F5130",
+            "accent": "#FFD60A",
+            "text_color": "#14231A",
+            "show_description": true,
+            "show_gift": true,
+            "gift_label": "Send as a gift with a handwritten note",
+            "gift_note_label": "Handwritten note",
+            "add_label": "Add to cart",
+            "promo_banner": "A little greenery, delivered with care",
+            "offers_heading": "Available offers",
+            "offers": "Add current offers or coupon details here.",
+            "benefits_heading": "Why you’ll love it",
+            "benefits": "Describe the plant’s key benefits and what makes it special.",
+            "show_delivery": true,
+            "delivery_heading": "Check delivery availability",
+            "care_heading": "Plant care",
+            "plant_care": "Add light, watering, and care guidance for this plant.",
+            "show_specs": true,
+            "specs_heading": "Plant specifications"
+          },
+          "blocks": {}
+        },
         "ai_gen_block_1679586_4edBQK": {
           "type": "ai_gen_block_1679586",
+          "disabled": true,
           "settings": {
             "desktop_width_percent": 100,
             "desktop_image_height": 700,
@@ -307,6 +340,7 @@
       },
       "block_order": [
         "ai_gen_block_58c51dd_nbpT6E",
+        "ai_gen_block_d70e081_RjnTLi",
         "ai_gen_block_1679586_4edBQK",
         "ai_gen_block_e8bee09_iqtRNg",
         "ai_gen_block_966b8dc_eYicbU"
