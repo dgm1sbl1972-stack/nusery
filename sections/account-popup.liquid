@@ -1,0 +1,80 @@
+{%- comment -%}
+  Sign-in popup opened from the header person icon. Customers sign in on
+  Shopify's secure customer-account page; this popup is the branded entry point
+  (and a quick account menu when already signed in).
+{%- endcomment -%}
+{%- assign s = section.settings -%}
+<div class="acct-pop" data-account-popup data-enabled="{{ s.enabled }}" aria-hidden="true">
+  <div class="acct-pop__overlay" data-account-popup-close></div>
+  <div class="acct-pop__dialog" role="dialog" aria-modal="true" aria-labelledby="AccountPopupTitle" tabindex="-1">
+    <button type="button" class="acct-pop__close" aria-label="Close" data-account-popup-close>
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+
+    <div class="acct-pop__media">
+      {%- if s.image != blank -%}
+        {{ s.image | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 360px, 100vw', widths: '450, 700, 900', alt: '', class: 'acct-pop__img' }}
+      {%- endif -%}
+      <div class="acct-pop__media-text">
+        <p class="acct-pop__brand">🌿 {{ shop.name }}</p>
+        <p class="acct-pop__tagline">{{ s.tagline | escape }}</p>
+      </div>
+    </div>
+
+    <div class="acct-pop__body">
+      {%- if customer -%}
+        <h2 class="acct-pop__title" id="AccountPopupTitle">Hi{% if customer.first_name != blank %}, {{ customer.first_name }}{% endif %} 👋</h2>
+        <p class="acct-pop__sub">{{ customer.email }}</p>
+        <nav class="acct-pop__menu" aria-label="Account">
+          <a href="{{ routes.account_url }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7zM9 7V5a3 3 0 0 1 6 0v2"/></svg>
+            <span><strong>My orders</strong><small>Track, return or buy again</small></span>
+          </a>
+          <a href="{{ routes.account_url }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 21c.7-4.2 3.3-6.3 7.5-6.3s6.8 2.1 7.5 6.3"/></svg>
+            <span><strong>Profile &amp; addresses</strong><small>Manage your details</small></span>
+          </a>
+          {%- if s.wishlist_url != blank -%}
+            <a href="{{ s.wishlist_url }}">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.7c0 5.2-8.8 11-8.8 11s-8.8-5.8-8.8-11A4.6 4.6 0 0 1 12 6.4a4.6 4.6 0 0 1 8.8 2.3Z"/></svg>
+              <span><strong>Wishlist</strong><small>Plants you saved</small></span>
+            </a>
+          {%- endif -%}
+        </nav>
+        <a class="acct-pop__btn acct-pop__btn--outline" href="{{ routes.account_logout_url }}">Log out</a>
+      {%- else -%}
+        <h2 class="acct-pop__title" id="AccountPopupTitle">{{ s.heading | escape }}</h2>
+        <p class="acct-pop__sub">{{ s.subheading | escape }}</p>
+        <ul class="acct-pop__perks" role="list">
+          {%- if s.perk_1 != blank -%}<li>{{ s.perk_1 | escape }}</li>{%- endif -%}
+          {%- if s.perk_2 != blank -%}<li>{{ s.perk_2 | escape }}</li>{%- endif -%}
+          {%- if s.perk_3 != blank -%}<li>{{ s.perk_3 | escape }}</li>{%- endif -%}
+        </ul>
+        <a class="acct-pop__btn" href="{{ routes.account_login_url }}" data-account-login>{{ s.signin_label | escape }}</a>
+        <a class="acct-pop__btn acct-pop__btn--outline" href="{{ routes.account_login_url }}" data-account-login>{{ s.signup_label | escape }}</a>
+        <p class="acct-pop__note">{{ s.note | escape }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Sign-in popup",
+  "class": "account-popup-section",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Open popup from the header account icon", "default": true, "info": "Turn off to go straight to the sign-in page." },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "tagline", "label": "Image text", "default": "Healthy plants, delivered with care" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Sign in to SBL Nursery" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Track orders, save addresses and check out faster." },
+    { "type": "text", "id": "perk_1", "label": "Benefit 1", "default": "Track orders & deliveries" },
+    { "type": "text", "id": "perk_2", "label": "Benefit 2", "default": "Faster checkout with saved details" },
+    { "type": "text", "id": "perk_3", "label": "Benefit 3", "default": "Member-only offers & plant care tips" },
+    { "type": "text", "id": "signin_label", "label": "Sign-in button", "default": "Sign in" },
+    { "type": "text", "id": "signup_label", "label": "Create account button", "default": "New here? Create an account" },
+    { "type": "text", "id": "note", "label": "Note", "default": "No password needed — we’ll email you a one-time code." },
+    { "type": "url", "id": "wishlist_url", "label": "Wishlist link (signed-in menu)" }
+  ]
+}
+{% endschema %}

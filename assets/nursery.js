@@ -365,6 +365,41 @@
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 
+  /* Sign-in popup from the header person icon. */
+  var AccountPopup = {
+    el: function () { return document.querySelector('[data-account-popup]'); },
+    open: function () {
+      var pop = AccountPopup.el();
+      if (!pop || pop.getAttribute('data-enabled') !== 'true') return false;
+      AccountPopup._last = document.activeElement;
+      pop.classList.add('is-open');
+      pop.setAttribute('aria-hidden', 'false');
+      document.documentElement.classList.add('account-popup-open');
+      var dialog = pop.querySelector('.acct-pop__dialog');
+      if (dialog) dialog.focus();
+      return true;
+    },
+    close: function () {
+      var pop = AccountPopup.el();
+      if (!pop) return;
+      pop.classList.remove('is-open');
+      pop.setAttribute('aria-hidden', 'true');
+      document.documentElement.classList.remove('account-popup-open');
+      if (AccountPopup._last && AccountPopup._last.focus) AccountPopup._last.focus();
+    }
+  };
+  document.addEventListener('click', function (e) {
+    var opener = e.target.closest('[data-account-popup-open]');
+    if (opener && !e.metaKey && !e.ctrlKey) {
+      if (AccountPopup.open()) e.preventDefault();
+      return;
+    }
+    if (e.target.closest('[data-account-popup-close]')) AccountPopup.close();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && document.documentElement.classList.contains('account-popup-open')) AccountPopup.close();
+  });
+
   /* Account pages: show / hide password. */
   document.addEventListener('click', function (e) {
     var btn = e.target.closest('[data-pw-toggle]');
