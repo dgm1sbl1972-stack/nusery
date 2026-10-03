@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "contact-page",
+      "settings": {
+        "map_query": "SBL Farms, Ramohalli, Bangalore"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

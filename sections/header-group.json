@@ -192,7 +192,7 @@
             "blog_label": "Blog",
             "blog_link": "",
             "contact_label": "Contact",
-            "contact_link": "",
+            "contact_link": "/pages/contact",
             "logo_height": 60,
             "logo_zoom": 135,
             "header_padding": 2

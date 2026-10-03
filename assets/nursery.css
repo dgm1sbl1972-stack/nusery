@@ -525,6 +525,48 @@ html.cart-drawer-open, html.cart-drawer-open body { overflow: hidden; }
 .product-card .product-card__title { margin-bottom: 0; }
 .ai-favourites-subtext { margin-top: 4px; }
 
+/* ---------- Contact page ---------- */
+.contact-page { background: var(--cp-bg, var(--c-cream)); padding-bottom: 64px; }
+.contact-page__hero { padding: 64px 0 40px; text-align: center; }
+.contact-page__eyebrow { margin: 0 0 10px; color: var(--c-bright); font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.contact-page__title { margin: 0; font-family: var(--font-display); font-size: clamp(34px, 5vw, 54px); color: var(--cp-accent, var(--c-primary)); line-height: 1.1; }
+.contact-page__sub { max-width: 620px; margin: 14px auto 0; color: var(--c-muted); font-size: 16px; line-height: 1.6; }
+.contact-page__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 32px; align-items: start; }
+.contact-page__info { display: grid; gap: 14px; }
+.contact-card { display: grid; grid-template-columns: 48px 1fr; gap: 16px; align-items: start; padding: 20px; background: #fff; border-radius: var(--radius); box-shadow: 0 6px 22px rgba(13,58,29,.06); }
+.contact-card__icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; background: var(--c-lime); color: var(--cp-accent, var(--c-primary)); }
+.contact-card__icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.contact-card h2 { margin: 2px 0 6px; font-size: 16px; font-weight: 700; color: var(--c-text); }
+.contact-card p { margin: 0; color: var(--c-muted); font-size: 14.5px; line-height: 1.6; }
+.contact-card p a { color: var(--c-text); font-weight: 600; }
+.contact-card__link { display: inline-block; margin-top: 8px; color: var(--c-bright); font-size: 13.5px; font-weight: 600; }
+.contact-page__content { padding: 4px 4px 0; }
+.contact-page__form-wrap { padding: 32px; background: #fff; border-radius: calc(var(--radius) + 4px); box-shadow: 0 10px 34px rgba(13,58,29,.08); }
+.contact-page__form-title { margin: 0; font-family: var(--font-display); font-size: 28px; color: var(--c-text); }
+.contact-page__form-text { margin: 6px 0 22px; color: var(--c-muted); font-size: 14px; }
+.contact-form { display: grid; gap: 14px; }
+.contact-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.contact-form__field { display: grid; gap: 6px; font-size: 13px; font-weight: 600; color: var(--c-text); }
+.contact-form__field input, .contact-form__field select, .contact-form__field textarea { width: 100%; padding: 12px 14px; border: 1px solid #d5dbd2; border-radius: 10px; background: #fcfbf8; font: inherit; font-size: 15px; font-weight: 400; color: var(--c-text); transition: border-color .2s, box-shadow .2s; }
+.contact-form__field textarea { resize: vertical; min-height: 130px; }
+.contact-form__field input:focus, .contact-form__field select:focus, .contact-form__field textarea:focus { outline: none; border-color: var(--cp-accent, var(--c-primary)); box-shadow: 0 0 0 3px rgba(31,81,48,.12); }
+.contact-form__submit { justify-self: start; min-height: 50px; padding: 0 34px; border: 0; border-radius: 999px; background: var(--cp-accent, var(--c-primary)); color: #fff; font: inherit; font-weight: 700; font-size: 15px; cursor: pointer; transition: filter .2s; }
+.contact-form__submit:hover { filter: brightness(1.12); }
+.contact-form__status { margin: 0; padding: 12px 14px; border-radius: 10px; font-size: 14px; }
+.contact-form__status--ok { background: #e6f4e8; color: #1f5130; }
+.contact-form__status--error { background: #fdecea; color: #a12a1e; }
+.contact-form__status--error ul { margin: 0; padding-left: 18px; }
+.contact-page__map { margin-top: 40px; }
+.contact-page__map iframe { display: block; width: 100%; height: 380px; border: 0; border-radius: calc(var(--radius) + 4px); box-shadow: 0 10px 34px rgba(13,58,29,.08); }
+@media (max-width: 900px) {
+  .contact-page__hero { padding: 44px 0 28px; }
+  .contact-page__grid { grid-template-columns: minmax(0, 1fr); }
+  .contact-page__form-wrap { padding: 22px 18px; }
+  .contact-form__row { grid-template-columns: 1fr; }
+  .contact-form__submit { justify-self: stretch; width: 100%; }
+  .contact-page__map iframe { height: 280px; }
+}
+
 /* Mobile safety net: never let a section push the page sideways. */
 html, body { max-width: 100%; overflow-x: clip; }
 img, video, iframe, svg { max-width: 100%; }
