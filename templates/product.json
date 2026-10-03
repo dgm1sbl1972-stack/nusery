@@ -223,6 +223,10 @@
         "heading_accent": "",
         "background": "#ffffff"
       }
+    },
+    "1791018629ab1d3a15": {
+      "type": "apps",
+      "settings": {}
     }
   },
   "order": [
@@ -230,6 +234,7 @@
     "17908244705537fff5",
     "17908347013adc241e",
     "17908370919931ea5b",
-    "product_reviews"
+    "product_reviews",
+    "1791018629ab1d3a15"
   ]
 }
