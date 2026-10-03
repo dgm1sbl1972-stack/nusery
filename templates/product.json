@@ -202,7 +202,7 @@
             "max_reviews": 5,
             "review_length": "medium",
             "text_size": "medium",
-            "max_width": 1100,
+            "max_width": 400,
             "max_image_size": "small",
             "arrows_visibility": "always_shown",
             "transition_speed": 5,
