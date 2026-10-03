@@ -23,6 +23,8 @@
             "desktop_width_percent": 85,
             "image_height": 900,
             "mobile_image_height": 480,
+            "sticky_gallery": true,
+            "sticky_top": 20,
             "image_fit": "cover",
             "corner_radius": 16,
             "section_padding": 30,
@@ -52,9 +54,7 @@
             "manufacturer": "SBL Farms\nKolur, Gururayanapura (Village) Ramohalli Post Tavarekere Hobli Bangalore",
             "support_label": "Customer support",
             "support_email": "sblfarms@sbl1972.com",
-            "support_phone": "+91 99000 01972",
-            "sticky_gallery": true,
-            "sticky_top": 20
+            "support_phone": "+91 99000 01972"
           },
           "blocks": {}
         },
@@ -188,6 +188,36 @@
     },
     "product_reviews": {
       "type": "product-reviews",
+      "blocks": {
+        "judge_me_reviews_review_snippet_widget_igQMjR": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_snippet_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "reviews_selection": "auto",
+            "products": [],
+            "filter_pinned": false,
+            "filter_featured": false,
+            "filter_custom_tags": "",
+            "min_star_rating": "inherit",
+            "show_review_media": true,
+            "max_reviews": 5,
+            "review_length": "medium",
+            "text_size": "medium",
+            "max_width": 1100,
+            "max_image_size": "small",
+            "arrows_visibility": "always_shown",
+            "transition_speed": 5,
+            "corner_styling": "inherit",
+            "text_color": "",
+            "card_color": "",
+            "stars_color": "",
+            "arrows_color": "",
+            "arrows_background_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_snippet_widget_igQMjR"
+      ],
       "settings": {
         "heading": "Customer  Reviews",
         "heading_accent": "",
