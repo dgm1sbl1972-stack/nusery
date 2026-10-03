@@ -85,7 +85,16 @@
                   <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
               </div>
-              {%- unless item.product.has_only_default_variant -%}<p class="scd-item__variant">{{ item.variant.title }}</p>{%- endunless -%}
+              {%- unless item.product.has_only_default_variant -%}
+                <label class="scd-select">
+                  <span class="visually-hidden">Choose option for {{ item.product.title | escape }}</span>
+                  <select data-cart-variant data-key="{{ item.key }}" data-qty="{{ item.quantity }}" data-properties="{{ item.properties | json | escape }}">
+                    {%- for v in item.product.variants -%}
+                      <option value="{{ v.id }}"{% if v.id == item.variant_id %} selected{% endif %}{% unless v.available or v.id == item.variant_id %} disabled{% endunless %}>{{ v.title }} · {{ v.price | money_without_trailing_zeros }}{% unless v.available %} (sold out){% endunless %}</option>
+                    {%- endfor -%}
+                  </select>
+                </label>
+              {%- endunless -%}
               {%- for p in item.properties -%}
                 {%- assign first_char = p.first | slice: 0 -%}
                 {%- if p.last != blank and first_char != '_' -%}<p class="scd-item__variant">{{ p.first }}: {{ p.last }}</p>{%- endif -%}
@@ -159,17 +168,23 @@
             </a>
             <div class="scd-rec__body">
               <a href="{{ product.url }}" class="scd-rec__title">{{ product.title }}</a>
+              {%- unless product.has_only_default_variant -%}
+                <label class="scd-select scd-select--sm">
+                  <span class="visually-hidden">Choose option for {{ product.title | escape }}</span>
+                  <select data-rec-variant>
+                    {%- for v in product.variants -%}
+                      {%- if v.available -%}
+                        <option value="{{ v.id }}" data-price="{{ v.price | money_without_trailing_zeros | escape }}"{% if v.id == rec_variant.id %} selected{% endif %}>{{ v.title }}</option>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </select>
+                </label>
+              {%- endunless -%}
               <div class="scd-rec__foot">
-                <span class="scd-rec__price">{{ rec_variant.price | money_without_trailing_zeros }}</span>
-                {%- if product.has_only_default_variant -%}
-                  <button type="button" class="scd-rec__add" aria-label="Add {{ product.title | escape }} to cart" data-quick-add="{{ rec_variant.id }}">
-                    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8zM9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
-                  </button>
-                {%- else -%}
-                  <a class="scd-rec__add" href="{{ product.url }}" aria-label="Choose options for {{ product.title | escape }}">
-                    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8zM9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
-                  </a>
-                {%- endif -%}
+                <span class="scd-rec__price" data-rec-price>{{ rec_variant.price | money_without_trailing_zeros }}</span>
+                <button type="button" class="scd-rec__add" aria-label="Add {{ product.title | escape }} to cart" data-quick-add="{{ rec_variant.id }}">
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8zM9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+                </button>
               </div>
             </div>
           </div>

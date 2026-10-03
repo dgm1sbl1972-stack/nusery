@@ -289,6 +289,43 @@
     }
   });
 
+  /* Cart drawer: change a line's variant, or pick a variant for a recommended product. */
+  document.addEventListener('change', function (e) {
+    var lineSelect = e.target.closest('[data-cart-variant]');
+    if (lineSelect) {
+      var drawer = SBLCart.drawer();
+      if (drawer) drawer.classList.add('is-loading');
+      var props = {};
+      try { props = JSON.parse(lineSelect.getAttribute('data-properties') || '{}') || {}; } catch (err) {}
+      var qty = Number(lineSelect.getAttribute('data-qty')) || 1;
+      fetch(cartRoot + 'cart/change.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ id: lineSelect.getAttribute('data-key'), quantity: 0 })
+      })
+        .then(function () {
+          return fetch(cartRoot + 'cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ items: [{ id: Number(lineSelect.value), quantity: qty, properties: props }] })
+          });
+        })
+        .then(function (r) { if (!r.ok) return r.json().then(function (err) { window.alert(err.description || 'That option is not available'); }); })
+        .then(SBLCart.refresh)
+        .finally(function () { if (drawer) drawer.classList.remove('is-loading'); });
+      return;
+    }
+    var recSelect = e.target.closest('[data-rec-variant]');
+    if (recSelect) {
+      var card = recSelect.closest('.scd-rec');
+      var opt = recSelect.options[recSelect.selectedIndex];
+      var btn = card.querySelector('[data-quick-add]');
+      var price = card.querySelector('[data-rec-price]');
+      if (btn) btn.setAttribute('data-quick-add', recSelect.value);
+      if (price && opt) price.textContent = opt.getAttribute('data-price');
+    }
+  });
+
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && document.documentElement.classList.contains('cart-drawer-open')) SBLCart.close();
   });

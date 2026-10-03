@@ -465,6 +465,12 @@ html.cart-drawer-open, html.cart-drawer-open body { overflow: hidden; }
 .scd-item__remove { flex-shrink: 0; border: 0; background: none; color: #7b857e; padding: 2px; cursor: pointer; }
 .scd-item__remove:hover { color: #b3261e; }
 .scd-item__variant { margin: 2px 0 0; color: #7b857e; font-size: 12.5px; }
+.scd-select { position: relative; display: inline-block; max-width: 100%; margin-top: 6px; }
+.scd-select select { appearance: none; -webkit-appearance: none; max-width: 100%; padding: 6px 30px 6px 12px; border: 1px solid #d5dbd2; border-radius: 8px; background: var(--scd-card); color: var(--scd-text); font: inherit; font-size: 12.5px; cursor: pointer; text-overflow: ellipsis; }
+.scd-select::after { content: ""; position: absolute; right: 12px; top: 50%; width: 7px; height: 7px; border-right: 1.5px solid var(--scd-primary); border-bottom: 1.5px solid var(--scd-primary); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
+.scd-select select:focus-visible { outline: 2px solid var(--scd-primary); outline-offset: 1px; }
+.scd-select--sm { display: block; margin: 6px 0 0; }
+.scd-select--sm select { width: 100%; padding: 5px 26px 5px 10px; font-size: 12px; }
 .scd-item__bottom { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; }
 .scd-item__price strong { font-weight: 600; font-size: 15px; }
 .scd-item__price s { margin-left: 6px; color: #8b938d; font-size: 13px; }
