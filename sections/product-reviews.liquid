@@ -9,6 +9,47 @@
       <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget jdgm-outside-widget" data-id="{{ product.id }}">
         {{ product.metafields.judgeme.widget }}
       </div>
+
+      {%- comment -%}
+        Fallback shown until Judge.me renders its own widget, so customers can always write a review.
+        Reviews are sent to Judge.me's public review API and appear after moderation.
+      {%- endcomment -%}
+      {%- assign pr_rating = product.metafields.reviews.rating.value -%}
+      {%- assign pr_count = product.metafields.reviews.rating_count.value | default: 0 -%}
+      <div class="pr-fallback" data-pr-fallback>
+        <div class="pr-fallback__summary">
+          {%- if pr_count > 0 -%}
+            {%- assign pr_rounded = pr_rating.rating | round -%}
+            <span class="pr-fallback__stars" aria-hidden="true">{% for i in (1..5) %}{% if i <= pr_rounded %}★{% else %}☆{% endif %}{% endfor %}</span>
+            <span>{{ pr_rating.rating | round: 1 }} out of 5 &middot; {{ pr_count }} {% if pr_count == 1 %}review{% else %}reviews{% endif %}</span>
+          {%- else -%}
+            <span class="pr-fallback__stars" aria-hidden="true">☆☆☆☆☆</span>
+            <span>{{ section.settings.empty_text }}</span>
+          {%- endif -%}
+        </div>
+        <button type="button" class="btn btn--dark" data-pr-toggle aria-expanded="false">{{ section.settings.button_label }}</button>
+
+        <form class="pr-fallback__form" data-pr-form hidden>
+          <input type="hidden" name="shop_domain" value="{{ shop.permanent_domain }}">
+          <input type="hidden" name="platform" value="shopify">
+          <input type="hidden" name="id" value="{{ product.id }}">
+          <fieldset class="pr-fallback__rating">
+            <legend>Rating</legend>
+            {%- for i in (1..5) reversed -%}
+              <input type="radio" id="pr-star-{{ section.id }}-{{ i }}" name="rating" value="{{ i }}" required>
+              <label for="pr-star-{{ section.id }}-{{ i }}" title="{{ i }} star{% if i > 1 %}s{% endif %}">★</label>
+            {%- endfor -%}
+          </fieldset>
+          <div class="pr-fallback__row">
+            <label>Name<input type="text" name="name" required autocomplete="name"></label>
+            <label>Email<input type="email" name="email" required autocomplete="email"></label>
+          </div>
+          <label>Review title<input type="text" name="title" maxlength="100"></label>
+          <label>Review<textarea name="body" rows="4" required></textarea></label>
+          <button type="submit" class="btn btn--green">Submit review</button>
+          <p class="pr-fallback__msg" data-pr-msg role="status"></p>
+        </form>
+      </div>
     {%- endif -%}
 
     {%- for block in section.blocks -%}
@@ -16,6 +57,82 @@
     {%- endfor -%}
   </div>
 </section>
+
+<style>
+  .pr-fallback { max-width: 640px; margin: 24px auto 0; text-align: center; }
+  .pr-fallback__summary { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-bottom: 16px; color: var(--c-text); }
+  .pr-fallback__stars { color: #e0a800; font-size: 22px; letter-spacing: 2px; }
+  .pr-fallback__form { display: grid; gap: 14px; margin-top: 20px; text-align: left; }
+  .pr-fallback__form[hidden] { display: none; }
+  .pr-fallback__form label { display: grid; gap: 6px; font-size: 14px; font-weight: 600; }
+  .pr-fallback__form input[type="text"], .pr-fallback__form input[type="email"], .pr-fallback__form textarea {
+    width: 100%; padding: 10px 12px; border: 1px solid #cfd8cf; border-radius: 8px; font: inherit; background: #fff;
+  }
+  .pr-fallback__row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .pr-fallback__rating { border: 0; padding: 0; margin: 0; display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 4px; }
+  .pr-fallback__rating legend { width: 100%; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .pr-fallback__rating input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .pr-fallback__rating label { font-size: 28px; color: #cfcfcf; cursor: pointer; display: inline; }
+  .pr-fallback__rating label:hover, .pr-fallback__rating label:hover ~ label,
+  .pr-fallback__rating input:checked ~ label { color: #e0a800; }
+  .pr-fallback__rating input:focus-visible + label { outline: 2px solid var(--c-primary-dark); outline-offset: 2px; }
+  .pr-fallback__msg { margin: 0; font-size: 14px; }
+  .pr-fallback__msg.is-error { color: #b00020; }
+  @media (max-width: 600px) { .pr-fallback__row { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  (function () {
+    var section = document.currentScript.previousElementSibling.previousElementSibling;
+    var fallback = section && section.querySelector('[data-pr-fallback]');
+    if (!fallback) return;
+
+    // Hide the fallback once Judge.me renders its own review widget in this section.
+    var tries = 0;
+    var timer = setInterval(function () {
+      if (section.querySelector('.jdgm-rev-widg, .jdgm-widget .jdgm-write-rev-link')) {
+        fallback.hidden = true;
+        clearInterval(timer);
+      } else if (++tries > 40) {
+        clearInterval(timer);
+      }
+    }, 250);
+
+    var toggle = fallback.querySelector('[data-pr-toggle]');
+    var form = fallback.querySelector('[data-pr-form]');
+    var msg = fallback.querySelector('[data-pr-msg]');
+    toggle.addEventListener('click', function () {
+      form.hidden = !form.hidden;
+      toggle.setAttribute('aria-expanded', String(!form.hidden));
+      if (!form.hidden) form.querySelector('input[name="rating"]').focus();
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var submit = form.querySelector('[type="submit"]');
+      submit.disabled = true;
+      msg.className = 'pr-fallback__msg';
+      msg.textContent = 'Sending…';
+      fetch('https://judge.me/api/v1/reviews', {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new URLSearchParams(new FormData(form))
+      }).then(function () {
+        form.reset();
+        form.hidden = true;
+        toggle.hidden = true;
+        msg.textContent = '';
+        fallback.querySelector('.pr-fallback__summary').insertAdjacentHTML('beforeend',
+          '<strong>Thank you! Your review has been submitted and will appear once approved.</strong>');
+      }).catch(function () {
+        msg.className = 'pr-fallback__msg is-error';
+        msg.textContent = 'Something went wrong. Please try again.';
+      }).finally(function () {
+        submit.disabled = false;
+      });
+    });
+  })();
+</script>
 
 {% schema %}
 {
@@ -25,6 +142,8 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Customer" },
     { "type": "text", "id": "heading_accent", "label": "Heading accent", "default": "Reviews" },
     { "type": "color", "id": "background", "label": "Background", "default": "#ffffff" },
+    { "type": "text", "id": "button_label", "label": "Write a review button", "default": "Write a review" },
+    { "type": "text", "id": "empty_text", "label": "No reviews text", "default": "Be the first to write a review" },
     { "type": "checkbox", "id": "show_review_widget", "label": "Show Judge.me review widget", "default": true, "info": "Shows the review summary, Write a review button and review list. Turn off if you add Judge.me's own Review Widget app block, to avoid showing it twice." }
   ],
   "blocks": [{ "type": "@app" }],
