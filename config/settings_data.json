@@ -39,7 +39,8 @@
         "type": "account-popup",
         "settings": {
           "logo": "shopify://shop_images/Untitled_design_25.png",
-          "logo_width": 90
+          "logo_width": 90,
+          "wishlist_url": "/pages/wishlist"
         }
       }
     }

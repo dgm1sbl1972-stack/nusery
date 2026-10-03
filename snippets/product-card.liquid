@@ -7,6 +7,7 @@
 <article class="product-card">
   {%- if product != blank -%}
     {%- assign variant = product.selected_or_first_available_variant -%}
+    {%- render 'wishlist-button', product: product -%}
     <a href="{{ product.url }}" class="product-card__media">
       {%- if product.featured_media -%}
         {{ product.featured_media | image_url: width: 600 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 300px, 50vw', widths: '300, 450, 600', alt: product.featured_media.alt | default: product.title }}

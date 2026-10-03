@@ -73,7 +73,7 @@
             "accent_color": "#1f5130",
             "divider_color": "#d9ded3",
             "search_placeholder": "Search plants",
-            "wishlist_link": "",
+            "wishlist_link": "/pages/wishlist",
             "plants_title": "Plants",
             "plants_link": "",
             "plants_menu": "",

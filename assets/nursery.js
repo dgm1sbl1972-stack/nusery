@@ -365,6 +365,123 @@
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 
+  /* ---------- Wishlist (saved in this browser) ---------- */
+  var Wishlist = {
+    key: 'sbl-wishlist',
+    get: function () {
+      try { var v = JSON.parse(localStorage.getItem(Wishlist.key) || '[]'); return Array.isArray(v) ? v : []; } catch (e) { return []; }
+    },
+    set: function (list) {
+      try { localStorage.setItem(Wishlist.key, JSON.stringify(list)); } catch (e) {}
+      Wishlist.sync();
+    },
+    has: function (handle) { return Wishlist.get().indexOf(handle) !== -1; },
+    toggle: function (handle) {
+      var list = Wishlist.get();
+      var i = list.indexOf(handle);
+      if (i === -1) list.unshift(handle); else list.splice(i, 1);
+      Wishlist.set(list);
+      return i === -1;
+    },
+    sync: function (scope) {
+      var list = Wishlist.get();
+      (scope || document).querySelectorAll('[data-wishlist-toggle]').forEach(function (btn) {
+        var on = list.indexOf(btn.getAttribute('data-handle')) !== -1;
+        btn.classList.toggle('is-active', on);
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        btn.title = on ? 'Remove from wishlist' : 'Add to wishlist';
+      });
+      document.querySelectorAll('[data-wishlist-count]').forEach(function (el) {
+        el.textContent = list.length;
+        el.hidden = list.length === 0;
+      });
+    },
+    toast: function (msg) {
+      var el = document.querySelector('.wl-toast');
+      if (!el) {
+        el = document.createElement('div');
+        el.className = 'wl-toast';
+        el.setAttribute('role', 'status');
+        document.body.appendChild(el);
+      }
+      el.innerHTML = msg;
+      el.classList.add('is-visible');
+      clearTimeout(Wishlist._t);
+      Wishlist._t = setTimeout(function () { el.classList.remove('is-visible'); }, 2200);
+    },
+    money: function (cents, currency) {
+      try { return new Intl.NumberFormat('en-IN', { style: 'currency', currency: currency || 'INR', maximumFractionDigits: cents % 100 ? 2 : 0 }).format(cents / 100); }
+      catch (e) { return '₹' + (cents / 100); }
+    },
+    renderPage: function () {
+      var grid = document.querySelector('[data-wishlist-page]');
+      if (!grid) return;
+      var empty = document.querySelector('[data-wishlist-empty]');
+      var summary = document.querySelector('[data-wishlist-summary]');
+      var list = Wishlist.get();
+      var currency = grid.getAttribute('data-currency');
+      var addLabel = grid.getAttribute('data-add-label') || 'Add to cart';
+      var esc = function (s) { var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; };
+      if (!list.length) { grid.innerHTML = ''; grid.hidden = true; if (empty) empty.hidden = false; if (summary) summary.textContent = ''; return; }
+      grid.hidden = false; if (empty) empty.hidden = true;
+      Promise.all(list.map(function (handle) {
+        return fetch(cartRoot + 'products/' + encodeURIComponent(handle) + '.js').then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+      })).then(function (products) {
+        var found = products.filter(Boolean);
+        var gone = list.filter(function (h, i) { return !products[i]; });
+        if (gone.length) Wishlist.set(list.filter(function (h) { return gone.indexOf(h) === -1; }));
+        if (!found.length) { grid.hidden = true; if (empty) empty.hidden = false; if (summary) summary.textContent = ''; return; }
+        if (summary) summary.textContent = found.length + (found.length === 1 ? ' plant saved' : ' plants saved');
+        grid.innerHTML = found.map(function (p) {
+          var v = p.variants.filter(function (x) { return x.available; })[0] || p.variants[0];
+          var single = p.variants.length === 1;
+          var img = p.featured_image ? p.featured_image.replace(/^\/\//, 'https://') : '';
+          if (img) img += (img.indexOf('?') === -1 ? '?' : '&') + 'width=600';
+          var price = Wishlist.money(v.price, currency);
+          var compare = v.compare_at_price > v.price ? '<s>' + Wishlist.money(v.compare_at_price, currency) + '</s>' : '';
+          var action = !p.available
+            ? '<span class="btn btn--sm btn--disabled">Sold out</span>'
+            : single
+              ? '<form action="' + cartRoot + 'cart/add" method="post"><input type="hidden" name="id" value="' + v.id + '"><input type="hidden" name="quantity" value="1"><button type="submit" class="btn btn--sm btn--green">' + esc(addLabel) + '</button></form>'
+              : '<a class="btn btn--sm btn--green" href="' + p.url + '">Choose options</a>';
+          return '<article class="wl-card">' +
+            '<button type="button" class="wl-card__remove" data-wishlist-remove="' + esc(p.handle) + '" aria-label="Remove ' + esc(p.title) + ' from wishlist">×</button>' +
+            '<a class="wl-card__media" href="' + p.url + '">' + (img ? '<img src="' + img + '" alt="' + esc(p.title) + '" loading="lazy" width="600" height="600">' : '') + '</a>' +
+            '<div class="wl-card__body"><p class="product-card__type">' + esc(p.type) + '</p>' +
+            '<h3 class="wl-card__title"><a href="' + p.url + '">' + esc(p.title) + '</a></h3>' +
+            '<div class="wl-card__foot"><div class="price"><strong>' + price + '</strong>' + compare + '</div>' + action + '</div></div></article>';
+        }).join('');
+      });
+    }
+  };
+  window.SBLWishlist = Wishlist;
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-wishlist-toggle]');
+    if (btn) {
+      e.preventDefault();
+      e.stopPropagation();
+      var added = Wishlist.toggle(btn.getAttribute('data-handle'));
+      btn.classList.remove('is-pop'); void btn.offsetWidth; btn.classList.add('is-pop');
+      var link = document.querySelector('[data-wishlist-link]');
+      var href = link ? link.getAttribute('href') : '/pages/wishlist';
+      Wishlist.toast(added ? '♥ Saved to your wishlist · <a href="' + href + '">View</a>' : 'Removed from wishlist');
+      return;
+    }
+    var rm = e.target.closest('[data-wishlist-remove]');
+    if (rm) {
+      var handle = rm.getAttribute('data-wishlist-remove');
+      Wishlist.set(Wishlist.get().filter(function (h) { return h !== handle; }));
+      var card = rm.closest('.wl-card');
+      if (card) card.remove();
+      Wishlist.renderPage();
+    }
+  }, true);
+
+  document.addEventListener('DOMContentLoaded', function () { Wishlist.sync(); Wishlist.renderPage(); });
+  document.addEventListener('shopify:section:load', function (e) { Wishlist.sync(e.target); });
+  window.addEventListener('storage', function (e) { if (e.key === Wishlist.key) { Wishlist.sync(); Wishlist.renderPage(); } });
+
   /* Sign-in popup from the header person icon. */
   var AccountPopup = {
     el: function () { return document.querySelector('[data-account-popup]'); },

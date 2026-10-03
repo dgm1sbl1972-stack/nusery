@@ -1,0 +1,9 @@
+{%- comment -%}
+  Heart toggle that saves a product to the browser wishlist (see nursery.js).
+  Accepts: product, class (optional extra classes, e.g. 'wl-btn--bottom' or 'wl-btn--inline')
+{%- endcomment -%}
+{%- if product != blank -%}
+  <button type="button" class="wl-btn{% if class %} {{ class }}{% endif %}" data-wishlist-toggle data-handle="{{ product.handle }}" aria-pressed="false" aria-label="Add {{ product.title | escape }} to wishlist" title="Add to wishlist">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.7c0 5.2-8.8 11-8.8 11s-8.8-5.8-8.8-11A4.6 4.6 0 0 1 12 6.4a4.6 4.6 0 0 1 8.8 2.3Z"/></svg>
+  </button>
+{%- endif -%}
