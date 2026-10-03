@@ -78,6 +78,15 @@
   .pr-fallback__rating input:focus-visible + label { outline: 2px solid var(--c-primary-dark); outline-offset: 2px; }
   .pr-fallback__submit { justify-self: center; justify-content: center; min-width: 220px; padding: 14px 32px; font-size: 15px; }
   .pr-fallback__submit:disabled { opacity: .6; cursor: wait; transform: none; }
+  .pr-fallback__summary[hidden] { display: none; }
+  /* Judge.me widget: the section already has a heading, and make its Write a review button visible in theme colours. */
+  .product-reviews .jdgm-rev-widg__title { display: none; }
+  .product-reviews .jdgm-write-rev-link {
+    display: inline-flex !important; align-items: center; justify-content: center;
+    visibility: visible !important; opacity: 1 !important;
+    background: var(--c-primary-dark) !important; color: #fff !important;
+    border: 0 !important; border-radius: 999px !important; padding: 12px 28px !important; font-weight: 700;
+  }
   .pr-fallback__msg { margin: 0; text-align: center; font-size: 14px; }
   .pr-fallback__msg.is-error { color: #b00020; }
   @media (max-width: 600px) { .pr-fallback__row { grid-template-columns: 1fr; } }
@@ -89,13 +98,21 @@
     var fallback = section && section.querySelector('[data-pr-fallback]');
     if (!fallback) return;
 
-    // Hide the fallback once Judge.me renders its own review widget in this section.
+    // Once Judge.me renders its own widget, drop our duplicate summary. Keep our
+    // Write a review button unless Judge.me's own button is actually visible.
     var tries = 0;
     var timer = setInterval(function () {
-      if (section.querySelector('.jdgm-rev-widg, .jdgm-widget .jdgm-write-rev-link')) {
-        fallback.hidden = true;
-        clearInterval(timer);
-      } else if (++tries > 40) {
+      var widget = section.querySelector('.jdgm-rev-widg');
+      if (widget) {
+        fallback.querySelector('.pr-fallback__summary').hidden = true;
+        var jdgmBtn = section.querySelector('.jdgm-write-rev-link');
+        if (jdgmBtn && jdgmBtn.offsetWidth > 0 && jdgmBtn.offsetHeight > 0 && getComputedStyle(jdgmBtn).visibility !== 'hidden') {
+          fallback.hidden = true;
+          clearInterval(timer);
+          return;
+        }
+      }
+      if (++tries > 40) {
         clearInterval(timer);
       }
     }, 250);
