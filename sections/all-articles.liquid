@@ -1,0 +1,78 @@
+{%- comment -%}
+  Lists articles from several blogs on one page. Shopify has no page for all blogs,
+  so the blogs to include are picked in the section settings.
+{%- endcomment -%}
+<section class="journal section-pad">
+  <div class="page-width">
+    <h1 class="section-title">{{ section.settings.heading | default: page.title }}</h1>
+    {%- if section.settings.intro != blank -%}
+      <div class="all-articles__intro">{{ section.settings.intro }}</div>
+    {%- elsif page.content != blank -%}
+      <div class="all-articles__intro rte">{{ page.content }}</div>
+    {%- endif -%}
+
+    {%- assign article_count = 0 -%}
+    <div class="journal__grid journal__grid--even mt-40">
+      {%- for i in (1..8) -%}
+        {%- assign blog_key = 'blog_' | append: i -%}
+        {%- assign selected_blog = section.settings[blog_key] -%}
+        {%- if selected_blog != blank -%}
+          {%- for article in selected_blog.articles -%}
+            {%- assign article_count = article_count | plus: 1 -%}
+            <article class="post">
+              <a href="{{ article.url }}" class="post__media">
+                {%- if article.image -%}
+                  {%- assign image_alt = article.image.alt | default: article.title -%}
+                  {{ article.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: image_alt }}
+                {%- else -%}
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </a>
+              <div class="post__body">
+                <span class="tag">{{ selected_blog.title }}</span>
+                <h2 class="post__title"><a href="{{ article.url }}">{{ article.title }}</a></h2>
+                {%- if article.excerpt != blank -%}
+                  <p class="all-articles__excerpt">{{ article.excerpt | strip_html | truncatewords: 22 }}</p>
+                {%- endif -%}
+                <p class="post__meta">📅 {{ article.published_at | date: '%B %-d, %Y' }}</p>
+                <a href="{{ article.url }}" class="post__link">{{ 'general.read_article' | t }} →</a>
+              </div>
+            </article>
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if article_count == 0 -%}
+      <p class="all-articles__empty">{{ section.settings.empty_text }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  .all-articles__intro { max-width: 720px; margin: 12px auto 0; text-align: center; }
+  .all-articles__excerpt { margin: 6px 0 8px; font-size: 14px; line-height: 1.5; opacity: .85; }
+  .all-articles__empty { margin-top: 24px; text-align: center; }
+</style>
+
+{% schema %}
+{
+  "name": "All articles",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "All articles", "info": "Leave empty to use the page title." },
+    { "type": "richtext", "id": "intro", "label": "Intro text" },
+    { "type": "header", "content": "Blogs to include" },
+    { "type": "blog", "id": "blog_1", "label": "Blog 1" },
+    { "type": "blog", "id": "blog_2", "label": "Blog 2" },
+    { "type": "blog", "id": "blog_3", "label": "Blog 3" },
+    { "type": "blog", "id": "blog_4", "label": "Blog 4" },
+    { "type": "blog", "id": "blog_5", "label": "Blog 5" },
+    { "type": "blog", "id": "blog_6", "label": "Blog 6" },
+    { "type": "blog", "id": "blog_7", "label": "Blog 7" },
+    { "type": "blog", "id": "blog_8", "label": "Blog 8" },
+    { "type": "text", "id": "empty_text", "label": "No articles text", "default": "New articles are coming soon." }
+  ],
+  "enabled_on": { "templates": ["page"] },
+  "presets": [{ "name": "All articles" }]
+}
+{% endschema %}

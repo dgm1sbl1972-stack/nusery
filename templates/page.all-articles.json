@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "all-articles",
+      "settings": {
+        "heading": "All articles",
+        "blog_1": "why-landscapers-gardeners-choose-sbl-farms",
+        "blog_2": "visit-karnatakas-largest-sbl-plant-nursery",
+        "blog_3": "bangalores-hidden-natural-farm",
+        "empty_text": "New articles are coming soon."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
