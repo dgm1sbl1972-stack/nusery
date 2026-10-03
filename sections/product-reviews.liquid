@@ -120,10 +120,33 @@
     var toggle = fallback.querySelector('[data-pr-toggle]');
     var form = fallback.querySelector('[data-pr-form]');
     var msg = fallback.querySelector('[data-pr-msg]');
+    function openForm() {
+      fallback.hidden = false;
+      form.hidden = false;
+      toggle.setAttribute('aria-expanded', 'true');
+      form.querySelector('input[name="rating"]').focus({ preventScroll: true });
+      form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
     toggle.addEventListener('click', function () {
-      form.hidden = !form.hidden;
-      toggle.setAttribute('aria-expanded', String(!form.hidden));
-      if (!form.hidden) form.querySelector('input[name="rating"]').focus();
+      if (form.hidden) {
+        openForm();
+      } else {
+        form.hidden = true;
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Judge.me's Write a review button is a link to "#": stop it jumping to the top of the
+    // page, and open our form if Judge.me doesn't show its own form after the click.
+    section.addEventListener('click', function (e) {
+      var link = e.target.closest('.jdgm-write-rev-link');
+      if (!link) return;
+      e.preventDefault();
+      setTimeout(function () {
+        var jdgmForm = section.querySelector('.jdgm-form-wrapper, .jdgm-form');
+        if (!jdgmForm || jdgmForm.offsetHeight === 0) openForm();
+      }, 150);
     });
 
     form.addEventListener('submit', function (e) {
