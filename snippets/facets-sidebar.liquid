@@ -1,0 +1,150 @@
+{%- comment -%}
+  Left sidebar for product listing pages: "Shop by category" list + storefront filters.
+  Used by main-collection and main-search.
+  Accepts:
+  - section, section_id: the calling section (category blocks + settings)
+  - filters: collection.filters or search.filters
+  - show_filters, show_sidebar: booleans
+  - form_id: id of the filter form (the sort select points at it)
+  - results_url: where the filter form submits
+  - clear_url: link for "Clear all"
+  - current_url: URL of the current listing, to highlight the active category
+  - search_terms: search page only
+{%- endcomment -%}
+{%- unless show_filters -%}
+  <form id="{{ form_id }}" action="{{ results_url }}" method="get" data-collection-filters hidden>
+    {%- if search_terms != blank -%}<input type="hidden" name="q" value="{{ search_terms | escape }}"><input type="hidden" name="type" value="product">{%- endif -%}
+  </form>
+{%- endunless -%}
+{%- if show_sidebar -%}
+  <aside class="facets" aria-label="Categories and filters">
+    <button type="button" class="facets__toggle btn btn--outline" aria-expanded="false" aria-controls="Facets-{{ section_id }}" data-facets-toggle>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M3 5h18M6 12h12M10 19h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      {% if section.blocks.size > 0 %}Categories &amp; filters{% else %}Filters{% endif %}
+    </button>
+
+    <div class="facets__panel" id="Facets-{{ section_id }}">
+      {%- if section.blocks.size > 0 -%}
+        <nav class="cat-nav" aria-label="Shop by category">
+          <h2 class="facets__title">{{ section.settings.categories_heading }}</h2>
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign group_url = block.settings.link
+              if group_url == blank
+                assign group_handle = block.settings.title | handleize
+                assign group_collection = collections[group_handle]
+                if group_collection != empty and group_collection.id
+                  assign group_url = group_collection.url
+                else
+                  assign group_q = block.settings.title | url_encode
+                  assign group_url = routes.search_url | append: '?type=product&q=' | append: group_q
+                endif
+              endif
+
+              assign group_open = false
+              if group_url == current_url
+                assign group_open = true
+              endif
+            -%}
+            {%- capture sub_items -%}
+              {%- for i in (1..10) -%}
+                {%- liquid
+                  assign title_key = 'sub_' | append: i | append: '_title'
+                  assign link_key = 'sub_' | append: i | append: '_link'
+                  assign sub_title = block.settings[title_key]
+                  if sub_title == blank
+                    continue
+                  endif
+                  assign sub_url = block.settings[link_key]
+                  if sub_url == blank
+                    assign sub_handle = sub_title | handleize
+                    assign sub_collection = collections[sub_handle]
+                    if sub_collection != empty and sub_collection.id
+                      assign sub_url = sub_collection.url
+                    else
+                      assign sub_q = sub_title | url_encode
+                      assign sub_url = routes.search_url | append: '?type=product&q=' | append: sub_q
+                    endif
+                  endif
+                  assign sub_active = false
+                  if sub_url == current_url
+                    assign sub_active = true
+                    assign group_open = true
+                  endif
+                -%}
+                <li><a href="{{ sub_url }}"{% if sub_active %} class="is-active" aria-current="page"{% endif %}>{{ sub_title }}</a></li>
+              {%- endfor -%}
+            {%- endcapture -%}
+
+            <details class="facet cat-nav__group" {% if group_open or section.settings.open_categories %}open{% endif %} {{ block.shopify_attributes }}>
+              <summary class="facet__summary">{{ block.settings.title }}</summary>
+              <ul class="cat-nav__list" role="list">
+                <li><a class="cat-nav__all{% if group_url == current_url %} is-active{% endif %}" href="{{ group_url }}">All {{ block.settings.title | downcase }}</a></li>
+                {{ sub_items }}
+              </ul>
+            </details>
+          {%- endfor -%}
+        </nav>
+      {%- endif -%}
+
+      {%- if show_filters == false and request.design_mode -%}
+        <p class="facets__hint">Filters appear here once they’re set up in the <strong>Search &amp; Discovery</strong> app (Filters → Add filter). Only you see this note.</p>
+      {%- endif -%}
+      {%- if show_filters -%}
+      <form class="facets__form" id="{{ form_id }}" action="{{ results_url }}" method="get" data-collection-filters>
+      {%- if search_terms != blank -%}
+        <input type="hidden" name="q" value="{{ search_terms | escape }}">
+        <input type="hidden" name="type" value="product">
+      {%- endif -%}
+      <div class="facets__head">
+        <h2 class="facets__title">Filters</h2>
+        <a class="facets__clear" href="{{ clear_url }}">Clear all</a>
+      </div>
+
+      {%- for filter in filters -%}
+        <details class="facet" {% if section.settings.open_filters or filter.active_values.size > 0 or filter.min_value.value or filter.max_value.value %}open{% endif %}>
+          <summary class="facet__summary">
+            {{ filter.label }}
+            {%- if filter.active_values.size > 0 -%}<span class="facet__count">{{ filter.active_values.size }}</span>{%- endif -%}
+          </summary>
+
+          {%- case filter.type -%}
+            {%- when 'price_range' -%}
+              <div class="facet__price">
+                <label>
+                  <span>From {{ cart.currency.symbol }}</span>
+                  <input type="number" name="{{ filter.min_value.param_name }}" min="0" max="{{ filter.range_max | money_without_currency | remove: ',' }}"
+                    placeholder="0"
+                    {% if filter.min_value.value %}value="{{ filter.min_value.value | money_without_currency | remove: ',' }}"{% endif %}>
+                </label>
+                <label>
+                  <span>To {{ cart.currency.symbol }}</span>
+                  <input type="number" name="{{ filter.max_value.param_name }}" min="0" max="{{ filter.range_max | money_without_currency | remove: ',' }}"
+                    placeholder="{{ filter.range_max | money_without_currency | remove: ',' }}"
+                    {% if filter.max_value.value %}value="{{ filter.max_value.value | money_without_currency | remove: ',' }}"{% endif %}>
+                </label>
+              </div>
+            {%- else -%}
+              <ul class="facet__list" role="list">
+                {%- for value in filter.values -%}
+                  <li>
+                    <label class="facet__option{% if value.count == 0 and value.active == false %} is-disabled{% endif %}">
+                      <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"
+                        {% if value.active %}checked{% endif %}
+                        {% if value.count == 0 and value.active == false %}disabled{% endif %}>
+                      <span class="facet__label">{{ value.label }}</span>
+                      <span class="facet__num">({{ value.count }})</span>
+                    </label>
+                  </li>
+                {%- endfor -%}
+              </ul>
+          {%- endcase -%}
+        </details>
+      {%- endfor -%}
+
+      <button type="submit" class="btn btn--dark facets__apply">Apply filters</button>
+      </form>
+      {%- endif -%}
+    </div>
+  </aside>
+{%- endif -%}

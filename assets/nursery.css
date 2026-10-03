@@ -576,3 +576,4 @@ html.cart-drawer-open, html.cart-drawer-open body { overflow: hidden; }
   .js .facets__panel { display: none; margin-top: 12px; }
   .js .facets.is-open .facets__panel { display: block; }
 }
+.facets__hint { margin: 14px 0 0; padding: 12px; border: 1px dashed #c9cfc5; border-radius: 10px; font-size: 12.5px; color: var(--c-muted); line-height: 1.5; }

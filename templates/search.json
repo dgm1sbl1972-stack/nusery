@@ -2,7 +2,151 @@
   "sections": {
     "main": {
       "type": "main-search",
-      "settings": {}
+      "settings": {},
+      "blocks": {
+        "category_plants": {
+          "type": "category",
+          "settings": {
+            "title": "Plants",
+            "link": "",
+            "sub_1_title": "Indoor plants",
+            "sub_1_link": "shopify://collections/bestsellers",
+            "sub_2_title": "Outdoor plants",
+            "sub_2_link": "",
+            "sub_3_title": "Flowering plants",
+            "sub_3_link": "",
+            "sub_4_title": "Succulents",
+            "sub_4_link": "",
+            "sub_5_title": "Cacti",
+            "sub_5_link": "",
+            "sub_6_title": "Fruit plants",
+            "sub_6_link": "",
+            "sub_7_title": "Medicinal plants",
+            "sub_7_link": "",
+            "sub_8_title": "Air-purifying plants",
+            "sub_8_link": "",
+            "sub_9_title": "Climbers",
+            "sub_9_link": "",
+            "sub_10_title": "Bonsai plants",
+            "sub_10_link": ""
+          }
+        },
+        "category_seeds": {
+          "type": "category",
+          "settings": {
+            "title": "Seeds",
+            "link": "",
+            "sub_1_title": "Flower seeds",
+            "sub_1_link": "",
+            "sub_2_title": "Vegetable seeds",
+            "sub_2_link": "",
+            "sub_3_title": "Herb seeds",
+            "sub_3_link": "",
+            "sub_4_title": "Fruit seeds",
+            "sub_4_link": "",
+            "sub_5_title": "Microgreen seeds",
+            "sub_5_link": "",
+            "sub_6_title": "Organic seeds",
+            "sub_6_link": "",
+            "sub_7_title": "Exotic seeds",
+            "sub_7_link": "",
+            "sub_8_title": "Seasonal seeds",
+            "sub_8_link": "",
+            "sub_9_title": "Seed kits",
+            "sub_9_link": "",
+            "sub_10_title": "Bulk seeds",
+            "sub_10_link": ""
+          }
+        },
+        "category_pots": {
+          "type": "category",
+          "settings": {
+            "title": "Pots",
+            "link": "",
+            "sub_1_title": "Ceramic pots",
+            "sub_1_link": "",
+            "sub_2_title": "Terracotta pots",
+            "sub_2_link": "",
+            "sub_3_title": "Plastic pots",
+            "sub_3_link": "",
+            "sub_4_title": "Hanging planters",
+            "sub_4_link": "",
+            "sub_5_title": "Self-watering pots",
+            "sub_5_link": "",
+            "sub_6_title": "Planter stands",
+            "sub_6_link": "",
+            "sub_7_title": "Grow bags",
+            "sub_7_link": "",
+            "sub_8_title": "Decorative planters",
+            "sub_8_link": "",
+            "sub_9_title": "Seedling trays",
+            "sub_9_link": "",
+            "sub_10_title": "Pot accessories",
+            "sub_10_link": ""
+          }
+        },
+        "category_gifting": {
+          "type": "category",
+          "settings": {
+            "title": "Gifting",
+            "link": "",
+            "sub_1_title": "Plant gifts",
+            "sub_1_link": "",
+            "sub_2_title": "Gift hampers",
+            "sub_2_link": "",
+            "sub_3_title": "Birthday gifts",
+            "sub_3_link": "",
+            "sub_4_title": "Housewarming gifts",
+            "sub_4_link": "",
+            "sub_5_title": "Corporate gifts",
+            "sub_5_link": "",
+            "sub_6_title": "Gift cards",
+            "sub_6_link": "",
+            "sub_7_title": "Gardening kits",
+            "sub_7_link": "",
+            "sub_8_title": "Mini garden gifts",
+            "sub_8_link": "",
+            "sub_9_title": "Thank-you gifts",
+            "sub_9_link": "",
+            "sub_10_title": "Gift bundles",
+            "sub_10_link": ""
+          }
+        },
+        "category_services": {
+          "type": "category",
+          "settings": {
+            "title": "Services",
+            "link": "",
+            "sub_1_title": "Plant care advice",
+            "sub_1_link": "",
+            "sub_2_title": "Garden consultation",
+            "sub_2_link": "",
+            "sub_3_title": "Repotting service",
+            "sub_3_link": "",
+            "sub_4_title": "Landscaping",
+            "sub_4_link": "",
+            "sub_5_title": "Balcony garden setup",
+            "sub_5_link": "",
+            "sub_6_title": "Terrace garden setup",
+            "sub_6_link": "",
+            "sub_7_title": "Plant maintenance",
+            "sub_7_link": "",
+            "sub_8_title": "Bulk plant supply",
+            "sub_8_link": "",
+            "sub_9_title": "Event plant styling",
+            "sub_9_link": "",
+            "sub_10_title": "Plant Rental",
+            "sub_10_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_plants",
+        "category_seeds",
+        "category_pots",
+        "category_gifting",
+        "category_services"
+      ]
     }
   },
   "order": [

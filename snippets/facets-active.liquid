@@ -1,0 +1,15 @@
+{%- comment -%} Removable pills for active filters. Accepts: filters {%- endcomment -%}
+{%- capture active_pills -%}
+  {%- for filter in filters -%}
+    {%- for value in filter.active_values -%}
+      <a class="active-filter" href="{{ value.url_to_remove }}">{{ value.label }} <span aria-hidden="true">×</span><span class="visually-hidden">Remove filter</span></a>
+    {%- endfor -%}
+    {%- if filter.type == 'price_range' and filter.min_value.value or filter.type == 'price_range' and filter.max_value.value -%}
+      <a class="active-filter" href="{{ filter.url_to_remove }}">
+        {{ filter.min_value.value | default: 0 | money }} – {{ filter.max_value.value | default: filter.range_max | money }}
+        <span aria-hidden="true">×</span><span class="visually-hidden">Remove filter</span>
+      </a>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- if active_pills != blank -%}<div class="active-filters">{{ active_pills }}</div>{%- endif -%}
