@@ -46,7 +46,7 @@
           </div>
           <label>Review title<input type="text" name="title" maxlength="100"></label>
           <label>Review<textarea name="body" rows="4" required></textarea></label>
-          <button type="submit" class="btn btn--green">Submit review</button>
+          <button type="submit" class="btn btn--dark pr-fallback__submit">Submit review</button>
           <p class="pr-fallback__msg" data-pr-msg role="status"></p>
         </form>
       </div>
@@ -76,7 +76,9 @@
   .pr-fallback__rating label:hover, .pr-fallback__rating label:hover ~ label,
   .pr-fallback__rating input:checked ~ label { color: #e0a800; }
   .pr-fallback__rating input:focus-visible + label { outline: 2px solid var(--c-primary-dark); outline-offset: 2px; }
-  .pr-fallback__msg { margin: 0; font-size: 14px; }
+  .pr-fallback__submit { justify-self: center; justify-content: center; min-width: 220px; padding: 14px 32px; font-size: 15px; }
+  .pr-fallback__submit:disabled { opacity: .6; cursor: wait; transform: none; }
+  .pr-fallback__msg { margin: 0; text-align: center; font-size: 14px; }
   .pr-fallback__msg.is-error { color: #b00020; }
   @media (max-width: 600px) { .pr-fallback__row { grid-template-columns: 1fr; } }
 </style>
