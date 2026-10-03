@@ -98,6 +98,10 @@
     var fallback = section && section.querySelector('[data-pr-fallback]');
     if (!fallback) return;
 
+    var toggle = fallback.querySelector('[data-pr-toggle]');
+    var form = fallback.querySelector('[data-pr-form]');
+    var msg = fallback.querySelector('[data-pr-msg]');
+
     // Once Judge.me renders its own widget, drop our duplicate summary. Keep our
     // Write a review button unless Judge.me's own button is actually visible.
     var tries = 0;
@@ -107,7 +111,9 @@
         fallback.querySelector('.pr-fallback__summary').hidden = true;
         var jdgmBtn = section.querySelector('.jdgm-write-rev-link');
         if (jdgmBtn && jdgmBtn.offsetWidth > 0 && jdgmBtn.offsetHeight > 0 && getComputedStyle(jdgmBtn).visibility !== 'hidden') {
-          fallback.hidden = true;
+          // Judge.me's button is the one customers click; it opens our form below.
+          toggle.hidden = true;
+          if (form.hidden) fallback.hidden = true;
           clearInterval(timer);
           return;
         }
@@ -117,9 +123,6 @@
       }
     }, 250);
 
-    var toggle = fallback.querySelector('[data-pr-toggle]');
-    var form = fallback.querySelector('[data-pr-form]');
-    var msg = fallback.querySelector('[data-pr-msg]');
     function openForm() {
       fallback.hidden = false;
       form.hidden = false;
@@ -143,6 +146,11 @@
       var link = e.target.closest('.jdgm-write-rev-link');
       if (!link) return;
       e.preventDefault();
+      if (!form.hidden) {
+        form.hidden = true;
+        if (toggle.hidden) fallback.hidden = true;
+        return;
+      }
       setTimeout(function () {
         var jdgmForm = section.querySelector('.jdgm-form-wrapper, .jdgm-form');
         if (!jdgmForm || jdgmForm.offsetHeight === 0) openForm();
@@ -163,9 +171,8 @@
         form.reset();
         form.hidden = true;
         toggle.hidden = true;
-        msg.textContent = '';
-        fallback.querySelector('.pr-fallback__summary').insertAdjacentHTML('beforeend',
-          '<strong>Thank you! Your review has been submitted and will appear once approved.</strong>');
+        msg.textContent = 'Thank you! Your review has been submitted and will appear once approved.';
+        form.insertAdjacentElement('afterend', msg);
       }).catch(function () {
         msg.className = 'pr-fallback__msg is-error';
         msg.textContent = 'Something went wrong. Please try again.';
