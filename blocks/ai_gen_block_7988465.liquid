@@ -178,8 +178,12 @@
   @media screen and (max-width: 749px) {
     .ai-why-sbl-{{ ai_gen_id }} { padding-right: 16px; padding-left: 16px; }
     .ai-why-sbl__intro-{{ ai_gen_id }} { margin-bottom: 24px; }
+    .ai-why-sbl__table-{{ ai_gen_id }} { min-width: 0; }
     .ai-why-sbl__table-{{ ai_gen_id }} th,
-    .ai-why-sbl__table-{{ ai_gen_id }} td { padding: 14px 16px; }
+    .ai-why-sbl__table-{{ ai_gen_id }} td { padding: 11px 9px; font-size: 12.5px; overflow-wrap: anywhere; }
+    .ai-why-sbl__table-{{ ai_gen_id }} th:first-child { width: 30%; }
+    .ai-why-sbl__table-{{ ai_gen_id }} th:nth-child(2),
+    .ai-why-sbl__table-{{ ai_gen_id }} th:nth-child(3) { width: 35%; }
   }
 {% endstyle %}
 

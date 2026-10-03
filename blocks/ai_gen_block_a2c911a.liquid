@@ -33,7 +33,9 @@
   @media screen and (max-width: 749px) {
     .ai-product-banner-{{ ai_gen_id }} { width: 100%; }
     .ai-product-banner-{{ ai_gen_id }}__media { min-height: {{ block.settings.mobile_height }}px; }
-    .ai-product-banner-{{ ai_gen_id }}__overlay { padding: 22px; }
+    .ai-product-banner-{{ ai_gen_id }}__overlay { position: relative; inset: auto; min-height: {{ block.settings.mobile_height }}px; padding: 28px 20px; }
+    .ai-product-banner-{{ ai_gen_id }}__title { font-size: clamp(24px, 7vw, {{ block.settings.heading_size }}px); }
+    .ai-product-banner-{{ ai_gen_id }}__description { font-size: 14.5px; }
     .ai-product-banner-{{ ai_gen_id }}__placeholder svg { max-height: {{ block.settings.mobile_height }}px; }
     .ai-product-banner-{{ ai_gen_id }}__features { gap: 10px 14px; margin-top: 16px; }
     .ai-product-banner-{{ ai_gen_id }}__feature { font-size: 13px; }
