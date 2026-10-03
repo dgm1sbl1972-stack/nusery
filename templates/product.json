@@ -199,7 +199,7 @@
             "filter_custom_tags": "",
             "min_star_rating": "inherit",
             "show_review_media": true,
-            "max_reviews": 5,
+            "max_reviews": 6,
             "review_length": "medium",
             "text_size": "medium",
             "max_width": 400,
@@ -221,7 +221,8 @@
       "settings": {
         "heading": "Customer  Reviews",
         "heading_accent": "",
-        "background": "#ffffff"
+        "background": "#ffffff",
+        "show_review_widget": true
       }
     },
     "1791018629ab1d3a15": {
