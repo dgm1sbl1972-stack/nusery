@@ -1,0 +1,24 @@
+{%- comment -%} Sidebar for logged-in account pages. Accepts: active ('orders' | 'addresses') {%- endcomment -%}
+<aside class="acct-side">
+  <div class="acct-side__hello">
+    <span class="acct-side__avatar" aria-hidden="true">{{ customer.first_name | default: customer.email | slice: 0 | upcase }}</span>
+    <div>
+      <p class="acct-side__hi">Hello{% if customer.first_name != blank %}, {{ customer.first_name }}{% endif %} 🌿</p>
+      <p class="acct-side__email">{{ customer.email }}</p>
+    </div>
+  </div>
+  <nav class="acct-side__nav" aria-label="Account">
+    <a href="{{ routes.account_url }}"{% if active == 'orders' %} aria-current="page"{% endif %}>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7zM9 7V5a3 3 0 0 1 6 0v2"/></svg>My orders
+    </a>
+    <a href="{{ routes.account_addresses_url }}"{% if active == 'addresses' %} aria-current="page"{% endif %}>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Addresses ({{ customer.addresses_count }})
+    </a>
+    <a href="{{ routes.all_products_collection_url }}">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21c-4-3-7-6.5-7-10a7 7 0 0 1 14 0c0 3.5-3 7-7 10zM12 7v8M9 11l3 3 3-3"/></svg>Shop plants
+    </a>
+    <a href="{{ routes.account_logout_url }}" class="acct-side__logout">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/></svg>Log out
+    </a>
+  </nav>
+</aside>

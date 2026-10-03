@@ -1,0 +1,30 @@
+<section class="acct-auth">
+  <div class="acct-auth__card">
+    {%- render 'account-aside', s: section.settings -%}
+    <div class="acct-auth__main">
+      <div class="acct-panel">
+        <h1 class="acct-title">Activate your account</h1>
+        <p class="acct-sub">Create a password to activate your account.</p>
+        {%- form 'activate_customer_password', class: 'acct-form' -%}
+          {%- if form.errors -%}<div class="acct-alert acct-alert--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+          {%- render 'account-password-field', name: 'customer[password]', id: 'ActivatePassword', label: 'Password', autocomplete: 'new-password' -%}
+          {%- render 'account-password-field', name: 'customer[password_confirmation]', id: 'ActivatePasswordConfirm', label: 'Confirm password', autocomplete: 'new-password' -%}
+          <button type="submit" class="acct-btn">Activate account</button>
+          <button type="submit" name="decline" class="acct-btn acct-btn--outline">Decline invitation</button>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Activate account",
+  "class": "section-account",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Side image", "info": "Shown beside the form on desktop and above it on mobile." },
+    { "type": "text", "id": "aside_heading", "label": "Side heading", "default": "Grow your green corner" },
+    { "type": "textarea", "id": "aside_text", "label": "Side text", "default": "Healthy plants, seeds and pots from SBL Farms — delivered with care." }
+  ]
+}
+{% endschema %}

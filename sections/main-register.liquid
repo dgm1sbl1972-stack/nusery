@@ -1,0 +1,47 @@
+<section class="acct-auth">
+  <div class="acct-auth__card">
+    {%- render 'account-aside', s: section.settings -%}
+    <div class="acct-auth__main">
+      <div class="acct-panel">
+        <h1 class="acct-title">Create your account</h1>
+        <p class="acct-sub">Join the SBL plant family — it only takes a minute.</p>
+        {%- form 'create_customer', novalidate: 'novalidate', class: 'acct-form' -%}
+          {%- if form.errors -%}<div class="acct-alert acct-alert--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+          <div class="acct-form__row">
+            <label class="acct-field" for="RegisterFirstName">
+              <span>First name</span>
+              <input type="text" name="customer[first_name]" id="RegisterFirstName" autocomplete="given-name" value="{{ form.first_name }}">
+            </label>
+            <label class="acct-field" for="RegisterLastName">
+              <span>Last name</span>
+              <input type="text" name="customer[last_name]" id="RegisterLastName" autocomplete="family-name" value="{{ form.last_name }}">
+            </label>
+          </div>
+          <label class="acct-field" for="RegisterEmail">
+            <span>Email</span>
+            <input type="email" name="customer[email]" id="RegisterEmail" autocomplete="email" autocapitalize="off" spellcheck="false" required value="{{ form.email }}">
+          </label>
+          {%- render 'account-password-field', name: 'customer[password]', id: 'RegisterPassword', label: 'Password', autocomplete: 'new-password' -%}
+          <label class="acct-check">
+            <input type="checkbox" name="customer[accepts_marketing]" value="true" checked>
+            <span>Send me plant care tips and offers</span>
+          </label>
+          <button type="submit" class="acct-btn">Create account</button>
+        {%- endform -%}
+        <p class="acct-switch">Already have an account? <a class="acct-link" href="{{ routes.account_login_url }}">Log in</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Register page",
+  "class": "section-account",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Side image", "info": "Shown beside the form on desktop and above it on mobile." },
+    { "type": "text", "id": "aside_heading", "label": "Side heading", "default": "Grow your green corner" },
+    { "type": "textarea", "id": "aside_text", "label": "Side text", "default": "Healthy plants, seeds and pots from SBL Farms — delivered with care." }
+  ]
+}
+{% endschema %}

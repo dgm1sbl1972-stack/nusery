@@ -1,0 +1,62 @@
+<section class="acct-auth">
+  <div class="acct-auth__card">
+    {%- render 'account-aside', s: section.settings -%}
+    <div class="acct-auth__main">
+      {%- comment -%} Recover panel comes first so #recover:target can hide the login panel. {%- endcomment -%}
+      <div class="acct-panel acct-panel--recover" id="recover" tabindex="-1">
+        <h1 class="acct-title">Reset your password</h1>
+        <p class="acct-sub">Enter your email and we’ll send you a link to set a new password.</p>
+        {%- form 'recover_customer_password', class: 'acct-form' -%}
+          {%- assign recover_success = form.posted_successfully? -%}
+          {%- if form.errors -%}<div class="acct-alert acct-alert--error" role="alert">{{ form.errors.messages['form'] | default: 'Something went wrong. Please check your email and try again.' }}</div>{%- endif -%}
+          <label class="acct-field" for="RecoverEmail">
+            <span>Email</span>
+            <input type="email" name="email" id="RecoverEmail" autocomplete="email" autocapitalize="off" spellcheck="false" required>
+          </label>
+          <button type="submit" class="acct-btn">Send reset link</button>
+          <a class="acct-link acct-link--center" href="#login">← Back to login</a>
+        {%- endform -%}
+      </div>
+
+      <div class="acct-panel acct-panel--login" id="login" tabindex="-1">
+        <h1 class="acct-title">Welcome back</h1>
+        <p class="acct-sub">Log in to track your orders and check out faster.</p>
+        {%- if recover_success -%}
+          <div class="acct-alert acct-alert--ok" role="status">✓ We’ve emailed you a link to reset your password.</div>
+        {%- endif -%}
+        {%- form 'customer_login', novalidate: 'novalidate', class: 'acct-form' -%}
+          {%- if form.errors -%}<div class="acct-alert acct-alert--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+          <label class="acct-field" for="CustomerEmail">
+            <span>Email</span>
+            <input type="email" name="customer[email]" id="CustomerEmail" autocomplete="email" autocapitalize="off" spellcheck="false" required>
+          </label>
+          {%- if form.password_needed -%}
+            {%- render 'account-password-field', name: 'customer[password]', id: 'CustomerPassword', label: 'Password' -%}
+            <a class="acct-link acct-link--right" href="#recover">Forgot password?</a>
+          {%- endif -%}
+          <button type="submit" class="acct-btn">Log in</button>
+        {%- endform -%}
+        <p class="acct-switch">New to {{ shop.name }}? <a class="acct-link" href="{{ routes.account_register_url }}">Create an account</a></p>
+
+        {%- if shop.checkout.guest_login -%}
+          <div class="acct-divider"><span>or</span></div>
+          {%- form 'guest_login' -%}
+            <button type="submit" class="acct-btn acct-btn--outline">Continue as guest</button>
+          {%- endform -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Login page",
+  "class": "section-account",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Side image", "info": "Shown beside the form on desktop and above it on mobile." },
+    { "type": "text", "id": "aside_heading", "label": "Side heading", "default": "Grow your green corner" },
+    { "type": "textarea", "id": "aside_text", "label": "Side text", "default": "Healthy plants, seeds and pots from SBL Farms — delivered with care." }
+  ]
+}
+{% endschema %}

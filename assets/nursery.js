@@ -365,6 +365,17 @@
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 
+  /* Account pages: show / hide password. */
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-pw-toggle]');
+    if (!btn) return;
+    var input = btn.parentElement.querySelector('input');
+    var show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    btn.textContent = show ? 'Hide' : 'Show';
+    btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+  });
+
   /* Re-initialise sections when edited in the Shopify theme editor. */
   document.addEventListener('shopify:section:load', function (e) { init(e.target); });
 

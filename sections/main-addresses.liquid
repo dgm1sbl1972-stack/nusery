@@ -1,0 +1,103 @@
+<script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
+<section class="acct-page">
+  <div class="page-width acct-layout">
+    {%- render 'account-nav', active: 'addresses' -%}
+    <div class="acct-content">
+      <h1 class="acct-title">My addresses</h1>
+
+      <details class="acct-card acct-addr-new"{% if customer.addresses_count == 0 %} open{% endif %}>
+        <summary class="acct-btn acct-btn--inline">+ Add a new address</summary>
+        {%- form 'customer_address', customer.new_address, class: 'acct-form' -%}
+          {%- if form.errors -%}<div class="acct-alert acct-alert--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+          <div class="acct-form__row">
+            <label class="acct-field"><span>First name</span><input type="text" name="address[first_name]" autocomplete="given-name" value="{{ form.first_name }}"></label>
+            <label class="acct-field"><span>Last name</span><input type="text" name="address[last_name]" autocomplete="family-name" value="{{ form.last_name }}"></label>
+          </div>
+          <label class="acct-field"><span>Address</span><input type="text" name="address[address1]" autocomplete="address-line1" value="{{ form.address1 }}" required></label>
+          <label class="acct-field"><span>Apartment, landmark (optional)</span><input type="text" name="address[address2]" autocomplete="address-line2" value="{{ form.address2 }}"></label>
+          <div class="acct-form__row">
+            <label class="acct-field"><span>City</span><input type="text" name="address[city]" autocomplete="address-level2" value="{{ form.city }}" required></label>
+            <label class="acct-field"><span>PIN code</span><input type="text" name="address[zip]" autocomplete="postal-code" inputmode="numeric" value="{{ form.zip }}" required></label>
+          </div>
+          <div class="acct-form__row">
+            <label class="acct-field"><span>Country</span>
+              <select id="AddressCountry_new" name="address[country]" data-default="{{ form.country | default: 'India' }}" autocomplete="country">{{ all_country_option_tags }}</select>
+            </label>
+            <label class="acct-field" id="AddressProvinceContainer_new"><span>State</span>
+              <select id="AddressProvince_new" name="address[province]" data-default="{{ form.province }}" autocomplete="address-level1"></select>
+            </label>
+          </div>
+          <label class="acct-field"><span>Phone</span><input type="tel" name="address[phone]" autocomplete="tel" value="{{ form.phone }}"></label>
+          <label class="acct-check"><input type="checkbox" name="address[default]" value="1"{% if form.set_as_default_checkbox contains 'checked' %} checked{% endif %}><span>Set as default address</span></label>
+          <button type="submit" class="acct-btn acct-btn--inline">Save address</button>
+        {%- endform -%}
+      </details>
+
+      {%- paginate customer.addresses by 10 -%}
+        <div class="acct-addr-grid">
+          {%- for address in customer.addresses -%}
+            <div class="acct-card acct-addr">
+              {%- if address == customer.default_address -%}<span class="acct-pill acct-pill--paid">Default</span>{%- endif -%}
+              <p class="acct-address">{{ address | format_address }}</p>
+              <div class="acct-addr__actions">
+                <details class="acct-addr__edit">
+                  <summary class="acct-link">Edit</summary>
+                  {%- form 'customer_address', address, class: 'acct-form' -%}
+                    {%- if form.errors -%}<div class="acct-alert acct-alert--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+          <div class="acct-form__row">
+            <label class="acct-field"><span>First name</span><input type="text" name="address[first_name]" autocomplete="given-name" value="{{ form.first_name }}"></label>
+            <label class="acct-field"><span>Last name</span><input type="text" name="address[last_name]" autocomplete="family-name" value="{{ form.last_name }}"></label>
+          </div>
+          <label class="acct-field"><span>Address</span><input type="text" name="address[address1]" autocomplete="address-line1" value="{{ form.address1 }}" required></label>
+          <label class="acct-field"><span>Apartment, landmark (optional)</span><input type="text" name="address[address2]" autocomplete="address-line2" value="{{ form.address2 }}"></label>
+          <div class="acct-form__row">
+            <label class="acct-field"><span>City</span><input type="text" name="address[city]" autocomplete="address-level2" value="{{ form.city }}" required></label>
+            <label class="acct-field"><span>PIN code</span><input type="text" name="address[zip]" autocomplete="postal-code" inputmode="numeric" value="{{ form.zip }}" required></label>
+          </div>
+          <div class="acct-form__row">
+            <label class="acct-field"><span>Country</span>
+              <select id="AddressCountry_{{ form.id }}" name="address[country]" data-default="{{ form.country | default: 'India' }}" autocomplete="country">{{ all_country_option_tags }}</select>
+            </label>
+            <label class="acct-field" id="AddressProvinceContainer_{{ form.id }}"><span>State</span>
+              <select id="AddressProvince_{{ form.id }}" name="address[province]" data-default="{{ form.province }}" autocomplete="address-level1"></select>
+            </label>
+          </div>
+          <label class="acct-field"><span>Phone</span><input type="tel" name="address[phone]" autocomplete="tel" value="{{ form.phone }}"></label>
+          <label class="acct-check"><input type="checkbox" name="address[default]" value="1"{% if form.set_as_default_checkbox contains 'checked' %} checked{% endif %}><span>Set as default address</span></label>
+                    <button type="submit" class="acct-btn acct-btn--inline">Update address</button>
+                  {%- endform -%}
+                </details>
+                <form method="post" action="{{ address.url }}" class="acct-addr__delete" data-confirm="Delete this address?">
+                  <input type="hidden" name="_method" value="delete">
+                  <button type="submit" class="acct-link acct-link--danger">Delete</button>
+                </form>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+        {%- if paginate.pages > 1 -%}<div class="pagination center mt-40">{{ paginate | default_pagination }}</div>{%- endif -%}
+      {%- endpaginate -%}
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    function init() {
+      if (!window.Shopify || !Shopify.CountryProvinceSelector) return;
+      document.querySelectorAll('select[id^="AddressCountry_"]').forEach(function (country) {
+        var suffix = country.id.replace('AddressCountry_', '');
+        new Shopify.CountryProvinceSelector('AddressCountry_' + suffix, 'AddressProvince_' + suffix, { hideElement: 'AddressProvinceContainer_' + suffix });
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+    document.addEventListener('submit', function (e) {
+      var msg = e.target.getAttribute && e.target.getAttribute('data-confirm');
+      if (msg && !window.confirm(msg)) e.preventDefault();
+    });
+  })();
+</script>
+
+{% schema %}
+{ "name": "Addresses", "class": "section-account", "settings": [] }
+{% endschema %}

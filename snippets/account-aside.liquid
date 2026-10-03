@@ -1,0 +1,19 @@
+{%- comment -%}
+  Left brand panel for login / register / password pages.
+  Accepts: s (section.settings with image, aside_heading, aside_text)
+{%- endcomment -%}
+<div class="acct-aside">
+  {%- if s.image != blank -%}
+    {{ s.image | image_url: width: 1200 | image_tag: class: 'acct-aside__img', loading: 'eager', sizes: '(min-width: 900px) 45vw, 100vw', widths: '600, 900, 1200', alt: '' }}
+  {%- endif -%}
+  <div class="acct-aside__body">
+    <p class="acct-aside__brand">🌿 {{ shop.name }}</p>
+    <h2 class="acct-aside__title">{{ s.aside_heading | escape }}</h2>
+    {%- if s.aside_text != blank -%}<p class="acct-aside__text">{{ s.aside_text | escape }}</p>{%- endif -%}
+    <ul class="acct-aside__perks" role="list">
+      <li>Track orders &amp; deliveries</li>
+      <li>Faster checkout with saved addresses</li>
+      <li>Plant care tips &amp; member offers</li>
+    </ul>
+  </div>
+</div>

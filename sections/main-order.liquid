@@ -1,0 +1,69 @@
+<section class="acct-page">
+  <div class="page-width acct-layout">
+    {%- render 'account-nav', active: 'orders' -%}
+    <div class="acct-content">
+      <a class="acct-link" href="{{ routes.account_url }}">← Back to my orders</a>
+      <h1 class="acct-title">Order {{ order.name }}</h1>
+      <p class="acct-muted">Placed on {{ order.created_at | date: '%d %b %Y, %I:%M %p' }}</p>
+      {%- if order.cancelled -%}
+        <div class="acct-alert acct-alert--error">This order was cancelled on {{ order.cancelled_at | date: '%d %b %Y' }}{% if order.cancel_reason_label %} ({{ order.cancel_reason_label }}){% endif %}.</div>
+      {%- endif -%}
+      <div class="acct-order-status">
+        {%- render 'account-status', status: order.financial_status, label: order.financial_status_label -%}
+        {%- render 'account-status', status: order.fulfillment_status, label: order.fulfillment_status_label -%}
+      </div>
+
+      <div class="acct-card acct-lines">
+        {%- for line_item in order.line_items -%}
+          <div class="acct-line">
+            <div class="acct-line__media">
+              {%- if line_item.image -%}{{ line_item.image | image_url: width: 160 | image_tag: loading: 'lazy', alt: line_item.title }}{%- endif -%}
+            </div>
+            <div class="acct-line__info">
+              {%- if line_item.url != blank -%}<a href="{{ line_item.url }}" class="acct-line__title">{{ line_item.product.title | default: line_item.title }}</a>{%- else -%}<p class="acct-line__title">{{ line_item.title }}</p>{%- endif -%}
+              {%- unless line_item.product.has_only_default_variant -%}<p class="acct-muted">{{ line_item.variant.title }}</p>{%- endunless -%}
+              {%- for p in line_item.properties -%}{%- unless p.last == blank -%}<p class="acct-muted">{{ p.first }}: {{ p.last }}</p>{%- endunless -%}{%- endfor -%}
+              <p class="acct-muted">{{ line_item.final_price | money }} × {{ line_item.quantity }}</p>
+              {%- if line_item.fulfillment -%}
+                <p class="acct-track">
+                  Shipped {{ line_item.fulfillment.created_at | date: '%d %b' }}
+                  {%- if line_item.fulfillment.tracking_url -%} · <a href="{{ line_item.fulfillment.tracking_url }}" target="_blank" rel="noopener">Track package{% if line_item.fulfillment.tracking_company %} ({{ line_item.fulfillment.tracking_company }}){% endif %}</a>{%- endif -%}
+                </p>
+              {%- endif -%}
+            </div>
+            <strong class="acct-line__total">{{ line_item.final_line_price | money }}</strong>
+          </div>
+        {%- endfor -%}
+
+        <dl class="acct-totals">
+          <div><dt>Subtotal</dt><dd>{{ order.line_items_subtotal_price | money }}</dd></div>
+          {%- for discount in order.cart_level_discount_applications -%}
+            <div><dt>Discount ({{ discount.title }})</dt><dd>−{{ discount.total_allocated_amount | money }}</dd></div>
+          {%- endfor -%}
+          {%- for shipping_method in order.shipping_methods -%}
+            <div><dt>Shipping ({{ shipping_method.title }})</dt><dd>{{ shipping_method.price | money }}</dd></div>
+          {%- endfor -%}
+          {%- for tax_line in order.tax_lines -%}
+            <div><dt>{{ tax_line.title }} ({{ tax_line.rate_percentage }}%)</dt><dd>{{ tax_line.price | money }}</dd></div>
+          {%- endfor -%}
+          <div class="acct-totals__grand"><dt>Total</dt><dd>{{ order.total_price | money }}</dd></div>
+        </dl>
+      </div>
+
+      <div class="acct-addr-grid">
+        <div class="acct-card">
+          <h2 class="acct-subtitle">Delivery address</h2>
+          {%- if order.shipping_address -%}<p class="acct-address">{{ order.shipping_address | format_address }}</p>{%- else -%}<p class="acct-muted">Not required</p>{%- endif -%}
+        </div>
+        <div class="acct-card">
+          <h2 class="acct-subtitle">Billing address</h2>
+          {%- if order.billing_address -%}<p class="acct-address">{{ order.billing_address | format_address }}</p>{%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Order details", "class": "section-account", "settings": [] }
+{% endschema %}

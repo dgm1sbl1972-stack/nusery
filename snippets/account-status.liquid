@@ -1,0 +1,2 @@
+{%- comment -%} Coloured status pill. Accepts: status, label {%- endcomment -%}
+<span class="acct-pill acct-pill--{{ status | default: 'pending' | handleize }}">{{ label | default: status | capitalize }}</span>
