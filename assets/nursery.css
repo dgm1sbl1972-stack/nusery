@@ -712,6 +712,8 @@ html.account-popup-open, html.account-popup-open body { overflow: hidden; }
 .acct-pop__brand { margin: 0 0 6px; color: var(--c-accent); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
 .acct-pop__tagline { margin: 0; font-family: var(--font-display); font-size: 24px; line-height: 1.25; }
 .acct-pop__body { padding: 40px 36px 32px; display: flex; flex-direction: column; justify-content: center; }
+.acct-pop__logo { margin: 0 0 14px; }
+.acct-pop__logo img { display: block; width: var(--logo-w, 90px); max-width: 100%; height: auto; }
 .acct-pop__title { margin: 0; font-family: var(--font-display); font-size: 28px; line-height: 1.2; color: var(--c-text); }
 .acct-pop__sub { margin: 8px 0 18px; color: var(--c-muted); font-size: 14.5px; }
 .acct-pop__perks { list-style: none; margin: 0 0 22px; padding: 0; display: grid; gap: 10px; font-size: 14px; color: var(--c-text); }
@@ -735,6 +737,8 @@ html.account-popup-open, html.account-popup-open body { overflow: hidden; }
   .acct-pop__tagline { font-size: 19px; }
   .acct-pop__body { padding: 22px 20px calc(24px + env(safe-area-inset-bottom)); }
   .acct-pop__title { font-size: 24px; }
+  .acct-pop__logo { margin-bottom: 10px; }
+  .acct-pop__logo img { width: min(var(--logo-w, 90px), 72px); }
 }
 
 /* Mobile safety net: never let a section push the page sideways. */

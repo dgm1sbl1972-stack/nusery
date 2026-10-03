@@ -33,6 +33,15 @@
           "widget_type": "review-widget"
         }
       }
+    },
+    "sections": {
+      "account-popup": {
+        "type": "account-popup",
+        "settings": {
+          "logo": "shopify://shop_images/Untitled_design_25.png",
+          "logo_width": 90
+        }
+      }
     }
   },
   "presets": {
