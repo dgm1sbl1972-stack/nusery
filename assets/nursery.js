@@ -454,6 +454,99 @@
       });
     }
   };
+  /* Wishlist drawer: opened from the header heart, so no page setup is needed. */
+  Wishlist.openDrawer = function () {
+    var d = document.querySelector('.wl-drawer');
+    if (!d) {
+      d = document.createElement('div');
+      d.className = 'wl-drawer';
+      d.setAttribute('aria-hidden', 'true');
+      d.innerHTML = '<div class="wl-drawer__overlay" data-wl-close></div>' +
+        '<div class="wl-drawer__panel" role="dialog" aria-modal="true" aria-label="Wishlist" tabindex="-1">' +
+        '<div class="wl-drawer__head"><h2>My Wishlist <span data-wl-drawer-count></span></h2>' +
+        '<button type="button" class="wl-drawer__close" aria-label="Close" data-wl-close>' +
+        '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>' +
+        '<div class="wl-drawer__body" data-wl-drawer-body></div></div>';
+      document.body.appendChild(d);
+    }
+    Wishlist._last = document.activeElement;
+    d.classList.add('is-open');
+    d.setAttribute('aria-hidden', 'false');
+    document.documentElement.classList.add('wl-drawer-open');
+    d.querySelector('.wl-drawer__panel').focus();
+    Wishlist.renderDrawer();
+  };
+  Wishlist.closeDrawer = function () {
+    var d = document.querySelector('.wl-drawer');
+    if (!d) return;
+    d.classList.remove('is-open');
+    d.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('wl-drawer-open');
+    if (Wishlist._last && Wishlist._last.focus) Wishlist._last.focus();
+  };
+  Wishlist.renderDrawer = function () {
+    var body = document.querySelector('[data-wl-drawer-body]');
+    if (!body) return;
+    var count = document.querySelector('[data-wl-drawer-count]');
+    var list = Wishlist.get();
+    var esc = function (s) { var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; };
+    var shopUrl = cartRoot + 'collections/all';
+    if (!list.length) {
+      if (count) count.textContent = '';
+      body.innerHTML = '<div class="wl-drawer__empty"><svg viewBox="0 0 24 24" width="52" height="52" aria-hidden="true"><path d="M20.8 8.7c0 5.2-8.8 11-8.8 11s-8.8-5.8-8.8-11A4.6 4.6 0 0 1 12 6.4a4.6 4.6 0 0 1 8.8 2.3Z" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>' +
+        '<p><strong>Your wishlist is empty</strong></p><p>Tap the ♡ on any plant to save it here.</p>' +
+        '<a class="wl-drawer__btn" href="' + shopUrl + '">Explore plants</a></div>';
+      return;
+    }
+    body.innerHTML = '<p class="wl-drawer__loading">Loading…</p>';
+    Promise.all(list.map(function (handle) {
+      return fetch(cartRoot + 'products/' + encodeURIComponent(handle) + '.js').then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+    })).then(function (products) {
+      var found = products.filter(Boolean);
+      var gone = list.filter(function (h, i) { return !products[i]; });
+      if (gone.length) { Wishlist.set(list.filter(function (h) { return gone.indexOf(h) === -1; })); }
+      if (!found.length) { Wishlist.renderDrawer(); return; }
+      if (count) count.textContent = '(' + found.length + ')';
+      body.innerHTML = '<ul class="wl-drawer__list" role="list">' + found.map(function (p) {
+        var v = p.variants.filter(function (x) { return x.available; })[0] || p.variants[0];
+        var img = p.featured_image ? p.featured_image.replace(/^\/\//, 'https://') : '';
+        if (img) img += (img.indexOf('?') === -1 ? '?' : '&') + 'width=200';
+        var compare = v.compare_at_price > v.price ? ' <s>' + Wishlist.money(v.compare_at_price) + '</s>' : '';
+        var action = !p.available
+          ? '<span class="wl-row__sold">Sold out</span>'
+          : p.variants.length === 1
+            ? '<button type="button" class="wl-row__add" data-wl-add="' + v.id + '">Add to cart</button>'
+            : '<a class="wl-row__add" href="' + p.url + '">Choose options</a>';
+        return '<li class="wl-row"><a class="wl-row__media" href="' + p.url + '">' + (img ? '<img src="' + img + '" alt="" loading="lazy" width="80" height="80">' : '') + '</a>' +
+          '<div class="wl-row__info"><a class="wl-row__title" href="' + p.url + '">' + esc(p.title) + '</a>' +
+          '<p class="wl-row__price"><strong>' + Wishlist.money(v.price) + '</strong>' + compare + '</p>' + action + '</div>' +
+          '<button type="button" class="wl-row__remove" data-wishlist-remove="' + esc(p.handle) + '" aria-label="Remove ' + esc(p.title) + '">' +
+          '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></li>';
+      }).join('') + '</ul>';
+    });
+  };
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('[data-wishlist-link], .wl-toast a');
+    if (link && !e.metaKey && !e.ctrlKey) { e.preventDefault(); Wishlist.openDrawer(); return; }
+    if (e.target.closest('[data-wl-close]')) { Wishlist.closeDrawer(); return; }
+    var add = e.target.closest('[data-wl-add]');
+    if (add) {
+      add.disabled = true; add.textContent = 'Adding…';
+      fetch(cartRoot + 'cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ items: [{ id: Number(add.getAttribute('data-wl-add')), quantity: 1 }] })
+      }).then(function (r) {
+        if (!r.ok) throw r;
+        Wishlist.closeDrawer();
+        if (window.SBLCart) window.SBLCart.open();
+      }).catch(function () { add.disabled = false; add.textContent = 'Try again'; });
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && document.documentElement.classList.contains('wl-drawer-open')) Wishlist.closeDrawer();
+  });
+
   window.SBLWishlist = Wishlist;
 
   document.addEventListener('click', function (e) {
@@ -475,6 +568,7 @@
       var card = rm.closest('.wl-card');
       if (card) card.remove();
       Wishlist.renderPage();
+      Wishlist.renderDrawer();
     }
   }, true);
 

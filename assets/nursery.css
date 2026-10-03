@@ -777,6 +777,37 @@ html.account-popup-open, html.account-popup-open body { overflow: hidden; }
 @media (max-width: 900px) { .wl-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } .wl-card__body { padding: 12px; } }
 @media (max-width: 560px) { .wl-btn { width: 32px; height: 32px; top: 8px; right: 8px; } .wl-btn--bottom { top: auto; bottom: 8px; } .wl-btn--inline { width: 40px; height: 40px; } .wl-toast { white-space: normal; width: calc(100% - 32px); text-align: center; } }
 
+/* Wishlist drawer */
+.wl-drawer { position: fixed; inset: 0; z-index: 1000; visibility: hidden; pointer-events: none; }
+.wl-drawer.is-open { visibility: visible; pointer-events: auto; }
+.wl-drawer__overlay { position: absolute; inset: 0; background: rgba(13,58,29,.45); opacity: 0; transition: opacity .35s; }
+.wl-drawer.is-open .wl-drawer__overlay { opacity: 1; }
+.wl-drawer__panel { position: absolute; top: 0; right: 0; height: 100%; width: min(420px, 100%); display: flex; flex-direction: column; background: #fffdf8; box-shadow: -16px 0 40px rgba(0,0,0,.16); transform: translateX(100%); transition: transform .4s cubic-bezier(.22,.8,.26,1); outline: none; }
+.wl-drawer.is-open .wl-drawer__panel { transform: none; }
+html.wl-drawer-open, html.wl-drawer-open body { overflow: hidden; }
+.wl-drawer__head { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; background: #fff; border-bottom: 1px solid #eee8dc; }
+.wl-drawer__head h2 { margin: 0; font-size: 18px; font-weight: 700; color: var(--c-text); }
+.wl-drawer__head h2 span { font-weight: 500; color: var(--c-muted); font-size: 15px; }
+.wl-drawer__close { width: 36px; height: 36px; display: grid; place-items: center; border: 0; border-radius: 50%; background: none; color: var(--c-primary); cursor: pointer; }
+.wl-drawer__body { flex: 1; overflow-y: auto; }
+.wl-drawer__loading { padding: 24px 20px; color: var(--c-muted); }
+.wl-drawer__list { list-style: none; margin: 0; padding: 0 20px; }
+.wl-row { display: grid; grid-template-columns: 80px 1fr auto; gap: 14px; align-items: start; padding: 16px 0; border-bottom: 1px solid #eee8dc; }
+.wl-row__media img { width: 80px; height: 80px; object-fit: cover; border-radius: 10px; display: block; background: #f1efe8; }
+.wl-row__media { display: block; width: 80px; height: 80px; border-radius: 10px; background: #f1efe8; overflow: hidden; }
+.wl-row__title { display: block; font-weight: 600; color: var(--c-text); line-height: 1.35; }
+.wl-row__price { margin: 4px 0 10px; font-size: 14px; }
+.wl-row__price s { margin-left: 6px; color: var(--c-muted); font-size: 12.5px; }
+.wl-row__add { display: inline-flex; align-items: center; min-height: 34px; padding: 0 16px; border: 0; border-radius: 999px; background: var(--c-primary); color: #fff; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.wl-row__sold { font-size: 13px; color: var(--c-muted); }
+.wl-row__remove { border: 0; background: none; color: #7b857e; padding: 4px; cursor: pointer; }
+.wl-row__remove:hover { color: #b3261e; }
+.wl-drawer__empty { display: grid; justify-items: center; gap: 6px; padding: 60px 24px; text-align: center; color: var(--c-muted); }
+.wl-drawer__empty svg { color: var(--c-primary); margin-bottom: 6px; }
+.wl-drawer__empty p { margin: 0; }
+.wl-drawer__empty strong { color: var(--c-text); font-size: 16px; }
+.wl-drawer__btn { margin-top: 14px; display: inline-block; padding: 12px 28px; border-radius: 999px; background: var(--c-primary); color: #fff; font-weight: 600; }
+
 /* Mobile safety net: never let a section push the page sideways. */
 html, body { max-width: 100%; overflow-x: clip; }
 img, video, iframe, svg { max-width: 100%; }
