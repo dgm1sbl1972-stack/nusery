@@ -1,0 +1,164 @@
+{%- comment -%}
+  SBL Services: one service (image, label, title, description, features, button).
+  Add one section per service. Shared styles: assets/sbl-services.css.
+{%- endcomment -%}
+
+{%- liquid
+  assign sid = section.id
+  assign b = section.settings
+  assign btn_link = b.button_link | default: '/pages/contact'
+-%}
+
+{{ 'sbl-services.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'sbl-pages.js' | asset_url }}" defer></script>
+
+{%- capture arrow_svg -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>{%- endcapture -%}
+{%- capture check_svg -%}<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2.5 14.6 4l3-.1 1.4 2.6 2.6 1.5-.1 3L23 13.6l-1.5 2.6.1 3-2.6 1.4L17.6 23l-3-.1L12 24.5 9.4 23l-3 .1L5 20.5 2.4 19l.1-3L1 13.4l1.5-2.6-.1-3L5 6.4 6.4 3.9l3 .1Z" transform="scale(.92) translate(1 0)"/><path d="m8 12.3 2.7 2.7 5.4-5.6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>{%- endcapture -%}
+
+<div id="sbls-{{ sid }}" class="sbls" style="--sec-bg: {{ b.bg_color }};" data-sbl-root>
+  <div class="sbls-wrap" style="padding-top: {{ b.padding_top }}px; padding-bottom: {{ b.padding_bottom }}px;">
+    <article class="sbls-row{% if b.image_side == 'right' %} sbls-row--flip{% endif %}" id="{{ b.anchor | default: sid | handleize }}" aria-labelledby="sbls-t-{{ sid }}">
+      <div class="sbls-row__media" data-reveal>
+        {%- if b.image != blank -%}
+          {{ b.image | image_url: width: 1400 | image_tag: widths: '480, 720, 960, 1200, 1400', sizes: '(min-width: 990px) 52vw, 100vw', loading: 'lazy', alt: b.image.alt | default: b.title }}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'sbls-ph' }}
+        {%- endif -%}
+      </div>
+      <div data-reveal>
+        {%- if b.number != blank or b.label != blank -%}
+          <p class="sbls-eyebrow">{{ b.number | escape }}{% if b.number != blank and b.label != blank %} / {% endif %}{{ b.label | escape }}</p>
+        {%- endif -%}
+        <h2 id="sbls-t-{{ sid }}" class="sbls-h2">{{ b.title | escape }}</h2>
+        {%- if b.text != blank -%}<p class="sbls-row__text">{{ b.text | escape }}</p>{%- endif -%}
+        {%- if b.features != blank -%}
+          {%- assign feats = b.features | newline_to_br | split: '<br />' -%}
+          <ul class="sbls-feats" role="list">
+            {%- for feat in feats -%}
+              {%- assign f = feat | strip -%}
+              {%- if f != blank -%}<li>{{ check_svg }}<span>{{ f | escape }}</span></li>{%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+        {%- if b.button_label != blank -%}
+          <a class="sbls-btn sbls-btn--primary" href="{{ btn_link }}">{{ b.button_label | escape }}{{ arrow_svg }}</a>
+        {%- endif -%}
+      </div>
+    </article>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SBL Services: Service",
+  "tag": "section",
+  "class": "section-sbl-services",
+  "settings": [
+    {
+      "type": "text",
+      "id": "number",
+      "label": "Number",
+      "default": "01",
+      "info": "Shown before the small label, e.g. 01 / LANDSCAPING"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Small label",
+      "default": "Landscaping",
+      "info": "Shown after the number, e.g. 01 / LANDSCAPING"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Landscaping"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Description"
+    },
+    {
+      "type": "textarea",
+      "id": "features",
+      "label": "Features",
+      "info": "One per line"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Contact Us"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "info": "Defaults to /pages/contact"
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Anchor ID",
+      "info": "Optional. Lets you link straight to this service, e.g. landscaping for #landscaping"
+    },
+    {
+      "type": "select",
+      "id": "image_side",
+      "label": "Image side (desktop)",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Section style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#F8F4EC"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Space above",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Space below",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "SBL Services: Service"
+    }
+  ]
+}
+{% endschema %}

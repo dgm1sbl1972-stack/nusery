@@ -1,0 +1,195 @@
+{%- comment -%}
+  SBL Gift: Testimonials section for the SBL Nursery gifting page.
+  Shared styles: assets/sbl-gifting.css. Carousel and reveal script: assets/sbl-pages.js.
+{%- endcomment -%}
+
+{%- comment -%} Hidden while shoppers filter or sort, so the product grid shows instead. {%- endcomment -%}
+{%- capture sbl_filtered -%}{%- render 'sbl-collection-filtered' -%}{%- endcapture -%}
+{%- unless sbl_filtered contains 'true' -%}
+
+{%- assign sid = section.id -%}
+
+{{ 'sbl-gifting.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'sbl-pages.js' | asset_url }}" defer></script>
+
+{%- capture arrow_svg -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>{%- endcapture -%}
+{%- capture star_svg -%}<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9L12 2.8Z"/></svg>{%- endcapture -%}
+
+<div id="sblg-{{ sid }}" class="sblg" style="--sec-bg: {{ section.settings.bg_color }};" data-sbl-root>
+  <section class="sblg-block" aria-labelledby="sblg-rev-title-{{ sid }}">
+    <div class="sblg-wrap">
+      <div class="sblg-head sblg-head--row" data-reveal>
+        <div>
+          <h2 id="sblg-rev-title-{{ sid }}" class="sblg-h2">{{ section.settings.testi_heading | escape }}</h2>
+          {%- if section.settings.testi_subheading != blank -%}<p>{{ section.settings.testi_subheading | escape }}</p>{%- endif -%}
+        </div>
+        <div class="sblg-arrows">
+          <button class="sblg-arrow" type="button" aria-label="Previous reviews" aria-controls="sblg-rev-track-{{ sid }}" data-rail-prev><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+          <button class="sblg-arrow" type="button" aria-label="Next reviews" aria-controls="sblg-rev-track-{{ sid }}" data-rail-next>{{ arrow_svg }}</button>
+        </div>
+      </div>
+      <div class="sblg-rail" data-rail>
+      <ul class="sblg-track sblg-reviews" id="sblg-rev-track-{{ sid }}" role="list" tabindex="0" aria-label="{{ section.settings.testi_heading | escape }}" data-rail-track>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'testimonial' -%}
+            <li data-reveal {{ block.shopify_attributes }}>
+              <figure class="sblg-review">
+                <svg class="sblg-review__quote" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" focusable="false"><path d="M13 7C7.5 8.4 4 12.6 4 18.3V25h9v-9H8.4c.4-3.1 2.3-5.3 5.6-6.4L13 7Zm15 0c-5.5 1.4-9 5.6-9 11.3V25h9v-9h-4.6c.4-3.1 2.3-5.3 5.6-6.4L28 7Z"/></svg>
+                <blockquote><p style="margin:0">{{ block.settings.quote | escape }}</p></blockquote>
+                <div class="sblg-stars" role="img" aria-label="Rated {{ block.settings.rating }} out of 5">
+                  {%- for s in (1..5) -%}
+                    {%- if s <= block.settings.rating -%}{{ star_svg }}{%- else -%}{{ star_svg | replace: '<svg ', '<svg class="is-off" ' }}{%- endif -%}
+                  {%- endfor -%}
+                </div>
+                <figcaption>
+                  <span class="sblg-avatar" aria-hidden="true">
+                    {%- if block.settings.avatar != blank -%}
+                      {{ block.settings.avatar | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}
+                    {%- else -%}
+                      {{ block.settings.name | slice: 0 | upcase }}
+                    {%- endif -%}
+                  </span>
+                  <span>
+                    <cite class="sblg-review__name">{{ block.settings.name | escape }}</cite>
+                    {%- if block.settings.meta != blank -%}<span class="sblg-review__meta">{{ block.settings.meta | escape }}</span>{%- endif -%}
+                  </span>
+                </figcaption>
+              </figure>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "SBL Gift: Testimonials",
+  "tag": "section",
+  "class": "section-sbl-gift",
+  "settings": [
+    {
+      "type": "text",
+      "id": "testi_heading",
+      "label": "Heading",
+      "default": "What Our Customers Say"
+    },
+    {
+      "type": "text",
+      "id": "testi_subheading",
+      "label": "Subheading",
+      "default": "Real words from happy plant gifters"
+    },
+    {
+      "type": "header",
+      "content": "Section style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#F8F4EC"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review",
+          "default": "Beautiful plants and amazing packaging. Perfect gift!"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Customer name",
+          "default": "Customer name"
+        },
+        {
+          "type": "text",
+          "id": "meta",
+          "label": "Location or occasion"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Photo",
+          "info": "Optional. Initial is shown when empty."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SBL Gift: Testimonials",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Beautiful plants and amazing packaging. Perfect gift!",
+            "rating": 5,
+            "name": "Priya S."
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Love the gift set. Super fresh and well packed.",
+            "rating": 5,
+            "name": "Rahul M."
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "A unique and thoughtful gift option!",
+            "rating": 5,
+            "name": "Ananya K."
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Fresh, healthy and beautifully wrapped. My parents loved it.",
+            "rating": 5,
+            "name": "Sneha R."
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Ordered a corporate gift set for my team. Everyone was impressed.",
+            "rating": 5,
+            "name": "Arjun P."
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The handwritten note was a lovely touch. Will order again.",
+            "rating": 5,
+            "name": "Meera T."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

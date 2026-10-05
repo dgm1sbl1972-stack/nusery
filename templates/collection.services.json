@@ -1,48 +1,72 @@
 {
   "sections": {
-    "services": {
-      "type": "sbl-services-page",
+    "services_hero": {
+      "type": "sbl-services-hero",
+      "settings": {}
+    },
+    "banner_1": {
+      "type": "sbl-promo-banner",
+      "settings": {
+        "layout": "image"
+      }
+    },
+    "service_1": {
+      "type": "sbl-services-row",
+      "settings": {
+        "label": "Landscaping",
+        "title": "Landscaping",
+        "anchor": "landscaping",
+        "text": "Transform your outdoor spaces into beautifully planned green environments. From concept and plant selection to installation and finishing, our landscaping team creates functional and visually stunning landscapes tailored to your space.",
+        "features": "Landscape Design\nGarden Development\nPlant Selection\nCommercial & Residential Projects",
+        "number": "01",
+        "image_side": "left",
+        "padding_top": 72
+      }
+    },
+    "service_2": {
+      "type": "sbl-services-row",
+      "settings": {
+        "label": "AMC",
+        "title": "Annual Maintenance Contract",
+        "anchor": "amc",
+        "text": "Keep your landscape healthy, clean and beautiful throughout the year with our professional garden maintenance services. Our team provides scheduled care for plants, lawns and landscaped spaces.",
+        "features": "Regular Garden Maintenance\nPlant Health Monitoring\nPruning & Trimming\nLawn & Landscape Care",
+        "number": "02",
+        "image_side": "right",
+        "padding_top": 36
+      }
+    },
+    "service_3": {
+      "type": "sbl-services-row",
+      "settings": {
+        "label": "Green Wall",
+        "title": "Green Wall Solutions",
+        "anchor": "green-wall",
+        "text": "Bring nature into modern spaces with professionally designed green walls. We create beautiful vertical gardens for homes, offices, hotels, restaurants and commercial environments.",
+        "features": "Indoor Green Walls\nCustom Green Wall Design\nOutdoor Vertical Gardens\nInstallation & Maintenance",
+        "number": "03",
+        "image_side": "left",
+        "padding_top": 36
+      }
+    },
+    "service_4": {
+      "type": "sbl-services-row",
+      "settings": {
+        "label": "Plant Rental",
+        "title": "Plant Rental",
+        "anchor": "plant-rental",
+        "text": "Enhance your workplace, event or commercial environment with beautiful plants without the responsibility of ownership. Choose from our curated range of indoor and decorative plants.",
+        "features": "Office Plant Rental\nIndoor Plants\nEvent Plant Rental\nMaintenance Support",
+        "number": "04",
+        "image_side": "right",
+        "padding_top": 36,
+        "padding_bottom": 72
+      }
+    },
+    "services_clients": {
+      "type": "sbl-services-clients",
+      "settings": {},
       "blocks": {
-        "service_1": {
-          "type": "service",
-          "settings": {
-            "label": "Landscaping",
-            "title": "Landscaping",
-            "anchor": "landscaping",
-            "text": "Transform your outdoor spaces into beautifully planned green environments. From concept and plant selection to installation and finishing, our landscaping team creates functional and visually stunning landscapes tailored to your space.",
-            "features": "Landscape Design\nGarden Development\nPlant Selection\nCommercial & Residential Projects"
-          }
-        },
-        "service_2": {
-          "type": "service",
-          "settings": {
-            "label": "AMC",
-            "title": "Annual Maintenance Contract",
-            "anchor": "amc",
-            "text": "Keep your landscape healthy, clean and beautiful throughout the year with our professional garden maintenance services. Our team provides scheduled care for plants, lawns and landscaped spaces.",
-            "features": "Regular Garden Maintenance\nPlant Health Monitoring\nPruning & Trimming\nLawn & Landscape Care"
-          }
-        },
-        "service_3": {
-          "type": "service",
-          "settings": {
-            "label": "Green Wall",
-            "title": "Green Wall Solutions",
-            "anchor": "green-wall",
-            "text": "Bring nature into modern spaces with professionally designed green walls. We create beautiful vertical gardens for homes, offices, hotels, restaurants and commercial environments.",
-            "features": "Indoor Green Walls\nCustom Green Wall Design\nOutdoor Vertical Gardens\nInstallation & Maintenance"
-          }
-        },
-        "service_4": {
-          "type": "service",
-          "settings": {
-            "label": "Plant Rental",
-            "title": "Plant Rental",
-            "anchor": "plant-rental",
-            "text": "Enhance your workplace, event or commercial environment with beautiful plants without the responsibility of ownership. Choose from our curated range of indoor and decorative plants.",
-            "features": "Office Plant Rental\nIndoor Plants\nEvent Plant Rental\nMaintenance Support"
-          }
-        },
         "client_1": {
           "type": "client",
           "settings": {
@@ -90,21 +114,9 @@
           "settings": {
             "name": "Client 8"
           }
-        },
-        "banner_1": {
-          "type": "banner",
-          "settings": {
-            "position": "in_list",
-            "layout": "image"
-          }
         }
       },
       "block_order": [
-        "banner_1",
-        "service_1",
-        "service_2",
-        "service_3",
-        "service_4",
         "client_1",
         "client_2",
         "client_3",
@@ -113,11 +125,16 @@
         "client_6",
         "client_7",
         "client_8"
-      ],
-      "settings": {}
+      ]
     }
   },
   "order": [
-    "services"
+    "services_hero",
+    "banner_1",
+    "service_1",
+    "service_2",
+    "service_3",
+    "service_4",
+    "services_clients"
   ]
 }

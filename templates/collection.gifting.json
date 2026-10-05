@@ -9,8 +9,19 @@
  */
 {
   "sections": {
-    "gifting": {
-      "type": "sbl-gifting-page",
+    "gift_hero": {
+      "type": "sbl-gift-hero",
+      "settings": {}
+    },
+    "banner_1": {
+      "type": "sbl-promo-banner",
+      "settings": {
+        "layout": "image"
+      }
+    },
+    "gift_occasions": {
+      "type": "sbl-gift-occasions",
+      "settings": {},
       "blocks": {
         "occasion_1": {
           "type": "occasion",
@@ -40,6 +51,34 @@
             "icon": "thanks"
           }
         },
+        "occasion_5": {
+          "type": "occasion",
+          "settings": {
+            "title": "Congratulations",
+            "icon": "gift"
+          }
+        },
+        "occasion_6": {
+          "type": "occasion",
+          "settings": {
+            "title": "Get Well Soon",
+            "icon": "baby"
+          }
+        }
+      },
+      "block_order": [
+        "occasion_1",
+        "occasion_2",
+        "occasion_3",
+        "occasion_4",
+        "occasion_5",
+        "occasion_6"
+      ]
+    },
+    "gift_budget": {
+      "type": "sbl-gift-budget",
+      "settings": {},
+      "blocks": {
         "budget_1": {
           "type": "budget",
           "settings": {
@@ -77,7 +116,31 @@
             "icon": "tree",
             "min_price": 2000
           }
-        },
+        }
+      },
+      "block_order": [
+        "budget_1",
+        "budget_2",
+        "budget_3",
+        "budget_4"
+      ]
+    },
+    "gift_products": {
+      "type": "sbl-gift-products",
+      "settings": {}
+    },
+    "gift_build": {
+      "type": "sbl-gift-build",
+      "settings": {}
+    },
+    "gift_corporate": {
+      "type": "sbl-gift-corporate",
+      "settings": {}
+    },
+    "gift_testimonials": {
+      "type": "sbl-gift-testimonials",
+      "settings": {},
+      "blocks": {
         "testimonial_1": {
           "type": "testimonial",
           "settings": {
@@ -102,6 +165,44 @@
             "name": "Ananya K."
           }
         },
+        "testimonial_4": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Fresh, healthy and beautifully wrapped. My parents loved it.",
+            "rating": 5,
+            "name": "Sneha R."
+          }
+        },
+        "testimonial_5": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Ordered a corporate gift set for my team. Everyone was impressed.",
+            "rating": 5,
+            "name": "Arjun P."
+          }
+        },
+        "testimonial_6": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The handwritten note was a lovely touch. Will order again.",
+            "rating": 5,
+            "name": "Meera T."
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_1",
+        "testimonial_2",
+        "testimonial_3",
+        "testimonial_4",
+        "testimonial_5",
+        "testimonial_6"
+      ]
+    },
+    "gift_faq": {
+      "type": "sbl-gift-faq",
+      "settings": {},
+      "blocks": {
         "faq_1": {
           "type": "faq",
           "settings": {
@@ -143,78 +244,19 @@
             "question": "Can I choose my own pot?",
             "answer": "<p>Yes. Many of our plants come with pot options. Choose your favourite style and colour on the product page.</p>"
           }
-        },
-        "occasion_5": {
-          "type": "occasion",
-          "settings": {
-            "title": "Congratulations",
-            "icon": "gift"
-          }
-        },
-        "occasion_6": {
-          "type": "occasion",
-          "settings": {
-            "title": "Get Well Soon",
-            "icon": "baby"
-          }
-        },
-        "testimonial_4": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "Fresh, healthy and beautifully wrapped. My parents loved it.",
-            "rating": 5,
-            "name": "Sneha R."
-          }
-        },
-        "testimonial_5": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "Ordered a corporate gift set for my team. Everyone was impressed.",
-            "rating": 5,
-            "name": "Arjun P."
-          }
-        },
-        "testimonial_6": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "The handwritten note was a lovely touch. Will order again.",
-            "rating": 5,
-            "name": "Meera T."
-          }
-        },
-        "banner_1": {
-          "type": "banner",
-          "settings": {
-            "position": "after_hero",
-            "layout": "image"
-          }
         }
       },
       "block_order": [
-        "occasion_1",
-        "occasion_2",
-        "occasion_3",
-        "occasion_4",
-        "occasion_5",
-        "occasion_6",
-        "budget_1",
-        "budget_2",
-        "budget_3",
-        "budget_4",
-        "testimonial_1",
-        "testimonial_2",
-        "testimonial_3",
-        "testimonial_4",
-        "testimonial_5",
-        "testimonial_6",
         "faq_1",
         "faq_2",
         "faq_3",
         "faq_4",
         "faq_5",
-        "faq_6",
-        "banner_1"
-      ],
+        "faq_6"
+      ]
+    },
+    "gift_cta": {
+      "type": "sbl-gift-cta",
       "settings": {}
     },
     "main": {
@@ -313,7 +355,16 @@
     }
   },
   "order": [
-    "gifting",
+    "gift_hero",
+    "banner_1",
+    "gift_occasions",
+    "gift_budget",
+    "gift_products",
+    "gift_build",
+    "gift_corporate",
+    "gift_testimonials",
+    "gift_faq",
+    "gift_cta",
     "main"
   ]
 }

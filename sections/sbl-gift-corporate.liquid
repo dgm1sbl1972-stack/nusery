@@ -1,0 +1,154 @@
+{%- comment -%}
+  SBL Gift: Corporate section for the SBL Nursery gifting page.
+  Shared styles: assets/sbl-gifting.css. Carousel and reveal script: assets/sbl-pages.js.
+{%- endcomment -%}
+
+{%- comment -%} Hidden while shoppers filter or sort, so the product grid shows instead. {%- endcomment -%}
+{%- capture sbl_filtered -%}{%- render 'sbl-collection-filtered' -%}{%- endcapture -%}
+{%- unless sbl_filtered contains 'true' -%}
+
+{%- liquid
+  assign sid = section.id
+  if collection != blank and collection.url != blank
+    assign browse_sort = collection.default_sort_by | default: 'manual'
+    assign page_collection_url = collection.url | append: '?sort_by=' | append: browse_sort
+  else
+    assign page_collection_url = routes.all_products_collection_url
+  endif
+  assign corp_link = section.settings.corp_button_link | default: page_collection_url
+-%}
+
+{{ 'sbl-gifting.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'sbl-pages.js' | asset_url }}" defer></script>
+
+{%- capture arrow_svg -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>{%- endcapture -%}
+{%- capture check_svg -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>{%- endcapture -%}
+
+<div id="sblg-{{ sid }}" class="sblg" style="--sec-bg: {{ section.settings.bg_color }}; --corp-bg: {{ section.settings.corp_bg_color }}; --corp-fade: rgba({{ section.settings.corp_bg_color.red }}, {{ section.settings.corp_bg_color.green }}, {{ section.settings.corp_bg_color.blue }}, {{ section.settings.corp_overlay | divided_by: 100.0 }});" data-sbl-root>
+  <section class="sblg-block" aria-labelledby="sblg-corp-title-{{ sid }}">
+    <div class="sblg-wrap">
+      <div class="sblg-corp" data-reveal>
+        {%- if section.settings.corp_bg_image != blank -%}
+          <div class="sblg-corp__bg">
+            {{ section.settings.corp_bg_image | image_url: width: 1800 | image_tag: widths: '750, 1100, 1500, 1800', sizes: '100vw', loading: 'lazy', alt: '' }}
+          </div>
+        {%- endif -%}
+        <div>
+          {%- if section.settings.corp_eyebrow != blank -%}<p class="sblg-eyebrow">{{ section.settings.corp_eyebrow | escape }}</p>{%- endif -%}
+          <h2 id="sblg-corp-title-{{ sid }}" class="sblg-h2">{{ section.settings.corp_heading | escape }}</h2>
+          {%- if section.settings.corp_text != blank -%}<p class="sblg-corp__text">{{ section.settings.corp_text | escape }}</p>{%- endif -%}
+          {%- assign corp_points = section.settings.corp_points | newline_to_br | split: '<br />' -%}
+          {%- if section.settings.corp_points != blank -%}
+            <ul class="sblg-corp__list" role="list">
+              {%- for point in corp_points -%}
+                {%- assign p = point | strip -%}
+                {%- if p != blank -%}<li>{{ check_svg }}{{ p | escape }}</li>{%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          {%- if section.settings.corp_button_label != blank -%}
+            <a class="sblg-btn sblg-btn--accent" href="{{ corp_link }}">{{ section.settings.corp_button_label | escape }}{{ arrow_svg }}</a>
+          {%- endif -%}
+        </div>
+        <div class="sblg-corp__media">
+          {%- if section.settings.corp_image != blank -%}
+            {{ section.settings.corp_image | image_url: width: 1200 | image_tag: widths: '480, 720, 960, 1200', sizes: '(min-width: 990px) 45vw, 100vw', loading: 'lazy', alt: section.settings.corp_image.alt | default: section.settings.corp_heading }}
+          {%- else -%}
+            {{ 'lifestyle-2' | placeholder_svg_tag: 'sblg-ph' }}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "SBL Gift: Corporate",
+  "tag": "section",
+  "class": "section-sbl-gift",
+  "settings": [
+    {
+      "type": "text",
+      "id": "corp_eyebrow",
+      "label": "Eyebrow",
+      "default": "FOR TEAMS & CLIENTS"
+    },
+    {
+      "type": "text",
+      "id": "corp_heading",
+      "label": "Heading",
+      "default": "Corporate Gifting Solutions"
+    },
+    {
+      "type": "textarea",
+      "id": "corp_text",
+      "label": "Text",
+      "default": "Thoughtful green gifts for your team, clients and business partners."
+    },
+    {
+      "type": "textarea",
+      "id": "corp_points",
+      "label": "Highlights",
+      "info": "One per line",
+      "default": "Bulk orders with custom branding\nPersonalised notes and packaging\nPan-India delivery"
+    },
+    {
+      "type": "text",
+      "id": "corp_button_label",
+      "label": "Button label",
+      "default": "Explore Corporate Gifts"
+    },
+    {
+      "type": "url",
+      "id": "corp_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "corp_bg_image",
+      "label": "Corporate background image",
+      "info": "Soft botanical image, shown behind a green overlay"
+    },
+    {
+      "type": "range",
+      "id": "corp_overlay",
+      "label": "Background overlay strength",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 75
+    },
+    {
+      "type": "color",
+      "id": "corp_bg_color",
+      "label": "Background color",
+      "default": "#1F5130"
+    },
+    {
+      "type": "image_picker",
+      "id": "corp_image",
+      "label": "Corporate side image",
+      "info": "Photo of gift boxes or office plants, shown on the right. 1200 x 960px recommended"
+    },
+    {
+      "type": "header",
+      "content": "Section style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#F8F4EC"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SBL Gift: Corporate"
+    }
+  ]
+}
+{% endschema %}

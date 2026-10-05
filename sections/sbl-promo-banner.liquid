@@ -1,0 +1,245 @@
+{%- comment -%}
+  SBL Banner: your own banner artwork, or an image with text, or text only.
+  Add it anywhere on the gifting or services page. Renders nothing until it has an image or text.
+{%- endcomment -%}
+{{ 'sbl-gifting.css' | asset_url | stylesheet_tag }}
+<div id="sblg-{{ section.id }}" class="sblg" style="--sec-bg: {{ section.settings.bg_color }};">
+  {%- if section.settings.space_below -%}
+    {%- render 'sbl-banner', block: section, outer_class: 'sblg-block sblg-block--last', inner_class: 'sblg-wrap' -%}
+  {%- else -%}
+    {%- render 'sbl-banner', block: section, outer_class: 'sblg-block', inner_class: 'sblg-wrap' -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "SBL Banner",
+  "tag": "section",
+  "class": "section-sbl-banner",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "default": "image",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image only (your own banner design)"
+        },
+        {
+          "value": "overlay",
+          "label": "Text on top of image"
+        },
+        {
+          "value": "split_left",
+          "label": "Image left, text right"
+        },
+        {
+          "value": "split_right",
+          "label": "Image right, text left"
+        },
+        {
+          "value": "text",
+          "label": "Text only"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Your banner artwork. With \"Image only\" it shows in full, uncropped. 2400 x 800px works well."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile image",
+      "info": "Optional. Taller image for phones, 1100 x 1300px recommended"
+    },
+    {
+      "type": "range",
+      "id": "overlay",
+      "label": "Image darkening",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "label": "Desktop height",
+      "min": 200,
+      "max": 700,
+      "step": 20,
+      "unit": "px",
+      "default": 380
+    },
+    {
+      "type": "range",
+      "id": "height_mobile",
+      "label": "Mobile height",
+      "min": 200,
+      "max": 700,
+      "step": 20,
+      "unit": "px",
+      "default": 340
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small label"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "vertical_align",
+      "label": "Text position (on image)",
+      "default": "center",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Middle"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link",
+      "info": "Where the banner goes when clicked. With no button label, or with \"Image only\", the whole banner is clickable."
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#1F5130"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button",
+      "default": "#FFD60A"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#1B2A1F"
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Corner rounding",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "full_bleed",
+      "label": "Stretch edge to edge",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#F8F4EC"
+    },
+    {
+      "type": "checkbox",
+      "id": "space_below",
+      "label": "Add space below",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "SBL Banner"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,132 @@
+{%- comment -%}
+  SBL Gift: Final CTA section for the SBL Nursery gifting page.
+  Shared styles: assets/sbl-gifting.css. Carousel and reveal script: assets/sbl-pages.js.
+{%- endcomment -%}
+
+{%- comment -%} Hidden while shoppers filter or sort, so the product grid shows instead. {%- endcomment -%}
+{%- capture sbl_filtered -%}{%- render 'sbl-collection-filtered' -%}{%- endcapture -%}
+{%- unless sbl_filtered contains 'true' -%}
+
+{%- liquid
+  assign sid = section.id
+  if collection != blank and collection.url != blank
+    assign browse_sort = collection.default_sort_by | default: 'manual'
+    assign page_collection_url = collection.url | append: '?sort_by=' | append: browse_sort
+  else
+    assign page_collection_url = routes.all_products_collection_url
+  endif
+  assign cta_link = section.settings.cta_button_link | default: page_collection_url
+-%}
+
+{{ 'sbl-gifting.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'sbl-pages.js' | asset_url }}" defer></script>
+
+{%- capture leaf_svg -%}<svg viewBox="0 0 120 160" fill="currentColor" aria-hidden="true" focusable="false"><path d="M60 4C28 30 12 62 14 94c2 30 22 52 46 62 24-10 44-32 46-62 2-32-14-64-46-90Z" opacity=".9"/><path d="M60 22v134M60 60 36 40M60 60l24-20M60 90 30 68M60 90l30-22M60 120 38 102M60 120l22-18" stroke="#fff" stroke-opacity=".35" stroke-width="3" fill="none" stroke-linecap="round"/></svg>{%- endcapture -%}
+{%- capture arrow_svg -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>{%- endcapture -%}
+
+<div id="sblg-{{ sid }}" class="sblg" style="--sec-bg: {{ section.settings.bg_color }}; --cta-bg: {{ section.settings.cta_bg_color }}; --cta-tint: rgba({{ section.settings.cta_bg_color.red }}, {{ section.settings.cta_bg_color.green }}, {{ section.settings.cta_bg_color.blue }}, {{ section.settings.cta_overlay | divided_by: 100.0 }});" data-sbl-root>
+  <section class="sblg-block sblg-block--last" aria-labelledby="sblg-cta-title-{{ sid }}">
+    <div class="sblg-wrap">
+      <div class="sblg-cta" data-reveal>
+        {%- if section.settings.cta_bg_image != blank -%}
+          <div class="sblg-cta__bg" aria-hidden="true">
+            {{ section.settings.cta_bg_image | image_url: width: 2400 | image_tag: widths: '750, 1100, 1500, 1900, 2400', sizes: '100vw', loading: 'lazy', alt: '' }}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.cta_leaf_image != blank -%}
+          {%- capture cta_leaf -%}{{ section.settings.cta_leaf_image | image_url: width: 460 | image_tag: loading: 'lazy', alt: '' }}{%- endcapture -%}
+          <div class="sblg-cta__leaf sblg-cta__leaf--l has-img" aria-hidden="true">{{ cta_leaf }}</div>
+          <div class="sblg-cta__leaf sblg-cta__leaf--r has-img" aria-hidden="true">{{ cta_leaf }}</div>
+        {%- elsif section.settings.cta_bg_image == blank -%}
+          <div class="sblg-cta__leaf sblg-cta__leaf--l">{{ leaf_svg }}</div>
+          <div class="sblg-cta__leaf sblg-cta__leaf--r">{{ leaf_svg }}</div>
+        {%- endif -%}
+        <div class="sblg-cta__inner">
+          <h2 id="sblg-cta-title-{{ sid }}" class="sblg-h2">{{ section.settings.cta_heading | escape }}</h2>
+          {%- if section.settings.cta_text != blank -%}<p>{{ section.settings.cta_text | escape }}</p>{%- endif -%}
+          {%- if section.settings.cta_button_label != blank -%}
+            <a class="sblg-btn sblg-btn--accent" href="{{ cta_link }}">{{ section.settings.cta_button_label | escape }}{{ arrow_svg }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "SBL Gift: Final CTA",
+  "tag": "section",
+  "class": "section-sbl-gift",
+  "settings": [
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "Heading",
+      "default": "Ready to Gift Happiness?"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Text",
+      "default": "Explore our plant gifting collection today."
+    },
+    {
+      "type": "text",
+      "id": "cta_button_label",
+      "label": "Button label",
+      "default": "Shop Gifts"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_color",
+      "label": "Background color",
+      "default": "#1F5130"
+    },
+    {
+      "type": "image_picker",
+      "id": "cta_bg_image",
+      "label": "Final CTA background image",
+      "info": "Optional. Shown behind the text with a green tint"
+    },
+    {
+      "type": "range",
+      "id": "cta_overlay",
+      "label": "Background image tint",
+      "min": 0,
+      "max": 95,
+      "step": 5,
+      "unit": "%",
+      "default": 70
+    },
+    {
+      "type": "image_picker",
+      "id": "cta_leaf_image",
+      "label": "Final CTA leaf decoration",
+      "info": "Optional transparent PNG shown on both sides. A built-in leaf graphic is used when empty."
+    },
+    {
+      "type": "header",
+      "content": "Section style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#F8F4EC"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SBL Gift: Final CTA"
+    }
+  ]
+}
+{% endschema %}

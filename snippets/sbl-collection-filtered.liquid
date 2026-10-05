@@ -1,0 +1,19 @@
+{%- comment -%}
+  Outputs "true" when the shopper has filtered or sorted the current collection.
+  Gifting sections use it to step aside so the product grid shows instead.
+{%- endcomment -%}
+{%- liquid
+  assign filtered = false
+  if collection != blank
+    if collection.sort_by != blank
+      assign filtered = true
+    endif
+    for f in collection.filters
+      if f.active_values.size > 0 or f.min_value.value != nil or f.max_value.value != nil
+        assign filtered = true
+        break
+      endif
+    endfor
+  endif
+  echo filtered
+-%}

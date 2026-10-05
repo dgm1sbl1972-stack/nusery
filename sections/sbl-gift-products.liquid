@@ -1,0 +1,114 @@
+{%- comment -%}
+  SBL Gift: Products section for the SBL Nursery gifting page.
+  Shared styles: assets/sbl-gifting.css. Carousel and reveal script: assets/sbl-pages.js.
+{%- endcomment -%}
+
+{%- comment -%} Hidden while shoppers filter or sort, so the product grid shows instead. {%- endcomment -%}
+{%- capture sbl_filtered -%}{%- render 'sbl-collection-filtered' -%}{%- endcapture -%}
+{%- unless sbl_filtered contains 'true' -%}
+
+{%- liquid
+  assign sid = section.id
+  assign bs_collection = section.settings.bs_collection
+  if bs_collection == blank and collection != blank
+    assign bs_collection = collection
+  endif
+-%}
+
+{{ 'sbl-gifting.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'sbl-pages.js' | asset_url }}" defer></script>
+
+{%- capture arrow_svg -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>{%- endcapture -%}
+
+<div id="sblg-{{ sid }}" class="sblg" style="--sec-bg: {{ section.settings.bg_color }};" data-sbl-root>
+  <section class="sblg-block" aria-labelledby="sblg-bs-title-{{ sid }}">
+    <div class="sblg-wrap">
+      <div class="sblg-head sblg-head--row" data-reveal>
+        <div>
+          <h2 id="sblg-bs-title-{{ sid }}" class="sblg-h2">{{ section.settings.bs_heading | escape }}</h2>
+          {%- if section.settings.bs_subheading != blank -%}<p>{{ section.settings.bs_subheading | escape }}</p>{%- endif -%}
+        </div>
+        <div class="sblg-arrows">
+          <button class="sblg-arrow" type="button" aria-label="Previous products" aria-controls="sblg-bs-track-{{ sid }}" data-rail-prev><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+          <button class="sblg-arrow" type="button" aria-label="Next products" aria-controls="sblg-bs-track-{{ sid }}" data-rail-next>{{ arrow_svg }}</button>
+        </div>
+      </div>
+      <div class="sblg-rail" data-rail>
+        <ul class="sblg-track" id="sblg-bs-track-{{ sid }}" role="list" tabindex="0" aria-label="{{ section.settings.bs_heading | escape }}" data-rail-track>
+          {%- if bs_collection != blank and bs_collection.products_count > 0 -%}
+            {%- for product in bs_collection.products limit: section.settings.bs_count -%}
+              <li>{%- render 'product-card', product: product -%}</li>
+            {%- endfor -%}
+          {%- else -%}
+            {%- for i in (1..4) -%}
+              <li>{%- render 'product-card', index: i -%}</li>
+            {%- endfor -%}
+          {%- endif -%}
+        </ul>
+      </div>
+      {%- if section.settings.bs_view_all_label != blank and bs_collection != blank -%}
+        <div style="text-align:center"><a class="sblg-btn sblg-btn--ghost sblg-viewall" href="{{ bs_collection.url }}?sort_by={{ bs_collection.default_sort_by | default: 'manual' }}">{{ section.settings.bs_view_all_label | escape }}{{ arrow_svg }}</a></div>
+      {%- endif -%}
+    </div>
+  </section>
+</div>
+
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "SBL Gift: Products",
+  "tag": "section",
+  "class": "section-sbl-gift",
+  "settings": [
+    {
+      "type": "text",
+      "id": "bs_heading",
+      "label": "Heading",
+      "default": "Best-Selling Gift Plants"
+    },
+    {
+      "type": "text",
+      "id": "bs_subheading",
+      "label": "Subheading",
+      "default": "Customer favourites for gifting"
+    },
+    {
+      "type": "collection",
+      "id": "bs_collection",
+      "label": "Collection",
+      "info": "Defaults to the current collection"
+    },
+    {
+      "type": "range",
+      "id": "bs_count",
+      "label": "Products to show",
+      "min": 4,
+      "max": 16,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "text",
+      "id": "bs_view_all_label",
+      "label": "View all button label",
+      "default": "View all gift plants"
+    },
+    {
+      "type": "header",
+      "content": "Section style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#F8F4EC"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SBL Gift: Products"
+    }
+  ]
+}
+{% endschema %}

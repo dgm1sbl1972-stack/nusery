@@ -1,0 +1,149 @@
+{%- comment -%}
+  SBL Gift: FAQ section for the SBL Nursery gifting page.
+  Shared styles: assets/sbl-gifting.css. Carousel and reveal script: assets/sbl-pages.js.
+{%- endcomment -%}
+
+{%- comment -%} Hidden while shoppers filter or sort, so the product grid shows instead. {%- endcomment -%}
+{%- capture sbl_filtered -%}{%- render 'sbl-collection-filtered' -%}{%- endcapture -%}
+{%- unless sbl_filtered contains 'true' -%}
+
+{%- assign sid = section.id -%}
+
+{{ 'sbl-gifting.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'sbl-pages.js' | asset_url }}" defer></script>
+
+<div id="sblg-{{ sid }}" class="sblg" style="--sec-bg: {{ section.settings.bg_color }};" data-sbl-root>
+  <section class="sblg-block" aria-labelledby="sblg-faq-title-{{ sid }}">
+    <div class="sblg-wrap">
+      <div class="sblg-head" data-reveal>
+        <h2 id="sblg-faq-title-{{ sid }}" class="sblg-h2">{{ section.settings.faq_heading | escape }}</h2>
+        {%- if section.settings.faq_subheading != blank -%}<p>{{ section.settings.faq_subheading | escape }}</p>{%- endif -%}
+      </div>
+      <div class="sblg-faq" data-faq>
+        {%- assign faq_index = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'faq' -%}
+            {%- assign faq_index = faq_index | plus: 1 -%}
+            <details {{ block.shopify_attributes }}{% if faq_index == 1 and section.settings.faq_open_first %} open{% endif %}>
+              <summary>
+                <span>{{ block.settings.question | escape }}</span>
+                <span class="sblg-faq__icon" aria-hidden="true"></span>
+              </summary>
+              <div class="sblg-faq__answer">{{ block.settings.answer }}</div>
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+</div>
+
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "SBL Gift: FAQ",
+  "tag": "section",
+  "class": "section-sbl-gift",
+  "settings": [
+    {
+      "type": "text",
+      "id": "faq_heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "text",
+      "id": "faq_subheading",
+      "label": "Subheading",
+      "default": "Everything you need to know about gifting with SBL Nursery"
+    },
+    {
+      "type": "checkbox",
+      "id": "faq_open_first",
+      "label": "Open first question",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Section style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#F8F4EC"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ",
+      "limit": 20,
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Can I add a personal message?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Yes. Add your message at checkout and we will include it as a handwritten card.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SBL Gift: FAQ",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I add a personal message?",
+            "answer": "<p>Yes. Add your message at checkout and we will include it as a handwritten card with your gift.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer same day delivery?",
+            "answer": "<p>Same day delivery is available in select cities for orders placed before 12 noon. Delivery options are shown at checkout.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How are the plants packaged?",
+            "answer": "<p>Every plant is secured in its pot, wrapped in protective eco-friendly packaging and packed in a sturdy box so it arrives fresh and healthy.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I send a gift to another city?",
+            "answer": "<p>Yes. Simply enter the recipient's address at checkout and we will deliver it to them directly.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer corporate gifting?",
+            "answer": "<p>Yes. We offer bulk orders, custom branding and personalised packaging for teams, clients and events.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I choose my own pot?",
+            "answer": "<p>Yes. Many of our plants come with pot options. Choose your favourite style and colour on the product page.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

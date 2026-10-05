@@ -1,0 +1,118 @@
+{%- comment -%}
+  SBL Services: Hero section for the services page.
+  Shared styles: assets/sbl-services.css.
+{%- endcomment -%}
+
+{%- liquid
+  assign sid = section.id
+  assign hero_link = section.settings.hero_button_link | default: '#sbl-services-start'
+-%}
+
+{{ 'sbl-services.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'sbl-pages.js' | asset_url }}" defer></script>
+
+{%- capture arrow_svg -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>{%- endcapture -%}
+
+<div id="sbls-{{ sid }}" class="sbls" style="--hero-h: {{ section.settings.hero_height }}px; --hero-h-mobile: {{ section.settings.hero_height_mobile }}px; --hero-shade: rgba(10, 32, 18, {{ section.settings.hero_overlay | divided_by: 100.0 }}); --hero-shade-mid: rgba(10, 32, 18, {{ section.settings.hero_overlay | divided_by: 160.0 }});" data-sbl-root>
+<section class="sbls-hero" aria-labelledby="sbls-hero-title-{{ sid }}">
+  <div class="sbls-hero__media">
+    {%- if section.settings.hero_image != blank -%}
+      {{ section.settings.hero_image | image_url: width: 2400 | image_tag: widths: '750, 1100, 1500, 1900, 2400', sizes: '100vw', loading: 'eager', fetchpriority: 'high', alt: section.settings.hero_image.alt | default: '' }}
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'sbls-ph' }}
+    {%- endif -%}
+  </div>
+  <div class="sbls-wrap">
+    <div class="sbls-hero__copy" data-reveal>
+      {%- if section.settings.hero_eyebrow != blank -%}<p class="sbls-eyebrow">{{ section.settings.hero_eyebrow | escape }}</p>{%- endif -%}
+      <h1 id="sbls-hero-title-{{ sid }}" class="sbls-h1">{{ section.settings.hero_heading | escape }}</h1>
+      {%- if section.settings.hero_text != blank -%}<p class="sbls-hero__text">{{ section.settings.hero_text | escape }}</p>{%- endif -%}
+      {%- if section.settings.hero_button_label != blank -%}
+        <a class="sbls-btn sbls-btn--accent" href="{{ hero_link }}">{{ section.settings.hero_button_label | escape }}{{ arrow_svg }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+</div>
+<div id="sbl-services-start"></div>
+
+{% schema %}
+{
+  "name": "SBL Services: Hero",
+  "tag": "section",
+  "class": "section-sbl-services",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Background image",
+      "info": "Wide garden or landscape photo, 2400 x 900px recommended"
+    },
+    {
+      "type": "range",
+      "id": "hero_overlay",
+      "label": "Image darkening",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "hero_height",
+      "label": "Desktop height",
+      "min": 320,
+      "max": 700,
+      "step": 20,
+      "unit": "px",
+      "default": 420
+    },
+    {
+      "type": "range",
+      "id": "hero_height_mobile",
+      "label": "Mobile height",
+      "min": 320,
+      "max": 640,
+      "step": 20,
+      "unit": "px",
+      "default": 440
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Eyebrow",
+      "default": "SBL Nursery Services"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Heading",
+      "default": "Complete Green Solutions, From Design to Care"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_text",
+      "label": "Text",
+      "default": "Transforming homes, offices and commercial spaces with professional landscaping and plant care solutions."
+    },
+    {
+      "type": "text",
+      "id": "hero_button_label",
+      "label": "Button label",
+      "default": "Explore Our Services"
+    },
+    {
+      "type": "url",
+      "id": "hero_button_link",
+      "label": "Button link",
+      "info": "Defaults to the first service below"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SBL Services: Hero"
+    }
+  ]
+}
+{% endschema %}

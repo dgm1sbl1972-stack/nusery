@@ -1,0 +1,233 @@
+{%- comment -%}
+  SBL Gift: Budget section for the SBL Nursery gifting page.
+  Shared styles: assets/sbl-gifting.css. Carousel and reveal script: assets/sbl-pages.js.
+{%- endcomment -%}
+
+{%- comment -%} Hidden while shoppers filter or sort, so the product grid shows instead. {%- endcomment -%}
+{%- capture sbl_filtered -%}{%- render 'sbl-collection-filtered' -%}{%- endcapture -%}
+{%- unless sbl_filtered contains 'true' -%}
+
+{%- liquid
+  assign sid = section.id
+  if section.settings.budget_collection != blank
+    assign budget_base_url = section.settings.budget_collection.url
+  elsif collection != blank and collection.url != blank
+    assign budget_base_url = collection.url
+  else
+    assign budget_base_url = routes.all_products_collection_url
+  endif
+-%}
+
+{{ 'sbl-gifting.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'sbl-pages.js' | asset_url }}" defer></script>
+
+<div id="sblg-{{ sid }}" class="sblg" style="--sec-bg: {{ section.settings.bg_color }};" data-sbl-root>
+  <section class="sblg-block" aria-labelledby="sblg-bud-title-{{ sid }}">
+    <div class="sblg-wrap">
+      <div class="sblg-head" data-reveal>
+        <h2 id="sblg-bud-title-{{ sid }}" class="sblg-h2">{{ section.settings.budget_heading | escape }}</h2>
+        {%- if section.settings.budget_subheading != blank -%}<p>{{ section.settings.budget_subheading | escape }}</p>{%- endif -%}
+      </div>
+      <ul class="sblg-cards" role="list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'budget' -%}
+            {%- liquid
+              if block.settings.link != blank
+                assign bud_link = block.settings.link
+              else
+                assign bud_params = ''
+                if block.settings.min_price != blank and block.settings.min_price > 0
+                  assign bud_params = bud_params | append: '&filter.v.price.gte=' | append: block.settings.min_price
+                endif
+                if block.settings.max_price != blank and block.settings.max_price > 0
+                  assign bud_params = bud_params | append: '&filter.v.price.lte=' | append: block.settings.max_price
+                endif
+                if bud_params != ''
+                  assign bud_params = bud_params | remove_first: '&'
+                  assign bud_link = budget_base_url | append: '?' | append: bud_params
+                else
+                  assign bud_link = budget_base_url
+                endif
+              endif
+            -%}
+            <li data-reveal {{ block.shopify_attributes }}>
+              <a class="sblg-budget" href="{{ bud_link }}">
+                <span class="sblg-icon">
+                  {%- case block.settings.icon -%}
+                    {%- when 'seedling' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20v-7"/><path d="M12 13c-3.6 0-5.5-2.3-5.5-6 3.6 0 5.5 2.3 5.5 6Zm0 0c3.6 0 5.5-2.3 5.5-6-3.6 0-5.5 2.3-5.5 6Z"/><path d="M7 20h10"/></svg>
+                    {%- when 'pot' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 13h12l-1.5 7.5h-9L6 13Z"/><path d="M12 13V8"/><path d="M12 9.5C10 9.5 8.5 8 8.5 5.5c2.2 0 3.5 1.6 3.5 4Zm0-1.5c1.8 0 3.2-1.4 3.2-3.6-2 0-3.2 1.4-3.2 3.6Z"/></svg>
+                    {%- when 'monstera' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V11"/><path d="M12 11c-5 0-8-3-8-7.5C9 3.5 12 6.5 12 11Zm0 0c5 0 8-3 8-7.5-5 0-8 3-8 7.5Z"/><path d="M8.5 6.5 10 8.5M15.5 6.5 14 8.5"/><path d="M8 21h8"/></svg>
+                    {%- when 'tree' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-6"/><path d="M12 3c-3.5 2-6 5-6 8a6 6 0 0 0 12 0c0-3-2.5-6-6-8Z"/><path d="M12 15l-2.5-2.5M12 12.5l2.5-2.5"/><path d="M8 21h8"/></svg>
+                    {%- else -%}<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="8.5" width="17" height="4" rx="1"/><path d="M5 12.5V20h14v-7.5M12 8.5V20"/><path d="M12 8.5C10.5 5 7.5 4.5 7 6.2c-.5 1.8 2.5 2.3 5 2.3Zm0 0c1.5-3.5 4.5-4 5-2.3.5 1.8-2.5 2.3-5 2.3Z"/></svg>
+                  {%- endcase -%}
+                </span>
+                <span class="sblg-budget__label">{{ block.settings.label | escape }}</span>
+                {%- if block.settings.caption != blank -%}<span class="sblg-budget__cap">{{ block.settings.caption | escape }}</span>{%- endif -%}
+                <span class="sblg-budget__go">{{ section.settings.budget_link_label | escape }}</span>
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </section>
+</div>
+
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "SBL Gift: Budget",
+  "tag": "section",
+  "class": "section-sbl-gift",
+  "settings": [
+    {
+      "type": "text",
+      "id": "budget_heading",
+      "label": "Heading",
+      "default": "Gifts by Budget"
+    },
+    {
+      "type": "text",
+      "id": "budget_subheading",
+      "label": "Subheading",
+      "default": "Thoughtful green gifts for every budget"
+    },
+    {
+      "type": "collection",
+      "id": "budget_collection",
+      "label": "Collection to filter by price",
+      "info": "Budget cards without their own link open this collection filtered by their price range. Defaults to the current collection."
+    },
+    {
+      "type": "text",
+      "id": "budget_link_label",
+      "label": "Card link label",
+      "default": "Shop now"
+    },
+    {
+      "type": "header",
+      "content": "Section style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#F8F4EC"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "budget",
+      "name": "Budget card",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Under ₹500"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption",
+          "default": "Small joys"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "seedling",
+          "options": [
+            {
+              "value": "seedling",
+              "label": "Seedling"
+            },
+            {
+              "value": "pot",
+              "label": "Potted plant"
+            },
+            {
+              "value": "monstera",
+              "label": "Leafy plant"
+            },
+            {
+              "value": "tree",
+              "label": "Tree"
+            },
+            {
+              "value": "gift",
+              "label": "Gift box"
+            }
+          ]
+        },
+        {
+          "type": "number",
+          "id": "min_price",
+          "label": "Minimum price",
+          "info": "In store currency. Leave empty for no minimum."
+        },
+        {
+          "type": "number",
+          "id": "max_price",
+          "label": "Maximum price",
+          "info": "In store currency. Leave empty for no maximum.",
+          "default": 500
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Custom link",
+          "info": "Optional. Overrides the price filter link."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SBL Gift: Budget",
+      "blocks": [
+        {
+          "type": "budget",
+          "settings": {
+            "label": "Under ₹500",
+            "caption": "Small joys",
+            "icon": "seedling",
+            "max_price": 500
+          }
+        },
+        {
+          "type": "budget",
+          "settings": {
+            "label": "₹500 – ₹1,000",
+            "caption": "Thoughtful picks",
+            "icon": "pot",
+            "min_price": 500,
+            "max_price": 1000
+          }
+        },
+        {
+          "type": "budget",
+          "settings": {
+            "label": "₹1,000 – ₹2,000",
+            "caption": "Premium gifts",
+            "icon": "monstera",
+            "min_price": 1000,
+            "max_price": 2000
+          }
+        },
+        {
+          "type": "budget",
+          "settings": {
+            "label": "Above ₹2,000",
+            "caption": "Luxury green gifts",
+            "icon": "tree",
+            "min_price": 2000
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
