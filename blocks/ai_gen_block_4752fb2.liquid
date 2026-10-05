@@ -258,14 +258,20 @@
     }
     .ai-plant-category-{{ ai_gen_id }}__cta {
       grid-column: span {{ mobile_cta_span }};
-      width: 100%;
-      min-height: 150px;
-      padding: 12px;
-      border-width: 6px;
-      border-radius: 22px;
+      justify-self: center;
+      width: min(100%, 210px);
+      min-height: 96px;
+      gap: 4px;
+      padding: 10px 14px;
+      border-width: 5px;
+      border-radius: 18px;
     }
     .ai-plant-category-{{ ai_gen_id }}__cta-label {
-      font-size: min({{ block.settings.cta_text_size }}px, 8vw);
+      font-size: min({{ block.settings.cta_text_size }}px, 6vw);
+    }
+    .ai-plant-category-{{ ai_gen_id }}__arrow {
+      width: 52px;
+      height: 24px;
     }
   }
   @media (prefers-reduced-motion: reduce) {
