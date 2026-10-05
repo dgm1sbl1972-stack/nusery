@@ -169,7 +169,7 @@
     "main": {
       "type": "main-collection",
       "settings": {
-        "hide_on_handle": "gifting"
+        "hide_on_handle": "*"
       },
       "blocks": {
         "category_plants": {
