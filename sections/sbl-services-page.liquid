@@ -122,7 +122,7 @@
 
 <div id="sbls-{{ sid }}" class="sbls">
 
-  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'top' -%}<div class="sbls-wrap" style="padding-top:24px">{%- render 'sbl-banner', block: block -%}</div>{%- endif -%}{%- endfor -%}
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'top' -%}{%- render 'sbl-banner', block: block, outer_class: 'sbls-wrap', outer_style: 'padding-top:24px' -%}{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== HERO ===== {%- endcomment -%}
   <section class="sbls-hero" aria-labelledby="sbls-hero-title-{{ sid }}">
     <div class="sbls-hero__media">
@@ -187,7 +187,7 @@
     </div>
   </div>
 
-  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_services' -%}<div class="sbls-wrap" style="padding-bottom:var(--s-space)">{%- render 'sbl-banner', block: block -%}</div>{%- endif -%}{%- endfor -%}
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_services' -%}{%- render 'sbl-banner', block: block, outer_class: 'sbls-wrap', outer_style: 'padding-bottom:var(--s-space)' -%}{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== CLIENTS ===== {%- endcomment -%}
   {%- if section.settings.show_clients and section.blocks.size > 0 -%}
     <section class="sbls-clients" aria-labelledby="sbls-cl-title-{{ sid }}">
@@ -239,7 +239,7 @@
       </div>
     </section>
   {%- endif -%}
-  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'bottom' -%}<div class="sbls-wrap" style="padding:var(--s-space) var(--s-gutter)">{%- render 'sbl-banner', block: block -%}</div>{%- endif -%}{%- endfor -%}
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'bottom' -%}{%- render 'sbl-banner', block: block, outer_class: 'sbls-wrap', outer_style: 'padding:var(--s-space) var(--s-gutter)' -%}{%- endif -%}{%- endfor -%}
 </div>
 
 <script>
@@ -547,8 +547,12 @@
           "type": "select",
           "id": "layout",
           "label": "Layout",
-          "default": "overlay",
+          "default": "image",
           "options": [
+            {
+              "value": "image",
+              "label": "Image only (your own banner design)"
+            },
             {
               "value": "overlay",
               "label": "Text on top of image"
@@ -575,7 +579,7 @@
           "type": "image_picker",
           "id": "image",
           "label": "Image",
-          "info": "Wide image, 2400 x 900px recommended"
+          "info": "Your banner artwork. With \"Image only\" it shows in full, uncropped. 2400 x 800px works well."
         },
         {
           "type": "image_picker",
@@ -625,14 +629,12 @@
         {
           "type": "text",
           "id": "heading",
-          "label": "Heading",
-          "default": "Your banner heading"
+          "label": "Heading"
         },
         {
           "type": "richtext",
           "id": "text",
-          "label": "Text",
-          "default": "<p>Add a short message, offer or announcement here.</p>"
+          "label": "Text"
         },
         {
           "type": "range",
@@ -691,14 +693,13 @@
         {
           "type": "text",
           "id": "button_label",
-          "label": "Button label",
-          "default": "Shop now"
+          "label": "Button label"
         },
         {
           "type": "url",
           "id": "link",
           "label": "Link",
-          "info": "With no button label, the whole banner becomes clickable"
+          "info": "Where the banner goes when clicked. With no button label, or with \"Image only\", the whole banner is clickable."
         },
         {
           "type": "header",

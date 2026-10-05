@@ -298,7 +298,7 @@
 
 <div id="sblg-{{ sid }}" class="sblg" data-sblg>
 
-  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'top' -%}<div class="sblg-block sblg-block--top"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'top' -%}{%- render 'sbl-banner', block: block, outer_class: 'sblg-block sblg-block--top', inner_class: 'sblg-wrap' -%}{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== HERO ===== {%- endcomment -%}
   {%- if section.settings.show_hero -%}
     <section class="sblg-hero{% if section.settings.hero_media_first_mobile %} sblg-hero--media-first{% endif %}" aria-labelledby="sblg-hero-title-{{ sid }}">
@@ -329,7 +329,7 @@
     </section>
   {%- endif -%}
 
-  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_hero' -%}<div class="sblg-block"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_hero' -%}{%- render 'sbl-banner', block: block, outer_class: 'sblg-block', inner_class: 'sblg-wrap' -%}{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== SHOP BY OCCASION ===== {%- endcomment -%}
   {%- if section.settings.show_occasion -%}
     <section class="sblg-block" aria-labelledby="sblg-occ-title-{{ sid }}">
@@ -375,7 +375,7 @@
     </section>
   {%- endif -%}
 
-  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_occasion' -%}<div class="sblg-block"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_occasion' -%}{%- render 'sbl-banner', block: block, outer_class: 'sblg-block', inner_class: 'sblg-wrap' -%}{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== GIFTS BY BUDGET ===== {%- endcomment -%}
   {%- if section.settings.show_budget -%}
     <section class="sblg-block" aria-labelledby="sblg-bud-title-{{ sid }}">
@@ -429,7 +429,7 @@
     </section>
   {%- endif -%}
 
-  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_budget' -%}<div class="sblg-block"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_budget' -%}{%- render 'sbl-banner', block: block, outer_class: 'sblg-block', inner_class: 'sblg-wrap' -%}{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== BEST-SELLING GIFT PLANTS ===== {%- endcomment -%}
   {%- if section.settings.show_bestsellers -%}
     <section class="sblg-block" aria-labelledby="sblg-bs-title-{{ sid }}">
@@ -464,7 +464,7 @@
     </section>
   {%- endif -%}
 
-  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_bestsellers' -%}<div class="sblg-block"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_bestsellers' -%}{%- render 'sbl-banner', block: block, outer_class: 'sblg-block', inner_class: 'sblg-wrap' -%}{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== BUILD YOUR GIFT ===== {%- endcomment -%}
   {%- if section.settings.show_build -%}
     <section class="sblg-block" aria-labelledby="sblg-build-title-{{ sid }}">
@@ -510,7 +510,7 @@
     </section>
   {%- endif -%}
 
-  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_build' -%}<div class="sblg-block"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_build' -%}{%- render 'sbl-banner', block: block, outer_class: 'sblg-block', inner_class: 'sblg-wrap' -%}{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== CORPORATE GIFTING ===== {%- endcomment -%}
   {%- if section.settings.show_corp -%}
     <section class="sblg-block" aria-labelledby="sblg-corp-title-{{ sid }}">
@@ -550,7 +550,7 @@
     </section>
   {%- endif -%}
 
-  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_corp' -%}<div class="sblg-block"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_corp' -%}{%- render 'sbl-banner', block: block, outer_class: 'sblg-block', inner_class: 'sblg-wrap' -%}{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== TESTIMONIALS ===== {%- endcomment -%}
   {%- if section.settings.show_testimonials -%}
     <section class="sblg-block" aria-labelledby="sblg-rev-title-{{ sid }}">
@@ -601,7 +601,7 @@
     </section>
   {%- endif -%}
 
-  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_testimonials' -%}<div class="sblg-block"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_testimonials' -%}{%- render 'sbl-banner', block: block, outer_class: 'sblg-block', inner_class: 'sblg-wrap' -%}{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== FAQ ===== {%- endcomment -%}
   {%- if section.settings.show_faq -%}
     <section class="sblg-block" aria-labelledby="sblg-faq-title-{{ sid }}">
@@ -629,7 +629,7 @@
     </section>
   {%- endif -%}
 
-  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_faq' -%}<div class="sblg-block"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_faq' -%}{%- render 'sbl-banner', block: block, outer_class: 'sblg-block', inner_class: 'sblg-wrap' -%}{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== FINAL CTA ===== {%- endcomment -%}
   {%- if section.settings.show_cta -%}
     <section class="sblg-block sblg-block--last" aria-labelledby="sblg-cta-title-{{ sid }}">
@@ -654,7 +654,7 @@
       </div>
     </section>
   {%- endif -%}
-  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'bottom' -%}<div class="sblg-block sblg-block--last"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'bottom' -%}{%- render 'sbl-banner', block: block, outer_class: 'sblg-block sblg-block--last', inner_class: 'sblg-wrap' -%}{%- endif -%}{%- endfor -%}
 </div>
 
 <script>
@@ -1519,8 +1519,12 @@
           "type": "select",
           "id": "layout",
           "label": "Layout",
-          "default": "overlay",
+          "default": "image",
           "options": [
+            {
+              "value": "image",
+              "label": "Image only (your own banner design)"
+            },
             {
               "value": "overlay",
               "label": "Text on top of image"
@@ -1547,7 +1551,7 @@
           "type": "image_picker",
           "id": "image",
           "label": "Image",
-          "info": "Wide image, 2400 x 900px recommended"
+          "info": "Your banner artwork. With \"Image only\" it shows in full, uncropped. 2400 x 800px works well."
         },
         {
           "type": "image_picker",
@@ -1597,14 +1601,12 @@
         {
           "type": "text",
           "id": "heading",
-          "label": "Heading",
-          "default": "Your banner heading"
+          "label": "Heading"
         },
         {
           "type": "richtext",
           "id": "text",
-          "label": "Text",
-          "default": "<p>Add a short message, offer or announcement here.</p>"
+          "label": "Text"
         },
         {
           "type": "range",
@@ -1663,14 +1665,13 @@
         {
           "type": "text",
           "id": "button_label",
-          "label": "Button label",
-          "default": "Shop now"
+          "label": "Button label"
         },
         {
           "type": "url",
           "id": "link",
           "label": "Link",
-          "info": "With no button label, the whole banner becomes clickable"
+          "info": "Where the banner goes when clicked. With no button label, or with \"Image only\", the whole banner is clickable."
         },
         {
           "type": "header",

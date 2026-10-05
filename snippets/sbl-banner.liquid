@@ -2,8 +2,11 @@
   Editable promo banner used by the SBL Gifting and SBL Services pages.
   Accepts:
   - block: a "banner" block from the calling section
+  - outer_class / outer_style / inner_class (optional): wrapper markup the calling page uses for spacing
 
-  Layouts: image with text on top, image beside text (left or right), or text only.
+  Layouts: image only (your own banner artwork, shown uncropped), image with text on top,
+  image beside text (left or right), or text only.
+  An empty banner renders nothing on the live store and a placeholder in the theme editor.
 {%- endcomment -%}
 {%- liquid
   assign b = block.settings
@@ -17,7 +20,33 @@
     assign has_image = false
   endif
   assign heading_tag = 'h2'
+  assign has_copy = false
+  if b.eyebrow != blank or b.heading != blank or b.text != blank or b.button_label != blank
+    assign has_copy = true
+  endif
+  if layout == 'image'
+    assign has_copy = false
+  endif
+  assign banner_visible = false
+  if has_image or has_copy
+    assign banner_visible = true
+  endif
 -%}
+{%- liquid
+  assign banner_render = banner_visible
+  if request.design_mode
+    assign banner_render = true
+  endif
+  assign whole_link = false
+  if b.link != blank
+    if b.button_label == blank or layout == 'image'
+      assign whole_link = true
+    endif
+  endif
+-%}
+{%- if banner_render -%}
+{%- if outer_class != blank or outer_style != blank -%}<div class="{{ outer_class }}"{% if outer_style != blank %} style="{{ outer_style }}"{% endif %}>{%- endif -%}
+{%- if inner_class != blank -%}<div class="{{ inner_class }}">{%- endif -%}
 
 <style>
   #{{ bid }} { --bn-bg: {{ b.bg_color }}; --bn-text: {{ b.text_color }}; --bn-btn: {{ b.button_color }}; --bn-btn-text: {{ b.button_text_color }}; position: relative; display: grid; overflow: hidden; border-radius: {% if b.full_bleed %}0{% else %}{{ b.radius }}px{% endif %}; background: var(--bn-bg); color: var(--bn-text); text-align: {{ b.text_align }}; font-family: var(--font-body, 'Poppins', sans-serif); }
@@ -46,7 +75,12 @@
   #{{ bid }} .sblb__btn:focus-visible, #{{ bid }} .sblb__link:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
   #{{ bid }} .sblb__link { position: absolute; inset: 0; z-index: 2; }
 
-  {%- if layout == 'overlay' %}
+  {%- if layout == 'image' %}
+  #{{ bid }} { background: transparent; }
+  #{{ bid }} .sblb__media { background: transparent; }
+  #{{ bid }} .sblb__media img { position: static; height: auto; object-fit: initial; }
+  #{{ bid }} .sblb__empty { display: grid; place-items: center; min-height: 200px; padding: 24px; border: 2px dashed rgba(31, 81, 48, .35); border-radius: inherit; background: rgba(31, 81, 48, .05); color: #1F5130; font-size: 15px; text-align: center; }
+  {%- elsif layout == 'overlay' %}
   #{{ bid }} { min-height: {{ b.height_mobile }}px; }
   @media (min-width: 750px) { #{{ bid }} { min-height: {{ b.height }}px; } }
   #{{ bid }} .sblb__media { position: absolute; inset: 0; }
@@ -66,7 +100,7 @@
 </style>
 
 <div id="{{ bid }}" class="sblb sblb--{{ layout }}" {{ block.shopify_attributes }}>
-  {%- if b.link != blank and b.button_label == blank -%}
+  {%- if whole_link -%}
     <a class="sblb__link" href="{{ b.link }}" aria-label="{{ b.heading | default: b.image.alt | default: 'View offer' | escape }}"></a>
   {%- endif -%}
 
@@ -84,11 +118,13 @@
         {{ b.image_mobile | image_url: width: 1100 | image_tag: widths: '400, 600, 800, 1100', sizes: '100vw', loading: 'lazy', class: 'sblb__img--mobile', alt: img_alt }}
       {%- endif -%}
     </div>
+  {%- elsif layout == 'image' and request.design_mode -%}
+    <div class="sblb__empty">Banner: upload your banner image in this block's settings (2400 × 800px works well)</div>
   {%- elsif layout != 'text' and request.design_mode -%}
     <div class="sblb__media" style="display:grid;place-items:center;min-height:180px;font-size:14px;opacity:.7">Choose an image in this banner's settings</div>
   {%- endif -%}
 
-  {%- if b.eyebrow != blank or b.heading != blank or b.text != blank or b.button_label != blank -%}
+  {%- if has_copy -%}
     <div class="sblb__copy">
       {%- if b.eyebrow != blank -%}<p class="sblb__eyebrow">{{ b.eyebrow | escape }}</p>{%- endif -%}
       {%- if b.heading != blank -%}<{{ heading_tag }} class="sblb__heading">{{ b.heading | escape }}</{{ heading_tag }}>{%- endif -%}
@@ -99,3 +135,6 @@
     </div>
   {%- endif -%}
 </div>
+{%- if inner_class != blank -%}</div>{%- endif -%}
+{%- if outer_class != blank or outer_style != blank -%}</div>{%- endif -%}
+{%- endif -%}

@@ -90,9 +90,17 @@
           "settings": {
             "name": "Client 8"
           }
+        },
+        "banner_1": {
+          "type": "banner",
+          "settings": {
+            "position": "in_list",
+            "layout": "image"
+          }
         }
       },
       "block_order": [
+        "banner_1",
         "service_1",
         "service_2",
         "service_3",

@@ -181,6 +181,13 @@
             "rating": 5,
             "name": "Meera T."
           }
+        },
+        "banner_1": {
+          "type": "banner",
+          "settings": {
+            "position": "after_hero",
+            "layout": "image"
+          }
         }
       },
       "block_order": [
@@ -205,7 +212,8 @@
         "faq_3",
         "faq_4",
         "faq_5",
-        "faq_6"
+        "faq_6",
+        "banner_1"
       ],
       "settings": {}
     },
