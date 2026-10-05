@@ -223,7 +223,10 @@
   #sblg-{{ sid }} .sblg-step__num { position: relative; display: grid; place-items: center; flex: none; width: 64px; height: 64px; border-radius: 50%; background: var(--g-primary); color: #fff; font-family: var(--g-head); font-size: 20px; font-weight: 700; }
   #sblg-{{ sid }} .sblg-step__num::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--g-accent); opacity: .9; }
   @media (min-width: 750px) { #sblg-{{ sid }} .sblg-step__num { width: 88px; height: 88px; font-size: 26px; box-shadow: 0 0 0 10px {{ section.settings.build_bg }}; } }
-  #sblg-{{ sid }} .sblg-step__icon { display: none; }
+  #sblg-{{ sid }} .sblg-step__num svg { position: relative; width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  @media (min-width: 750px) { #sblg-{{ sid }} .sblg-step__num svg { width: 40px; height: 40px; } }
+  #sblg-{{ sid }} .sblg-step:hover .sblg-step__num svg { animation: sblg-wiggle-{{ sid }} .6s ease; }
+  @keyframes sblg-wiggle-{{ sid }} { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-8deg); } 60% { transform: rotate(6deg); } }
   #sblg-{{ sid }} .sblg-step p { margin: 4px 0 0; font-size: 14px; color: var(--g-muted); }
   #sblg-{{ sid }} .sblg-build__cta { text-align: center; }
   #sblg-{{ sid }} .sblg-build__leaf { position: absolute; width: 180px; color: var(--g-primary); opacity: .06; pointer-events: none; }
@@ -553,7 +556,18 @@
               {%- assign st_key = 'step_' | append: n | append: '_title' -%}
               {%- assign sx_key = 'step_' | append: n | append: '_text' -%}
               <li class="sblg-step" data-reveal>
-                <span class="sblg-step__num" aria-hidden="true">0{{ n }}</span>
+                {%- assign si_key = 'step_' | append: n | append: '_icon' -%}
+                <span class="sblg-step__num" aria-hidden="true">
+                  {%- case section.settings[si_key] -%}
+                    {%- when 'plant' -%}<svg viewBox="0 0 24 24"><path d="M12 21v-9"/><path d="M12 12c-4.2 0-6.5-2.7-6.5-7 4.2 0 6.5 2.7 6.5 7Zm0 0c4.2 0 6.5-2.7 6.5-7-4.2 0-6.5 2.7-6.5 7Z"/><path d="M7.5 21h9"/></svg>
+                    {%- when 'pot' -%}<svg viewBox="0 0 24 24"><path d="M4.5 10.5h15"/><path d="M5.5 10.5 7 20a1.2 1.2 0 0 0 1.2 1h7.6A1.2 1.2 0 0 0 17 20l1.5-9.5"/><path d="M12 10.5V7"/><path d="M12 8c-1.8 0-3-1.2-3-3.3 1.9 0 3 1.2 3 3.3Zm0 0c1.8 0 3-1.2 3-3.3-1.9 0-3 1.2-3 3.3Z"/></svg>
+                    {%- when 'message' -%}<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6 8.5 7 8.5-7"/><path d="M12 17.5c-1.3-.9-2.2-1.7-2.2-2.7a1.1 1.1 0 0 1 2.2-.4 1.1 1.1 0 0 1 2.2.4c0 1-.9 1.8-2.2 2.7Z"/></svg>
+                    {%- when 'gift' -%}<svg viewBox="0 0 24 24"><rect x="3.5" y="8.5" width="17" height="4" rx="1"/><path d="M5 12.5V20h14v-7.5M12 8.5V20"/><path d="M12 8.5C10.5 5 7.5 4.5 7 6.2c-.5 1.8 2.5 2.3 5 2.3Zm0 0c1.5-3.5 4.5-4 5-2.3.5 1.8-2.5 2.3-5 2.3Z"/></svg>
+                    {%- when 'truck' -%}<svg viewBox="0 0 24 24"><path d="M2.5 6.5h11v9h-11z"/><path d="M13.5 9.5h4l3 3.2v2.8h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>
+                    {%- when 'heart' -%}<svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4.2 4.2 0 0 1 12 7.6 4.2 4.2 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10Z"/></svg>
+                    {%- else -%}<span style="font-size:inherit">0{{ n }}</span>
+                  {%- endcase -%}
+                </span>
                 <div>
                   <h3 class="sblg-h3"><span class="sblg-sr">Step {{ n }}: </span>{{ section.settings[st_key] | escape }}</h3>
                   {%- if section.settings[sx_key] != blank -%}<p>{{ section.settings[sx_key] | escape }}</p>{%- endif -%}
@@ -808,10 +822,37 @@
     { "type": "text", "id": "build_subheading", "label": "Subheading", "default": "Create a personalised plant gift in 3 simple steps" },
     { "type": "text", "id": "step_1_title", "label": "Step 1 title", "default": "Choose Plant" },
     { "type": "text", "id": "step_1_text", "label": "Step 1 text", "default": "Pick from our curated collection" },
+    { "type": "select", "id": "step_1_icon", "label": "Step 1 icon", "default": "plant", "options": [
+      { "value": "plant", "label": "Plant" },
+      { "value": "pot", "label": "Pot" },
+      { "value": "message", "label": "Message card" },
+      { "value": "gift", "label": "Gift box" },
+      { "value": "truck", "label": "Delivery" },
+      { "value": "heart", "label": "Heart" },
+      { "value": "number", "label": "Step number" }
+    ] },
     { "type": "text", "id": "step_2_title", "label": "Step 2 title", "default": "Choose Pot" },
     { "type": "text", "id": "step_2_text", "label": "Step 2 text", "default": "Select a stylish pot" },
+    { "type": "select", "id": "step_2_icon", "label": "Step 2 icon", "default": "pot", "options": [
+      { "value": "plant", "label": "Plant" },
+      { "value": "pot", "label": "Pot" },
+      { "value": "message", "label": "Message card" },
+      { "value": "gift", "label": "Gift box" },
+      { "value": "truck", "label": "Delivery" },
+      { "value": "heart", "label": "Heart" },
+      { "value": "number", "label": "Step number" }
+    ] },
     { "type": "text", "id": "step_3_title", "label": "Step 3 title", "default": "Add Message" },
     { "type": "text", "id": "step_3_text", "label": "Step 3 text", "default": "Write a personalised note" },
+    { "type": "select", "id": "step_3_icon", "label": "Step 3 icon", "default": "message", "options": [
+      { "value": "plant", "label": "Plant" },
+      { "value": "pot", "label": "Pot" },
+      { "value": "message", "label": "Message card" },
+      { "value": "gift", "label": "Gift box" },
+      { "value": "truck", "label": "Delivery" },
+      { "value": "heart", "label": "Heart" },
+      { "value": "number", "label": "Step number" }
+    ] },
     { "type": "text", "id": "build_button_label", "label": "Button label", "default": "Create Your Gift" },
     { "type": "url", "id": "build_button_link", "label": "Button link" },
     { "type": "color", "id": "build_bg", "label": "Panel background", "default": "#EEF3E8" },
