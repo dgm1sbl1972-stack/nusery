@@ -1,0 +1,102 @@
+{%- comment -%}
+  Editable promo banner used by the SBL Gifting and SBL Services pages.
+  Accepts:
+  - block: a "banner" block from the calling section
+
+  Layouts: image with text on top, image beside text (left or right), or text only.
+{%- endcomment -%}
+{%- liquid
+  assign b = block.settings
+  assign bid = 'sblb-' | append: block.id
+  assign layout = b.layout | default: 'overlay'
+  assign has_image = false
+  if b.image != blank
+    assign has_image = true
+  endif
+  if layout == 'text'
+    assign has_image = false
+  endif
+  assign mobile_image = b.image_mobile | default: b.image
+  assign heading_tag = 'h2'
+-%}
+
+<style>
+  #{{ bid }} { --bn-bg: {{ b.bg_color }}; --bn-text: {{ b.text_color }}; --bn-btn: {{ b.button_color }}; --bn-btn-text: {{ b.button_text_color }}; position: relative; display: grid; overflow: hidden; border-radius: {% if b.full_bleed %}0{% else %}{{ b.radius }}px{% endif %}; background: var(--bn-bg); color: var(--bn-text); text-align: {{ b.text_align }}; font-family: var(--font-body, 'Poppins', sans-serif); }
+  {%- if b.full_bleed %}
+  #{{ bid }} { margin-left: calc(var(--g-gutter, var(--s-gutter, 16px)) * -1); margin-right: calc(var(--g-gutter, var(--s-gutter, 16px)) * -1); }
+  {%- endif %}
+  #{{ bid }} .sblb__media { position: relative; overflow: hidden; background: rgba(0, 0, 0, .06); }
+  #{{ bid }} .sblb__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  #{{ bid }} .sblb__media .sblb__img--mobile { display: none; }
+  @media (max-width: 749px) {
+    #{{ bid }} .sblb__media .sblb__img--desktop.has-mobile { display: none; }
+    #{{ bid }} .sblb__media .sblb__img--mobile { display: block; }
+  }
+  #{{ bid }} .sblb__copy { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; align-items: {% case b.text_align %}{% when 'center' %}center{% when 'right' %}flex-end{% else %}flex-start{% endcase %}; gap: 12px; padding: 32px 22px; }
+  @media (min-width: 750px) { #{{ bid }} .sblb__copy { padding: 48px clamp(28px, 5vw, 72px); } }
+  #{{ bid }} .sblb__eyebrow { margin: 0; font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+  #{{ bid }} .sblb__heading { margin: 0; max-width: 760px; font-family: var(--font-display, 'Montserrat', sans-serif); font-weight: 700; font-size: clamp(24px, 4vw, {{ b.heading_size }}px); line-height: 1.15; color: inherit; }
+  #{{ bid }} .sblb__text { max-width: 640px; font-size: 16px; line-height: 1.6; opacity: .92; }
+  #{{ bid }} .sblb__text p { margin: 0 0 8px; }
+  #{{ bid }} .sblb__text p:last-child { margin: 0; }
+  #{{ bid }} .sblb__text a { color: inherit; }
+  #{{ bid }} .sblb__btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; margin-top: 8px; padding: 0 26px; border-radius: 999px; background: var(--bn-btn); color: var(--bn-btn-text); font-weight: 600; font-size: 15px; text-decoration: none; transition: transform .25s ease, box-shadow .25s ease; }
+  #{{ bid }} .sblb__btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0, 0, 0, .18); }
+  #{{ bid }} .sblb__btn svg { width: 18px; height: 18px; transition: transform .25s ease; }
+  #{{ bid }} .sblb__btn:hover svg { transform: translateX(3px); }
+  #{{ bid }} .sblb__btn:focus-visible, #{{ bid }} .sblb__link:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+  #{{ bid }} .sblb__link { position: absolute; inset: 0; z-index: 2; }
+
+  {%- if layout == 'overlay' %}
+  #{{ bid }} { min-height: {{ b.height_mobile }}px; }
+  @media (min-width: 750px) { #{{ bid }} { min-height: {{ b.height }}px; } }
+  #{{ bid }} .sblb__media { position: absolute; inset: 0; }
+  #{{ bid }} .sblb__copy { grid-area: 1 / 1; }
+  #{{ bid }} .sblb__media::after { content: ''; position: absolute; inset: 0; background: rgba(0, 0, 0, {{ b.overlay | divided_by: 100.0 }}); }
+  #{{ bid }} .sblb__copy { align-self: {% case b.vertical_align %}{% when 'top' %}start{% when 'bottom' %}end{% else %}center{% endcase %}; justify-self: {% case b.text_align %}{% when 'center' %}center{% when 'right' %}end{% else %}start{% endcase %}; max-width: 100%; }
+  {%- elsif layout == 'split_left' or layout == 'split_right' %}
+  #{{ bid }} .sblb__media { aspect-ratio: 16 / 10; }
+  @media (min-width: 750px) {
+    #{{ bid }} { grid-template-columns: {% if has_image or request.design_mode %}repeat(2, minmax(0, 1fr)){% else %}1fr{% endif %}; min-height: {{ b.height }}px; }
+    #{{ bid }} .sblb__media { aspect-ratio: auto; min-height: 100%; }
+    {%- if layout == 'split_right' %}#{{ bid }} .sblb__media { order: 2; }{% endif %}
+  }
+  {%- else %}
+  #{{ bid }} .sblb__copy { padding-top: 40px; padding-bottom: 40px; }
+  {%- endif %}
+</style>
+
+<div id="{{ bid }}" class="sblb sblb--{{ layout }}" {{ block.shopify_attributes }}>
+  {%- if b.link != blank and b.button_label == blank -%}
+    <a class="sblb__link" href="{{ b.link }}" aria-label="{{ b.heading | default: b.image.alt | default: 'View offer' | escape }}"></a>
+  {%- endif -%}
+
+  {%- if has_image -%}
+    <div class="sblb__media">
+      {%- assign img_alt = b.image.alt | default: b.heading | escape -%}
+      {%- if layout == 'overlay' -%}
+        {%- assign img_sizes = '100vw' -%}
+      {%- else -%}
+        {%- assign img_sizes = '(min-width: 750px) 50vw, 100vw' -%}
+      {%- endif -%}
+      {%- capture desktop_class -%}sblb__img--desktop{% if b.image_mobile != blank %} has-mobile{% endif %}{%- endcapture -%}
+      {{ b.image | image_url: width: 2400 | image_tag: widths: '600, 900, 1200, 1600, 2000, 2400', sizes: img_sizes, loading: 'lazy', class: desktop_class, alt: img_alt }}
+      {%- if b.image_mobile != blank -%}
+        {{ b.image_mobile | image_url: width: 1100 | image_tag: widths: '400, 600, 800, 1100', sizes: '100vw', loading: 'lazy', class: 'sblb__img--mobile', alt: img_alt }}
+      {%- endif -%}
+    </div>
+  {%- elsif layout != 'text' and request.design_mode -%}
+    <div class="sblb__media" style="display:grid;place-items:center;min-height:180px;font-size:14px;opacity:.7">Choose an image in this banner's settings</div>
+  {%- endif -%}
+
+  {%- if b.eyebrow != blank or b.heading != blank or b.text != blank or b.button_label != blank -%}
+    <div class="sblb__copy">
+      {%- if b.eyebrow != blank -%}<p class="sblb__eyebrow">{{ b.eyebrow | escape }}</p>{%- endif -%}
+      {%- if b.heading != blank -%}<{{ heading_tag }} class="sblb__heading">{{ b.heading | escape }}</{{ heading_tag }}>{%- endif -%}
+      {%- if b.text != blank -%}<div class="sblb__text">{{ b.text }}</div>{%- endif -%}
+      {%- if b.button_label != blank -%}
+        <a class="sblb__btn" href="{{ b.link | default: '#' }}">{{ b.button_label | escape }}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>

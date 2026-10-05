@@ -90,6 +90,7 @@
   #sblg-{{ sid }} .sblg-wrap { width: 100%; max-width: none; margin: 0 auto; padding: 0 var(--g-gutter); }
   #sblg-{{ sid }} .sblg-block { padding: var(--g-space) 0 0; }
   #sblg-{{ sid }} .sblg-block--last { padding-bottom: var(--g-space); }
+  #sblg-{{ sid }} .sblg-block--top { padding-top: 24px; }
 
   /* Type */
   #sblg-{{ sid }} .sblg-h1, #sblg-{{ sid }} .sblg-h2, #sblg-{{ sid }} .sblg-h3 { font-family: var(--g-head); color: var(--g-primary); margin: 0; letter-spacing: -.01em; }
@@ -186,25 +187,9 @@
   #sblg-{{ sid }} .sblg-arrow svg { width: 20px; height: 20px; }
   #sblg-{{ sid }} .sblg-viewall { display: inline-flex; margin-top: 8px; }
 
-  /* Product card */
-  #sblg-{{ sid }} .sblg-pc { position: relative; display: flex; flex-direction: column; height: 100%; border-radius: var(--g-radius); background: var(--g-card); box-shadow: var(--g-shadow); overflow: hidden; transition: transform .3s ease, box-shadow .3s ease; }
-  #sblg-{{ sid }} .sblg-pc:hover { transform: translateY(-4px); box-shadow: var(--g-shadow-hover); }
-  #sblg-{{ sid }} .sblg-pc__media { position: relative; display: block; aspect-ratio: 1 / 1.08; margin: 10px 10px 0; border-radius: var(--g-radius-sm); background: var(--g-bg); overflow: hidden; }
-  #sblg-{{ sid }} .sblg-pc__media img, #sblg-{{ sid }} .sblg-pc__media svg { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
-  #sblg-{{ sid }} .sblg-pc:hover .sblg-pc__media img { transform: scale(1.05); }
-  #sblg-{{ sid }} .sblg-pc__badge { position: absolute; z-index: 2; top: 20px; left: 20px; padding: 5px 11px; border-radius: 999px; background: var(--g-accent); color: #1b2a1f; font-size: 11px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; }
-  #sblg-{{ sid }} .sblg-pc__badge--muted { background: #e8e5de; color: #555; }
-  #sblg-{{ sid }} .sblg-pc .wl-btn { position: absolute; z-index: 2; top: 18px; right: 18px; }
-  #sblg-{{ sid }} .sblg-pc__body { display: flex; flex-direction: column; gap: 8px; flex: 1; padding: 14px 16px 16px; }
-  #sblg-{{ sid }} .sblg-pc__title { margin: 0; font-family: var(--g-body); font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--g-text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  #sblg-{{ sid }} .sblg-pc__title a { text-decoration: none; }
-  #sblg-{{ sid }} .sblg-pc__title a:hover { color: var(--g-primary); }
-  #sblg-{{ sid }} .sblg-pc__price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin-top: auto; }
-  #sblg-{{ sid }} .sblg-pc__price strong { font-size: 17px; font-weight: 600; color: var(--g-primary); }
-  #sblg-{{ sid }} .sblg-pc__price s { font-size: 13px; color: var(--g-muted); }
-  #sblg-{{ sid }} .sblg-pc__form { margin: 4px 0 0; }
-  #sblg-{{ sid }} .sblg-pc__atc { width: 100%; min-height: 44px; padding: 0 16px; font-size: 14px; }
-  #sblg-{{ sid }} .sblg-pc__atc[disabled] { background: #e8e5de; color: #777; box-shadow: none; cursor: not-allowed; transform: none; }
+  /* Product card: uses the theme's standard product-card snippet */
+  #sblg-{{ sid }} .sblg-track .product-card { height: 100%; }
+  #sblg-{{ sid }} .sblg-track .product-card__title a { text-decoration: none; color: inherit; }
 
   /* Build your gift */
   #sblg-{{ sid }} .sblg-build { position: relative; border-radius: 28px; background: {{ section.settings.build_bg }}; padding: 44px 20px; overflow: hidden; }
@@ -313,6 +298,7 @@
 
 <div id="sblg-{{ sid }}" class="sblg" data-sblg>
 
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'top' -%}<div class="sblg-block sblg-block--top"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== HERO ===== {%- endcomment -%}
   {%- if section.settings.show_hero -%}
     <section class="sblg-hero{% if section.settings.hero_media_first_mobile %} sblg-hero--media-first{% endif %}" aria-labelledby="sblg-hero-title-{{ sid }}">
@@ -343,6 +329,7 @@
     </section>
   {%- endif -%}
 
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_hero' -%}<div class="sblg-block"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== SHOP BY OCCASION ===== {%- endcomment -%}
   {%- if section.settings.show_occasion -%}
     <section class="sblg-block" aria-labelledby="sblg-occ-title-{{ sid }}">
@@ -388,6 +375,7 @@
     </section>
   {%- endif -%}
 
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_occasion' -%}<div class="sblg-block"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== GIFTS BY BUDGET ===== {%- endcomment -%}
   {%- if section.settings.show_budget -%}
     <section class="sblg-block" aria-labelledby="sblg-bud-title-{{ sid }}">
@@ -441,6 +429,7 @@
     </section>
   {%- endif -%}
 
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_budget' -%}<div class="sblg-block"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== BEST-SELLING GIFT PLANTS ===== {%- endcomment -%}
   {%- if section.settings.show_bestsellers -%}
     <section class="sblg-block" aria-labelledby="sblg-bs-title-{{ sid }}">
@@ -459,71 +448,11 @@
           <ul class="sblg-track" id="sblg-bs-track-{{ sid }}" role="list" tabindex="0" aria-label="{{ section.settings.bs_heading | escape }}" data-rail-track>
             {%- if bs_collection != blank and bs_collection.products_count > 0 -%}
               {%- for product in bs_collection.products limit: section.settings.bs_count -%}
-                {%- liquid
-                  assign variant = product.selected_or_first_available_variant
-                  assign badge = ''
-                  assign badge_muted = false
-                  for tag in product.tags
-                    if tag contains 'badge:'
-                      assign badge = tag | remove_first: 'badge:' | strip
-                      break
-                    endif
-                  endfor
-                  if badge == ''
-                    if product.available == false
-                      assign badge = 'Sold out'
-                      assign badge_muted = true
-                    elsif product.compare_at_price > product.price
-                      assign save_pct = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | floor
-                      assign badge = 'Save ' | append: save_pct | append: '%'
-                    elsif section.settings.bs_default_badge != blank
-                      assign badge = section.settings.bs_default_badge
-                    endif
-                  endif
-                -%}
-                <li>
-                  <article class="sblg-pc">
-                    {%- if badge != '' -%}<span class="sblg-pc__badge{% if badge_muted %} sblg-pc__badge--muted{% endif %}">{{ badge | escape }}</span>{%- endif -%}
-                    {%- render 'wishlist-button', product: product -%}
-                    <a class="sblg-pc__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
-                      {%- if product.featured_media -%}
-                        {{ product.featured_media | image_url: width: 640 | image_tag: widths: '280, 400, 520, 640', sizes: '(min-width: 1400px) 19vw, (min-width: 990px) 24vw, (min-width: 750px) 38vw, 76vw', loading: 'lazy', alt: product.featured_media.alt | default: product.title }}
-                      {%- else -%}
-                        {{ 'product-1' | placeholder_svg_tag: 'sblg-ph' }}
-                      {%- endif -%}
-                    </a>
-                    <div class="sblg-pc__body">
-                      <h3 class="sblg-pc__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
-                      <div class="sblg-pc__price">
-                        {%- if product.price_varies -%}<span class="sblg-sr">From</span>{%- endif -%}
-                        <strong>{{ product.price | money_without_trailing_zeros }}</strong>
-                        {%- if product.compare_at_price > product.price -%}
-                          <span class="sblg-sr">Regular price</span><s>{{ product.compare_at_price | money_without_trailing_zeros }}</s>
-                        {%- endif -%}
-                      </div>
-                      <form class="sblg-pc__form" action="{{ routes.cart_add_url }}" method="post" data-add-to-cart>
-                        <input type="hidden" name="id" value="{{ variant.id }}">
-                        <input type="hidden" name="quantity" value="1">
-                        <button class="sblg-btn sblg-btn--primary sblg-pc__atc" type="submit"{% unless product.available %} disabled{% endunless %} aria-label="{% if product.available %}{{ 'general.add_to_cart' | t }}{% else %}{{ 'general.sold_out' | t }}{% endif %}: {{ product.title | escape }}">
-                          {%- if product.available -%}{{ 'general.add_to_cart' | t }}{%- else -%}{{ 'general.sold_out' | t }}{%- endif -%}
-                        </button>
-                      </form>
-                    </div>
-                  </article>
-                </li>
+                <li>{%- render 'product-card', product: product -%}</li>
               {%- endfor -%}
             {%- else -%}
               {%- for i in (1..4) -%}
-                <li>
-                  <article class="sblg-pc">
-                    <div class="sblg-pc__media">{{ 'product-' | append: i | placeholder_svg_tag: 'sblg-ph' }}</div>
-                    <div class="sblg-pc__body">
-                      <h3 class="sblg-pc__title">Gift plant</h3>
-                      <div class="sblg-pc__price"><strong>{{ 59900 | money_without_trailing_zeros }}</strong></div>
-                      <span class="sblg-btn sblg-btn--primary sblg-pc__atc">{{ 'general.add_to_cart' | t }}</span>
-                    </div>
-                  </article>
-                </li>
+                <li>{%- render 'product-card', index: i -%}</li>
               {%- endfor -%}
             {%- endif -%}
           </ul>
@@ -535,6 +464,7 @@
     </section>
   {%- endif -%}
 
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_bestsellers' -%}<div class="sblg-block"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== BUILD YOUR GIFT ===== {%- endcomment -%}
   {%- if section.settings.show_build -%}
     <section class="sblg-block" aria-labelledby="sblg-build-title-{{ sid }}">
@@ -580,6 +510,7 @@
     </section>
   {%- endif -%}
 
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_build' -%}<div class="sblg-block"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== CORPORATE GIFTING ===== {%- endcomment -%}
   {%- if section.settings.show_corp -%}
     <section class="sblg-block" aria-labelledby="sblg-corp-title-{{ sid }}">
@@ -619,6 +550,7 @@
     </section>
   {%- endif -%}
 
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_corp' -%}<div class="sblg-block"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== TESTIMONIALS ===== {%- endcomment -%}
   {%- if section.settings.show_testimonials -%}
     <section class="sblg-block" aria-labelledby="sblg-rev-title-{{ sid }}">
@@ -669,6 +601,7 @@
     </section>
   {%- endif -%}
 
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_testimonials' -%}<div class="sblg-block"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== FAQ ===== {%- endcomment -%}
   {%- if section.settings.show_faq -%}
     <section class="sblg-block" aria-labelledby="sblg-faq-title-{{ sid }}">
@@ -696,6 +629,7 @@
     </section>
   {%- endif -%}
 
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'after_faq' -%}<div class="sblg-block"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
   {%- comment -%} ===== FINAL CTA ===== {%- endcomment -%}
   {%- if section.settings.show_cta -%}
     <section class="sblg-block sblg-block--last" aria-labelledby="sblg-cta-title-{{ sid }}">
@@ -720,6 +654,7 @@
       </div>
     </section>
   {%- endif -%}
+  {%- for block in section.blocks -%}{%- if block.type == 'banner' and block.settings.position == 'bottom' -%}<div class="sblg-block sblg-block--last"><div class="sblg-wrap">{%- render 'sbl-banner', block: block -%}</div></div>{%- endif -%}{%- endfor -%}
 </div>
 
 <script>
@@ -776,122 +711,570 @@
   "tag": "section",
   "class": "section-sbl-gifting",
   "settings": [
-    { "type": "text", "id": "only_on_handle", "label": "Only show on collection (handle)", "info": "Used on the default collection template so this page shows only on that collection, e.g. gifting. Leave empty to always show. The page hides itself when shoppers apply a filter, so the product grid can show instead." },
-    { "type": "header", "content": "Colors" },
-    { "type": "color", "id": "color_primary", "label": "Primary green", "default": "#1F5130" },
-    { "type": "color", "id": "color_accent", "label": "Accent yellow", "default": "#FFD60A" },
-    { "type": "color", "id": "color_bg", "label": "Page background", "default": "#F8F4EC" },
-    { "type": "color", "id": "color_card", "label": "Card background", "default": "#FFFFFF" },
-    { "type": "color", "id": "color_soft", "label": "Soft green (occasion cards, icons)", "default": "#E6EFE2" },
-    { "type": "color", "id": "color_text", "label": "Text", "default": "#1E2A22" },
-
-    { "type": "header", "content": "Hero" },
-    { "type": "checkbox", "id": "show_hero", "label": "Show hero", "default": true },
-    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow", "default": "PLANT GIFTING MADE SPECIAL" },
-    { "type": "text", "id": "hero_heading", "label": "Heading", "default": "Gifts That Grow With You" },
-    { "type": "textarea", "id": "hero_text", "label": "Text", "default": "Thoughtful plants and green gifts for every celebration, occasion and special moment." },
-    { "type": "text", "id": "hero_button_label", "label": "Button label", "default": "Shop Gifts" },
-    { "type": "url", "id": "hero_button_link", "label": "Button link", "info": "Defaults to the current collection" },
-    { "type": "text", "id": "hero_note", "label": "Small note under button", "default": "Gift-wrapped with a free handwritten note" },
-    { "type": "image_picker", "id": "hero_image", "label": "Hero image", "info": "Lifestyle image, 1600 x 1400px recommended" },
-    { "type": "text", "id": "hero_chip", "label": "Image badge", "default": "Loved by plant gifters" },
-    { "type": "checkbox", "id": "hero_media_first_mobile", "label": "Show image first on mobile", "default": false },
-
-    { "type": "header", "content": "Shop by occasion" },
-    { "type": "checkbox", "id": "show_occasion", "label": "Show shop by occasion", "default": true },
-    { "type": "text", "id": "occasion_heading", "label": "Heading", "default": "Shop by Occasion" },
-    { "type": "text", "id": "occasion_subheading", "label": "Subheading", "default": "Find the perfect plant gift for every moment" },
-    { "type": "paragraph", "content": "Add or edit cards with \"Occasion card\" blocks." },
-
-    { "type": "header", "content": "Gifts by budget" },
-    { "type": "checkbox", "id": "show_budget", "label": "Show gifts by budget", "default": true },
-    { "type": "text", "id": "budget_heading", "label": "Heading", "default": "Gifts by Budget" },
-    { "type": "text", "id": "budget_subheading", "label": "Subheading", "default": "Thoughtful green gifts for every budget" },
-    { "type": "collection", "id": "budget_collection", "label": "Collection to filter by price", "info": "Budget cards without their own link open this collection filtered by their price range. Defaults to the current collection." },
-    { "type": "text", "id": "budget_link_label", "label": "Card link label", "default": "Shop now" },
-
-    { "type": "header", "content": "Best-selling gift plants" },
-    { "type": "checkbox", "id": "show_bestsellers", "label": "Show product carousel", "default": true },
-    { "type": "text", "id": "bs_heading", "label": "Heading", "default": "Best-Selling Gift Plants" },
-    { "type": "text", "id": "bs_subheading", "label": "Subheading", "default": "Customer favourites for gifting" },
-    { "type": "collection", "id": "bs_collection", "label": "Collection", "info": "Defaults to the current collection" },
-    { "type": "range", "id": "bs_count", "label": "Products to show", "min": 4, "max": 16, "step": 1, "default": 8 },
-    { "type": "text", "id": "bs_default_badge", "label": "Default badge", "info": "Shown when a product has no sale or tag badge. Tag a product badge:Your text to set its own badge.", "default": "Bestseller" },
-    { "type": "text", "id": "bs_view_all_label", "label": "View all button label", "default": "View all gift plants" },
-
-    { "type": "header", "content": "Build your gift" },
-    { "type": "checkbox", "id": "show_build", "label": "Show build your gift", "default": true },
-    { "type": "text", "id": "build_heading", "label": "Heading", "default": "Build Your Gift" },
-    { "type": "text", "id": "build_subheading", "label": "Subheading", "default": "Create a personalised plant gift in 3 simple steps" },
-    { "type": "text", "id": "step_1_title", "label": "Step 1 title", "default": "Choose Plant" },
-    { "type": "text", "id": "step_1_text", "label": "Step 1 text", "default": "Pick from our curated collection" },
-    { "type": "select", "id": "step_1_icon", "label": "Step 1 icon", "default": "plant", "options": [
-      { "value": "plant", "label": "Plant" },
-      { "value": "pot", "label": "Pot" },
-      { "value": "message", "label": "Message card" },
-      { "value": "gift", "label": "Gift box" },
-      { "value": "truck", "label": "Delivery" },
-      { "value": "heart", "label": "Heart" },
-      { "value": "number", "label": "Step number" }
-    ] },
-    { "type": "text", "id": "step_2_title", "label": "Step 2 title", "default": "Choose Pot" },
-    { "type": "text", "id": "step_2_text", "label": "Step 2 text", "default": "Select a stylish pot" },
-    { "type": "select", "id": "step_2_icon", "label": "Step 2 icon", "default": "pot", "options": [
-      { "value": "plant", "label": "Plant" },
-      { "value": "pot", "label": "Pot" },
-      { "value": "message", "label": "Message card" },
-      { "value": "gift", "label": "Gift box" },
-      { "value": "truck", "label": "Delivery" },
-      { "value": "heart", "label": "Heart" },
-      { "value": "number", "label": "Step number" }
-    ] },
-    { "type": "text", "id": "step_3_title", "label": "Step 3 title", "default": "Add Message" },
-    { "type": "text", "id": "step_3_text", "label": "Step 3 text", "default": "Write a personalised note" },
-    { "type": "select", "id": "step_3_icon", "label": "Step 3 icon", "default": "message", "options": [
-      { "value": "plant", "label": "Plant" },
-      { "value": "pot", "label": "Pot" },
-      { "value": "message", "label": "Message card" },
-      { "value": "gift", "label": "Gift box" },
-      { "value": "truck", "label": "Delivery" },
-      { "value": "heart", "label": "Heart" },
-      { "value": "number", "label": "Step number" }
-    ] },
-    { "type": "text", "id": "build_button_label", "label": "Button label", "default": "Create Your Gift" },
-    { "type": "url", "id": "build_button_link", "label": "Button link" },
-    { "type": "color", "id": "build_bg", "label": "Panel background", "default": "#EEF3E8" },
-
-    { "type": "header", "content": "Corporate gifting" },
-    { "type": "checkbox", "id": "show_corp", "label": "Show corporate gifting", "default": true },
-    { "type": "text", "id": "corp_eyebrow", "label": "Eyebrow", "default": "FOR TEAMS & CLIENTS" },
-    { "type": "text", "id": "corp_heading", "label": "Heading", "default": "Corporate Gifting Solutions" },
-    { "type": "textarea", "id": "corp_text", "label": "Text", "default": "Thoughtful green gifts for your team, clients and business partners." },
-    { "type": "textarea", "id": "corp_points", "label": "Highlights", "info": "One per line", "default": "Bulk orders with custom branding\nPersonalised notes and packaging\nPan-India delivery" },
-    { "type": "text", "id": "corp_button_label", "label": "Button label", "default": "Explore Corporate Gifts" },
-    { "type": "url", "id": "corp_button_link", "label": "Button link" },
-    { "type": "image_picker", "id": "corp_bg_image", "label": "Background image", "info": "Soft botanical image, shown behind a green overlay" },
-    { "type": "range", "id": "corp_overlay", "label": "Background overlay strength", "min": 40, "max": 100, "step": 5, "unit": "%", "default": 75 },
-    { "type": "color", "id": "corp_bg_color", "label": "Background color", "default": "#1F5130" },
-    { "type": "image_picker", "id": "corp_image", "label": "Side image" },
-
-    { "type": "header", "content": "Testimonials" },
-    { "type": "checkbox", "id": "show_testimonials", "label": "Show testimonials", "default": true },
-    { "type": "text", "id": "testi_heading", "label": "Heading", "default": "What Our Customers Say" },
-    { "type": "text", "id": "testi_subheading", "label": "Subheading", "default": "Real words from happy plant gifters" },
-
-    { "type": "header", "content": "FAQ" },
-    { "type": "checkbox", "id": "show_faq", "label": "Show FAQ", "default": true },
-    { "type": "text", "id": "faq_heading", "label": "Heading", "default": "Frequently Asked Questions" },
-    { "type": "text", "id": "faq_subheading", "label": "Subheading", "default": "Everything you need to know about gifting with SBL Nursery" },
-    { "type": "checkbox", "id": "faq_open_first", "label": "Open first question", "default": true },
-
-    { "type": "header", "content": "Final call to action" },
-    { "type": "checkbox", "id": "show_cta", "label": "Show final CTA", "default": true },
-    { "type": "text", "id": "cta_heading", "label": "Heading", "default": "Ready to Gift Happiness?" },
-    { "type": "text", "id": "cta_text", "label": "Text", "default": "Explore our plant gifting collection today." },
-    { "type": "text", "id": "cta_button_label", "label": "Button label", "default": "Shop Gifts" },
-    { "type": "url", "id": "cta_button_link", "label": "Button link" },
-    { "type": "color", "id": "cta_bg_color", "label": "Background color", "default": "#1F5130" },
-    { "type": "image_picker", "id": "cta_leaf_image", "label": "Decorative leaf image", "info": "Optional transparent PNG shown on both sides. A built-in leaf graphic is used when empty." }
+    {
+      "type": "text",
+      "id": "only_on_handle",
+      "label": "Only show on collection (handle)",
+      "info": "Used on the default collection template so this page shows only on that collection, e.g. gifting. Leave empty to always show. The page hides itself when shoppers apply a filter, so the product grid can show instead."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "color_primary",
+      "label": "Primary green",
+      "default": "#1F5130"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Accent yellow",
+      "default": "#FFD60A"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Page background",
+      "default": "#F8F4EC"
+    },
+    {
+      "type": "color",
+      "id": "color_card",
+      "label": "Card background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_soft",
+      "label": "Soft green (occasion cards, icons)",
+      "default": "#E6EFE2"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text",
+      "default": "#1E2A22"
+    },
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hero",
+      "label": "Show hero",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Eyebrow",
+      "default": "PLANT GIFTING MADE SPECIAL"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Heading",
+      "default": "Gifts That Grow With You"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_text",
+      "label": "Text",
+      "default": "Thoughtful plants and green gifts for every celebration, occasion and special moment."
+    },
+    {
+      "type": "text",
+      "id": "hero_button_label",
+      "label": "Button label",
+      "default": "Shop Gifts"
+    },
+    {
+      "type": "url",
+      "id": "hero_button_link",
+      "label": "Button link",
+      "info": "Defaults to the current collection"
+    },
+    {
+      "type": "text",
+      "id": "hero_note",
+      "label": "Small note under button",
+      "default": "Gift-wrapped with a free handwritten note"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image",
+      "info": "Lifestyle image, 1600 x 1400px recommended"
+    },
+    {
+      "type": "text",
+      "id": "hero_chip",
+      "label": "Image badge",
+      "default": "Loved by plant gifters"
+    },
+    {
+      "type": "checkbox",
+      "id": "hero_media_first_mobile",
+      "label": "Show image first on mobile",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Shop by occasion"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_occasion",
+      "label": "Show shop by occasion",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "occasion_heading",
+      "label": "Heading",
+      "default": "Shop by Occasion"
+    },
+    {
+      "type": "text",
+      "id": "occasion_subheading",
+      "label": "Subheading",
+      "default": "Find the perfect plant gift for every moment"
+    },
+    {
+      "type": "paragraph",
+      "content": "Add or edit cards with \"Occasion card\" blocks."
+    },
+    {
+      "type": "header",
+      "content": "Gifts by budget"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_budget",
+      "label": "Show gifts by budget",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "budget_heading",
+      "label": "Heading",
+      "default": "Gifts by Budget"
+    },
+    {
+      "type": "text",
+      "id": "budget_subheading",
+      "label": "Subheading",
+      "default": "Thoughtful green gifts for every budget"
+    },
+    {
+      "type": "collection",
+      "id": "budget_collection",
+      "label": "Collection to filter by price",
+      "info": "Budget cards without their own link open this collection filtered by their price range. Defaults to the current collection."
+    },
+    {
+      "type": "text",
+      "id": "budget_link_label",
+      "label": "Card link label",
+      "default": "Shop now"
+    },
+    {
+      "type": "header",
+      "content": "Best-selling gift plants"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bestsellers",
+      "label": "Show product carousel",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "bs_heading",
+      "label": "Heading",
+      "default": "Best-Selling Gift Plants"
+    },
+    {
+      "type": "text",
+      "id": "bs_subheading",
+      "label": "Subheading",
+      "default": "Customer favourites for gifting"
+    },
+    {
+      "type": "collection",
+      "id": "bs_collection",
+      "label": "Collection",
+      "info": "Defaults to the current collection"
+    },
+    {
+      "type": "range",
+      "id": "bs_count",
+      "label": "Products to show",
+      "min": 4,
+      "max": 16,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "text",
+      "id": "bs_view_all_label",
+      "label": "View all button label",
+      "default": "View all gift plants"
+    },
+    {
+      "type": "header",
+      "content": "Build your gift"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_build",
+      "label": "Show build your gift",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "build_heading",
+      "label": "Heading",
+      "default": "Build Your Gift"
+    },
+    {
+      "type": "text",
+      "id": "build_subheading",
+      "label": "Subheading",
+      "default": "Create a personalised plant gift in 3 simple steps"
+    },
+    {
+      "type": "text",
+      "id": "step_1_title",
+      "label": "Step 1 title",
+      "default": "Choose Plant"
+    },
+    {
+      "type": "text",
+      "id": "step_1_text",
+      "label": "Step 1 text",
+      "default": "Pick from our curated collection"
+    },
+    {
+      "type": "select",
+      "id": "step_1_icon",
+      "label": "Step 1 icon",
+      "default": "plant",
+      "options": [
+        {
+          "value": "plant",
+          "label": "Plant"
+        },
+        {
+          "value": "pot",
+          "label": "Pot"
+        },
+        {
+          "value": "message",
+          "label": "Message card"
+        },
+        {
+          "value": "gift",
+          "label": "Gift box"
+        },
+        {
+          "value": "truck",
+          "label": "Delivery"
+        },
+        {
+          "value": "heart",
+          "label": "Heart"
+        },
+        {
+          "value": "number",
+          "label": "Step number"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "step_2_title",
+      "label": "Step 2 title",
+      "default": "Choose Pot"
+    },
+    {
+      "type": "text",
+      "id": "step_2_text",
+      "label": "Step 2 text",
+      "default": "Select a stylish pot"
+    },
+    {
+      "type": "select",
+      "id": "step_2_icon",
+      "label": "Step 2 icon",
+      "default": "pot",
+      "options": [
+        {
+          "value": "plant",
+          "label": "Plant"
+        },
+        {
+          "value": "pot",
+          "label": "Pot"
+        },
+        {
+          "value": "message",
+          "label": "Message card"
+        },
+        {
+          "value": "gift",
+          "label": "Gift box"
+        },
+        {
+          "value": "truck",
+          "label": "Delivery"
+        },
+        {
+          "value": "heart",
+          "label": "Heart"
+        },
+        {
+          "value": "number",
+          "label": "Step number"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "step_3_title",
+      "label": "Step 3 title",
+      "default": "Add Message"
+    },
+    {
+      "type": "text",
+      "id": "step_3_text",
+      "label": "Step 3 text",
+      "default": "Write a personalised note"
+    },
+    {
+      "type": "select",
+      "id": "step_3_icon",
+      "label": "Step 3 icon",
+      "default": "message",
+      "options": [
+        {
+          "value": "plant",
+          "label": "Plant"
+        },
+        {
+          "value": "pot",
+          "label": "Pot"
+        },
+        {
+          "value": "message",
+          "label": "Message card"
+        },
+        {
+          "value": "gift",
+          "label": "Gift box"
+        },
+        {
+          "value": "truck",
+          "label": "Delivery"
+        },
+        {
+          "value": "heart",
+          "label": "Heart"
+        },
+        {
+          "value": "number",
+          "label": "Step number"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "build_button_label",
+      "label": "Button label",
+      "default": "Create Your Gift"
+    },
+    {
+      "type": "url",
+      "id": "build_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "build_bg",
+      "label": "Panel background",
+      "default": "#EEF3E8"
+    },
+    {
+      "type": "header",
+      "content": "Corporate gifting"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_corp",
+      "label": "Show corporate gifting",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "corp_eyebrow",
+      "label": "Eyebrow",
+      "default": "FOR TEAMS & CLIENTS"
+    },
+    {
+      "type": "text",
+      "id": "corp_heading",
+      "label": "Heading",
+      "default": "Corporate Gifting Solutions"
+    },
+    {
+      "type": "textarea",
+      "id": "corp_text",
+      "label": "Text",
+      "default": "Thoughtful green gifts for your team, clients and business partners."
+    },
+    {
+      "type": "textarea",
+      "id": "corp_points",
+      "label": "Highlights",
+      "info": "One per line",
+      "default": "Bulk orders with custom branding\nPersonalised notes and packaging\nPan-India delivery"
+    },
+    {
+      "type": "text",
+      "id": "corp_button_label",
+      "label": "Button label",
+      "default": "Explore Corporate Gifts"
+    },
+    {
+      "type": "url",
+      "id": "corp_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "corp_bg_image",
+      "label": "Background image",
+      "info": "Soft botanical image, shown behind a green overlay"
+    },
+    {
+      "type": "range",
+      "id": "corp_overlay",
+      "label": "Background overlay strength",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 75
+    },
+    {
+      "type": "color",
+      "id": "corp_bg_color",
+      "label": "Background color",
+      "default": "#1F5130"
+    },
+    {
+      "type": "image_picker",
+      "id": "corp_image",
+      "label": "Side image"
+    },
+    {
+      "type": "header",
+      "content": "Testimonials"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_testimonials",
+      "label": "Show testimonials",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "testi_heading",
+      "label": "Heading",
+      "default": "What Our Customers Say"
+    },
+    {
+      "type": "text",
+      "id": "testi_subheading",
+      "label": "Subheading",
+      "default": "Real words from happy plant gifters"
+    },
+    {
+      "type": "header",
+      "content": "FAQ"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_faq",
+      "label": "Show FAQ",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "faq_heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "text",
+      "id": "faq_subheading",
+      "label": "Subheading",
+      "default": "Everything you need to know about gifting with SBL Nursery"
+    },
+    {
+      "type": "checkbox",
+      "id": "faq_open_first",
+      "label": "Open first question",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Final call to action"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show final CTA",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "Heading",
+      "default": "Ready to Gift Happiness?"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Text",
+      "default": "Explore our plant gifting collection today."
+    },
+    {
+      "type": "text",
+      "id": "cta_button_label",
+      "label": "Button label",
+      "default": "Shop Gifts"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_color",
+      "label": "Background color",
+      "default": "#1F5130"
+    },
+    {
+      "type": "image_picker",
+      "id": "cta_leaf_image",
+      "label": "Decorative leaf image",
+      "info": "Optional transparent PNG shown on both sides. A built-in leaf graphic is used when empty."
+    }
   ],
   "blocks": [
     {
@@ -899,24 +1282,60 @@
       "name": "Occasion card",
       "limit": 8,
       "settings": [
-        { "type": "text", "id": "title", "label": "Title", "default": "Birthday" },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Birthday"
+        },
         {
           "type": "select",
           "id": "icon",
           "label": "Icon",
           "default": "cake",
           "options": [
-            { "value": "cake", "label": "Cake" },
-            { "value": "home", "label": "Home" },
-            { "value": "heart", "label": "Heart" },
-            { "value": "thanks", "label": "Flower" },
-            { "value": "gift", "label": "Gift box" },
-            { "value": "baby", "label": "Sprout" },
-            { "value": "leaf", "label": "Leaf" }
+            {
+              "value": "cake",
+              "label": "Cake"
+            },
+            {
+              "value": "home",
+              "label": "Home"
+            },
+            {
+              "value": "heart",
+              "label": "Heart"
+            },
+            {
+              "value": "thanks",
+              "label": "Flower"
+            },
+            {
+              "value": "gift",
+              "label": "Gift box"
+            },
+            {
+              "value": "baby",
+              "label": "Sprout"
+            },
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            }
           ]
         },
-        { "type": "image_picker", "id": "image", "label": "Image", "info": "Optional. Square or 5:4 works best." },
-        { "type": "url", "id": "link", "label": "Link", "info": "Pick a collection. Defaults to the current collection." }
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Optional. Square or 5:4 works best."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Pick a collection. Defaults to the current collection."
+        }
       ]
     },
     {
@@ -924,24 +1343,65 @@
       "name": "Budget card",
       "limit": 8,
       "settings": [
-        { "type": "text", "id": "label", "label": "Label", "default": "Under ₹500" },
-        { "type": "text", "id": "caption", "label": "Caption", "default": "Small joys" },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Under ₹500"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption",
+          "default": "Small joys"
+        },
         {
           "type": "select",
           "id": "icon",
           "label": "Icon",
           "default": "seedling",
           "options": [
-            { "value": "seedling", "label": "Seedling" },
-            { "value": "pot", "label": "Potted plant" },
-            { "value": "monstera", "label": "Leafy plant" },
-            { "value": "tree", "label": "Tree" },
-            { "value": "gift", "label": "Gift box" }
+            {
+              "value": "seedling",
+              "label": "Seedling"
+            },
+            {
+              "value": "pot",
+              "label": "Potted plant"
+            },
+            {
+              "value": "monstera",
+              "label": "Leafy plant"
+            },
+            {
+              "value": "tree",
+              "label": "Tree"
+            },
+            {
+              "value": "gift",
+              "label": "Gift box"
+            }
           ]
         },
-        { "type": "number", "id": "min_price", "label": "Minimum price", "info": "In store currency. Leave empty for no minimum." },
-        { "type": "number", "id": "max_price", "label": "Maximum price", "info": "In store currency. Leave empty for no maximum.", "default": 500 },
-        { "type": "url", "id": "link", "label": "Custom link", "info": "Optional. Overrides the price filter link." }
+        {
+          "type": "number",
+          "id": "min_price",
+          "label": "Minimum price",
+          "info": "In store currency. Leave empty for no minimum."
+        },
+        {
+          "type": "number",
+          "id": "max_price",
+          "label": "Maximum price",
+          "info": "In store currency. Leave empty for no maximum.",
+          "default": 500
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Custom link",
+          "info": "Optional. Overrides the price filter link."
+        }
       ]
     },
     {
@@ -949,11 +1409,38 @@
       "name": "Testimonial",
       "limit": 12,
       "settings": [
-        { "type": "textarea", "id": "quote", "label": "Review", "default": "Beautiful plants and amazing packaging. Perfect gift!" },
-        { "type": "range", "id": "rating", "label": "Star rating", "min": 1, "max": 5, "step": 1, "default": 5 },
-        { "type": "text", "id": "name", "label": "Customer name", "default": "Customer name" },
-        { "type": "text", "id": "meta", "label": "Location or occasion" },
-        { "type": "image_picker", "id": "avatar", "label": "Photo", "info": "Optional. Initial is shown when empty." }
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review",
+          "default": "Beautiful plants and amazing packaging. Perfect gift!"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Customer name",
+          "default": "Customer name"
+        },
+        {
+          "type": "text",
+          "id": "meta",
+          "label": "Location or occasion"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Photo",
+          "info": "Optional. Initial is shown when empty."
+        }
       ]
     },
     {
@@ -961,8 +1448,274 @@
       "name": "FAQ",
       "limit": 20,
       "settings": [
-        { "type": "text", "id": "question", "label": "Question", "default": "Can I add a personal message?" },
-        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Yes. Add your message at checkout and we will include it as a handwritten card.</p>" }
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Can I add a personal message?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Yes. Add your message at checkout and we will include it as a handwritten card.</p>"
+        }
+      ]
+    },
+    {
+      "type": "banner",
+      "name": "Banner",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Show on page",
+          "default": "after_hero",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top of page"
+            },
+            {
+              "value": "after_hero",
+              "label": "After hero"
+            },
+            {
+              "value": "after_occasion",
+              "label": "After Shop by Occasion"
+            },
+            {
+              "value": "after_budget",
+              "label": "After Gifts by Budget"
+            },
+            {
+              "value": "after_bestsellers",
+              "label": "After Best-Selling Gift Plants"
+            },
+            {
+              "value": "after_build",
+              "label": "After Build Your Gift"
+            },
+            {
+              "value": "after_corp",
+              "label": "After Corporate Gifting"
+            },
+            {
+              "value": "after_testimonials",
+              "label": "After testimonials"
+            },
+            {
+              "value": "after_faq",
+              "label": "After FAQ"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom of page"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "layout",
+          "label": "Layout",
+          "default": "overlay",
+          "options": [
+            {
+              "value": "overlay",
+              "label": "Text on top of image"
+            },
+            {
+              "value": "split_left",
+              "label": "Image left, text right"
+            },
+            {
+              "value": "split_right",
+              "label": "Image right, text left"
+            },
+            {
+              "value": "text",
+              "label": "Text only"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Wide image, 2400 x 900px recommended"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile image",
+          "info": "Optional. Taller image for phones, 1100 x 1300px recommended"
+        },
+        {
+          "type": "range",
+          "id": "overlay",
+          "label": "Image darkening",
+          "min": 0,
+          "max": 80,
+          "step": 5,
+          "unit": "%",
+          "default": 30
+        },
+        {
+          "type": "range",
+          "id": "height",
+          "label": "Desktop height",
+          "min": 200,
+          "max": 700,
+          "step": 20,
+          "unit": "px",
+          "default": 380
+        },
+        {
+          "type": "range",
+          "id": "height_mobile",
+          "label": "Mobile height",
+          "min": 200,
+          "max": 700,
+          "step": 20,
+          "unit": "px",
+          "default": 340
+        },
+        {
+          "type": "header",
+          "content": "Text"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Small label"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Your banner heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Add a short message, offer or announcement here.</p>"
+        },
+        {
+          "type": "range",
+          "id": "heading_size",
+          "label": "Heading size",
+          "min": 24,
+          "max": 64,
+          "step": 2,
+          "unit": "px",
+          "default": 40
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "label": "Text alignment",
+          "default": "left",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "vertical_align",
+          "label": "Text position (on image)",
+          "default": "center",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Middle"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "With no button label, the whole banner becomes clickable"
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background",
+          "default": "#1F5130"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "id": "button_color",
+          "label": "Button",
+          "default": "#FFD60A"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button text",
+          "default": "#1B2A1F"
+        },
+        {
+          "type": "range",
+          "id": "radius",
+          "label": "Corner rounding",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 24
+        },
+        {
+          "type": "checkbox",
+          "id": "full_bleed",
+          "label": "Stretch edge to edge",
+          "default": false
+        }
       ]
     }
   ],
@@ -970,28 +1723,176 @@
     {
       "name": "SBL Gifting page",
       "blocks": [
-        { "type": "occasion", "settings": { "title": "Birthday", "icon": "cake" } },
-        { "type": "occasion", "settings": { "title": "Housewarming", "icon": "home" } },
-        { "type": "occasion", "settings": { "title": "Anniversary", "icon": "heart" } },
-        { "type": "occasion", "settings": { "title": "Thank You", "icon": "thanks" } },
-        { "type": "occasion", "settings": { "title": "Congratulations", "icon": "gift" } },
-        { "type": "occasion", "settings": { "title": "Get Well Soon", "icon": "baby" } },
-        { "type": "budget", "settings": { "label": "Under ₹500", "caption": "Small joys", "icon": "seedling", "max_price": 500 } },
-        { "type": "budget", "settings": { "label": "₹500 – ₹1,000", "caption": "Thoughtful picks", "icon": "pot", "min_price": 500, "max_price": 1000 } },
-        { "type": "budget", "settings": { "label": "₹1,000 – ₹2,000", "caption": "Premium gifts", "icon": "monstera", "min_price": 1000, "max_price": 2000 } },
-        { "type": "budget", "settings": { "label": "Above ₹2,000", "caption": "Luxury green gifts", "icon": "tree", "min_price": 2000 } },
-        { "type": "testimonial", "settings": { "quote": "Beautiful plants and amazing packaging. Perfect gift!", "rating": 5, "name": "Priya S." } },
-        { "type": "testimonial", "settings": { "quote": "Love the gift set. Super fresh and well packed.", "rating": 5, "name": "Rahul M." } },
-        { "type": "testimonial", "settings": { "quote": "A unique and thoughtful gift option!", "rating": 5, "name": "Ananya K." } },
-        { "type": "testimonial", "settings": { "quote": "Fresh, healthy and beautifully wrapped. My parents loved it.", "rating": 5, "name": "Sneha R." } },
-        { "type": "testimonial", "settings": { "quote": "Ordered a corporate gift set for my team. Everyone was impressed.", "rating": 5, "name": "Arjun P." } },
-        { "type": "testimonial", "settings": { "quote": "The handwritten note was a lovely touch. Will order again.", "rating": 5, "name": "Meera T." } },
-        { "type": "faq", "settings": { "question": "Can I add a personal message?", "answer": "<p>Yes. Add your message at checkout and we will include it as a handwritten card with your gift.</p>" } },
-        { "type": "faq", "settings": { "question": "Do you offer same day delivery?", "answer": "<p>Same day delivery is available in select cities for orders placed before 12 noon. Delivery options are shown at checkout.</p>" } },
-        { "type": "faq", "settings": { "question": "How are the plants packaged?", "answer": "<p>Every plant is secured in its pot, wrapped in protective eco-friendly packaging and packed in a sturdy box so it arrives fresh and healthy.</p>" } },
-        { "type": "faq", "settings": { "question": "Can I send a gift to another city?", "answer": "<p>Yes. Simply enter the recipient's address at checkout and we will deliver it to them directly.</p>" } },
-        { "type": "faq", "settings": { "question": "Do you offer corporate gifting?", "answer": "<p>Yes. We offer bulk orders, custom branding and personalised packaging for teams, clients and events.</p>" } },
-        { "type": "faq", "settings": { "question": "Can I choose my own pot?", "answer": "<p>Yes. Many of our plants come with pot options. Choose your favourite style and colour on the product page.</p>" } }
+        {
+          "type": "occasion",
+          "settings": {
+            "title": "Birthday",
+            "icon": "cake"
+          }
+        },
+        {
+          "type": "occasion",
+          "settings": {
+            "title": "Housewarming",
+            "icon": "home"
+          }
+        },
+        {
+          "type": "occasion",
+          "settings": {
+            "title": "Anniversary",
+            "icon": "heart"
+          }
+        },
+        {
+          "type": "occasion",
+          "settings": {
+            "title": "Thank You",
+            "icon": "thanks"
+          }
+        },
+        {
+          "type": "occasion",
+          "settings": {
+            "title": "Congratulations",
+            "icon": "gift"
+          }
+        },
+        {
+          "type": "occasion",
+          "settings": {
+            "title": "Get Well Soon",
+            "icon": "baby"
+          }
+        },
+        {
+          "type": "budget",
+          "settings": {
+            "label": "Under ₹500",
+            "caption": "Small joys",
+            "icon": "seedling",
+            "max_price": 500
+          }
+        },
+        {
+          "type": "budget",
+          "settings": {
+            "label": "₹500 – ₹1,000",
+            "caption": "Thoughtful picks",
+            "icon": "pot",
+            "min_price": 500,
+            "max_price": 1000
+          }
+        },
+        {
+          "type": "budget",
+          "settings": {
+            "label": "₹1,000 – ₹2,000",
+            "caption": "Premium gifts",
+            "icon": "monstera",
+            "min_price": 1000,
+            "max_price": 2000
+          }
+        },
+        {
+          "type": "budget",
+          "settings": {
+            "label": "Above ₹2,000",
+            "caption": "Luxury green gifts",
+            "icon": "tree",
+            "min_price": 2000
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Beautiful plants and amazing packaging. Perfect gift!",
+            "rating": 5,
+            "name": "Priya S."
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Love the gift set. Super fresh and well packed.",
+            "rating": 5,
+            "name": "Rahul M."
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "A unique and thoughtful gift option!",
+            "rating": 5,
+            "name": "Ananya K."
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Fresh, healthy and beautifully wrapped. My parents loved it.",
+            "rating": 5,
+            "name": "Sneha R."
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Ordered a corporate gift set for my team. Everyone was impressed.",
+            "rating": 5,
+            "name": "Arjun P."
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The handwritten note was a lovely touch. Will order again.",
+            "rating": 5,
+            "name": "Meera T."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I add a personal message?",
+            "answer": "<p>Yes. Add your message at checkout and we will include it as a handwritten card with your gift.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer same day delivery?",
+            "answer": "<p>Same day delivery is available in select cities for orders placed before 12 noon. Delivery options are shown at checkout.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How are the plants packaged?",
+            "answer": "<p>Every plant is secured in its pot, wrapped in protective eco-friendly packaging and packed in a sturdy box so it arrives fresh and healthy.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I send a gift to another city?",
+            "answer": "<p>Yes. Simply enter the recipient's address at checkout and we will deliver it to them directly.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer corporate gifting?",
+            "answer": "<p>Yes. We offer bulk orders, custom branding and personalised packaging for teams, clients and events.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I choose my own pot?",
+            "answer": "<p>Yes. Many of our plants come with pot options. Choose your favourite style and colour on the product page.</p>"
+          }
+        }
       ]
     }
   ]
