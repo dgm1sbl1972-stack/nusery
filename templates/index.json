@@ -571,40 +571,10 @@
             "title_4": "Office"
           },
           "blocks": {}
-        },
-        "ai_gen_block_4d8a09d_VdjqYU": {
-          "type": "ai_gen_block_4d8a09d",
-          "settings": {
-            "heading": "We Don’t Just Grow Plants. We Grow Spaces.",
-            "description": "<p>Planning a garden, refreshing your balcony, or dreaming of a beautiful green wall? From the first idea to the final touch, our experts are here to make it happen. With the right plants, creative design, and professional care, we transform everyday spaces into vibrant green environments you’ll love.</p>",
-            "button_label": "View all our services",
-            "button_link": "shopify://pages/contact",
-            "background_image": "shopify://shop_images/f1e021cb-377e-40d0-9083-3db7e22e964f.png",
-            "background_position": "center center",
-            "overlay_opacity": 75,
-            "overlay_color": "#1f5130",
-            "desktop_width_percent": 100,
-            "min_height": 540,
-            "mobile_min_height": 340,
-            "text_alignment": "center",
-            "content_alignment": "center",
-            "heading_size": 60,
-            "mobile_heading_size": 32,
-            "background_color": "#1f5130",
-            "text_color": "#ffffff",
-            "button_color": "#ffd60a",
-            "button_text_color": "#14231a",
-            "button_hover_color": "#ffffff",
-            "focus_color": "#ffd60a",
-            "border_radius": 0,
-            "button_radius": 8
-          },
-          "blocks": {}
         }
       },
       "block_order": [
-        "ai_gen_block_08ce174_BP8qRG",
-        "ai_gen_block_4d8a09d_VdjqYU"
+        "ai_gen_block_08ce174_BP8qRG"
       ],
       "settings": {}
     },
@@ -1519,16 +1489,55 @@
         "word_16"
       ],
       "settings": {}
+    },
+    "services_banner_split": {
+      "type": "_blocks",
+      "settings": {},
+      "blocks": {
+        "ai_gen_block_4d8a09d_VdjqYU": {
+          "type": "ai_gen_block_4d8a09d",
+          "settings": {
+            "heading": "We Don’t Just Grow Plants. We Grow Spaces.",
+            "description": "<p>Planning a garden, refreshing your balcony, or dreaming of a beautiful green wall? From the first idea to the final touch, our experts are here to make it happen. With the right plants, creative design, and professional care, we transform everyday spaces into vibrant green environments you’ll love.</p>",
+            "button_label": "View all our services",
+            "button_link": "shopify://pages/contact",
+            "background_image": "shopify://shop_images/f1e021cb-377e-40d0-9083-3db7e22e964f.png",
+            "background_position": "center center",
+            "overlay_opacity": 75,
+            "overlay_color": "#1f5130",
+            "desktop_width_percent": 100,
+            "min_height": 540,
+            "mobile_min_height": 340,
+            "text_alignment": "center",
+            "content_alignment": "center",
+            "heading_size": 60,
+            "mobile_heading_size": 32,
+            "background_color": "#1f5130",
+            "text_color": "#ffffff",
+            "button_color": "#ffd60a",
+            "button_text_color": "#14231a",
+            "button_hover_color": "#ffffff",
+            "focus_color": "#ffd60a",
+            "border_radius": 0,
+            "button_radius": 8
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_4d8a09d_VdjqYU"
+      ]
     }
   },
   "order": [
     "179015930923a1b439",
-    "plant_marquee",
     "hero_slider_6C6tqL",
     "category_circles",
     "1790161067735ca0dd",
     "17902281242a4f0ec3",
     "1790224367bff4ff77",
+    "plant_marquee",
+    "services_banner_split",
     "our_story",
     "179022886862f2d4cd",
     "trending_reels",
