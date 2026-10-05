@@ -98,6 +98,19 @@
     - Make all text, images, URLs, colors, spacing, and sizing editable from the Shopify Theme Editor.
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% liquid
+  # On mobile the Buy Now card fills whatever is left of the last category row.
+  assign category_count = 0
+  for i in (1..10)
+    assign name_key = 'category_' | append: i | append: '_name'
+    if block.settings[name_key] != blank
+      assign category_count = category_count | plus: 1
+    endif
+  endfor
+  assign mobile_cols = block.settings.mobile_columns | plus: 0
+  assign mobile_cta_span = category_count | modulo: mobile_cols
+  assign mobile_cta_span = mobile_cols | minus: mobile_cta_span
+%}
 
 {% style %}
   .ai-plant-category-{{ ai_gen_id }} {
@@ -244,9 +257,15 @@
       margin-bottom: 28px;
     }
     .ai-plant-category-{{ ai_gen_id }}__cta {
-      grid-column: span {{ block.settings.mobile_columns }};
+      grid-column: span {{ mobile_cta_span }};
       width: 100%;
       min-height: 150px;
+      padding: 12px;
+      border-width: 6px;
+      border-radius: 22px;
+    }
+    .ai-plant-category-{{ ai_gen_id }}__cta-label {
+      font-size: min({{ block.settings.cta_text_size }}px, 8vw);
     }
   }
   @media (prefers-reduced-motion: reduce) {
