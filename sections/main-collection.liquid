@@ -1,3 +1,22 @@
+{%- liquid
+  assign coll_filtered = false
+  if collection != blank
+    if collection.sort_by != blank
+      assign coll_filtered = true
+    endif
+    for f in collection.filters
+      if f.active_values.size > 0 or f.min_value.value != nil or f.max_value.value != nil
+        assign coll_filtered = true
+        break
+      endif
+    endfor
+  endif
+  assign main_coll_show = true
+  if section.settings.hide_on_handle != blank and collection.handle == section.settings.hide_on_handle and coll_filtered == false
+    assign main_coll_show = false
+  endif
+-%}
+{%- if main_coll_show -%}
 <section class="section-pad" style="background: var(--c-cream);">
   <div class="page-width">
     <h1 class="section-title section-title--left">{{ collection.title }}</h1>
@@ -47,10 +66,13 @@
   </div>
 </section>
 
+{%- endif -%}
+
 {% schema %}
 {
   "name": "Collection products",
   "settings": [
+    { "type": "text", "id": "hide_on_handle", "label": "Hide product grid on collection (handle)", "info": "Hides this grid on that collection unless a filter is applied, e.g. gifting so the gifting page shows instead." },
     { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 16 },
     { "type": "header", "content": "Categories" },
     { "type": "text", "id": "categories_heading", "label": "Categories heading", "default": "Shop by category" },

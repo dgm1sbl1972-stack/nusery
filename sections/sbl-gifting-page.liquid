@@ -6,9 +6,32 @@
 {%- endcomment -%}
 
 {%- liquid
+  assign coll_filtered = false
+  if collection != blank
+    if collection.sort_by != blank
+      assign coll_filtered = true
+    endif
+    for f in collection.filters
+      if f.active_values.size > 0 or f.min_value.value != nil or f.max_value.value != nil
+        assign coll_filtered = true
+        break
+      endif
+    endfor
+  endif
+  assign sblg_show = true
+  if coll_filtered
+    assign sblg_show = false
+  endif
+  if section.settings.only_on_handle != blank and collection.handle != section.settings.only_on_handle
+    assign sblg_show = false
+  endif
+-%}
+{%- if sblg_show -%}
+{%- liquid
   assign sid = section.id
   if collection != blank and collection.url != blank
-    assign page_collection_url = collection.url
+    assign browse_sort = collection.default_sort_by | default: 'manual'
+    assign page_collection_url = collection.url | append: '?sort_by=' | append: browse_sort
   else
     assign page_collection_url = routes.all_products_collection_url
   endif
@@ -25,8 +48,10 @@
 
   if section.settings.budget_collection != blank
     assign budget_base_url = section.settings.budget_collection.url
+  elsif collection != blank and collection.url != blank
+    assign budget_base_url = collection.url
   else
-    assign budget_base_url = page_collection_url
+    assign budget_base_url = routes.all_products_collection_url
   endif
 -%}
 
@@ -508,7 +533,7 @@
           </ul>
         </div>
         {%- if section.settings.bs_view_all_label != blank and bs_collection != blank -%}
-          <div style="text-align:center"><a class="sblg-btn sblg-btn--ghost sblg-viewall" href="{{ bs_collection.url }}">{{ section.settings.bs_view_all_label | escape }}{{ arrow_svg }}</a></div>
+          <div style="text-align:center"><a class="sblg-btn sblg-btn--ghost sblg-viewall" href="{{ bs_collection.url }}?sort_by={{ bs_collection.default_sort_by | default: 'manual' }}">{{ section.settings.bs_view_all_label | escape }}{{ arrow_svg }}</a></div>
         {%- endif -%}
       </div>
     </section>
@@ -731,6 +756,7 @@
     });
   })();
 </script>
+{%- endif -%}
 
 {% schema %}
 {
@@ -738,6 +764,7 @@
   "tag": "section",
   "class": "section-sbl-gifting",
   "settings": [
+    { "type": "text", "id": "only_on_handle", "label": "Only show on collection (handle)", "info": "Used on the default collection template so this page shows only on that collection, e.g. gifting. Leave empty to always show. The page hides itself when shoppers apply a filter, so the product grid can show instead." },
     { "type": "header", "content": "Colors" },
     { "type": "color", "id": "color_primary", "label": "Primary green", "default": "#1F5130" },
     { "type": "color", "id": "color_accent", "label": "Accent yellow", "default": "#FFD60A" },
