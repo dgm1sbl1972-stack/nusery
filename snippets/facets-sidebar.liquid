@@ -122,20 +122,7 @@
 
           {%- case filter.type -%}
             {%- when 'price_range' -%}
-              <div class="facet__price">
-                <label>
-                  <span>From {{ cart.currency.symbol }}</span>
-                  <input type="number" name="{{ filter.min_value.param_name }}" min="0" max="{{ filter.range_max | money_without_currency | remove: ',' }}"
-                    placeholder="0"
-                    {% if filter.min_value.value %}value="{{ filter.min_value.value | money_without_currency | remove: ',' }}"{% endif %}>
-                </label>
-                <label>
-                  <span>To {{ cart.currency.symbol }}</span>
-                  <input type="number" name="{{ filter.max_value.param_name }}" min="0" max="{{ filter.range_max | money_without_currency | remove: ',' }}"
-                    placeholder="{{ filter.range_max | money_without_currency | remove: ',' }}"
-                    {% if filter.max_value.value %}value="{{ filter.max_value.value | money_without_currency | remove: ',' }}"{% endif %}>
-                </label>
-              </div>
+              {%- render 'price-range-slider', filter: filter -%}
             {%- else -%}
               <ul class="facet__list" role="list">
                 {%- for value in filter.values -%}

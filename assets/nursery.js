@@ -349,13 +349,66 @@
     }
   });
 
+  /* Price filter slider: keep the thumbs apart, fill the track between them and update the label. */
+  function syncPriceRange(wrap, moved) {
+    var lo = wrap.querySelector('[data-price-min]');
+    var hi = wrap.querySelector('[data-price-max]');
+    if (!lo || !hi) return;
+    var max = Number(hi.max) || 0;
+    var a = Number(lo.value), b = Number(hi.value);
+    if (a > b) {
+      if (moved === lo) { lo.value = b; a = b; } else { hi.value = a; b = a; }
+    }
+    wrap.style.setProperty('--from', max ? a / max : 0);
+    wrap.style.setProperty('--to', max ? b / max : 1);
+    /* When both thumbs meet near the top end, the minimum thumb has to be the one you can grab. */
+    lo.classList.toggle('is-top', a === b && a > max / 2);
+    var prefix = wrap.getAttribute('data-prefix') || '';
+    var locale = wrap.getAttribute('data-locale') || undefined;
+    var from = wrap.querySelector('[data-price-from]');
+    var to = wrap.querySelector('[data-price-to]');
+    if (from) from.textContent = prefix + a.toLocaleString(locale);
+    if (to) to.textContent = prefix + b.toLocaleString(locale);
+  }
+  document.addEventListener('input', function (e) {
+    var wrap = e.target.closest && e.target.closest('[data-price-range]');
+    if (wrap) syncPriceRange(wrap, e.target);
+  });
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-price-range]').forEach(function (wrap) { syncPriceRange(wrap); });
+  });
+
+  /* Filter params without empty values, and without price thumbs left at the ends of the range. */
+  function filterParams(form) {
+    var params = new URLSearchParams(new FormData(form));
+    Array.from(params.keys()).forEach(function (k) { if (params.get(k) === '') params.delete(k); });
+    form.querySelectorAll('[data-price-range]').forEach(function (wrap) {
+      var lo = wrap.querySelector('[data-price-min]');
+      var hi = wrap.querySelector('[data-price-max]');
+      if (lo && Number(lo.value) <= Number(lo.min)) params.delete(lo.name);
+      if (hi && Number(hi.value) >= Number(hi.max)) params.delete(hi.name);
+    });
+    return params;
+  }
+
+  /* Forms with a price slider (e.g. the pots grid block) submit through the same clean-up. */
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (!form.querySelector || !form.querySelector('[data-price-range]')) return;
+    e.preventDefault();
+    window.location.href = (form.getAttribute('action') || window.location.pathname).split('?')[0] + '?' + filterParams(form).toString();
+  });
+
   /* Collection filters: submit on change, toggle the panel on mobile. */
+  var filterTimer;
   document.addEventListener('change', function (e) {
     var form = e.target.form;
     if (!form || !form.hasAttribute('data-collection-filters') || !e.target.name) return;
-    var params = new URLSearchParams(new FormData(form));
-    Array.from(params.keys()).forEach(function (k) { if (params.get(k) === '') params.delete(k); });
-    window.location.search = params.toString();
+    /* Arrow keys on a slider fire change on every step, so wait for the shopper to settle. */
+    clearTimeout(filterTimer);
+    filterTimer = setTimeout(function () {
+      window.location.search = filterParams(form).toString();
+    }, e.target.type === 'range' ? 400 : 0);
   });
 
   var facetsMobile = window.matchMedia('(max-width: 900px)');
