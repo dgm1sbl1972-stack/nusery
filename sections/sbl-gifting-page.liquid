@@ -126,6 +126,7 @@
   #sblg-{{ sid }} .sblg-hero__note svg { width: 20px; height: 20px; color: var(--g-primary); flex: none; }
   #sblg-{{ sid }} .sblg-hero__media { position: relative; border-radius: 24px; overflow: hidden; aspect-ratio: 4 / 3.4; background: var(--g-soft); box-shadow: var(--g-shadow); }
   #sblg-{{ sid }} .sblg-hero__media img, #sblg-{{ sid }} .sblg-hero__media svg { width: 100%; height: 100%; object-fit: cover; }
+  #sblg-{{ sid }} .sblg-hero__media picture { display: block; width: 100%; height: 100%; }
   #sblg-{{ sid }} .sblg-hero__chip { position: absolute; left: 16px; bottom: 16px; display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px 10px 10px; border-radius: 999px; background: rgba(255, 255, 255, .94); box-shadow: var(--g-shadow); font-size: 13px; font-weight: 500; color: var(--g-primary); }
   #sblg-{{ sid }} .sblg-hero__chip span { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--g-accent); }
   #sblg-{{ sid }} .sblg-hero__chip svg { width: 16px; height: 16px; color: #1b2a1f; }
@@ -274,6 +275,9 @@
   #sblg-{{ sid }} .sblg-cta .sblg-h2 { color: #fff; font-size: clamp(28px, 5vw, 44px); }
   #sblg-{{ sid }} .sblg-cta p { margin: 12px auto 28px; max-width: 480px; color: rgba(255, 255, 255, .85); }
   #sblg-{{ sid }} .sblg-cta__inner { position: relative; z-index: 1; }
+  #sblg-{{ sid }} .sblg-cta__bg { position: absolute; inset: 0; z-index: 0; }
+  #sblg-{{ sid }} .sblg-cta__bg img { width: 100%; height: 100%; object-fit: cover; }
+  #sblg-{{ sid }} .sblg-cta__bg::after { content: ''; position: absolute; inset: 0; background: rgba({{ section.settings.cta_bg_color.red }}, {{ section.settings.cta_bg_color.green }}, {{ section.settings.cta_bg_color.blue }}, {{ section.settings.cta_overlay | divided_by: 100.0 }}); }
   #sblg-{{ sid }} .sblg-cta__leaf { position: absolute; z-index: 0; top: 50%; width: 140px; color: #fff; opacity: .12; pointer-events: none; }
   #sblg-{{ sid }} .sblg-cta__leaf img { width: 100%; height: auto; }
   #sblg-{{ sid }} .sblg-cta__leaf--l { left: -36px; transform: translateY(-50%) rotate(-30deg); }
@@ -317,7 +321,14 @@
         </div>
         <div class="sblg-hero__media" data-reveal>
           {%- if section.settings.hero_image != blank -%}
+            {%- if section.settings.hero_image_mobile != blank -%}
+              <picture>
+                <source media="(max-width: 749px)" srcset="{{ section.settings.hero_image_mobile | image_url: width: 600 }} 600w, {{ section.settings.hero_image_mobile | image_url: width: 900 }} 900w, {{ section.settings.hero_image_mobile | image_url: width: 1200 }} 1200w" sizes="100vw">
+              {{ section.settings.hero_image | image_url: width: 1600 | image_tag: widths: '480, 720, 960, 1200, 1600', sizes: '(min-width: 990px) 52vw, 100vw', loading: 'eager', fetchpriority: 'high', alt: section.settings.hero_image.alt | default: section.settings.hero_heading }}
+              </picture>
+            {%- else -%}
             {{ section.settings.hero_image | image_url: width: 1600 | image_tag: widths: '480, 720, 960, 1200, 1600', sizes: '(min-width: 990px) 52vw, 100vw', loading: 'eager', fetchpriority: 'high', alt: section.settings.hero_image.alt | default: section.settings.hero_heading }}
+            {%- endif -%}
           {%- else -%}
             {{ 'lifestyle-1' | placeholder_svg_tag: 'sblg-ph' }}
           {%- endif -%}
@@ -635,11 +646,16 @@
     <section class="sblg-block sblg-block--last" aria-labelledby="sblg-cta-title-{{ sid }}">
       <div class="sblg-wrap">
         <div class="sblg-cta" data-reveal>
+          {%- if section.settings.cta_bg_image != blank -%}
+            <div class="sblg-cta__bg" aria-hidden="true">
+              {{ section.settings.cta_bg_image | image_url: width: 2400 | image_tag: widths: '750, 1100, 1500, 1900, 2400', sizes: '100vw', loading: 'lazy', alt: '' }}
+            </div>
+          {%- endif -%}
           {%- if section.settings.cta_leaf_image != blank -%}
             {%- capture cta_leaf -%}{{ section.settings.cta_leaf_image | image_url: width: 460 | image_tag: loading: 'lazy', alt: '' }}{%- endcapture -%}
             <div class="sblg-cta__leaf sblg-cta__leaf--l has-img" aria-hidden="true">{{ cta_leaf }}</div>
             <div class="sblg-cta__leaf sblg-cta__leaf--r has-img" aria-hidden="true">{{ cta_leaf }}</div>
-          {%- else -%}
+          {%- elsif section.settings.cta_bg_image == blank -%}
             <div class="sblg-cta__leaf sblg-cta__leaf--l">{{ leaf_svg }}</div>
             <div class="sblg-cta__leaf sblg-cta__leaf--r">{{ leaf_svg }}</div>
           {%- endif -%}
@@ -806,8 +822,14 @@
     {
       "type": "image_picker",
       "id": "hero_image",
-      "label": "Hero image",
-      "info": "Lifestyle image, 1600 x 1400px recommended"
+      "label": "Hero image (right side)",
+      "info": "Your main gifting photo, e.g. plants with a gift box. 1600 x 1400px recommended"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image_mobile",
+      "label": "Hero image on mobile",
+      "info": "Optional. Shown on phones instead of the hero image"
     },
     {
       "type": "text",
@@ -1156,7 +1178,7 @@
     {
       "type": "image_picker",
       "id": "corp_bg_image",
-      "label": "Background image",
+      "label": "Corporate background image",
       "info": "Soft botanical image, shown behind a green overlay"
     },
     {
@@ -1178,7 +1200,8 @@
     {
       "type": "image_picker",
       "id": "corp_image",
-      "label": "Side image"
+      "label": "Corporate side image",
+      "info": "Photo of gift boxes or office plants, shown on the right. 1200 x 960px recommended"
     },
     {
       "type": "header",
@@ -1271,8 +1294,24 @@
     },
     {
       "type": "image_picker",
+      "id": "cta_bg_image",
+      "label": "Final CTA background image",
+      "info": "Optional. Shown behind the text with a green tint"
+    },
+    {
+      "type": "range",
+      "id": "cta_overlay",
+      "label": "Background image tint",
+      "min": 0,
+      "max": 95,
+      "step": 5,
+      "unit": "%",
+      "default": 70
+    },
+    {
+      "type": "image_picker",
       "id": "cta_leaf_image",
-      "label": "Decorative leaf image",
+      "label": "Final CTA leaf decoration",
       "info": "Optional transparent PNG shown on both sides. A built-in leaf graphic is used when empty."
     }
   ],
