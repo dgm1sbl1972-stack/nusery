@@ -1,0 +1,25 @@
+{%- comment -%}
+  Star rating shown under the price on product pages. Appears only once the
+  product has approved reviews: Judge.me writes the published rating to the
+  reviews.rating / reviews.rating_count metafields (custom.* as a fallback).
+  Clicking it scrolls to the reviews section (#reviews).
+  Accepts: product
+{%- endcomment -%}
+{%- liquid
+  assign rating = product.metafields.reviews.rating.value.rating
+  assign count = product.metafields.reviews.rating_count.value
+  if rating == blank
+    assign rating = product.metafields.custom.rating.value
+    assign count = product.metafields.custom.review_count.value | default: product.metafields.custom.rating_count.value
+  endif
+  assign count_num = count | default: 0 | plus: 0
+  assign rating_num = rating | default: 0 | times: 1.0
+  assign pct = rating_num | divided_by: 5.0 | times: 100 | round
+-%}
+{%- if rating != blank and rating_num > 0 and count_num > 0 -%}
+  <a class="product-rating" href="#reviews" aria-label="Rated {{ rating_num | round: 1 }} out of 5, {{ count_num }} {% if count_num == 1 %}review{% else %}reviews{% endif %}">
+    <span class="card-rating__stars product-rating__stars" style="--rating: {{ pct }}%;" aria-hidden="true"></span>
+    <span class="product-rating__value">{{ rating_num | round: 1 }}</span>
+    <span class="product-rating__count">({{ count_num }} {% if count_num == 1 %}review{% else %}reviews{% endif %})</span>
+  </a>
+{%- endif -%}

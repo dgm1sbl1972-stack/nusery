@@ -17,6 +17,7 @@
         <strong>{{ variant.price | money }}</strong>
         {%- if variant.compare_at_price > variant.price -%}<s>{{ variant.compare_at_price | money }}</s>{%- endif -%}
       </div>
+      {%- render 'product-rating', product: product -%}
       {%- form 'product', product, class: 'main-product__form' -%}
         {%- unless product.has_only_default_variant -%}
           <label for="variant-{{ section.id }}">Option</label>

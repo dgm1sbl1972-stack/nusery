@@ -913,3 +913,10 @@ html.facets-locked { overflow: hidden; }
   .acct-page { padding: 24px 0 32px; }
   .collection-toolbar { margin-bottom: 12px; }
 }
+
+/* Product page: star rating under the price (approved reviews only). */
+.product-rating { display: inline-flex; align-items: center; gap: 8px; margin: 6px 0 14px; font-size: 14px; line-height: 1; color: var(--c-text); text-decoration: none; }
+.product-rating__stars { font-size: 18px; }
+.product-rating__value { font-weight: 700; }
+.product-rating__count { color: var(--c-muted); text-decoration: underline; text-underline-offset: 2px; }
+.product-rating:hover .product-rating__count { color: var(--c-text); }
