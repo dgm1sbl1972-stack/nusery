@@ -11,52 +11,68 @@
   "sections": {
     "gift_hero": {
       "type": "sbl-gift-hero",
-      "settings": {}
+      "settings": {
+        "hero_eyebrow": "PLANT GIFTING MADE SPECIAL",
+        "hero_heading": "Gifts That Grow With You",
+        "hero_text": "Thoughtful plants and green gifts for every celebration, occasion and special moment.",
+        "hero_button_label": "Shop Gifts",
+        "hero_button_link": "",
+        "hero_note": "Gift-wrapped with a free handwritten note",
+        "hero_image": "shopify://shop_images/b0a6c601-e4e8-40e8-8dd4-6a7cfe79b66c.png",
+        "hero_chip": "Loved by plant gifters",
+        "hero_media_first_mobile": false,
+        "bg_color": "#f8f4ec"
+      }
     },
     "gift_occasions": {
       "type": "sbl-gift-occasions",
-      "settings": {},
       "blocks": {
         "occasion_1": {
           "type": "occasion",
           "settings": {
             "title": "Birthday",
-            "icon": "cake"
+            "icon": "cake",
+            "link": ""
           }
         },
         "occasion_2": {
           "type": "occasion",
           "settings": {
             "title": "Housewarming",
-            "icon": "home"
+            "icon": "home",
+            "link": ""
           }
         },
         "occasion_3": {
           "type": "occasion",
           "settings": {
             "title": "Anniversary",
-            "icon": "heart"
+            "icon": "heart",
+            "link": ""
           }
         },
         "occasion_4": {
           "type": "occasion",
           "settings": {
             "title": "Thank You",
-            "icon": "thanks"
+            "icon": "thanks",
+            "link": ""
           }
         },
         "occasion_5": {
           "type": "occasion",
           "settings": {
             "title": "Congratulations",
-            "icon": "gift"
+            "icon": "gift",
+            "link": ""
           }
         },
         "occasion_6": {
           "type": "occasion",
           "settings": {
             "title": "Get Well Soon",
-            "icon": "baby"
+            "icon": "baby",
+            "link": ""
           }
         }
       },
@@ -67,11 +83,15 @@
         "occasion_4",
         "occasion_5",
         "occasion_6"
-      ]
+      ],
+      "settings": {
+        "occasion_heading": "Shop by Occasion",
+        "occasion_subheading": "Find the perfect plant gift for every moment",
+        "bg_color": "#f8f4ec"
+      }
     },
     "gift_budget": {
       "type": "sbl-gift-budget",
-      "settings": {},
       "blocks": {
         "budget_1": {
           "type": "budget",
@@ -79,7 +99,8 @@
             "label": "Under ₹500",
             "caption": "Small joys",
             "icon": "seedling",
-            "max_price": 500
+            "max_price": 500,
+            "link": ""
           }
         },
         "budget_2": {
@@ -89,7 +110,8 @@
             "caption": "Thoughtful picks",
             "icon": "pot",
             "min_price": 500,
-            "max_price": 1000
+            "max_price": 1000,
+            "link": ""
           }
         },
         "budget_3": {
@@ -99,7 +121,8 @@
             "caption": "Premium gifts",
             "icon": "monstera",
             "min_price": 1000,
-            "max_price": 2000
+            "max_price": 2000,
+            "link": ""
           }
         },
         "budget_4": {
@@ -108,7 +131,9 @@
             "label": "Above ₹2,000",
             "caption": "Luxury green gifts",
             "icon": "tree",
-            "min_price": 2000
+            "min_price": 2000,
+            "max_price": 500,
+            "link": ""
           }
         }
       },
@@ -117,30 +142,70 @@
         "budget_2",
         "budget_3",
         "budget_4"
-      ]
+      ],
+      "settings": {
+        "budget_heading": "Gifts by Budget",
+        "budget_subheading": "Thoughtful green gifts for every budget",
+        "budget_collection": "",
+        "budget_link_label": "Shop now",
+        "bg_color": "#f8f4ec"
+      }
     },
     "gift_products": {
       "type": "sbl-gift-products",
-      "settings": {}
+      "settings": {
+        "bs_heading": "Best-Selling Gift Plants",
+        "bs_subheading": "Customer favourites for gifting",
+        "bs_collection": "",
+        "bs_count": 8,
+        "bs_view_all_label": "View all gift plants",
+        "bg_color": "#f8f4ec"
+      }
     },
     "gift_build": {
       "type": "sbl-gift-build",
-      "settings": {}
+      "settings": {
+        "build_heading": "Build Your Gift",
+        "build_subheading": "Create a personalised plant gift in 3 simple steps",
+        "step_1_title": "Choose Plant",
+        "step_1_text": "Pick from our curated collection",
+        "step_1_icon": "plant",
+        "step_2_title": "Choose Pot",
+        "step_2_text": "Select a stylish pot",
+        "step_2_icon": "pot",
+        "step_3_title": "Add Message",
+        "step_3_text": "Write a personalised note",
+        "step_3_icon": "message",
+        "build_button_label": "Create Your Gift",
+        "build_button_link": "",
+        "build_bg": "#eef3e8",
+        "bg_color": "#f8f4ec"
+      }
     },
     "gift_corporate": {
       "type": "sbl-gift-corporate",
-      "settings": {}
+      "settings": {
+        "corp_eyebrow": "FOR TEAMS & CLIENTS",
+        "corp_heading": "Corporate Gifting Solutions",
+        "corp_text": "Thoughtful green gifts for your team, clients and business partners.",
+        "corp_points": "Bulk orders with custom branding\nPersonalised notes and packaging\nPan-India delivery",
+        "corp_button_label": "Explore Corporate Gifts",
+        "corp_button_link": "",
+        "corp_overlay": 75,
+        "corp_bg_color": "#1f5130",
+        "bg_color": "#f8f4ec"
+      }
     },
     "gift_testimonials": {
       "type": "sbl-gift-testimonials",
-      "settings": {},
       "blocks": {
         "testimonial_1": {
           "type": "testimonial",
           "settings": {
             "quote": "Beautiful plants and amazing packaging. Perfect gift!",
             "rating": 5,
-            "name": "Priya S."
+            "name": "Priya S.",
+            "meta": ""
           }
         },
         "testimonial_2": {
@@ -148,7 +213,8 @@
           "settings": {
             "quote": "Love the gift set. Super fresh and well packed.",
             "rating": 5,
-            "name": "Rahul M."
+            "name": "Rahul M.",
+            "meta": ""
           }
         },
         "testimonial_3": {
@@ -156,7 +222,8 @@
           "settings": {
             "quote": "A unique and thoughtful gift option!",
             "rating": 5,
-            "name": "Ananya K."
+            "name": "Ananya K.",
+            "meta": ""
           }
         },
         "testimonial_4": {
@@ -164,7 +231,8 @@
           "settings": {
             "quote": "Fresh, healthy and beautifully wrapped. My parents loved it.",
             "rating": 5,
-            "name": "Sneha R."
+            "name": "Sneha R.",
+            "meta": ""
           }
         },
         "testimonial_5": {
@@ -172,7 +240,8 @@
           "settings": {
             "quote": "Ordered a corporate gift set for my team. Everyone was impressed.",
             "rating": 5,
-            "name": "Arjun P."
+            "name": "Arjun P.",
+            "meta": ""
           }
         },
         "testimonial_6": {
@@ -180,7 +249,8 @@
           "settings": {
             "quote": "The handwritten note was a lovely touch. Will order again.",
             "rating": 5,
-            "name": "Meera T."
+            "name": "Meera T.",
+            "meta": ""
           }
         }
       },
@@ -191,11 +261,15 @@
         "testimonial_4",
         "testimonial_5",
         "testimonial_6"
-      ]
+      ],
+      "settings": {
+        "testi_heading": "What Our Customers Say",
+        "testi_subheading": "Real words from happy plant gifters",
+        "bg_color": "#f8f4ec"
+      }
     },
     "gift_faq": {
       "type": "sbl-gift-faq",
-      "settings": {},
       "blocks": {
         "faq_1": {
           "type": "faq",
@@ -247,17 +321,28 @@
         "faq_4",
         "faq_5",
         "faq_6"
-      ]
+      ],
+      "settings": {
+        "faq_heading": "Frequently Asked Questions",
+        "faq_subheading": "Everything you need to know about gifting with SBL Nursery",
+        "faq_open_first": true,
+        "bg_color": "#f8f4ec"
+      }
     },
     "gift_cta": {
       "type": "sbl-gift-cta",
-      "settings": {}
+      "settings": {
+        "cta_heading": "Ready to Gift Happiness?",
+        "cta_text": "Explore our plant gifting collection today.",
+        "cta_button_label": "Shop Gifts",
+        "cta_button_link": "",
+        "cta_bg_color": "#1f5130",
+        "cta_overlay": 70,
+        "bg_color": "#f8f4ec"
+      }
     },
     "main": {
       "type": "main-collection",
-      "settings": {
-        "hide_on_handle": "*"
-      },
       "blocks": {
         "category_plants": {
           "type": "category",
@@ -345,7 +430,16 @@
         "category_plants",
         "category_seeds",
         "category_pots"
-      ]
+      ],
+      "settings": {
+        "hide_on_handle": "*",
+        "products_per_page": 16,
+        "categories_heading": "Shop by category",
+        "open_categories": false,
+        "enable_filtering": true,
+        "open_filters": true,
+        "enable_sorting": true
+      }
     }
   },
   "order": [
