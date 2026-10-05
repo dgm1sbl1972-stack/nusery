@@ -54,7 +54,11 @@
             "manufacturer": "SBL Farms\nKolur, Gururayanapura (Village) Ramohalli Post Tavarekere Hobli Bangalore",
             "support_label": "Customer support",
             "support_email": "sblfarms@sbl1972.com",
-            "support_phone": "+91 99000 01972"
+            "support_phone": "+91 99000 01972",
+            "terms_label": "Terms & Conditions",
+            "terms": "Products are subject to availability. Plant size and appearance may vary from images. Delivery times may vary. Customers must provide accurate details. Orders are subject to our policies.",
+            "refund_label": "Return / Refund",
+            "refund": "Live plants are non-returnable. Damaged or incorrect products must be reported within 24 hours with photos. Refunds/replacements are subject to verification."
           },
           "blocks": {}
         },
