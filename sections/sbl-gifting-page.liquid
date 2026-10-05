@@ -81,12 +81,13 @@
     overflow: hidden;
   }
   @media (min-width: 750px) { #sblg-{{ sid }} { --g-gutter: 32px; --g-space: 76px; font-size: 16px; } }
+  @media (min-width: 1200px) { #sblg-{{ sid }} { --g-gutter: 48px; } }
   @media (min-width: 1200px) { #sblg-{{ sid }} { --g-space: 92px; } }
 
   #sblg-{{ sid }} *, #sblg-{{ sid }} *::before, #sblg-{{ sid }} *::after { box-sizing: border-box; }
   #sblg-{{ sid }} img { display: block; max-width: 100%; height: auto; }
   #sblg-{{ sid }} a { color: inherit; }
-  #sblg-{{ sid }} .sblg-wrap { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 var(--g-gutter); }
+  #sblg-{{ sid }} .sblg-wrap { width: 100%; max-width: none; margin: 0 auto; padding: 0 var(--g-gutter); }
   #sblg-{{ sid }} .sblg-block { padding: var(--g-space) 0 0; }
   #sblg-{{ sid }} .sblg-block--last { padding-bottom: var(--g-space); }
 
@@ -143,6 +144,8 @@
   /* Occasion + budget cards */
   #sblg-{{ sid }} .sblg-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; list-style: none; margin: 0; padding: 0; }
   @media (min-width: 990px) { #sblg-{{ sid }} .sblg-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; } }
+  @media (min-width: 750px) { #sblg-{{ sid }} .sblg-cards--occ { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; } }
+  @media (min-width: 1100px) { #sblg-{{ sid }} .sblg-cards--occ { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; } }
   #sblg-{{ sid }} .sblg-occ { position: relative; display: flex; flex-direction: column; height: 100%; border-radius: var(--g-radius); background: var(--g-soft); text-decoration: none; overflow: hidden; transition: transform .3s ease, box-shadow .3s ease; }
   #sblg-{{ sid }} .sblg-occ:hover { transform: translateY(-4px); box-shadow: var(--g-shadow-hover); }
   #sblg-{{ sid }} .sblg-occ__media { aspect-ratio: 1 / .82; overflow: hidden; }
@@ -177,6 +180,7 @@
   @media (min-width: 600px) { #sblg-{{ sid }} .sblg-track { --per: 2.2; } }
   @media (min-width: 750px) { #sblg-{{ sid }} .sblg-track { --per: 2.6; gap: 20px; grid-auto-columns: calc((100% - (var(--per) - 1) * 20px) / var(--per)); } }
   @media (min-width: 990px) { #sblg-{{ sid }} .sblg-track { --per: 4; gap: 22px; grid-auto-columns: calc((100% - 3 * 22px) / 4); margin: 0; padding: 6px 0 18px; scroll-padding: 0; } }
+  @media (min-width: 1400px) { #sblg-{{ sid }} .sblg-track:not(.sblg-reviews) { --per: 5; grid-auto-columns: calc((100% - 4 * 22px) / 5); } }
   #sblg-{{ sid }} .sblg-arrows { display: none; gap: 10px; }
   @media (min-width: 990px) { #sblg-{{ sid }} .sblg-arrows { display: flex; } }
   #sblg-{{ sid }} .sblg-arrow { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid var(--g-line); background: var(--g-card); color: var(--g-primary); cursor: pointer; transition: background-color .25s ease, color .25s ease, border-color .25s ease, opacity .25s ease; }
@@ -329,7 +333,7 @@
         </div>
         <div class="sblg-hero__media" data-reveal>
           {%- if section.settings.hero_image != blank -%}
-            {{ section.settings.hero_image | image_url: width: 1600 | image_tag: widths: '480, 720, 960, 1200, 1600', sizes: '(min-width: 1280px) 660px, (min-width: 990px) 52vw, 100vw', loading: 'eager', fetchpriority: 'high', alt: section.settings.hero_image.alt | default: section.settings.hero_heading }}
+            {{ section.settings.hero_image | image_url: width: 1600 | image_tag: widths: '480, 720, 960, 1200, 1600', sizes: '(min-width: 990px) 52vw, 100vw', loading: 'eager', fetchpriority: 'high', alt: section.settings.hero_image.alt | default: section.settings.hero_heading }}
           {%- else -%}
             {{ 'lifestyle-1' | placeholder_svg_tag: 'sblg-ph' }}
           {%- endif -%}
@@ -349,7 +353,7 @@
           <h2 id="sblg-occ-title-{{ sid }}" class="sblg-h2">{{ section.settings.occasion_heading | escape }}</h2>
           {%- if section.settings.occasion_subheading != blank -%}<p>{{ section.settings.occasion_subheading | escape }}</p>{%- endif -%}
         </div>
-        <ul class="sblg-cards" role="list">
+        <ul class="sblg-cards sblg-cards--occ" role="list">
           {%- for block in section.blocks -%}
             {%- if block.type == 'occasion' -%}
               {%- assign occ_link = block.settings.link | default: page_collection_url -%}
@@ -357,7 +361,7 @@
                 <a class="sblg-occ{% if block.settings.image == blank %} sblg-occ--noimg{% endif %}" href="{{ occ_link }}">
                   {%- if block.settings.image != blank -%}
                     <div class="sblg-occ__media">
-                      {{ block.settings.image | image_url: width: 640 | image_tag: widths: '240, 360, 480, 640', sizes: '(min-width: 1280px) 300px, (min-width: 990px) 24vw, 48vw', loading: 'lazy', alt: block.settings.image.alt | default: block.settings.title }}
+                      {{ block.settings.image | image_url: width: 640 | image_tag: widths: '240, 360, 480, 640', sizes: '(min-width: 1100px) 16vw, (min-width: 750px) 32vw, 48vw', loading: 'lazy', alt: block.settings.image.alt | default: block.settings.title }}
                     </div>
                   {%- endif -%}
                   <div class="sblg-occ__body">
@@ -485,7 +489,7 @@
                     {%- render 'wishlist-button', product: product -%}
                     <a class="sblg-pc__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
                       {%- if product.featured_media -%}
-                        {{ product.featured_media | image_url: width: 640 | image_tag: widths: '280, 400, 520, 640', sizes: '(min-width: 1280px) 300px, (min-width: 990px) 24vw, (min-width: 750px) 38vw, 76vw', loading: 'lazy', alt: product.featured_media.alt | default: product.title }}
+                        {{ product.featured_media | image_url: width: 640 | image_tag: widths: '280, 400, 520, 640', sizes: '(min-width: 1400px) 19vw, (min-width: 990px) 24vw, (min-width: 750px) 38vw, 76vw', loading: 'lazy', alt: product.featured_media.alt | default: product.title }}
                       {%- else -%}
                         {{ 'product-1' | placeholder_svg_tag: 'sblg-ph' }}
                       {%- endif -%}
@@ -574,7 +578,7 @@
         <div class="sblg-corp" data-reveal>
           {%- if section.settings.corp_bg_image != blank -%}
             <div class="sblg-corp__bg">
-              {{ section.settings.corp_bg_image | image_url: width: 1800 | image_tag: widths: '750, 1100, 1500, 1800', sizes: '(min-width: 1280px) 1216px, 100vw', loading: 'lazy', alt: '' }}
+              {{ section.settings.corp_bg_image | image_url: width: 1800 | image_tag: widths: '750, 1100, 1500, 1800', sizes: '100vw', loading: 'lazy', alt: '' }}
             </div>
           {%- endif -%}
           <div>
@@ -596,7 +600,7 @@
           </div>
           <div class="sblg-corp__media">
             {%- if section.settings.corp_image != blank -%}
-              {{ section.settings.corp_image | image_url: width: 1200 | image_tag: widths: '480, 720, 960, 1200', sizes: '(min-width: 1280px) 560px, (min-width: 990px) 45vw, 100vw', loading: 'lazy', alt: section.settings.corp_image.alt | default: section.settings.corp_heading }}
+              {{ section.settings.corp_image | image_url: width: 1200 | image_tag: widths: '480, 720, 960, 1200', sizes: '(min-width: 990px) 45vw, 100vw', loading: 'lazy', alt: section.settings.corp_image.alt | default: section.settings.corp_heading }}
             {%- else -%}
               {{ 'lifestyle-2' | placeholder_svg_tag: 'sblg-ph' }}
             {%- endif -%}
@@ -926,6 +930,8 @@
         { "type": "occasion", "settings": { "title": "Housewarming", "icon": "home" } },
         { "type": "occasion", "settings": { "title": "Anniversary", "icon": "heart" } },
         { "type": "occasion", "settings": { "title": "Thank You", "icon": "thanks" } },
+        { "type": "occasion", "settings": { "title": "Congratulations", "icon": "gift" } },
+        { "type": "occasion", "settings": { "title": "Get Well Soon", "icon": "baby" } },
         { "type": "budget", "settings": { "label": "Under ₹500", "caption": "Small joys", "icon": "seedling", "max_price": 500 } },
         { "type": "budget", "settings": { "label": "₹500 – ₹1,000", "caption": "Thoughtful picks", "icon": "pot", "min_price": 500, "max_price": 1000 } },
         { "type": "budget", "settings": { "label": "₹1,000 – ₹2,000", "caption": "Premium gifts", "icon": "monstera", "min_price": 1000, "max_price": 2000 } },

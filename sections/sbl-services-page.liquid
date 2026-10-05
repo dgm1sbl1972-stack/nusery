@@ -38,10 +38,11 @@
     overflow: hidden;
   }
   @media (min-width: 750px) { #sbls-{{ sid }} { --s-gutter: 32px; --s-space: 72px; font-size: 16px; } }
+  @media (min-width: 1200px) { #sbls-{{ sid }} { --s-gutter: 48px; } }
 
   #sbls-{{ sid }} *, #sbls-{{ sid }} *::before, #sbls-{{ sid }} *::after { box-sizing: border-box; }
   #sbls-{{ sid }} img { display: block; max-width: 100%; height: auto; }
-  #sbls-{{ sid }} .sbls-wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 var(--s-gutter); }
+  #sbls-{{ sid }} .sbls-wrap { width: 100%; max-width: none; margin: 0 auto; padding: 0 var(--s-gutter); }
   #sbls-{{ sid }} .sbls-ph { width: 100%; height: 100%; background: #E6EFE2; fill: rgba(31, 81, 48, .28); }
   #sbls-{{ sid }} .sbls-eyebrow { margin: 0 0 12px; font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--s-primary); opacity: .8; }
   #sbls-{{ sid }} .sbls-h1, #sbls-{{ sid }} .sbls-h2 { margin: 0; font-family: var(--s-head); font-weight: 700; letter-spacing: -.01em; }
@@ -74,7 +75,7 @@
   #sbls-{{ sid }} .sbls-list { display: grid; gap: var(--s-space); padding: var(--s-space) 0; }
   #sbls-{{ sid }} .sbls-row { display: grid; gap: 22px; align-items: center; scroll-margin-top: 90px; }
   @media (min-width: 990px) {
-    #sbls-{{ sid }} .sbls-row { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 56px; }
+    #sbls-{{ sid }} .sbls-row { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(40px, 5vw, 88px); }
     #sbls-{{ sid }} .sbls-row--flip .sbls-row__media { order: 2; }
   }
   #sbls-{{ sid }} .sbls-row__media { border-radius: var(--s-radius); overflow: hidden; aspect-ratio: 16 / 10; background: #E6EFE2; box-shadow: var(--s-shadow); }
@@ -90,21 +91,22 @@
   #sbls-{{ sid }} .sbls-clients { padding: var(--s-space) 0; background: {{ section.settings.clients_bg }}; }
   #sbls-{{ sid }} .sbls-clients__head { text-align: center; max-width: 640px; margin: 0 auto 28px; }
   #sbls-{{ sid }} .sbls-clients__head p:not(.sbls-eyebrow) { margin: 8px 0 0; color: var(--s-muted); }
-  #sbls-{{ sid }} .sbls-rail { display: flex; align-items: center; gap: 12px; }
-  #sbls-{{ sid }} .sbls-track { flex: 1; min-width: 0; display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 2 * 12px) / 2.4); gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; list-style: none; margin: 0; padding: 6px 2px 10px; }
-  #sbls-{{ sid }} .sbls-track::-webkit-scrollbar { display: none; }
-  #sbls-{{ sid }} .sbls-track > li { scroll-snap-align: start; }
-  @media (min-width: 750px) { #sbls-{{ sid }} .sbls-track { grid-auto-columns: calc((100% - 4 * 14px) / 5); gap: 14px; } }
-  @media (min-width: 1100px) { #sbls-{{ sid }} .sbls-track { grid-auto-columns: calc((100% - 7 * 14px) / 8); } }
-  #sbls-{{ sid }} .sbls-logo { display: grid; place-items: center; height: 84px; padding: 14px 16px; border-radius: 14px; background: var(--s-card); box-shadow: var(--s-shadow); text-decoration: none; color: var(--s-primary); font-family: var(--s-head); font-weight: 700; font-size: 15px; text-align: center; transition: transform .25s ease, box-shadow .25s ease; }
+  #sbls-{{ sid }} .sbls-ticker { position: relative; overflow: hidden; margin: 0 calc(var(--s-gutter) * -1); padding: 8px 0 14px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  #sbls-{{ sid }} .sbls-ticker__track { display: flex; width: max-content; animation: sbls-ticker-{{ sid }} var(--ticker-duration, 40s) linear infinite; }
+  #sbls-{{ sid }} .sbls-ticker:hover .sbls-ticker__track, #sbls-{{ sid }} .sbls-ticker:focus-within .sbls-ticker__track { animation-play-state: paused; }
+  #sbls-{{ sid }} .sbls-ticker__list { display: flex; gap: 16px; margin: 0; padding: 0 16px 0 0; list-style: none; }
+  #sbls-{{ sid }} .sbls-ticker__list > li { flex: none; width: 170px; }
+  @media (min-width: 750px) { #sbls-{{ sid }} .sbls-ticker__list { gap: 20px; padding-right: 20px; } #sbls-{{ sid }} .sbls-ticker__list > li { width: 200px; } }
+  @keyframes sbls-ticker-{{ sid }} { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  #sbls-{{ sid }} .sbls-logo { display: grid; place-items: center; height: 88px; padding: 14px 18px; border-radius: 14px; background: var(--s-card); box-shadow: var(--s-shadow); text-decoration: none; color: var(--s-primary); font-family: var(--s-head); font-weight: 700; font-size: 15px; text-align: center; transition: transform .25s ease, box-shadow .25s ease; }
   #sbls-{{ sid }} a.sbls-logo:hover { transform: translateY(-3px); box-shadow: var(--s-shadow-hover); }
   #sbls-{{ sid }} .sbls-logo img { max-height: 52px; width: auto; object-fit: contain;{% if section.settings.logos_grayscale %} filter: grayscale(1); opacity: .8; transition: filter .25s ease, opacity .25s ease;{% endif %} }
   #sbls-{{ sid }} .sbls-logo:hover img { filter: none; opacity: 1; }
-  #sbls-{{ sid }} .sbls-arrow { display: none; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--s-card); color: var(--s-primary); box-shadow: var(--s-shadow); cursor: pointer; transition: background-color .25s ease, color .25s ease, opacity .25s ease; }
-  @media (min-width: 750px) { #sbls-{{ sid }} .sbls-arrow { display: grid; } }
-  #sbls-{{ sid }} .sbls-arrow:hover:not(:disabled) { background: var(--s-primary); color: #fff; }
-  #sbls-{{ sid }} .sbls-arrow:disabled { opacity: .35; cursor: default; }
-  #sbls-{{ sid }} .sbls-arrow svg { width: 20px; height: 20px; }
+  @media (prefers-reduced-motion: reduce) {
+    #sbls-{{ sid }} .sbls-ticker { -webkit-mask-image: none; mask-image: none; overflow-x: auto; }
+    #sbls-{{ sid }} .sbls-ticker__track { animation: none; }
+    #sbls-{{ sid }} .sbls-ticker__list[aria-hidden] { display: none; }
+  }
 
   /* Reveal */
   html.js #sbls-{{ sid }} [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
@@ -153,7 +155,7 @@
           <article class="sbls-row{% if flip == 0 %} sbls-row--flip{% endif %}" id="{{ block.settings.anchor | default: block.id | handleize }}" aria-labelledby="sbls-t-{{ block.id }}" {{ block.shopify_attributes }}>
             <div class="sbls-row__media" data-reveal>
               {%- if block.settings.image != blank -%}
-                {{ block.settings.image | image_url: width: 1400 | image_tag: widths: '480, 720, 960, 1200, 1400', sizes: '(min-width: 1240px) 600px, (min-width: 990px) 50vw, 100vw', loading: 'lazy', alt: block.settings.image.alt | default: block.settings.title }}
+                {{ block.settings.image | image_url: width: 1400 | image_tag: widths: '480, 720, 960, 1200, 1400', sizes: '(min-width: 990px) 52vw, 100vw', loading: 'lazy', alt: block.settings.image.alt | default: block.settings.title }}
               {%- else -%}
                 {{ 'lifestyle-2' | placeholder_svg_tag: 'sbls-ph' }}
               {%- endif -%}
@@ -182,7 +184,7 @@
   </div>
 
   {%- comment -%} ===== CLIENTS ===== {%- endcomment -%}
-  {%- if section.settings.show_clients -%}
+  {%- if section.settings.show_clients and section.blocks.size > 0 -%}
     <section class="sbls-clients" aria-labelledby="sbls-cl-title-{{ sid }}">
       <div class="sbls-wrap">
         <div class="sbls-clients__head" data-reveal>
@@ -190,24 +192,44 @@
           <h2 id="sbls-cl-title-{{ sid }}" class="sbls-h2">{{ section.settings.clients_heading | escape }}</h2>
           {%- if section.settings.clients_text != blank -%}<p>{{ section.settings.clients_text | escape }}</p>{%- endif -%}
         </div>
-        <div class="sbls-rail" data-rail>
-          <button class="sbls-arrow" type="button" aria-label="Previous clients" aria-controls="sbls-cl-track-{{ sid }}" data-rail-prev><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button>
-          <ul class="sbls-track" id="sbls-cl-track-{{ sid }}" role="list" tabindex="0" aria-label="{{ section.settings.clients_heading | escape }}" data-rail-track>
-            {%- for block in section.blocks -%}
-              {%- if block.type == 'client' -%}
-                <li {{ block.shopify_attributes }}>
-                  {%- if block.settings.link != blank -%}<a class="sbls-logo" href="{{ block.settings.link }}" target="_blank" rel="noopener">{%- else -%}<div class="sbls-logo">{%- endif -%}
-                    {%- if block.settings.logo != blank -%}
-                      {{ block.settings.logo | image_url: width: 320 | image_tag: widths: '160, 240, 320', sizes: '160px', loading: 'lazy', alt: block.settings.name | default: block.settings.logo.alt }}
-                    {%- else -%}
-                      <span>{{ block.settings.name | escape }}</span>
-                    {%- endif -%}
-                  {%- if block.settings.link != blank -%}</a>{%- else -%}</div>{%- endif -%}
-                </li>
-              {%- endif -%}
-            {%- endfor -%}
-          </ul>
-          <button class="sbls-arrow" type="button" aria-label="Next clients" aria-controls="sbls-cl-track-{{ sid }}" data-rail-next><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
+        {%- capture client_items -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'client' -%}
+              <li {{ block.shopify_attributes }}>
+                {%- if block.settings.link != blank -%}<a class="sbls-logo" href="{{ block.settings.link }}" target="_blank" rel="noopener">{%- else -%}<div class="sbls-logo">{%- endif -%}
+                  {%- if block.settings.logo != blank -%}
+                    {{ block.settings.logo | image_url: width: 320 | image_tag: widths: '160, 240, 320', sizes: '200px', loading: 'lazy', alt: block.settings.name | default: block.settings.logo.alt }}
+                  {%- else -%}
+                    <span>{{ block.settings.name | escape }}</span>
+                  {%- endif -%}
+                {%- if block.settings.link != blank -%}</a>{%- else -%}</div>{%- endif -%}
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+        {%- liquid
+          assign client_count = 0
+          for block in section.blocks
+            if block.type == 'client'
+              assign client_count = client_count | plus: 1
+            endif
+          endfor
+          assign client_repeat = 1
+          if client_count > 0 and client_count < 10
+            assign client_repeat = 10 | divided_by: client_count | plus: 1
+          endif
+          capture client_set
+            for i in (1..client_repeat)
+              echo client_items
+            endfor
+          endcapture
+        -%}
+        {%- comment -%} The list is repeated so the ticker loops without a gap; copies are hidden from screen readers. {%- endcomment -%}
+        <div class="sbls-ticker" style="--ticker-duration: {{ section.settings.ticker_speed }}s;" data-reveal>
+          <div class="sbls-ticker__track">
+            <ul class="sbls-ticker__list" role="list" aria-label="{{ section.settings.clients_heading | escape }}">{{ client_set }}</ul>
+            <ul class="sbls-ticker__list" role="list" aria-hidden="true">{{ client_set | replace: '<a ', '<a tabindex="-1" ' }}</ul>
+          </div>
         </div>
       </div>
     </section>
@@ -218,28 +240,6 @@
   (function () {
     var root = document.getElementById('sbls-{{ sid }}');
     if (!root) return;
-
-    root.querySelectorAll('[data-rail]').forEach(function (rail) {
-      var track = rail.querySelector('[data-rail-track]');
-      var prev = rail.querySelector('[data-rail-prev]');
-      var next = rail.querySelector('[data-rail-next]');
-      if (!track) return;
-      function step() {
-        var item = track.querySelector('li');
-        var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
-        return item ? (item.getBoundingClientRect().width + gap) * 2 : track.clientWidth;
-      }
-      function update() {
-        var max = track.scrollWidth - track.clientWidth - 2;
-        if (prev) prev.disabled = track.scrollLeft <= 2;
-        if (next) next.disabled = track.scrollLeft >= max;
-      }
-      if (prev) prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
-      if (next) next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
-      track.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', update);
-      update();
-    });
 
     var items = root.querySelectorAll('[data-reveal]');
     if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches || (window.Shopify && Shopify.designMode)) {
@@ -289,6 +289,7 @@
     { "type": "text", "id": "clients_eyebrow", "label": "Eyebrow", "default": "Trusted by" },
     { "type": "text", "id": "clients_heading", "label": "Heading", "default": "Our Valued Clients" },
     { "type": "text", "id": "clients_text", "label": "Text", "default": "Creating greener spaces for leading businesses and organisations." },
+    { "type": "range", "id": "ticker_speed", "label": "Ticker loop duration", "info": "Seconds for one full loop. Lower is faster.", "min": 10, "max": 90, "step": 5, "unit": "s", "default": 35 },
     { "type": "checkbox", "id": "logos_grayscale", "label": "Show logos in grey until hovered", "default": false },
     { "type": "color", "id": "clients_bg", "label": "Background", "default": "#EEF1EA" }
   ],

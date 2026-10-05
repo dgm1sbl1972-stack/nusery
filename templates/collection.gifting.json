@@ -143,6 +143,20 @@
             "question": "Can I choose my own pot?",
             "answer": "<p>Yes. Many of our plants come with pot options. Choose your favourite style and colour on the product page.</p>"
           }
+        },
+        "occasion_5": {
+          "type": "occasion",
+          "settings": {
+            "title": "Congratulations",
+            "icon": "gift"
+          }
+        },
+        "occasion_6": {
+          "type": "occasion",
+          "settings": {
+            "title": "Get Well Soon",
+            "icon": "baby"
+          }
         }
       },
       "block_order": [
@@ -150,6 +164,8 @@
         "occasion_2",
         "occasion_3",
         "occasion_4",
+        "occasion_5",
+        "occasion_6",
         "budget_1",
         "budget_2",
         "budget_3",
