@@ -19,6 +19,7 @@
         "hero_button_link": "",
         "hero_note": "Gift-wrapped with a free handwritten note",
         "hero_image": "shopify://shop_images/b0a6c601-e4e8-40e8-8dd4-6a7cfe79b66c.png",
+        "hero_image_mobile": "shopify://shop_images/b0a6c601-e4e8-40e8-8dd4-6a7cfe79b66c.png",
         "hero_chip": "Loved by plant gifters",
         "hero_media_first_mobile": false,
         "bg_color": "#f8f4ec"
@@ -191,8 +192,10 @@
         "corp_points": "Bulk orders with custom branding\nPersonalised notes and packaging\nPan-India delivery",
         "corp_button_label": "Explore Corporate Gifts",
         "corp_button_link": "",
-        "corp_overlay": 75,
+        "corp_bg_image": "shopify://shop_images/c1f44223-e351-40b2-8c75-101eddcd7b72.png",
+        "corp_overlay": 40,
         "corp_bg_color": "#1f5130",
+        "corp_image": "shopify://shop_images/c1f44223-e351-40b2-8c75-101eddcd7b72.png",
         "bg_color": "#f8f4ec"
       }
     },
