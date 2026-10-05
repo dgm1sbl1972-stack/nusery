@@ -1,0 +1,135 @@
+{%- comment -%}
+  Tilted, endlessly scrolling ribbon of words (plant names, categories, occasions).
+  The item list is rendered twice so the CSS animation can loop seamlessly.
+{%- endcomment -%}
+{%- capture marquee_items -%}
+  {%- for block in section.blocks -%}
+    {%- if block.settings.text != blank -%}
+      <li class="plant-marquee__item" {{ block.shopify_attributes }}>
+        {%- if block.settings.link != blank -%}
+          <a href="{{ block.settings.link }}">{{ block.settings.text | escape }}</a>
+        {%- else -%}
+          <span>{{ block.settings.text | escape }}</span>
+        {%- endif -%}
+        <span class="plant-marquee__sep" aria-hidden="true">{{ section.settings.separator }}</span>
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+<div class="plant-marquee plant-marquee--{{ section.id }}{% if section.settings.direction == 'right' %} plant-marquee--reverse{% endif %}">
+  <div class="plant-marquee__band">
+    <div class="plant-marquee__track">
+      <ul class="plant-marquee__list">{{ marquee_items }}</ul>
+      <ul class="plant-marquee__list" aria-hidden="true">{{ marquee_items }}</ul>
+    </div>
+  </div>
+</div>
+
+<style>
+  .plant-marquee--{{ section.id }} {
+    --pm-bg: {{ section.settings.background }};
+    --pm-text: {{ section.settings.text_color }};
+    --pm-sep: {{ section.settings.separator_color }};
+    --pm-speed: {{ section.settings.speed }}s;
+    padding: {{ section.settings.padding }}px 0;
+    background: {{ section.settings.page_background }};
+    overflow: hidden;
+  }
+  .plant-marquee--{{ section.id }} .plant-marquee__band {
+    background: var(--pm-bg);
+    transform: rotate({{ section.settings.tilt }}deg);
+    width: 104%;
+    margin-left: -2%;
+    padding: 12px 0;
+    box-shadow: 0 6px 18px rgba(0,0,0,.12);
+  }
+  .plant-marquee--{{ section.id }} .plant-marquee__track {
+    display: flex;
+    width: max-content;
+    animation: plant-marquee-{{ section.id }} var(--pm-speed) linear infinite;
+  }
+  .plant-marquee--{{ section.id }}.plant-marquee--reverse .plant-marquee__track { animation-direction: reverse; }
+  .plant-marquee--{{ section.id }} .plant-marquee__band:hover .plant-marquee__track { animation-play-state: paused; }
+  .plant-marquee--{{ section.id }} .plant-marquee__list {
+    display: flex;
+    align-items: center;
+    flex: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .plant-marquee--{{ section.id }} .plant-marquee__item {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: {{ section.settings.font_size }}px;
+    line-height: 1.2;
+    color: var(--pm-text);
+  }
+  .plant-marquee--{{ section.id }} .plant-marquee__item a { color: inherit; text-decoration: none; }
+  .plant-marquee--{{ section.id }} .plant-marquee__item a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .plant-marquee--{{ section.id }} .plant-marquee__sep {
+    margin: 0 {{ section.settings.gap }}px;
+    color: var(--pm-sep);
+    font-style: normal;
+    font-size: .8em;
+  }
+  @keyframes plant-marquee-{{ section.id }} {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (max-width: 749px) {
+    .plant-marquee--{{ section.id }} .plant-marquee__item { font-size: {{ section.settings.font_size | times: 0.8 | round }}px; }
+    .plant-marquee--{{ section.id }} .plant-marquee__sep { margin: 0 {{ section.settings.gap | times: 0.7 | round }}px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .plant-marquee--{{ section.id }} .plant-marquee__track { animation-duration: calc(var(--pm-speed) * 4); }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Plant name ribbon",
+  "class": "section-plant-marquee",
+  "settings": [
+    { "type": "text", "id": "separator", "label": "Separator", "default": "✦" },
+    { "type": "range", "id": "speed", "label": "Scroll time (higher is slower)", "min": 10, "max": 120, "step": 5, "unit": "s", "default": 40 },
+    { "type": "select", "id": "direction", "label": "Direction", "options": [{ "value": "left", "label": "Right to left" }, { "value": "right", "label": "Left to right" }], "default": "left" },
+    { "type": "range", "id": "tilt", "label": "Tilt", "min": -5, "max": 5, "step": 0.5, "unit": "°", "default": -1.5 },
+    { "type": "range", "id": "font_size", "label": "Text size", "min": 14, "max": 40, "step": 1, "unit": "px", "default": 22 },
+    { "type": "range", "id": "gap", "label": "Space around separator", "min": 8, "max": 48, "step": 2, "unit": "px", "default": 22 },
+    { "type": "range", "id": "padding", "label": "Section spacing", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 18 },
+    { "type": "color", "id": "background", "label": "Ribbon colour", "default": "#1f5130" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "default": "#ffffff" },
+    { "type": "color", "id": "separator_color", "label": "Separator colour", "default": "#ffd60a" },
+    { "type": "color", "id": "page_background", "label": "Background behind ribbon", "default": "#f8f4ec" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Word",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Snake Plant" },
+        { "type": "url", "id": "link", "label": "Link (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Plant name ribbon",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Snake Plant" } },
+        { "type": "item", "settings": { "text": "Money Plant" } },
+        { "type": "item", "settings": { "text": "Areca Palm" } },
+        { "type": "item", "settings": { "text": "Peace Lily" } },
+        { "type": "item", "settings": { "text": "Tulsi" } },
+        { "type": "item", "settings": { "text": "Jade Plant" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

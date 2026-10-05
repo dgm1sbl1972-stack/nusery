@@ -1399,10 +1399,131 @@
       ],
       "name": "header section",
       "settings": {}
+    },
+    "plant_marquee": {
+      "type": "plant-marquee",
+      "blocks": {
+        "word_1": {
+          "type": "item",
+          "settings": {
+            "text": "Snake Plant"
+          }
+        },
+        "word_2": {
+          "type": "item",
+          "settings": {
+            "text": "Money Plant"
+          }
+        },
+        "word_3": {
+          "type": "item",
+          "settings": {
+            "text": "Areca Palm"
+          }
+        },
+        "word_4": {
+          "type": "item",
+          "settings": {
+            "text": "Peace Lily"
+          }
+        },
+        "word_5": {
+          "type": "item",
+          "settings": {
+            "text": "Syngonium"
+          }
+        },
+        "word_6": {
+          "type": "item",
+          "settings": {
+            "text": "Salvia"
+          }
+        },
+        "word_7": {
+          "type": "item",
+          "settings": {
+            "text": "Vinca"
+          }
+        },
+        "word_8": {
+          "type": "item",
+          "settings": {
+            "text": "Oxycardium Gold"
+          }
+        },
+        "word_9": {
+          "type": "item",
+          "settings": {
+            "text": "Jade Plant"
+          }
+        },
+        "word_10": {
+          "type": "item",
+          "settings": {
+            "text": "Tulsi"
+          }
+        },
+        "word_11": {
+          "type": "item",
+          "settings": {
+            "text": "Aloe Vera"
+          }
+        },
+        "word_12": {
+          "type": "item",
+          "settings": {
+            "text": "Hibiscus"
+          }
+        },
+        "word_13": {
+          "type": "item",
+          "settings": {
+            "text": "Flower Seeds"
+          }
+        },
+        "word_14": {
+          "type": "item",
+          "settings": {
+            "text": "Ceramic Pots"
+          }
+        },
+        "word_15": {
+          "type": "item",
+          "settings": {
+            "text": "Indoor Plants"
+          }
+        },
+        "word_16": {
+          "type": "item",
+          "settings": {
+            "text": "Gifting Plants"
+          }
+        }
+      },
+      "block_order": [
+        "word_1",
+        "word_2",
+        "word_3",
+        "word_4",
+        "word_5",
+        "word_6",
+        "word_7",
+        "word_8",
+        "word_9",
+        "word_10",
+        "word_11",
+        "word_12",
+        "word_13",
+        "word_14",
+        "word_15",
+        "word_16"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "179015930923a1b439",
+    "plant_marquee",
     "hero_slider_6C6tqL",
     "category_circles",
     "1790161067735ca0dd",
