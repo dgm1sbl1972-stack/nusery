@@ -1,0 +1,928 @@
+{%- comment -%}
+  SBL Nursery — Gifting landing page.
+  Hero, shop by occasion, gifts by budget, best-selling product carousel,
+  build your gift, corporate gifting banner, testimonials, FAQ and final CTA.
+  Header, announcement bar and footer come from the theme's header/footer groups.
+{%- endcomment -%}
+
+{%- liquid
+  assign sid = section.id
+  if collection != blank and collection.url != blank
+    assign page_collection_url = collection.url
+  else
+    assign page_collection_url = routes.all_products_collection_url
+  endif
+
+  assign hero_link = section.settings.hero_button_link | default: page_collection_url
+  assign build_link = section.settings.build_button_link | default: page_collection_url
+  assign corp_link = section.settings.corp_button_link | default: page_collection_url
+  assign cta_link = section.settings.cta_button_link | default: page_collection_url
+
+  assign bs_collection = section.settings.bs_collection
+  if bs_collection == blank and collection != blank
+    assign bs_collection = collection
+  endif
+
+  if section.settings.budget_collection != blank
+    assign budget_base_url = section.settings.budget_collection.url
+  else
+    assign budget_base_url = page_collection_url
+  endif
+-%}
+
+<style>
+  #sblg-{{ sid }} {
+    --g-primary: {{ section.settings.color_primary }};
+    --g-accent: {{ section.settings.color_accent }};
+    --g-bg: {{ section.settings.color_bg }};
+    --g-card: {{ section.settings.color_card }};
+    --g-soft: {{ section.settings.color_soft }};
+    --g-text: {{ section.settings.color_text }};
+    --g-muted: rgba({{ section.settings.color_text.red }}, {{ section.settings.color_text.green }}, {{ section.settings.color_text.blue }}, .72);
+    --g-line: rgba({{ section.settings.color_primary.red }}, {{ section.settings.color_primary.green }}, {{ section.settings.color_primary.blue }}, .12);
+    --g-radius: 20px;
+    --g-radius-sm: 16px;
+    --g-shadow: 0 6px 24px rgba(31, 81, 48, .07);
+    --g-shadow-hover: 0 14px 34px rgba(31, 81, 48, .13);
+    --g-gutter: 16px;
+    --g-space: 56px;
+    --g-head: 'Montserrat', 'Poppins', sans-serif;
+    --g-body: 'Poppins', 'Inter', sans-serif;
+    background: var(--g-bg);
+    color: var(--g-text);
+    font-family: var(--g-body);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow: hidden;
+  }
+  @media (min-width: 750px) { #sblg-{{ sid }} { --g-gutter: 32px; --g-space: 76px; font-size: 16px; } }
+  @media (min-width: 1200px) { #sblg-{{ sid }} { --g-space: 92px; } }
+
+  #sblg-{{ sid }} *, #sblg-{{ sid }} *::before, #sblg-{{ sid }} *::after { box-sizing: border-box; }
+  #sblg-{{ sid }} img { display: block; max-width: 100%; height: auto; }
+  #sblg-{{ sid }} a { color: inherit; }
+  #sblg-{{ sid }} .sblg-wrap { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 var(--g-gutter); }
+  #sblg-{{ sid }} .sblg-block { padding: var(--g-space) 0 0; }
+  #sblg-{{ sid }} .sblg-block--last { padding-bottom: var(--g-space); }
+
+  /* Type */
+  #sblg-{{ sid }} .sblg-h1, #sblg-{{ sid }} .sblg-h2, #sblg-{{ sid }} .sblg-h3 { font-family: var(--g-head); color: var(--g-primary); margin: 0; letter-spacing: -.01em; }
+  #sblg-{{ sid }} .sblg-h1 { font-size: clamp(34px, 7.4vw, 62px); line-height: 1.06; font-weight: 800; }
+  #sblg-{{ sid }} .sblg-h2 { font-size: clamp(26px, 4.6vw, 38px); line-height: 1.15; font-weight: 700; }
+  #sblg-{{ sid }} .sblg-h3 { font-size: 17px; line-height: 1.3; font-weight: 600; }
+  #sblg-{{ sid }} .sblg-eyebrow { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 16px; font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--g-primary); }
+  #sblg-{{ sid }} .sblg-eyebrow::before { content: ''; width: 22px; height: 2px; border-radius: 2px; background: var(--g-accent); }
+  #sblg-{{ sid }} .sblg-head { text-align: center; max-width: 640px; margin: 0 auto 32px; }
+  #sblg-{{ sid }} .sblg-head p { margin: 10px 0 0; color: var(--g-muted); }
+  #sblg-{{ sid }} .sblg-head--row { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; max-width: none; text-align: left; }
+  #sblg-{{ sid }} .sblg-leafmark { display: block; width: 34px; height: 18px; margin: 0 auto 10px; color: var(--g-primary); opacity: .55; }
+  #sblg-{{ sid }} .sblg-head--row .sblg-leafmark { margin-left: 0; }
+
+  /* Buttons */
+  #sblg-{{ sid }} .sblg-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; padding: 0 28px; border: 0; border-radius: 999px; font-family: var(--g-body); font-size: 15px; font-weight: 600; line-height: 1; text-decoration: none; cursor: pointer; transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease, color .25s ease; }
+  #sblg-{{ sid }} .sblg-btn svg { width: 18px; height: 18px; transition: transform .25s ease; }
+  #sblg-{{ sid }} .sblg-btn:hover { transform: translateY(-2px); }
+  #sblg-{{ sid }} .sblg-btn:hover svg { transform: translateX(3px); }
+  #sblg-{{ sid }} .sblg-btn--primary { background: var(--g-primary); color: #fff; box-shadow: 0 8px 20px rgba(31, 81, 48, .22); }
+  #sblg-{{ sid }} .sblg-btn--primary:hover { box-shadow: 0 12px 26px rgba(31, 81, 48, .3); }
+  #sblg-{{ sid }} .sblg-btn--accent { background: var(--g-accent); color: #1b2a1f; }
+  #sblg-{{ sid }} .sblg-btn--accent:hover { box-shadow: 0 12px 26px rgba(0, 0, 0, .18); }
+  #sblg-{{ sid }} .sblg-btn--ghost { background: transparent; color: var(--g-primary); border: 1.5px solid var(--g-line); min-height: 44px; padding: 0 20px; font-size: 14px; }
+  #sblg-{{ sid }} .sblg-btn--ghost:hover { border-color: var(--g-primary); }
+  #sblg-{{ sid }} a:focus-visible, #sblg-{{ sid }} button:focus-visible, #sblg-{{ sid }} summary:focus-visible { outline: 2px solid var(--g-primary); outline-offset: 3px; }
+
+  /* Placeholder media */
+  #sblg-{{ sid }} .sblg-ph { width: 100%; height: 100%; background: var(--g-soft); fill: rgba(31, 81, 48, .28); }
+
+  /* Hero */
+  #sblg-{{ sid }} .sblg-hero { position: relative; padding: 28px 0 0; }
+  #sblg-{{ sid }} .sblg-hero__grid { display: grid; gap: 28px; align-items: center; }
+  #sblg-{{ sid }} .sblg-hero__copy p.sblg-hero__text { margin: 18px 0 28px; max-width: 470px; font-size: 16px; color: var(--g-muted); }
+  #sblg-{{ sid }} .sblg-hero__note { display: flex; align-items: center; gap: 10px; margin-top: 22px; font-size: 13px; color: var(--g-muted); }
+  #sblg-{{ sid }} .sblg-hero__note svg { width: 20px; height: 20px; color: var(--g-primary); flex: none; }
+  #sblg-{{ sid }} .sblg-hero__media { position: relative; border-radius: 24px; overflow: hidden; aspect-ratio: 4 / 3.4; background: var(--g-soft); box-shadow: var(--g-shadow); }
+  #sblg-{{ sid }} .sblg-hero__media img, #sblg-{{ sid }} .sblg-hero__media svg { width: 100%; height: 100%; object-fit: cover; }
+  #sblg-{{ sid }} .sblg-hero__chip { position: absolute; left: 16px; bottom: 16px; display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px 10px 10px; border-radius: 999px; background: rgba(255, 255, 255, .94); box-shadow: var(--g-shadow); font-size: 13px; font-weight: 500; color: var(--g-primary); }
+  #sblg-{{ sid }} .sblg-hero__chip span { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--g-accent); }
+  #sblg-{{ sid }} .sblg-hero__chip svg { width: 16px; height: 16px; color: #1b2a1f; }
+  #sblg-{{ sid }} .sblg-hero__leaf { position: absolute; z-index: 0; pointer-events: none; color: var(--g-primary); opacity: .07; }
+  #sblg-{{ sid }} .sblg-hero__leaf--a { width: 220px; top: -30px; left: -70px; transform: rotate(-25deg); }
+  #sblg-{{ sid }} .sblg-hero__grid { position: relative; z-index: 1; }
+  #sblg-{{ sid }} .sblg-hero--media-first .sblg-hero__media { order: -1; }
+  @media (min-width: 990px) {
+    #sblg-{{ sid }} .sblg-hero { padding-top: 48px; }
+    #sblg-{{ sid }} .sblg-hero__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); gap: 56px; }
+    #sblg-{{ sid }} .sblg-hero--media-first .sblg-hero__media { order: 0; }
+    #sblg-{{ sid }} .sblg-hero__media { aspect-ratio: 5 / 4.4; border-radius: 28px; }
+    #sblg-{{ sid }} .sblg-hero__chip { left: 24px; bottom: 24px; }
+  }
+
+  /* Occasion + budget cards */
+  #sblg-{{ sid }} .sblg-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; list-style: none; margin: 0; padding: 0; }
+  @media (min-width: 990px) { #sblg-{{ sid }} .sblg-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; } }
+  #sblg-{{ sid }} .sblg-occ { position: relative; display: flex; flex-direction: column; height: 100%; border-radius: var(--g-radius); background: var(--g-soft); text-decoration: none; overflow: hidden; transition: transform .3s ease, box-shadow .3s ease; }
+  #sblg-{{ sid }} .sblg-occ:hover { transform: translateY(-4px); box-shadow: var(--g-shadow-hover); }
+  #sblg-{{ sid }} .sblg-occ__media { aspect-ratio: 1 / .82; overflow: hidden; }
+  #sblg-{{ sid }} .sblg-occ__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+  #sblg-{{ sid }} .sblg-occ:hover .sblg-occ__media img { transform: scale(1.05); }
+  #sblg-{{ sid }} .sblg-occ__body { display: flex; align-items: center; gap: 12px; padding: 16px; }
+  #sblg-{{ sid }} .sblg-occ--noimg .sblg-occ__body { flex-direction: column; justify-content: center; text-align: center; padding: 30px 16px; flex: 1; }
+  #sblg-{{ sid }} .sblg-icon { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 50%; background: var(--g-card); color: var(--g-primary); box-shadow: 0 2px 8px rgba(31, 81, 48, .08); }
+  #sblg-{{ sid }} .sblg-occ--noimg .sblg-icon { width: 64px; height: 64px; }
+  #sblg-{{ sid }} .sblg-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  #sblg-{{ sid }} .sblg-occ--noimg .sblg-icon svg { width: 30px; height: 30px; }
+  #sblg-{{ sid }} .sblg-occ__title { display: flex; align-items: center; justify-content: space-between; gap: 6px; flex: 1; }
+  #sblg-{{ sid }} .sblg-occ__arrow { width: 18px; height: 18px; color: var(--g-primary); flex: none; transition: transform .25s ease; }
+  #sblg-{{ sid }} .sblg-occ:hover .sblg-occ__arrow { transform: translateX(3px); }
+  #sblg-{{ sid }} .sblg-occ--noimg .sblg-occ__arrow { display: none; }
+
+  #sblg-{{ sid }} .sblg-budget { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; height: 100%; padding: 26px 14px; border-radius: var(--g-radius); background: var(--g-card); border: 1px solid var(--g-line); text-align: center; text-decoration: none; transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease, background-color .3s ease; }
+  #sblg-{{ sid }} .sblg-budget:hover { transform: translateY(-4px); box-shadow: var(--g-shadow-hover); border-color: transparent; }
+  #sblg-{{ sid }} .sblg-budget .sblg-icon { width: 58px; height: 58px; background: var(--g-soft); box-shadow: none; }
+  #sblg-{{ sid }} .sblg-budget .sblg-icon svg { width: 28px; height: 28px; }
+  #sblg-{{ sid }} .sblg-budget__label { font-family: var(--g-head); font-size: clamp(17px, 2.6vw, 22px); font-weight: 700; color: var(--g-primary); line-height: 1.2; }
+  #sblg-{{ sid }} .sblg-budget__cap { font-size: 13px; color: var(--g-muted); }
+  #sblg-{{ sid }} .sblg-budget__go { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 13px; font-weight: 600; color: var(--g-primary); }
+  #sblg-{{ sid }} .sblg-budget__go::after { content: ''; width: 0; height: 2px; background: var(--g-accent); transition: width .25s ease; }
+  #sblg-{{ sid }} .sblg-budget:hover .sblg-budget__go::after { width: 14px; }
+
+  /* Carousel */
+  #sblg-{{ sid }} .sblg-rail { position: relative; }
+  #sblg-{{ sid }} .sblg-track { --per: 1.3; display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - (var(--per) - 1) * 16px) / var(--per)); gap: 16px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; scrollbar-width: none; list-style: none; margin: 0 calc(var(--g-gutter) * -1); padding: 6px var(--g-gutter) 18px; scroll-padding: 0 var(--g-gutter); }
+  #sblg-{{ sid }} .sblg-track::-webkit-scrollbar { display: none; }
+  #sblg-{{ sid }} .sblg-track > li { scroll-snap-align: start; min-width: 0; }
+  @media (min-width: 600px) { #sblg-{{ sid }} .sblg-track { --per: 2.2; } }
+  @media (min-width: 750px) { #sblg-{{ sid }} .sblg-track { --per: 2.6; gap: 20px; grid-auto-columns: calc((100% - (var(--per) - 1) * 20px) / var(--per)); } }
+  @media (min-width: 990px) { #sblg-{{ sid }} .sblg-track { --per: 4; gap: 22px; grid-auto-columns: calc((100% - 3 * 22px) / 4); margin: 0; padding: 6px 0 18px; scroll-padding: 0; } }
+  #sblg-{{ sid }} .sblg-arrows { display: none; gap: 10px; }
+  @media (min-width: 990px) { #sblg-{{ sid }} .sblg-arrows { display: flex; } }
+  #sblg-{{ sid }} .sblg-arrow { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid var(--g-line); background: var(--g-card); color: var(--g-primary); cursor: pointer; transition: background-color .25s ease, color .25s ease, border-color .25s ease, opacity .25s ease; }
+  #sblg-{{ sid }} .sblg-arrow:hover:not(:disabled) { background: var(--g-primary); border-color: var(--g-primary); color: #fff; }
+  #sblg-{{ sid }} .sblg-arrow:disabled { opacity: .35; cursor: default; }
+  #sblg-{{ sid }} .sblg-arrow svg { width: 20px; height: 20px; }
+  #sblg-{{ sid }} .sblg-viewall { display: inline-flex; margin-top: 8px; }
+
+  /* Product card */
+  #sblg-{{ sid }} .sblg-pc { position: relative; display: flex; flex-direction: column; height: 100%; border-radius: var(--g-radius); background: var(--g-card); box-shadow: var(--g-shadow); overflow: hidden; transition: transform .3s ease, box-shadow .3s ease; }
+  #sblg-{{ sid }} .sblg-pc:hover { transform: translateY(-4px); box-shadow: var(--g-shadow-hover); }
+  #sblg-{{ sid }} .sblg-pc__media { position: relative; display: block; aspect-ratio: 1 / 1.08; margin: 10px 10px 0; border-radius: var(--g-radius-sm); background: var(--g-bg); overflow: hidden; }
+  #sblg-{{ sid }} .sblg-pc__media img, #sblg-{{ sid }} .sblg-pc__media svg { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+  #sblg-{{ sid }} .sblg-pc:hover .sblg-pc__media img { transform: scale(1.05); }
+  #sblg-{{ sid }} .sblg-pc__badge { position: absolute; z-index: 2; top: 20px; left: 20px; padding: 5px 11px; border-radius: 999px; background: var(--g-accent); color: #1b2a1f; font-size: 11px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; }
+  #sblg-{{ sid }} .sblg-pc__badge--muted { background: #e8e5de; color: #555; }
+  #sblg-{{ sid }} .sblg-pc .wl-btn { position: absolute; z-index: 2; top: 18px; right: 18px; }
+  #sblg-{{ sid }} .sblg-pc__body { display: flex; flex-direction: column; gap: 8px; flex: 1; padding: 14px 16px 16px; }
+  #sblg-{{ sid }} .sblg-pc__title { margin: 0; font-family: var(--g-body); font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--g-text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  #sblg-{{ sid }} .sblg-pc__title a { text-decoration: none; }
+  #sblg-{{ sid }} .sblg-pc__title a:hover { color: var(--g-primary); }
+  #sblg-{{ sid }} .sblg-pc__price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin-top: auto; }
+  #sblg-{{ sid }} .sblg-pc__price strong { font-size: 17px; font-weight: 600; color: var(--g-primary); }
+  #sblg-{{ sid }} .sblg-pc__price s { font-size: 13px; color: var(--g-muted); }
+  #sblg-{{ sid }} .sblg-pc__form { margin: 4px 0 0; }
+  #sblg-{{ sid }} .sblg-pc__atc { width: 100%; min-height: 44px; padding: 0 16px; font-size: 14px; }
+  #sblg-{{ sid }} .sblg-pc__atc[disabled] { background: #e8e5de; color: #777; box-shadow: none; cursor: not-allowed; transform: none; }
+
+  /* Build your gift */
+  #sblg-{{ sid }} .sblg-build { position: relative; border-radius: 28px; background: {{ section.settings.build_bg }}; padding: 44px 20px; overflow: hidden; }
+  @media (min-width: 750px) { #sblg-{{ sid }} .sblg-build { padding: 64px 48px; } }
+  #sblg-{{ sid }} .sblg-steps { position: relative; display: grid; gap: 18px; list-style: none; margin: 0 0 34px; padding: 0; counter-reset: none; }
+  @media (min-width: 750px) {
+    #sblg-{{ sid }} .sblg-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+    #sblg-{{ sid }} .sblg-steps::before { content: ''; position: absolute; top: 44px; left: 16.6%; right: 16.6%; border-top: 2px dashed rgba(31, 81, 48, .22); }
+  }
+  #sblg-{{ sid }} .sblg-step { position: relative; display: flex; align-items: center; gap: 16px; padding: 18px; border-radius: var(--g-radius); background: var(--g-card); box-shadow: var(--g-shadow); transition: transform .3s ease, box-shadow .3s ease; }
+  #sblg-{{ sid }} .sblg-step:hover { transform: translateY(-4px); box-shadow: var(--g-shadow-hover); }
+  @media (min-width: 750px) { #sblg-{{ sid }} .sblg-step { flex-direction: column; text-align: center; padding: 0 12px; background: transparent; box-shadow: none; } #sblg-{{ sid }} .sblg-step:hover { box-shadow: none; } }
+  #sblg-{{ sid }} .sblg-step__num { position: relative; display: grid; place-items: center; flex: none; width: 64px; height: 64px; border-radius: 50%; background: var(--g-primary); color: #fff; font-family: var(--g-head); font-size: 20px; font-weight: 700; }
+  #sblg-{{ sid }} .sblg-step__num::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--g-accent); opacity: .9; }
+  @media (min-width: 750px) { #sblg-{{ sid }} .sblg-step__num { width: 88px; height: 88px; font-size: 26px; box-shadow: 0 0 0 10px {{ section.settings.build_bg }}; } }
+  #sblg-{{ sid }} .sblg-step__icon { display: none; }
+  #sblg-{{ sid }} .sblg-step p { margin: 4px 0 0; font-size: 14px; color: var(--g-muted); }
+  #sblg-{{ sid }} .sblg-build__cta { text-align: center; }
+  #sblg-{{ sid }} .sblg-build__leaf { position: absolute; width: 180px; color: var(--g-primary); opacity: .06; pointer-events: none; }
+  #sblg-{{ sid }} .sblg-build__leaf--l { left: -50px; bottom: -40px; transform: rotate(20deg); }
+  #sblg-{{ sid }} .sblg-build__leaf--r { right: -40px; top: -40px; transform: rotate(200deg); }
+
+  /* Corporate */
+  #sblg-{{ sid }} .sblg-corp { position: relative; display: grid; gap: 26px; align-items: center; border-radius: 28px; background: {{ section.settings.corp_bg_color }}; overflow: hidden; padding: 36px 20px 20px; color: #fff; }
+  #sblg-{{ sid }} .sblg-corp__bg { position: absolute; inset: 0; z-index: 0; }
+  #sblg-{{ sid }} .sblg-corp__bg img { width: 100%; height: 100%; object-fit: cover; }
+  #sblg-{{ sid }} .sblg-corp__bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, {{ section.settings.corp_bg_color }} 18%, rgba({{ section.settings.corp_bg_color.red }}, {{ section.settings.corp_bg_color.green }}, {{ section.settings.corp_bg_color.blue }}, {{ section.settings.corp_overlay | divided_by: 100.0 }}) 100%); }
+  #sblg-{{ sid }} .sblg-corp > *:not(.sblg-corp__bg) { position: relative; z-index: 1; }
+  #sblg-{{ sid }} .sblg-corp .sblg-h2 { color: #fff; }
+  #sblg-{{ sid }} .sblg-corp .sblg-eyebrow { color: var(--g-accent); }
+  #sblg-{{ sid }} .sblg-corp__text { margin: 14px 0 26px; max-width: 460px; color: rgba(255, 255, 255, .86); }
+  #sblg-{{ sid }} .sblg-corp__list { display: grid; gap: 8px; margin: -8px 0 26px; padding: 0; list-style: none; font-size: 14px; color: rgba(255, 255, 255, .9); }
+  #sblg-{{ sid }} .sblg-corp__list li { display: flex; align-items: center; gap: 10px; }
+  #sblg-{{ sid }} .sblg-corp__list svg { width: 18px; height: 18px; color: var(--g-accent); flex: none; }
+  #sblg-{{ sid }} .sblg-corp__media { border-radius: var(--g-radius); overflow: hidden; aspect-ratio: 4 / 3; background: rgba(255, 255, 255, .12); }
+  #sblg-{{ sid }} .sblg-corp__media img, #sblg-{{ sid }} .sblg-corp__media svg { width: 100%; height: 100%; object-fit: cover; }
+  #sblg-{{ sid }} .sblg-corp__media .sblg-ph { background: rgba(255, 255, 255, .12); fill: rgba(255, 255, 255, .35); }
+  @media (min-width: 990px) {
+    #sblg-{{ sid }} .sblg-corp { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; padding: 56px; }
+    #sblg-{{ sid }} .sblg-corp__media { aspect-ratio: 5 / 4; }
+  }
+
+  /* Testimonials */
+  #sblg-{{ sid }} .sblg-reviews { --per: 1.15; }
+  @media (min-width: 600px) { #sblg-{{ sid }} .sblg-reviews { --per: 1.8; } }
+  @media (min-width: 990px) {
+    #sblg-{{ sid }} .sblg-reviews { grid-auto-flow: row; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-columns: auto; overflow: visible; }
+  }
+  #sblg-{{ sid }} .sblg-review { display: flex; flex-direction: column; gap: 14px; height: 100%; margin: 0; padding: 26px 24px; border-radius: var(--g-radius); background: var(--g-card); box-shadow: var(--g-shadow); transition: transform .3s ease, box-shadow .3s ease; }
+  #sblg-{{ sid }} .sblg-review:hover { transform: translateY(-4px); box-shadow: var(--g-shadow-hover); }
+  #sblg-{{ sid }} .sblg-review__quote { width: 36px; height: 36px; color: var(--g-accent); }
+  #sblg-{{ sid }} .sblg-review blockquote { margin: 0; font-size: 15px; line-height: 1.65; color: var(--g-text); flex: 1; }
+  #sblg-{{ sid }} .sblg-stars { display: flex; gap: 3px; color: #e8b800; }
+  #sblg-{{ sid }} .sblg-stars svg { width: 16px; height: 16px; }
+  #sblg-{{ sid }} .sblg-stars .is-off { color: #ddd8cc; }
+  #sblg-{{ sid }} .sblg-review figcaption { display: flex; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px solid var(--g-line); }
+  #sblg-{{ sid }} .sblg-avatar { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--g-soft); color: var(--g-primary); font-family: var(--g-head); font-weight: 700; flex: none; overflow: hidden; }
+  #sblg-{{ sid }} .sblg-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  #sblg-{{ sid }} .sblg-review__name { display: block; font-weight: 600; color: var(--g-primary); font-size: 15px; font-style: normal; }
+  #sblg-{{ sid }} .sblg-review__meta { display: block; font-size: 12px; color: var(--g-muted); }
+
+  /* FAQ */
+  #sblg-{{ sid }} .sblg-faq { display: grid; gap: 12px; max-width: 860px; margin: 0 auto; }
+  #sblg-{{ sid }} .sblg-faq details { border-radius: var(--g-radius-sm); background: var(--g-card); border: 1px solid var(--g-line); transition: box-shadow .25s ease, border-color .25s ease; }
+  #sblg-{{ sid }} .sblg-faq details[open] { box-shadow: var(--g-shadow); border-color: transparent; }
+  #sblg-{{ sid }} .sblg-faq summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px; cursor: pointer; list-style: none; font-family: var(--g-head); font-size: 16px; font-weight: 600; color: var(--g-primary); border-radius: var(--g-radius-sm); }
+  #sblg-{{ sid }} .sblg-faq summary::-webkit-details-marker { display: none; }
+  #sblg-{{ sid }} .sblg-faq__icon { position: relative; flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--g-soft); transition: background-color .25s ease, transform .3s ease; }
+  #sblg-{{ sid }} .sblg-faq__icon::before, #sblg-{{ sid }} .sblg-faq__icon::after { content: ''; position: absolute; top: 50%; left: 50%; width: 12px; height: 2px; margin: -1px 0 0 -6px; border-radius: 2px; background: var(--g-primary); transition: transform .3s ease; }
+  #sblg-{{ sid }} .sblg-faq__icon::after { transform: rotate(90deg); }
+  #sblg-{{ sid }} .sblg-faq details[open] .sblg-faq__icon { background: var(--g-accent); }
+  #sblg-{{ sid }} .sblg-faq details[open] .sblg-faq__icon::after { transform: rotate(0deg); }
+  #sblg-{{ sid }} .sblg-faq__answer { padding: 0 20px 20px; color: var(--g-muted); font-size: 15px; }
+  #sblg-{{ sid }} .sblg-faq__answer p { margin: 0 0 10px; }
+  #sblg-{{ sid }} .sblg-faq__answer p:last-child { margin: 0; }
+  #sblg-{{ sid }} .sblg-faq__answer a { color: var(--g-primary); }
+
+  /* Final CTA */
+  #sblg-{{ sid }} .sblg-cta { position: relative; overflow: hidden; border-radius: 28px; background: {{ section.settings.cta_bg_color }}; color: #fff; text-align: center; padding: 56px 24px; }
+  @media (min-width: 750px) { #sblg-{{ sid }} .sblg-cta { padding: 80px 48px; } }
+  #sblg-{{ sid }} .sblg-cta .sblg-h2 { color: #fff; font-size: clamp(28px, 5vw, 44px); }
+  #sblg-{{ sid }} .sblg-cta p { margin: 12px auto 28px; max-width: 480px; color: rgba(255, 255, 255, .85); }
+  #sblg-{{ sid }} .sblg-cta__inner { position: relative; z-index: 1; }
+  #sblg-{{ sid }} .sblg-cta__leaf { position: absolute; z-index: 0; top: 50%; width: 140px; color: #fff; opacity: .12; pointer-events: none; }
+  #sblg-{{ sid }} .sblg-cta__leaf img { width: 100%; height: auto; }
+  #sblg-{{ sid }} .sblg-cta__leaf--l { left: -36px; transform: translateY(-50%) rotate(-30deg); }
+  #sblg-{{ sid }} .sblg-cta__leaf--r { right: -36px; transform: translateY(-50%) scaleX(-1) rotate(-30deg); }
+  #sblg-{{ sid }} .sblg-cta__leaf.has-img { opacity: .9; }
+  @media (min-width: 750px) { #sblg-{{ sid }} .sblg-cta__leaf { width: 230px; } #sblg-{{ sid }} .sblg-cta__leaf--l { left: -20px; } #sblg-{{ sid }} .sblg-cta__leaf--r { right: -20px; } }
+
+  /* Reveal */
+  html.js #sblg-{{ sid }} [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+  html.js #sblg-{{ sid }} [data-reveal].is-in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html.js #sblg-{{ sid }} [data-reveal] { opacity: 1; transform: none; transition: none; }
+    #sblg-{{ sid }} *, #sblg-{{ sid }} *::before, #sblg-{{ sid }} *::after { transition: none !important; scroll-behavior: auto !important; }
+  }
+  #sblg-{{ sid }} .sblg-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+</style>
+
+{%- capture leaf_svg -%}<svg viewBox="0 0 120 160" fill="currentColor" aria-hidden="true" focusable="false"><path d="M60 4C28 30 12 62 14 94c2 30 22 52 46 62 24-10 44-32 46-62 2-32-14-64-46-90Z" opacity=".9"/><path d="M60 22v134M60 60 36 40M60 60l24-20M60 90 30 68M60 90l30-22M60 120 38 102M60 120l22-18" stroke="#fff" stroke-opacity=".35" stroke-width="3" fill="none" stroke-linecap="round"/></svg>{%- endcapture -%}
+{%- capture leafmark_svg -%}<svg class="sblg-leafmark" viewBox="0 0 34 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M17 16V5"/><path d="M17 10c-3-6-9-7-14-6 1 5 6 8 14 6Z"/><path d="M17 10c3-6 9-7 14-6-1 5-6 8-14 6Z"/></svg>{%- endcapture -%}
+{%- capture arrow_svg -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>{%- endcapture -%}
+{%- capture check_svg -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>{%- endcapture -%}
+{%- capture star_svg -%}<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9L12 2.8Z"/></svg>{%- endcapture -%}
+
+<div id="sblg-{{ sid }}" class="sblg" data-sblg>
+
+  {%- comment -%} ===== HERO ===== {%- endcomment -%}
+  {%- if section.settings.show_hero -%}
+    <section class="sblg-hero{% if section.settings.hero_media_first_mobile %} sblg-hero--media-first{% endif %}" aria-labelledby="sblg-hero-title-{{ sid }}">
+      <div class="sblg-hero__leaf sblg-hero__leaf--a">{{ leaf_svg }}</div>
+      <div class="sblg-wrap sblg-hero__grid">
+        <div class="sblg-hero__copy" data-reveal>
+          {%- if section.settings.hero_eyebrow != blank -%}<p class="sblg-eyebrow">{{ section.settings.hero_eyebrow | escape }}</p>{%- endif -%}
+          <h1 id="sblg-hero-title-{{ sid }}" class="sblg-h1">{{ section.settings.hero_heading | escape }}</h1>
+          {%- if section.settings.hero_text != blank -%}<p class="sblg-hero__text">{{ section.settings.hero_text | escape }}</p>{%- endif -%}
+          {%- if section.settings.hero_button_label != blank -%}
+            <a class="sblg-btn sblg-btn--primary" href="{{ hero_link }}">{{ section.settings.hero_button_label | escape }}{{ arrow_svg }}</a>
+          {%- endif -%}
+          {%- if section.settings.hero_note != blank -%}
+            <p class="sblg-hero__note">{{ check_svg }}{{ section.settings.hero_note | escape }}</p>
+          {%- endif -%}
+        </div>
+        <div class="sblg-hero__media" data-reveal>
+          {%- if section.settings.hero_image != blank -%}
+            {{ section.settings.hero_image | image_url: width: 1600 | image_tag: widths: '480, 720, 960, 1200, 1600', sizes: '(min-width: 1280px) 660px, (min-width: 990px) 52vw, 100vw', loading: 'eager', fetchpriority: 'high', alt: section.settings.hero_image.alt | default: section.settings.hero_heading }}
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'sblg-ph' }}
+          {%- endif -%}
+          {%- if section.settings.hero_chip != blank -%}
+            <p class="sblg-hero__chip"><span>{{ star_svg }}</span>{{ section.settings.hero_chip | escape }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ===== SHOP BY OCCASION ===== {%- endcomment -%}
+  {%- if section.settings.show_occasion -%}
+    <section class="sblg-block" aria-labelledby="sblg-occ-title-{{ sid }}">
+      <div class="sblg-wrap">
+        <div class="sblg-head" data-reveal>
+          {{ leafmark_svg }}
+          <h2 id="sblg-occ-title-{{ sid }}" class="sblg-h2">{{ section.settings.occasion_heading | escape }}</h2>
+          {%- if section.settings.occasion_subheading != blank -%}<p>{{ section.settings.occasion_subheading | escape }}</p>{%- endif -%}
+        </div>
+        <ul class="sblg-cards" role="list">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'occasion' -%}
+              {%- assign occ_link = block.settings.link | default: page_collection_url -%}
+              <li data-reveal {{ block.shopify_attributes }}>
+                <a class="sblg-occ{% if block.settings.image == blank %} sblg-occ--noimg{% endif %}" href="{{ occ_link }}">
+                  {%- if block.settings.image != blank -%}
+                    <div class="sblg-occ__media">
+                      {{ block.settings.image | image_url: width: 640 | image_tag: widths: '240, 360, 480, 640', sizes: '(min-width: 1280px) 300px, (min-width: 990px) 24vw, 48vw', loading: 'lazy', alt: block.settings.image.alt | default: block.settings.title }}
+                    </div>
+                  {%- endif -%}
+                  <div class="sblg-occ__body">
+                    <span class="sblg-icon">
+                      {%- case block.settings.icon -%}
+                        {%- when 'cake' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21h16M5 21v-7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v7"/><path d="M5 16c1.5 1 2.8 1 4 0s2.8-1 4 0 2.8 1 4 0 1.5-.7 2-.7"/><path d="M12 12V8M8 12V9M16 12V9"/><path d="M12 5.5c.8-.8.8-1.7 0-2.5-.8.8-.8 1.7 0 2.5Z"/></svg>
+                        {%- when 'home' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11 12 4l8.5 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M12 20v-4.5"/><path d="M12 15.5c-2.4 0-3.5-1.6-3.5-3.8 2.3 0 3.5 1.4 3.5 3.8Zm0 0c2.4 0 3.5-1.6 3.5-3.8-2.3 0-3.5 1.4-3.5 3.8Z"/></svg>
+                        {%- when 'heart' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10A4.2 4.2 0 0 1 12 7.6 4.2 4.2 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10Z"/><path d="M12 7.6V4M10 5.2c1-.2 1.6-.6 2-1.2.4.6 1 1 2 1.2"/></svg>
+                        {%- when 'thanks' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="2.2"/><path d="M12 6.8c0-2 1-3.3 2.2-3.3S15.6 5 14 6.8M14.2 9c2 0 3.3 1 3.3 2.2s-1.5 1.4-3.3-.2M9.8 9c-2 0-3.3 1-3.3 2.2s1.5 1.4 3.3-.2M12 6.8c0-2-1-3.3-2.2-3.3S8.4 5 10 6.8"/><path d="M12 11.2V21M12 17c-2.5 0-4-1.4-4-3.5 2.4 0 4 1.3 4 3.5Zm0-1c2.2 0 3.5-1.2 3.5-3 -2.1 0-3.5 1.1-3.5 3Z"/></svg>
+                        {%- when 'gift' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="8.5" width="17" height="4" rx="1"/><path d="M5 12.5V20h14v-7.5M12 8.5V20"/><path d="M12 8.5C10.5 5 7.5 4.5 7 6.2c-.5 1.8 2.5 2.3 5 2.3Zm0 0c1.5-3.5 4.5-4 5-2.3.5 1.8-2.5 2.3-5 2.3Z"/></svg>
+                        {%- when 'baby' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-8"/><path d="M12 13c-4 0-6-2.6-6-6.5 4 0 6 2.6 6 6.5Zm0 0c4 0 6-2.6 6-6.5-4 0-6 2.6-6 6.5Z"/><path d="M8 21h8"/></svg>
+                        {%- else -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19C5 10 10 5 19 5c0 9-5 14-14 14Z"/><path d="M5 19 13 11"/></svg>
+                      {%- endcase -%}
+                    </span>
+                    <span class="sblg-occ__title">
+                      <span class="sblg-h3">{{ block.settings.title | escape }}</span>
+                      {{ arrow_svg | replace: '<svg ', '<svg class="sblg-occ__arrow" ' }}
+                    </span>
+                  </div>
+                </a>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ===== GIFTS BY BUDGET ===== {%- endcomment -%}
+  {%- if section.settings.show_budget -%}
+    <section class="sblg-block" aria-labelledby="sblg-bud-title-{{ sid }}">
+      <div class="sblg-wrap">
+        <div class="sblg-head" data-reveal>
+          {{ leafmark_svg }}
+          <h2 id="sblg-bud-title-{{ sid }}" class="sblg-h2">{{ section.settings.budget_heading | escape }}</h2>
+          {%- if section.settings.budget_subheading != blank -%}<p>{{ section.settings.budget_subheading | escape }}</p>{%- endif -%}
+        </div>
+        <ul class="sblg-cards" role="list">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'budget' -%}
+              {%- liquid
+                if block.settings.link != blank
+                  assign bud_link = block.settings.link
+                else
+                  assign bud_params = ''
+                  if block.settings.min_price != blank and block.settings.min_price > 0
+                    assign bud_params = bud_params | append: '&filter.v.price.gte=' | append: block.settings.min_price
+                  endif
+                  if block.settings.max_price != blank and block.settings.max_price > 0
+                    assign bud_params = bud_params | append: '&filter.v.price.lte=' | append: block.settings.max_price
+                  endif
+                  if bud_params != ''
+                    assign bud_params = bud_params | remove_first: '&'
+                    assign bud_link = budget_base_url | append: '?' | append: bud_params
+                  else
+                    assign bud_link = budget_base_url
+                  endif
+                endif
+              -%}
+              <li data-reveal {{ block.shopify_attributes }}>
+                <a class="sblg-budget" href="{{ bud_link }}">
+                  <span class="sblg-icon">
+                    {%- case block.settings.icon -%}
+                      {%- when 'seedling' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20v-7"/><path d="M12 13c-3.6 0-5.5-2.3-5.5-6 3.6 0 5.5 2.3 5.5 6Zm0 0c3.6 0 5.5-2.3 5.5-6-3.6 0-5.5 2.3-5.5 6Z"/><path d="M7 20h10"/></svg>
+                      {%- when 'pot' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 13h12l-1.5 7.5h-9L6 13Z"/><path d="M12 13V8"/><path d="M12 9.5C10 9.5 8.5 8 8.5 5.5c2.2 0 3.5 1.6 3.5 4Zm0-1.5c1.8 0 3.2-1.4 3.2-3.6-2 0-3.2 1.4-3.2 3.6Z"/></svg>
+                      {%- when 'monstera' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V11"/><path d="M12 11c-5 0-8-3-8-7.5C9 3.5 12 6.5 12 11Zm0 0c5 0 8-3 8-7.5-5 0-8 3-8 7.5Z"/><path d="M8.5 6.5 10 8.5M15.5 6.5 14 8.5"/><path d="M8 21h8"/></svg>
+                      {%- when 'tree' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-6"/><path d="M12 3c-3.5 2-6 5-6 8a6 6 0 0 0 12 0c0-3-2.5-6-6-8Z"/><path d="M12 15l-2.5-2.5M12 12.5l2.5-2.5"/><path d="M8 21h8"/></svg>
+                      {%- else -%}<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="8.5" width="17" height="4" rx="1"/><path d="M5 12.5V20h14v-7.5M12 8.5V20"/><path d="M12 8.5C10.5 5 7.5 4.5 7 6.2c-.5 1.8 2.5 2.3 5 2.3Zm0 0c1.5-3.5 4.5-4 5-2.3.5 1.8-2.5 2.3-5 2.3Z"/></svg>
+                    {%- endcase -%}
+                  </span>
+                  <span class="sblg-budget__label">{{ block.settings.label | escape }}</span>
+                  {%- if block.settings.caption != blank -%}<span class="sblg-budget__cap">{{ block.settings.caption | escape }}</span>{%- endif -%}
+                  <span class="sblg-budget__go">{{ section.settings.budget_link_label | escape }}</span>
+                </a>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ===== BEST-SELLING GIFT PLANTS ===== {%- endcomment -%}
+  {%- if section.settings.show_bestsellers -%}
+    <section class="sblg-block" aria-labelledby="sblg-bs-title-{{ sid }}">
+      <div class="sblg-wrap">
+        <div class="sblg-head sblg-head--row" data-reveal>
+          <div>
+            {{ leafmark_svg }}
+            <h2 id="sblg-bs-title-{{ sid }}" class="sblg-h2">{{ section.settings.bs_heading | escape }}</h2>
+            {%- if section.settings.bs_subheading != blank -%}<p>{{ section.settings.bs_subheading | escape }}</p>{%- endif -%}
+          </div>
+          <div class="sblg-arrows">
+            <button class="sblg-arrow" type="button" aria-label="Previous products" aria-controls="sblg-bs-track-{{ sid }}" data-rail-prev><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+            <button class="sblg-arrow" type="button" aria-label="Next products" aria-controls="sblg-bs-track-{{ sid }}" data-rail-next>{{ arrow_svg }}</button>
+          </div>
+        </div>
+        <div class="sblg-rail" data-rail>
+          <ul class="sblg-track" id="sblg-bs-track-{{ sid }}" role="list" tabindex="0" aria-label="{{ section.settings.bs_heading | escape }}" data-rail-track>
+            {%- if bs_collection != blank and bs_collection.products_count > 0 -%}
+              {%- for product in bs_collection.products limit: section.settings.bs_count -%}
+                {%- liquid
+                  assign variant = product.selected_or_first_available_variant
+                  assign badge = ''
+                  assign badge_muted = false
+                  for tag in product.tags
+                    if tag contains 'badge:'
+                      assign badge = tag | remove_first: 'badge:' | strip
+                      break
+                    endif
+                  endfor
+                  if badge == ''
+                    if product.available == false
+                      assign badge = 'Sold out'
+                      assign badge_muted = true
+                    elsif product.compare_at_price > product.price
+                      assign save_pct = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price
+                      assign badge = 'Save ' | append: save_pct | append: '%'
+                    elsif section.settings.bs_default_badge != blank
+                      assign badge = section.settings.bs_default_badge
+                    endif
+                  endif
+                -%}
+                <li>
+                  <article class="sblg-pc">
+                    {%- if badge != '' -%}<span class="sblg-pc__badge{% if badge_muted %} sblg-pc__badge--muted{% endif %}">{{ badge | escape }}</span>{%- endif -%}
+                    {%- render 'wishlist-button', product: product -%}
+                    <a class="sblg-pc__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+                      {%- if product.featured_media -%}
+                        {{ product.featured_media | image_url: width: 640 | image_tag: widths: '280, 400, 520, 640', sizes: '(min-width: 1280px) 300px, (min-width: 990px) 24vw, (min-width: 750px) 38vw, 76vw', loading: 'lazy', alt: product.featured_media.alt | default: product.title }}
+                      {%- else -%}
+                        {{ 'product-1' | placeholder_svg_tag: 'sblg-ph' }}
+                      {%- endif -%}
+                    </a>
+                    <div class="sblg-pc__body">
+                      <h3 class="sblg-pc__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+                      <div class="sblg-pc__price">
+                        {%- if product.price_varies -%}<span class="sblg-sr">From</span>{%- endif -%}
+                        <strong>{{ product.price | money_without_trailing_zeros }}</strong>
+                        {%- if product.compare_at_price > product.price -%}
+                          <span class="sblg-sr">Regular price</span><s>{{ product.compare_at_price | money_without_trailing_zeros }}</s>
+                        {%- endif -%}
+                      </div>
+                      <form class="sblg-pc__form" action="{{ routes.cart_add_url }}" method="post" data-add-to-cart>
+                        <input type="hidden" name="id" value="{{ variant.id }}">
+                        <input type="hidden" name="quantity" value="1">
+                        <button class="sblg-btn sblg-btn--primary sblg-pc__atc" type="submit"{% unless product.available %} disabled{% endunless %} aria-label="{% if product.available %}{{ 'general.add_to_cart' | t }}{% else %}{{ 'general.sold_out' | t }}{% endif %}: {{ product.title | escape }}">
+                          {%- if product.available -%}{{ 'general.add_to_cart' | t }}{%- else -%}{{ 'general.sold_out' | t }}{%- endif -%}
+                        </button>
+                      </form>
+                    </div>
+                  </article>
+                </li>
+              {%- endfor -%}
+            {%- else -%}
+              {%- for i in (1..4) -%}
+                <li>
+                  <article class="sblg-pc">
+                    <div class="sblg-pc__media">{{ 'product-' | append: i | placeholder_svg_tag: 'sblg-ph' }}</div>
+                    <div class="sblg-pc__body">
+                      <h3 class="sblg-pc__title">Gift plant</h3>
+                      <div class="sblg-pc__price"><strong>{{ 59900 | money_without_trailing_zeros }}</strong></div>
+                      <span class="sblg-btn sblg-btn--primary sblg-pc__atc">{{ 'general.add_to_cart' | t }}</span>
+                    </div>
+                  </article>
+                </li>
+              {%- endfor -%}
+            {%- endif -%}
+          </ul>
+        </div>
+        {%- if section.settings.bs_view_all_label != blank and bs_collection != blank -%}
+          <div style="text-align:center"><a class="sblg-btn sblg-btn--ghost sblg-viewall" href="{{ bs_collection.url }}">{{ section.settings.bs_view_all_label | escape }}{{ arrow_svg }}</a></div>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ===== BUILD YOUR GIFT ===== {%- endcomment -%}
+  {%- if section.settings.show_build -%}
+    <section class="sblg-block" aria-labelledby="sblg-build-title-{{ sid }}">
+      <div class="sblg-wrap">
+        <div class="sblg-build">
+          <div class="sblg-build__leaf sblg-build__leaf--l">{{ leaf_svg }}</div>
+          <div class="sblg-build__leaf sblg-build__leaf--r">{{ leaf_svg }}</div>
+          <div class="sblg-head" data-reveal>
+            {{ leafmark_svg }}
+            <h2 id="sblg-build-title-{{ sid }}" class="sblg-h2">{{ section.settings.build_heading | escape }}</h2>
+            {%- if section.settings.build_subheading != blank -%}<p>{{ section.settings.build_subheading | escape }}</p>{%- endif -%}
+          </div>
+          <ol class="sblg-steps" role="list">
+            {%- for n in (1..3) -%}
+              {%- assign st_key = 'step_' | append: n | append: '_title' -%}
+              {%- assign sx_key = 'step_' | append: n | append: '_text' -%}
+              <li class="sblg-step" data-reveal>
+                <span class="sblg-step__num" aria-hidden="true">0{{ n }}</span>
+                <div>
+                  <h3 class="sblg-h3"><span class="sblg-sr">Step {{ n }}: </span>{{ section.settings[st_key] | escape }}</h3>
+                  {%- if section.settings[sx_key] != blank -%}<p>{{ section.settings[sx_key] | escape }}</p>{%- endif -%}
+                </div>
+              </li>
+            {%- endfor -%}
+          </ol>
+          {%- if section.settings.build_button_label != blank -%}
+            <div class="sblg-build__cta" data-reveal>
+              <a class="sblg-btn sblg-btn--primary" href="{{ build_link }}">{{ section.settings.build_button_label | escape }}{{ arrow_svg }}</a>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ===== CORPORATE GIFTING ===== {%- endcomment -%}
+  {%- if section.settings.show_corp -%}
+    <section class="sblg-block" aria-labelledby="sblg-corp-title-{{ sid }}">
+      <div class="sblg-wrap">
+        <div class="sblg-corp" data-reveal>
+          {%- if section.settings.corp_bg_image != blank -%}
+            <div class="sblg-corp__bg">
+              {{ section.settings.corp_bg_image | image_url: width: 1800 | image_tag: widths: '750, 1100, 1500, 1800', sizes: '(min-width: 1280px) 1216px, 100vw', loading: 'lazy', alt: '' }}
+            </div>
+          {%- endif -%}
+          <div>
+            {%- if section.settings.corp_eyebrow != blank -%}<p class="sblg-eyebrow">{{ section.settings.corp_eyebrow | escape }}</p>{%- endif -%}
+            <h2 id="sblg-corp-title-{{ sid }}" class="sblg-h2">{{ section.settings.corp_heading | escape }}</h2>
+            {%- if section.settings.corp_text != blank -%}<p class="sblg-corp__text">{{ section.settings.corp_text | escape }}</p>{%- endif -%}
+            {%- assign corp_points = section.settings.corp_points | newline_to_br | split: '<br />' -%}
+            {%- if section.settings.corp_points != blank -%}
+              <ul class="sblg-corp__list" role="list">
+                {%- for point in corp_points -%}
+                  {%- assign p = point | strip -%}
+                  {%- if p != blank -%}<li>{{ check_svg }}{{ p | escape }}</li>{%- endif -%}
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+            {%- if section.settings.corp_button_label != blank -%}
+              <a class="sblg-btn sblg-btn--accent" href="{{ corp_link }}">{{ section.settings.corp_button_label | escape }}{{ arrow_svg }}</a>
+            {%- endif -%}
+          </div>
+          <div class="sblg-corp__media">
+            {%- if section.settings.corp_image != blank -%}
+              {{ section.settings.corp_image | image_url: width: 1200 | image_tag: widths: '480, 720, 960, 1200', sizes: '(min-width: 1280px) 560px, (min-width: 990px) 45vw, 100vw', loading: 'lazy', alt: section.settings.corp_image.alt | default: section.settings.corp_heading }}
+            {%- else -%}
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'sblg-ph' }}
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ===== TESTIMONIALS ===== {%- endcomment -%}
+  {%- if section.settings.show_testimonials -%}
+    <section class="sblg-block" aria-labelledby="sblg-rev-title-{{ sid }}">
+      <div class="sblg-wrap">
+        <div class="sblg-head" data-reveal>
+          {{ leafmark_svg }}
+          <h2 id="sblg-rev-title-{{ sid }}" class="sblg-h2">{{ section.settings.testi_heading | escape }}</h2>
+          {%- if section.settings.testi_subheading != blank -%}<p>{{ section.settings.testi_subheading | escape }}</p>{%- endif -%}
+        </div>
+        <ul class="sblg-track sblg-reviews" role="list">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'testimonial' -%}
+              <li data-reveal {{ block.shopify_attributes }}>
+                <figure class="sblg-review">
+                  <svg class="sblg-review__quote" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" focusable="false"><path d="M13 7C7.5 8.4 4 12.6 4 18.3V25h9v-9H8.4c.4-3.1 2.3-5.3 5.6-6.4L13 7Zm15 0c-5.5 1.4-9 5.6-9 11.3V25h9v-9h-4.6c.4-3.1 2.3-5.3 5.6-6.4L28 7Z"/></svg>
+                  <blockquote><p style="margin:0">{{ block.settings.quote | escape }}</p></blockquote>
+                  <div class="sblg-stars" role="img" aria-label="Rated {{ block.settings.rating }} out of 5">
+                    {%- for s in (1..5) -%}
+                      {%- if s <= block.settings.rating -%}{{ star_svg }}{%- else -%}{{ star_svg | replace: '<svg ', '<svg class="is-off" ' }}{%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                  <figcaption>
+                    <span class="sblg-avatar" aria-hidden="true">
+                      {%- if block.settings.avatar != blank -%}
+                        {{ block.settings.avatar | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}
+                      {%- else -%}
+                        {{ block.settings.name | slice: 0 | upcase }}
+                      {%- endif -%}
+                    </span>
+                    <span>
+                      <cite class="sblg-review__name">{{ block.settings.name | escape }}</cite>
+                      {%- if block.settings.meta != blank -%}<span class="sblg-review__meta">{{ block.settings.meta | escape }}</span>{%- endif -%}
+                    </span>
+                  </figcaption>
+                </figure>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ===== FAQ ===== {%- endcomment -%}
+  {%- if section.settings.show_faq -%}
+    <section class="sblg-block" aria-labelledby="sblg-faq-title-{{ sid }}">
+      <div class="sblg-wrap">
+        <div class="sblg-head" data-reveal>
+          {{ leafmark_svg }}
+          <h2 id="sblg-faq-title-{{ sid }}" class="sblg-h2">{{ section.settings.faq_heading | escape }}</h2>
+          {%- if section.settings.faq_subheading != blank -%}<p>{{ section.settings.faq_subheading | escape }}</p>{%- endif -%}
+        </div>
+        <div class="sblg-faq" data-faq>
+          {%- assign faq_index = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'faq' -%}
+              {%- assign faq_index = faq_index | plus: 1 -%}
+              <details {{ block.shopify_attributes }}{% if faq_index == 1 and section.settings.faq_open_first %} open{% endif %}>
+                <summary>
+                  <span>{{ block.settings.question | escape }}</span>
+                  <span class="sblg-faq__icon" aria-hidden="true"></span>
+                </summary>
+                <div class="sblg-faq__answer">{{ block.settings.answer }}</div>
+              </details>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ===== FINAL CTA ===== {%- endcomment -%}
+  {%- if section.settings.show_cta -%}
+    <section class="sblg-block sblg-block--last" aria-labelledby="sblg-cta-title-{{ sid }}">
+      <div class="sblg-wrap">
+        <div class="sblg-cta" data-reveal>
+          {%- if section.settings.cta_leaf_image != blank -%}
+            {%- capture cta_leaf -%}{{ section.settings.cta_leaf_image | image_url: width: 460 | image_tag: loading: 'lazy', alt: '' }}{%- endcapture -%}
+            <div class="sblg-cta__leaf sblg-cta__leaf--l has-img" aria-hidden="true">{{ cta_leaf }}</div>
+            <div class="sblg-cta__leaf sblg-cta__leaf--r has-img" aria-hidden="true">{{ cta_leaf }}</div>
+          {%- else -%}
+            <div class="sblg-cta__leaf sblg-cta__leaf--l">{{ leaf_svg }}</div>
+            <div class="sblg-cta__leaf sblg-cta__leaf--r">{{ leaf_svg }}</div>
+          {%- endif -%}
+          <div class="sblg-cta__inner">
+            <h2 id="sblg-cta-title-{{ sid }}" class="sblg-h2">{{ section.settings.cta_heading | escape }}</h2>
+            {%- if section.settings.cta_text != blank -%}<p>{{ section.settings.cta_text | escape }}</p>{%- endif -%}
+            {%- if section.settings.cta_button_label != blank -%}
+              <a class="sblg-btn sblg-btn--accent" href="{{ cta_link }}">{{ section.settings.cta_button_label | escape }}{{ arrow_svg }}</a>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('sblg-{{ sid }}');
+    if (!root) return;
+
+    root.querySelectorAll('[data-rail]').forEach(function (rail) {
+      var track = rail.querySelector('[data-rail-track]');
+      var scope = rail.closest('.sblg-wrap') || root;
+      var prev = scope.querySelector('[data-rail-prev]');
+      var next = scope.querySelector('[data-rail-next]');
+      if (!track) return;
+      function step() {
+        var item = track.querySelector('li');
+        var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+        return item ? item.getBoundingClientRect().width + gap : track.clientWidth;
+      }
+      function update() {
+        var max = track.scrollWidth - track.clientWidth - 2;
+        if (prev) prev.disabled = track.scrollLeft <= 2;
+        if (next) next.disabled = track.scrollLeft >= max;
+      }
+      if (prev) prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+      if (next) next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+      track.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    });
+
+    var items = root.querySelectorAll('[data-reveal]');
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.Shopify && Shopify.designMode) {
+      items.forEach(function (el) { el.classList.add('is-in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    items.forEach(function (el, i) {
+      el.style.transitionDelay = (i % 4) * 70 + 'ms';
+      io.observe(el);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "SBL Gifting page",
+  "tag": "section",
+  "class": "section-sbl-gifting",
+  "settings": [
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "color_primary", "label": "Primary green", "default": "#1F5130" },
+    { "type": "color", "id": "color_accent", "label": "Accent yellow", "default": "#FFD60A" },
+    { "type": "color", "id": "color_bg", "label": "Page background", "default": "#F8F4EC" },
+    { "type": "color", "id": "color_card", "label": "Card background", "default": "#FFFFFF" },
+    { "type": "color", "id": "color_soft", "label": "Soft green (occasion cards, icons)", "default": "#E6EFE2" },
+    { "type": "color", "id": "color_text", "label": "Text", "default": "#1E2A22" },
+
+    { "type": "header", "content": "Hero" },
+    { "type": "checkbox", "id": "show_hero", "label": "Show hero", "default": true },
+    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow", "default": "PLANT GIFTING MADE SPECIAL" },
+    { "type": "text", "id": "hero_heading", "label": "Heading", "default": "Gifts That Grow With You" },
+    { "type": "textarea", "id": "hero_text", "label": "Text", "default": "Thoughtful plants and green gifts for every celebration, occasion and special moment." },
+    { "type": "text", "id": "hero_button_label", "label": "Button label", "default": "Shop Gifts" },
+    { "type": "url", "id": "hero_button_link", "label": "Button link", "info": "Defaults to the current collection" },
+    { "type": "text", "id": "hero_note", "label": "Small note under button", "default": "Gift-wrapped with a free handwritten note" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image", "info": "Lifestyle image, 1600 x 1400px recommended" },
+    { "type": "text", "id": "hero_chip", "label": "Image badge", "default": "Loved by plant gifters" },
+    { "type": "checkbox", "id": "hero_media_first_mobile", "label": "Show image first on mobile", "default": false },
+
+    { "type": "header", "content": "Shop by occasion" },
+    { "type": "checkbox", "id": "show_occasion", "label": "Show shop by occasion", "default": true },
+    { "type": "text", "id": "occasion_heading", "label": "Heading", "default": "Shop by Occasion" },
+    { "type": "text", "id": "occasion_subheading", "label": "Subheading", "default": "Find the perfect plant gift for every moment" },
+    { "type": "paragraph", "content": "Add or edit cards with \"Occasion card\" blocks." },
+
+    { "type": "header", "content": "Gifts by budget" },
+    { "type": "checkbox", "id": "show_budget", "label": "Show gifts by budget", "default": true },
+    { "type": "text", "id": "budget_heading", "label": "Heading", "default": "Gifts by Budget" },
+    { "type": "text", "id": "budget_subheading", "label": "Subheading", "default": "Thoughtful green gifts for every budget" },
+    { "type": "collection", "id": "budget_collection", "label": "Collection to filter by price", "info": "Budget cards without their own link open this collection filtered by their price range. Defaults to the current collection." },
+    { "type": "text", "id": "budget_link_label", "label": "Card link label", "default": "Shop now" },
+
+    { "type": "header", "content": "Best-selling gift plants" },
+    { "type": "checkbox", "id": "show_bestsellers", "label": "Show product carousel", "default": true },
+    { "type": "text", "id": "bs_heading", "label": "Heading", "default": "Best-Selling Gift Plants" },
+    { "type": "text", "id": "bs_subheading", "label": "Subheading", "default": "Customer favourites for gifting" },
+    { "type": "collection", "id": "bs_collection", "label": "Collection", "info": "Defaults to the current collection" },
+    { "type": "range", "id": "bs_count", "label": "Products to show", "min": 4, "max": 16, "step": 1, "default": 8 },
+    { "type": "text", "id": "bs_default_badge", "label": "Default badge", "info": "Shown when a product has no sale or tag badge. Tag a product badge:Your text to set its own badge.", "default": "Bestseller" },
+    { "type": "text", "id": "bs_view_all_label", "label": "View all button label", "default": "View all gift plants" },
+
+    { "type": "header", "content": "Build your gift" },
+    { "type": "checkbox", "id": "show_build", "label": "Show build your gift", "default": true },
+    { "type": "text", "id": "build_heading", "label": "Heading", "default": "Build Your Gift" },
+    { "type": "text", "id": "build_subheading", "label": "Subheading", "default": "Create a personalised plant gift in 3 simple steps" },
+    { "type": "text", "id": "step_1_title", "label": "Step 1 title", "default": "Choose Plant" },
+    { "type": "text", "id": "step_1_text", "label": "Step 1 text", "default": "Pick from our curated collection" },
+    { "type": "text", "id": "step_2_title", "label": "Step 2 title", "default": "Choose Pot" },
+    { "type": "text", "id": "step_2_text", "label": "Step 2 text", "default": "Select a stylish pot" },
+    { "type": "text", "id": "step_3_title", "label": "Step 3 title", "default": "Add Message" },
+    { "type": "text", "id": "step_3_text", "label": "Step 3 text", "default": "Write a personalised note" },
+    { "type": "text", "id": "build_button_label", "label": "Button label", "default": "Create Your Gift" },
+    { "type": "url", "id": "build_button_link", "label": "Button link" },
+    { "type": "color", "id": "build_bg", "label": "Panel background", "default": "#EEF3E8" },
+
+    { "type": "header", "content": "Corporate gifting" },
+    { "type": "checkbox", "id": "show_corp", "label": "Show corporate gifting", "default": true },
+    { "type": "text", "id": "corp_eyebrow", "label": "Eyebrow", "default": "FOR TEAMS & CLIENTS" },
+    { "type": "text", "id": "corp_heading", "label": "Heading", "default": "Corporate Gifting Solutions" },
+    { "type": "textarea", "id": "corp_text", "label": "Text", "default": "Thoughtful green gifts for your team, clients and business partners." },
+    { "type": "textarea", "id": "corp_points", "label": "Highlights", "info": "One per line", "default": "Bulk orders with custom branding\nPersonalised notes and packaging\nPan-India delivery" },
+    { "type": "text", "id": "corp_button_label", "label": "Button label", "default": "Explore Corporate Gifts" },
+    { "type": "url", "id": "corp_button_link", "label": "Button link" },
+    { "type": "image_picker", "id": "corp_bg_image", "label": "Background image", "info": "Soft botanical image, shown behind a green overlay" },
+    { "type": "range", "id": "corp_overlay", "label": "Background overlay strength", "min": 40, "max": 100, "step": 5, "unit": "%", "default": 75 },
+    { "type": "color", "id": "corp_bg_color", "label": "Background color", "default": "#1F5130" },
+    { "type": "image_picker", "id": "corp_image", "label": "Side image" },
+
+    { "type": "header", "content": "Testimonials" },
+    { "type": "checkbox", "id": "show_testimonials", "label": "Show testimonials", "default": true },
+    { "type": "text", "id": "testi_heading", "label": "Heading", "default": "What Our Customers Say" },
+    { "type": "text", "id": "testi_subheading", "label": "Subheading", "default": "Real words from happy plant gifters" },
+
+    { "type": "header", "content": "FAQ" },
+    { "type": "checkbox", "id": "show_faq", "label": "Show FAQ", "default": true },
+    { "type": "text", "id": "faq_heading", "label": "Heading", "default": "Frequently Asked Questions" },
+    { "type": "text", "id": "faq_subheading", "label": "Subheading", "default": "Everything you need to know about gifting with SBL Nursery" },
+    { "type": "checkbox", "id": "faq_open_first", "label": "Open first question", "default": true },
+
+    { "type": "header", "content": "Final call to action" },
+    { "type": "checkbox", "id": "show_cta", "label": "Show final CTA", "default": true },
+    { "type": "text", "id": "cta_heading", "label": "Heading", "default": "Ready to Gift Happiness?" },
+    { "type": "text", "id": "cta_text", "label": "Text", "default": "Explore our plant gifting collection today." },
+    { "type": "text", "id": "cta_button_label", "label": "Button label", "default": "Shop Gifts" },
+    { "type": "url", "id": "cta_button_link", "label": "Button link" },
+    { "type": "color", "id": "cta_bg_color", "label": "Background color", "default": "#1F5130" },
+    { "type": "image_picker", "id": "cta_leaf_image", "label": "Decorative leaf image", "info": "Optional transparent PNG shown on both sides. A built-in leaf graphic is used when empty." }
+  ],
+  "blocks": [
+    {
+      "type": "occasion",
+      "name": "Occasion card",
+      "limit": 8,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Birthday" },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "cake",
+          "options": [
+            { "value": "cake", "label": "Cake" },
+            { "value": "home", "label": "Home" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "thanks", "label": "Flower" },
+            { "value": "gift", "label": "Gift box" },
+            { "value": "baby", "label": "Sprout" },
+            { "value": "leaf", "label": "Leaf" }
+          ]
+        },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Optional. Square or 5:4 works best." },
+        { "type": "url", "id": "link", "label": "Link", "info": "Pick a collection. Defaults to the current collection." }
+      ]
+    },
+    {
+      "type": "budget",
+      "name": "Budget card",
+      "limit": 8,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Under ₹500" },
+        { "type": "text", "id": "caption", "label": "Caption", "default": "Small joys" },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "seedling",
+          "options": [
+            { "value": "seedling", "label": "Seedling" },
+            { "value": "pot", "label": "Potted plant" },
+            { "value": "monstera", "label": "Leafy plant" },
+            { "value": "tree", "label": "Tree" },
+            { "value": "gift", "label": "Gift box" }
+          ]
+        },
+        { "type": "number", "id": "min_price", "label": "Minimum price", "info": "In store currency. Leave empty for no minimum." },
+        { "type": "number", "id": "max_price", "label": "Maximum price", "info": "In store currency. Leave empty for no maximum.", "default": 500 },
+        { "type": "url", "id": "link", "label": "Custom link", "info": "Optional. Overrides the price filter link." }
+      ]
+    },
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "limit": 12,
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Review", "default": "Beautiful plants and amazing packaging. Perfect gift!" },
+        { "type": "range", "id": "rating", "label": "Star rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "name", "label": "Customer name", "default": "Customer name" },
+        { "type": "text", "id": "meta", "label": "Location or occasion" },
+        { "type": "image_picker", "id": "avatar", "label": "Photo", "info": "Optional. Initial is shown when empty." }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ",
+      "limit": 20,
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Can I add a personal message?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Yes. Add your message at checkout and we will include it as a handwritten card.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SBL Gifting page",
+      "blocks": [
+        { "type": "occasion", "settings": { "title": "Birthday", "icon": "cake" } },
+        { "type": "occasion", "settings": { "title": "Housewarming", "icon": "home" } },
+        { "type": "occasion", "settings": { "title": "Anniversary", "icon": "heart" } },
+        { "type": "occasion", "settings": { "title": "Thank You", "icon": "thanks" } },
+        { "type": "budget", "settings": { "label": "Under ₹500", "caption": "Small joys", "icon": "seedling", "max_price": 500 } },
+        { "type": "budget", "settings": { "label": "₹500 – ₹1,000", "caption": "Thoughtful picks", "icon": "pot", "min_price": 500, "max_price": 1000 } },
+        { "type": "budget", "settings": { "label": "₹1,000 – ₹2,000", "caption": "Premium gifts", "icon": "monstera", "min_price": 1000, "max_price": 2000 } },
+        { "type": "budget", "settings": { "label": "Above ₹2,000", "caption": "Luxury green gifts", "icon": "tree", "min_price": 2000 } },
+        { "type": "testimonial", "settings": { "quote": "Beautiful plants and amazing packaging. Perfect gift!", "rating": 5, "name": "Priya S." } },
+        { "type": "testimonial", "settings": { "quote": "Love the gift set. Super fresh and well packed.", "rating": 5, "name": "Rahul M." } },
+        { "type": "testimonial", "settings": { "quote": "A unique and thoughtful gift option!", "rating": 5, "name": "Ananya K." } },
+        { "type": "faq", "settings": { "question": "Can I add a personal message?", "answer": "<p>Yes. Add your message at checkout and we will include it as a handwritten card with your gift.</p>" } },
+        { "type": "faq", "settings": { "question": "Do you offer same day delivery?", "answer": "<p>Same day delivery is available in select cities for orders placed before 12 noon. Delivery options are shown at checkout.</p>" } },
+        { "type": "faq", "settings": { "question": "How are the plants packaged?", "answer": "<p>Every plant is secured in its pot, wrapped in protective eco-friendly packaging and packed in a sturdy box so it arrives fresh and healthy.</p>" } },
+        { "type": "faq", "settings": { "question": "Can I send a gift to another city?", "answer": "<p>Yes. Simply enter the recipient's address at checkout and we will deliver it to them directly.</p>" } },
+        { "type": "faq", "settings": { "question": "Do you offer corporate gifting?", "answer": "<p>Yes. We offer bulk orders, custom branding and personalised packaging for teams, clients and events.</p>" } },
+        { "type": "faq", "settings": { "question": "Can I choose my own pot?", "answer": "<p>Yes. Many of our plants come with pot options. Choose your favourite style and colour on the product page.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
