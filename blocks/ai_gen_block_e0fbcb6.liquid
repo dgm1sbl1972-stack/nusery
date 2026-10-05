@@ -108,7 +108,7 @@
 
   .ai-pots-grid-{{ ai_gen_id }}__heading {
     margin: 0 0 24px;
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: var(--font-display);
     font-size: clamp(28px, 4vw, 48px);
     line-height: 1.1;
     color: {{ block.settings.heading_color }};
@@ -196,7 +196,7 @@
   .ai-pots-grid-{{ ai_gen_id }}__badge { position: absolute; top: 12px; right: 12px; padding: 6px 9px; border-radius: 999px; background: {{ block.settings.badge_color }}; color: #fff; font-size: 11px; font-weight: 700; }
   .ai-pots-grid-{{ ai_gen_id }}__rating { position: absolute; left: 12px; bottom: 12px; padding: 6px 9px; border-radius: 999px; background: rgba(255,255,255,.94); color: {{ block.settings.text_color }}; font-size: 11px; font-weight: 700; }
   .ai-pots-grid-{{ ai_gen_id }}__content { display: flex; flex: 1; flex-direction: column; padding: 16px; }
-  .ai-pots-grid-{{ ai_gen_id }}__title { margin: 0 0 10px; color: {{ block.settings.heading_color }}; font-family: Georgia, 'Times New Roman', serif; font-size: 19px; line-height: 1.2; }
+  .ai-pots-grid-{{ ai_gen_id }}__title { margin: 0 0 10px; color: {{ block.settings.heading_color }}; font-family: var(--font-display); font-size: 19px; line-height: 1.2; }
   .ai-pots-grid-{{ ai_gen_id }}__title a { color: inherit; text-decoration: none; }
   .ai-pots-grid-{{ ai_gen_id }}__price { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: {{ block.settings.text_color }}; font-size: 15px; font-weight: 700; }
   .ai-pots-grid-{{ ai_gen_id }}__compare { color: {{ block.settings.muted_color }}; font-size: 13px; font-weight: 400; text-decoration: line-through; }

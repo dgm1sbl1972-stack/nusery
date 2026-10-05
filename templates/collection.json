@@ -254,68 +254,12 @@
             "sub_10_title": "Pot accessories",
             "sub_10_link": ""
           }
-        },
-        "category_gifting": {
-          "type": "category",
-          "settings": {
-            "title": "Gifting",
-            "link": "",
-            "sub_1_title": "Plant gifts",
-            "sub_1_link": "",
-            "sub_2_title": "Gift hampers",
-            "sub_2_link": "",
-            "sub_3_title": "Birthday gifts",
-            "sub_3_link": "",
-            "sub_4_title": "Housewarming gifts",
-            "sub_4_link": "",
-            "sub_5_title": "Corporate gifts",
-            "sub_5_link": "",
-            "sub_6_title": "Gift cards",
-            "sub_6_link": "",
-            "sub_7_title": "Gardening kits",
-            "sub_7_link": "",
-            "sub_8_title": "Mini garden gifts",
-            "sub_8_link": "",
-            "sub_9_title": "Thank-you gifts",
-            "sub_9_link": "",
-            "sub_10_title": "Gift bundles",
-            "sub_10_link": ""
-          }
-        },
-        "category_services": {
-          "type": "category",
-          "settings": {
-            "title": "Services",
-            "link": "",
-            "sub_1_title": "Plant care advice",
-            "sub_1_link": "",
-            "sub_2_title": "Garden consultation",
-            "sub_2_link": "",
-            "sub_3_title": "Repotting service",
-            "sub_3_link": "",
-            "sub_4_title": "Landscaping",
-            "sub_4_link": "",
-            "sub_5_title": "Balcony garden setup",
-            "sub_5_link": "",
-            "sub_6_title": "Terrace garden setup",
-            "sub_6_link": "",
-            "sub_7_title": "Plant maintenance",
-            "sub_7_link": "",
-            "sub_8_title": "Bulk plant supply",
-            "sub_8_link": "",
-            "sub_9_title": "Event plant styling",
-            "sub_9_link": "",
-            "sub_10_title": "Plant Rental",
-            "sub_10_link": ""
-          }
         }
       },
       "block_order": [
         "category_plants",
         "category_seeds",
-        "category_pots",
-        "category_gifting",
-        "category_services"
+        "category_pots"
       ]
     }
   },

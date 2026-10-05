@@ -205,7 +205,7 @@
   .ai-nursery-{{ ai_gen_id }} { display:block; width:{{ block.settings.desktop_width_percent }}%; max-width:100%; margin:0 auto; background:{{ block.settings.background_color }}; border-radius:{{ block.settings.radius }}px; overflow:hidden; color:{{ block.settings.text_color }}; }
   .ai-nursery-{{ ai_gen_id }}__inner { position:relative; padding:48px 5%; }
   .ai-nursery-{{ ai_gen_id }}__inner:after { content:""; position:absolute; width:420px; height:420px; right:-150px; top:-170px; border-radius:50%; background:radial-gradient(circle, rgba(255,214,10,.25) 0 18%, transparent 19% 31%, rgba(255,214,10,.12) 32% 34%, transparent 35%); pointer-events:none; }
-  .ai-nursery-{{ ai_gen_id }}__heading { position:relative; z-index:1; max-width:540px; margin:0 0 26px; font-family:Georgia,serif; font-size:clamp(28px,4vw,48px); line-height:1.05; color:{{ block.settings.heading_color }}; }
+  .ai-nursery-{{ ai_gen_id }}__heading { position:relative; z-index:1; max-width:540px; margin:0 0 26px; font-family:var(--font-display); font-size:clamp(28px,4vw,48px); line-height:1.05; color:{{ block.settings.heading_color }}; }
   .ai-nursery-{{ ai_gen_id }}__carousel-wrap { position:relative; z-index:1; }
   .ai-nursery-{{ ai_gen_id }}__track { display:flex; gap:18px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; padding:4px 3px 14px; }
   .ai-nursery-{{ ai_gen_id }}__track::-webkit-scrollbar { display:none; }
@@ -220,7 +220,7 @@
   .ai-nursery-{{ ai_gen_id }}__discount { position:absolute; top:12px; right:12px; padding:5px 9px; border-radius:20px; background:{{ block.settings.discount_color }}; color:#14231a; font:700 11px/1 sans-serif; }
   .ai-nursery-{{ ai_gen_id }}__content { position:relative; padding:17px; min-height:190px; }
   .ai-nursery-{{ ai_gen_id }}__rating { display:inline-block; margin-bottom:9px; padding:4px 8px; border-radius:5px; background:#fff4b8; color:#4e4300; font:600 11px sans-serif; }
-  .ai-nursery-{{ ai_gen_id }}__title { margin:0 0 6px; font:600 20px/1.15 Georgia,serif; }
+  .ai-nursery-{{ ai_gen_id }}__title { margin:0 0 6px; font:600 20px/1.15 var(--font-display); }
   .ai-nursery-{{ ai_gen_id }}__description { margin:0 0 13px; color:{{ block.settings.muted_color }}; font:14px/1.4 sans-serif; }
   .ai-nursery-{{ ai_gen_id }}__price { display:flex; align-items:center; gap:8px; font:700 18px sans-serif; }
   .ai-nursery-{{ ai_gen_id }}__compare { color:{{ block.settings.muted_color }}; font-size:13px; font-weight:400; text-decoration:line-through; }
