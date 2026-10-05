@@ -1,0 +1,36 @@
+{%- comment -%}
+  Two-thumb price slider for a price_range storefront filter.
+  Accepts:
+  - filter: the price_range filter
+  - id: optional id for the minimum slider (so a <label for> can point at it)
+  Thumbs sitting at the ends of the range are left out of the URL by nursery.js.
+{%- endcomment -%}
+{%- liquid
+  assign range_max = filter.range_max | divided_by: 100.0 | ceil
+  assign range_hi = range_max
+  if filter.max_value.value
+    assign range_hi = filter.max_value.value | divided_by: 100.0 | ceil | at_most: range_max
+  endif
+  assign range_lo = 0
+  if filter.min_value.value
+    assign range_lo = filter.min_value.value | divided_by: 100 | at_most: range_hi
+  endif
+
+  assign price_prefix = cart.currency.symbol
+  assign price_locale = ''
+  if cart.currency.iso_code == 'INR'
+    assign price_prefix = 'Rs. '
+    assign price_locale = 'en-IN'
+  endif
+-%}
+<div class="price-range" data-price-range data-prefix="{{ price_prefix | escape }}" data-locale="{{ price_locale }}">
+  <a class="price-range__reset" href="{{ filter.url_to_remove }}">Reset</a>
+  <div class="price-range__row">
+    <span class="price-range__currency" aria-hidden="true">{{ cart.currency.symbol }}</span>
+    <div class="price-range__slider">
+      <input type="range" {% if id != blank %}id="{{ id }}" {% endif %}name="{{ filter.min_value.param_name }}" min="0" max="{{ range_max }}" step="1" value="{{ range_lo }}" aria-label="Minimum price" data-price-min>
+      <input type="range" name="{{ filter.max_value.param_name }}" min="0" max="{{ range_max }}" step="1" value="{{ range_hi }}" aria-label="Maximum price" data-price-max>
+    </div>
+  </div>
+  <p class="price-range__label">Price: <span data-price-from>{{ price_prefix }}{{ range_lo | times: 100 | money_without_currency | remove: '.00' }}</span> – <span data-price-to>{{ price_prefix }}{{ range_hi | times: 100 | money_without_currency | remove: '.00' }}</span></p>
+</div>
