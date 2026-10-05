@@ -716,4 +716,129 @@
     var root = e.target.closest('[data-filter-tabs]');
     if (root && root._showTab && e.target.hidden) root._showTab('all');
   });
+  /* ---------- Bottom-sheet dropdowns on phones and tablets ----------
+     Android and iOS show their own system picker for <select>. For sort and
+     filter dropdowns we lay a transparent button over the select and open a
+     store-styled sheet instead; the select stays the source of truth. */
+  var SHEET_SELECTS = 'select[name="sort_by"], select[data-sheet-select]';
+  var sheetQuery = window.matchMedia('(max-width: 1024px), (pointer: coarse)');
+  var sheet, sheetList, sheetTitle, sheetSelect, sheetOpener;
+
+  function enhanceSelect(select) {
+    if (select._sheet || select.multiple) return;
+    select._sheet = true;
+    var wrap = document.createElement('span');
+    wrap.className = 'sheet-select';
+    select.parentNode.insertBefore(wrap, select);
+    wrap.appendChild(select);
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'sheet-select__btn';
+    btn.setAttribute('aria-haspopup', 'dialog');
+    btn.addEventListener('click', function () { openSheet(select, btn); });
+    wrap.appendChild(btn);
+    syncSheetButton(select);
+  }
+  function syncSheetButton(select) {
+    var btn = select.parentNode.querySelector('.sheet-select__btn');
+    var opt = select.options[select.selectedIndex];
+    if (btn) btn.setAttribute('aria-label', sheetLabel(select) + ': ' + (opt ? opt.text.trim() : ''));
+  }
+  function sheetLabel(select) {
+    if (select.getAttribute('data-sheet-title')) return select.getAttribute('data-sheet-title');
+    if (select.name === 'sort_by') return 'Sort by';
+    var label = select.closest('label');
+    return label ? label.textContent.replace(select.textContent, '').trim() : 'Choose';
+  }
+  function buildSheet() {
+    sheet = document.createElement('div');
+    sheet.className = 'option-sheet';
+    sheet.hidden = true;
+    sheet.innerHTML =
+      '<div class="option-sheet__overlay" data-sheet-close></div>' +
+      '<div class="option-sheet__panel" role="dialog" aria-modal="true" aria-labelledby="OptionSheetTitle">' +
+        '<span class="option-sheet__grip" aria-hidden="true"></span>' +
+        '<div class="option-sheet__head"><h2 class="option-sheet__title" id="OptionSheetTitle"></h2>' +
+        '<button type="button" class="option-sheet__close" aria-label="Close" data-sheet-close>' +
+        '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>' +
+        '<ul class="option-sheet__list" role="listbox"></ul>' +
+      '</div>';
+    document.body.appendChild(sheet);
+    sheetList = sheet.querySelector('.option-sheet__list');
+    sheetTitle = sheet.querySelector('.option-sheet__title');
+    sheet.addEventListener('click', function (e) {
+      if (e.target.closest('[data-sheet-close]')) { closeSheet(); return; }
+      var item = e.target.closest('[data-index]');
+      if (!item || item.getAttribute('aria-disabled') === 'true') return;
+      var select = sheetSelect;
+      var index = Number(item.getAttribute('data-index'));
+      closeSheet();
+      if (select.selectedIndex !== index) {
+        select.selectedIndex = index;
+        syncSheetButton(select);
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
+    sheet.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { closeSheet(); return; }
+      if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+      var items = Array.from(sheetList.querySelectorAll('[data-index]:not([aria-disabled="true"])'));
+      var i = items.indexOf(document.activeElement);
+      e.preventDefault();
+      var next = items[e.key === 'ArrowDown' ? Math.min(i + 1, items.length - 1) : Math.max(i - 1, 0)];
+      if (next) next.focus();
+    });
+  }
+  function openSheet(select, opener) {
+    if (!sheet) buildSheet();
+    sheetSelect = select;
+    sheetOpener = opener;
+    sheetTitle.textContent = sheetLabel(select);
+    sheetList.innerHTML = '';
+    Array.from(select.options).forEach(function (opt, i) {
+      var li = document.createElement('li');
+      li.className = 'option-sheet__option';
+      li.setAttribute('role', 'option');
+      li.setAttribute('tabindex', '0');
+      li.setAttribute('data-index', i);
+      li.setAttribute('aria-selected', i === select.selectedIndex ? 'true' : 'false');
+      if (opt.disabled) li.setAttribute('aria-disabled', 'true');
+      li.textContent = opt.text.trim();
+      sheetList.appendChild(li);
+    });
+    sheet.hidden = false;
+    document.documentElement.classList.add('option-sheet-open');
+    requestAnimationFrame(function () { sheet.classList.add('is-open'); });
+    var current = sheetList.querySelector('[aria-selected="true"]') || sheetList.firstChild;
+    if (current) { current.scrollIntoView({ block: 'nearest' }); current.focus({ preventScroll: true }); }
+  }
+  function closeSheet() {
+    if (!sheet || sheet.hidden) return;
+    sheet.classList.remove('is-open');
+    document.documentElement.classList.remove('option-sheet-open');
+    setTimeout(function () { sheet.hidden = true; }, 250);
+    if (sheetOpener) sheetOpener.focus({ preventScroll: true });
+  }
+  document.addEventListener('keydown', function (e) {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('option-sheet__option')) {
+      e.preventDefault();
+      e.target.click();
+    }
+  });
+  /* Tapping a select's <label> would focus the select and open the system picker (iOS); open the sheet instead. */
+  document.addEventListener('click', function (e) {
+    if (!sheetQuery.matches || e.target.closest('.sheet-select__btn, select')) return;
+    var label = e.target.closest('label');
+    var select = label && (label.control || label.querySelector('select'));
+    if (!select || !select._sheet) return;
+    e.preventDefault();
+    openSheet(select, select.parentNode.querySelector('.sheet-select__btn'));
+  });
+  function enhanceSelects(scope) {
+    (scope || document).querySelectorAll(SHEET_SELECTS).forEach(enhanceSelect);
+  }
+  document.addEventListener('DOMContentLoaded', function () { enhanceSelects(); });
+  document.addEventListener('shopify:section:load', function (e) { enhanceSelects(e.target); });
+  /* Leaving the phone/tablet layout closes an open sheet; the CSS hides the overlay buttons there. */
+  if (sheetQuery.addEventListener) sheetQuery.addEventListener('change', function () { if (!sheetQuery.matches) closeSheet(); });
 })();
