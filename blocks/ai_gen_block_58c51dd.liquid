@@ -54,6 +54,7 @@
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__icon-link svg,
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__search svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.7; }
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__mobile-toggle { display: none; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__mobile-search { display: none; }
   @media screen and (max-width: 1100px) {
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__inner { gap: 16px; padding-inline: 14px; }
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__nav { gap: 13px; }
@@ -62,17 +63,25 @@
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__search input { width: 75px; }
   }
   @media screen and (max-width: 749px) {
-    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__inner { min-height: 64px; flex-wrap: wrap; gap: 10px; }
-    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__mobile-toggle { display: inline-flex; }
-    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__nav { display: none; width: 100%; order: 4; flex: 1 0 100%; align-items: stretch; flex-direction: column; gap: 0; padding: 6px 0 12px; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__inner { width: 100%; box-sizing: border-box; min-height: 64px; display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px 10px; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__mobile-toggle { display: inline-flex; grid-column: 1; justify-self: start; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__brand { grid-column: 2; justify-self: center; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__brand img { transform-origin: center center; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__mobile-search { display: flex; align-items: center; gap: 10px; grid-column: 1 / -1; grid-row: 2; margin: 2px 0 10px; padding: 0 16px; height: 46px; border-radius: 10px; background: rgba(0, 0, 0, .05); color: {{ block.settings.text_color }}; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__mobile-search svg { width: 20px; height: 20px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.7; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__mobile-search input { flex: 1 1 auto; min-width: 0; border: 0; outline: none; background: transparent; color: inherit; font: inherit; font-size: 15px; padding: 0; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__mobile-search button { display: inline-flex; padding: 0; border: 0; background: transparent; color: inherit; cursor: pointer; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__nav { display: none; grid-column: 1 / -1; grid-row: 3; width: 100%; align-items: stretch; flex-direction: column; gap: 0; padding: 6px 0 12px; }
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__nav.is-open { display: flex; }
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item { width: 100%; border-top: 1px solid {{ block.settings.divider_color }}; }
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__link,
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__toggle { display: block; width: 100%; text-align: left; padding: 12px 2px; font-size: 14px; }
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown { position: static; width: 100%; max-width: none; box-shadow: none; border-top: 0; padding: 0 12px 10px; grid-template-columns: 1fr 1fr; }
-    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__actions { margin-left: auto; gap: 8px; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__actions { grid-column: 3; grid-row: 1; justify-self: end; gap: 6px; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__actions .ai-nursery-header__icon-link { width: 26px; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__actions [data-wishlist-link] { order: -1; }
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__search { display: none; }
-    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__brand img { height: {{ block.settings.logo_height | at_most: 48 }}px; max-width: 45vw; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__brand img { height: {{ block.settings.logo_height | at_most: 48 }}px; max-width: 36vw; }
   }
 {% endstyle %}
 
@@ -126,6 +135,7 @@
       <a class="ai-nursery-header__icon-link" href="{{ routes.cart_url }}" aria-label="Cart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.1 11.2a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.4L21 8H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg><span class="cart-count-badge" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span></a>
       <a class="ai-nursery-header__icon-link" href="{{ block.settings.wishlist_link | default: '/pages/wishlist' }}" aria-label="Wishlist" data-wishlist-link><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.7c0 5.2-8.8 11-8.8 11s-8.8-5.8-8.8-11A4.6 4.6 0 0 1 12 6.4a4.6 4.6 0 0 1 8.8 2.3Z"/></svg><span class="cart-count-badge" data-wishlist-count hidden>0</span></a>
     </div>
+    <form class="ai-nursery-header__mobile-search" action="{{ routes.search_url }}" method="get" role="search"><button type="submit" aria-label="Search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></button><input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ block.settings.search_placeholder | escape }}" aria-label="{{ block.settings.search_placeholder | escape }}"></form>
   </div>
 </site-navigation-{{ ai_gen_id }}>
 
