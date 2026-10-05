@@ -39,13 +39,21 @@
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__toggle { color: {{ block.settings.text_color }}; font: inherit; font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; background: transparent; border: 0; padding: 10px 0; cursor: pointer; }
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__link:hover,
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__toggle:hover { color: {{ block.settings.accent_color }}; }
-  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__chevron { display: inline-block; width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); margin: 0 0 3px 7px; }
-  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown { display: none; position: absolute; top: 100%; left: -16px; width: 460px; max-width: min(80vw, 460px); padding: 18px 20px; background: {{ block.settings.background_color }}; box-shadow: 0 12px 28px rgba(20, 35, 26, .14); border-top: 2px solid {{ block.settings.accent_color }}; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 22px; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__chevron { display: inline-block; width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); margin: 0 0 3px 7px; transition: transform .25s ease, margin .25s ease; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item.is-open .ai-nursery-header__chevron,
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item:hover .ai-nursery-header__chevron { transform: rotate(225deg); margin-bottom: -1px; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown { display: grid; position: absolute; top: 100%; left: -18px; z-index: 30; width: 480px; max-width: min(80vw, 480px); padding: 14px; background: {{ block.settings.background_color }}; border: 1px solid {{ block.settings.divider_color }}; border-top: 3px solid {{ block.settings.accent_color }}; border-radius: 0 0 14px 14px; box-shadow: 0 18px 40px rgba(20, 35, 26, .16); grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 10px; opacity: 0; visibility: hidden; transform: translateY(8px); pointer-events: none; transition: opacity .2s ease, transform .2s ease, visibility .2s; }
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item.is-open .ai-nursery-header__dropdown,
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item:hover .ai-nursery-header__dropdown,
-  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item:focus-within .ai-nursery-header__dropdown { display: grid; }
-  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown a { display: block; color: {{ block.settings.text_color }}; padding: 8px 0; font-size: 13px; text-decoration: none; border-bottom: 1px solid {{ block.settings.divider_color }}; }
-  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown a:hover { color: {{ block.settings.accent_color }}; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item:focus-within .ai-nursery-header__dropdown { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown a { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: {{ block.settings.text_color }}; padding: 10px 12px; border-radius: 8px; font-size: 13.5px; font-weight: 500; text-decoration: none; transition: background-color .15s ease, color .15s ease; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown a::after { content: "→"; opacity: 0; transform: translateX(-4px); transition: opacity .15s ease, transform .15s ease; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown a:hover,
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown a:focus-visible { background: color-mix(in srgb, {{ block.settings.accent_color }} 10%, transparent); color: {{ block.settings.accent_color }}; outline: none; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown a:hover::after,
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown a:focus-visible::after { opacity: 1; transform: none; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown a.ai-nursery-header__dropdown-all { grid-column: 1 / -1; margin-bottom: 6px; padding-bottom: 12px; border-radius: 8px 8px 0 0; border-bottom: 1px solid {{ block.settings.divider_color }}; font-weight: 700; color: {{ block.settings.accent_color }}; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown a.ai-nursery-header__dropdown-all::after { opacity: 1; transform: none; }
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__actions { display: flex; align-items: center; gap: 14px; flex: 0 0 auto; }
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__search { display: flex; align-items: center; border-bottom: 1px solid {{ block.settings.text_color }}; }
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__search input { width: 112px; border: 0; outline: none; background: transparent; color: {{ block.settings.text_color }}; padding: 7px 2px; font: inherit; font-size: 12px; }
@@ -82,12 +90,21 @@
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item { width: 100%; border-top: 1px solid {{ block.settings.divider_color }}; }
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__link,
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__toggle { display: block; width: 100%; text-align: left; padding: 12px 2px; font-size: 14px; }
-    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown { position: static; width: 100%; max-width: none; box-shadow: none; border-top: 0; padding: 0 12px 10px; grid-template-columns: 1fr 1fr; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown { display: none; position: static; width: 100%; max-width: none; box-shadow: none; border: 0; border-radius: 0; padding: 0 0 12px; grid-template-columns: 1fr 1fr; opacity: 1; visibility: visible; transform: none; pointer-events: auto; transition: none; background: transparent; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item:hover .ai-nursery-header__dropdown,
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item:focus-within .ai-nursery-header__dropdown { display: none; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item.is-open .ai-nursery-header__dropdown { display: grid; animation: ai-nh-drop-{{ ai_gen_id }} .2s ease; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item:hover .ai-nursery-header__chevron { transform: rotate(45deg); margin-bottom: 3px; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item.is-open .ai-nursery-header__chevron { transform: rotate(225deg); margin-bottom: -1px; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__toggle { display: flex !important; align-items: center; justify-content: space-between; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown a { padding: 10px 10px; font-size: 13.5px; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown a::after { display: none; }
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__actions { grid-column: 3; grid-row: 1; justify-self: end; gap: 6px; }
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__actions .ai-nursery-header__icon-link { width: 26px; }
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__search { display: none; }
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__brand img { height: {{ block.settings.logo_height | at_most: 48 }}px; max-width: 36vw; }
   }
+  @keyframes ai-nh-drop-{{ ai_gen_id }} { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
 {% endstyle %}
 
 <site-navigation-{{ ai_gen_id }} class="ai-nursery-header-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
@@ -114,6 +131,8 @@
         <div class="ai-nursery-header__item" data-menu-item>
           <button class="ai-nursery-header__toggle" type="button" aria-expanded="false" data-dropdown-toggle>{{ block.settings[title_key] | escape }}<span class="ai-nursery-header__chevron" aria-hidden="true"></span></button>
           <div class="ai-nursery-header__dropdown">
+            {% assign group_link_key = group | append: '_link' %}
+            {% if block.settings[group_link_key] != blank %}<a class="ai-nursery-header__dropdown-all" href="{{ block.settings[group_link_key] }}">View all {{ block.settings[title_key] | escape }}</a>{% endif %}
             {% if menu_object != blank and menu_object.links.size > 0 %}
               {% for link in menu_object.links limit: 20 %}<a href="{{ link.url }}">{{ link.title | escape }}</a>{% endfor %}
             {% else %}

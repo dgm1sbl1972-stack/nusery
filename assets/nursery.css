@@ -920,3 +920,23 @@ html.facets-locked { overflow: hidden; }
 .product-rating__value { font-weight: 700; }
 .product-rating__count { color: var(--c-muted); text-decoration: underline; text-underline-offset: 2px; }
 .product-rating:hover .product-rating__count { color: var(--c-text); }
+
+/* Consistent select boxes across the store: custom chevron, hover and focus states.
+   The cart drawer (.scd-select) draws its own arrow, so it is left alone. */
+:where(select:not([multiple]):not([size]):not(.scd-select select)) {
+  -webkit-appearance: none; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%231f5130' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 14px center !important;
+  background-size: 12px 8px !important;
+  padding-right: 38px !important;
+  min-height: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+:where(select:not([multiple]):not([size]):not(.scd-select select)):hover { border-color: #9fb59f; }
+:where(select:not([multiple]):not([size]):not(.scd-select select)):focus-visible { outline: none; border-color: var(--c-primary, #1f5130); box-shadow: 0 0 0 3px rgba(31,81,48,.15); }
+select:disabled { opacity: .6; cursor: not-allowed; }
+select option:disabled { color: #a3a8a4; }
