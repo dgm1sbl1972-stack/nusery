@@ -191,6 +191,7 @@
       "blocks": {
         "judge_me_reviews_review_snippet_widget_igQMjR": {
           "type": "shopify://apps/judge-me-reviews/blocks/review_snippet_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "disabled": true,
           "settings": {
             "reviews_selection": "auto",
             "products": [],
@@ -222,6 +223,8 @@
         "heading": "Customer  Reviews",
         "heading_accent": "",
         "background": "#ffffff",
+        "button_label": "Write a review",
+        "empty_text": "Be the first to write a review",
         "show_review_widget": true
       }
     },
