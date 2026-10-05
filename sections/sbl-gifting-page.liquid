@@ -253,9 +253,7 @@
   /* Testimonials */
   #sblg-{{ sid }} .sblg-reviews { --per: 1.15; }
   @media (min-width: 600px) { #sblg-{{ sid }} .sblg-reviews { --per: 1.8; } }
-  @media (min-width: 990px) {
-    #sblg-{{ sid }} .sblg-reviews { grid-auto-flow: row; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-columns: auto; overflow: visible; }
-  }
+  @media (min-width: 990px) { #sblg-{{ sid }} .sblg-reviews { --per: 3; grid-auto-columns: calc((100% - 2 * 22px) / 3); } }
   #sblg-{{ sid }} .sblg-review { display: flex; flex-direction: column; gap: 14px; height: 100%; margin: 0; padding: 26px 24px; border-radius: var(--g-radius); background: var(--g-card); box-shadow: var(--g-shadow); transition: transform .3s ease, box-shadow .3s ease; }
   #sblg-{{ sid }} .sblg-review:hover { transform: translateY(-4px); box-shadow: var(--g-shadow-hover); }
   #sblg-{{ sid }} .sblg-review__quote { width: 36px; height: 36px; color: var(--g-accent); }
@@ -625,11 +623,18 @@
   {%- if section.settings.show_testimonials -%}
     <section class="sblg-block" aria-labelledby="sblg-rev-title-{{ sid }}">
       <div class="sblg-wrap">
-        <div class="sblg-head" data-reveal>
-          <h2 id="sblg-rev-title-{{ sid }}" class="sblg-h2">{{ section.settings.testi_heading | escape }}</h2>
-          {%- if section.settings.testi_subheading != blank -%}<p>{{ section.settings.testi_subheading | escape }}</p>{%- endif -%}
+        <div class="sblg-head sblg-head--row" data-reveal>
+          <div>
+            <h2 id="sblg-rev-title-{{ sid }}" class="sblg-h2">{{ section.settings.testi_heading | escape }}</h2>
+            {%- if section.settings.testi_subheading != blank -%}<p>{{ section.settings.testi_subheading | escape }}</p>{%- endif -%}
+          </div>
+          <div class="sblg-arrows">
+            <button class="sblg-arrow" type="button" aria-label="Previous reviews" aria-controls="sblg-rev-track-{{ sid }}" data-rail-prev><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+            <button class="sblg-arrow" type="button" aria-label="Next reviews" aria-controls="sblg-rev-track-{{ sid }}" data-rail-next>{{ arrow_svg }}</button>
+          </div>
         </div>
-        <ul class="sblg-track sblg-reviews" role="list">
+        <div class="sblg-rail" data-rail>
+        <ul class="sblg-track sblg-reviews" id="sblg-rev-track-{{ sid }}" role="list" tabindex="0" aria-label="{{ section.settings.testi_heading | escape }}" data-rail-track>
           {%- for block in section.blocks -%}
             {%- if block.type == 'testimonial' -%}
               <li data-reveal {{ block.shopify_attributes }}>
@@ -659,6 +664,7 @@
             {%- endif -%}
           {%- endfor -%}
         </ul>
+        </div>
       </div>
     </section>
   {%- endif -%}
@@ -977,6 +983,9 @@
         { "type": "testimonial", "settings": { "quote": "Beautiful plants and amazing packaging. Perfect gift!", "rating": 5, "name": "Priya S." } },
         { "type": "testimonial", "settings": { "quote": "Love the gift set. Super fresh and well packed.", "rating": 5, "name": "Rahul M." } },
         { "type": "testimonial", "settings": { "quote": "A unique and thoughtful gift option!", "rating": 5, "name": "Ananya K." } },
+        { "type": "testimonial", "settings": { "quote": "Fresh, healthy and beautifully wrapped. My parents loved it.", "rating": 5, "name": "Sneha R." } },
+        { "type": "testimonial", "settings": { "quote": "Ordered a corporate gift set for my team. Everyone was impressed.", "rating": 5, "name": "Arjun P." } },
+        { "type": "testimonial", "settings": { "quote": "The handwritten note was a lovely touch. Will order again.", "rating": 5, "name": "Meera T." } },
         { "type": "faq", "settings": { "question": "Can I add a personal message?", "answer": "<p>Yes. Add your message at checkout and we will include it as a handwritten card with your gift.</p>" } },
         { "type": "faq", "settings": { "question": "Do you offer same day delivery?", "answer": "<p>Same day delivery is available in select cities for orders placed before 12 noon. Delivery options are shown at checkout.</p>" } },
         { "type": "faq", "settings": { "question": "How are the plants packaged?", "answer": "<p>Every plant is secured in its pot, wrapped in protective eco-friendly packaging and packed in a sturdy box so it arrives fresh and healthy.</p>" } },

@@ -157,6 +157,30 @@
             "title": "Get Well Soon",
             "icon": "baby"
           }
+        },
+        "testimonial_4": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Fresh, healthy and beautifully wrapped. My parents loved it.",
+            "rating": 5,
+            "name": "Sneha R."
+          }
+        },
+        "testimonial_5": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Ordered a corporate gift set for my team. Everyone was impressed.",
+            "rating": 5,
+            "name": "Arjun P."
+          }
+        },
+        "testimonial_6": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The handwritten note was a lovely touch. Will order again.",
+            "rating": 5,
+            "name": "Meera T."
+          }
         }
       },
       "block_order": [
@@ -173,6 +197,9 @@
         "testimonial_1",
         "testimonial_2",
         "testimonial_3",
+        "testimonial_4",
+        "testimonial_5",
+        "testimonial_6",
         "faq_1",
         "faq_2",
         "faq_3",
