@@ -105,7 +105,19 @@
           </div>
         </div>
       {% endfor %}
-      <a class="ai-nursery-header__link" href="{{ block.settings.blog_link | default: routes.root_url }}">{{ block.settings.blog_label | escape }}</a>
+      {%- liquid
+        assign blog_nav_url = block.settings.blog_link
+        if blog_nav_url == blank
+          if pages['all-blogs'].url != blank
+            assign blog_nav_url = pages['all-blogs'].url | append: '?view=all-blogs'
+          elsif pages['all-articles'].url != blank
+            assign blog_nav_url = pages['all-articles'].url | append: '?view=all-articles'
+          else
+            assign blog_nav_url = routes.root_url
+          endif
+        endif
+      -%}
+      <a class="ai-nursery-header__link" href="{{ blog_nav_url }}">{{ block.settings.blog_label | escape }}</a>
       <a class="ai-nursery-header__link" href="{{ block.settings.contact_link | default: routes.root_url }}">{{ block.settings.contact_label | escape }}</a>
     </nav>
     <div class="ai-nursery-header__actions">
@@ -244,7 +256,7 @@
     { "type": "text", "id": "services_category_10_title", "label": "Category 10", "default": "Workshops" }, { "type": "url", "id": "services_category_10_link", "label": "Category 10 link" },
     { "type": "header", "content": "Other links" },
     { "type": "text", "id": "blog_label", "label": "Blog label", "default": "Blog" },
-    { "type": "url", "id": "blog_link", "label": "Blog page link" },
+    { "type": "url", "id": "blog_link", "label": "Blog page link", "info": "Leave empty to open the All blogs page (/pages/all-blogs)." },
     { "type": "text", "id": "contact_label", "label": "Contact label", "default": "Contact" },
     { "type": "url", "id": "contact_link", "label": "Contact page link" }
   ],
