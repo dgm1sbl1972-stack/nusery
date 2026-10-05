@@ -100,8 +100,6 @@
   #sblg-{{ sid }} .sblg-head { text-align: center; max-width: 640px; margin: 0 auto 32px; }
   #sblg-{{ sid }} .sblg-head p { margin: 10px 0 0; color: var(--g-muted); }
   #sblg-{{ sid }} .sblg-head--row { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; max-width: none; text-align: left; }
-  #sblg-{{ sid }} .sblg-leafmark { display: block; width: 34px; height: 18px; margin: 0 auto 10px; color: var(--g-primary); opacity: .55; }
-  #sblg-{{ sid }} .sblg-head--row .sblg-leafmark { margin-left: 0; }
 
   /* Buttons */
   #sblg-{{ sid }} .sblg-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; padding: 0 28px; border: 0; border-radius: 999px; font-family: var(--g-body); font-size: 15px; font-weight: 600; line-height: 1; text-decoration: none; cursor: pointer; transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease, color .25s ease; }
@@ -307,7 +305,6 @@
 </style>
 
 {%- capture leaf_svg -%}<svg viewBox="0 0 120 160" fill="currentColor" aria-hidden="true" focusable="false"><path d="M60 4C28 30 12 62 14 94c2 30 22 52 46 62 24-10 44-32 46-62 2-32-14-64-46-90Z" opacity=".9"/><path d="M60 22v134M60 60 36 40M60 60l24-20M60 90 30 68M60 90l30-22M60 120 38 102M60 120l22-18" stroke="#fff" stroke-opacity=".35" stroke-width="3" fill="none" stroke-linecap="round"/></svg>{%- endcapture -%}
-{%- capture leafmark_svg -%}<svg class="sblg-leafmark" viewBox="0 0 34 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M17 16V5"/><path d="M17 10c-3-6-9-7-14-6 1 5 6 8 14 6Z"/><path d="M17 10c3-6 9-7 14-6-1 5-6 8-14 6Z"/></svg>{%- endcapture -%}
 {%- capture arrow_svg -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>{%- endcapture -%}
 {%- capture check_svg -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>{%- endcapture -%}
 {%- capture star_svg -%}<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9L12 2.8Z"/></svg>{%- endcapture -%}
@@ -349,7 +346,6 @@
     <section class="sblg-block" aria-labelledby="sblg-occ-title-{{ sid }}">
       <div class="sblg-wrap">
         <div class="sblg-head" data-reveal>
-          {{ leafmark_svg }}
           <h2 id="sblg-occ-title-{{ sid }}" class="sblg-h2">{{ section.settings.occasion_heading | escape }}</h2>
           {%- if section.settings.occasion_subheading != blank -%}<p>{{ section.settings.occasion_subheading | escape }}</p>{%- endif -%}
         </div>
@@ -395,7 +391,6 @@
     <section class="sblg-block" aria-labelledby="sblg-bud-title-{{ sid }}">
       <div class="sblg-wrap">
         <div class="sblg-head" data-reveal>
-          {{ leafmark_svg }}
           <h2 id="sblg-bud-title-{{ sid }}" class="sblg-h2">{{ section.settings.budget_heading | escape }}</h2>
           {%- if section.settings.budget_subheading != blank -%}<p>{{ section.settings.budget_subheading | escape }}</p>{%- endif -%}
         </div>
@@ -450,7 +445,6 @@
       <div class="sblg-wrap">
         <div class="sblg-head sblg-head--row" data-reveal>
           <div>
-            {{ leafmark_svg }}
             <h2 id="sblg-bs-title-{{ sid }}" class="sblg-h2">{{ section.settings.bs_heading | escape }}</h2>
             {%- if section.settings.bs_subheading != blank -%}<p>{{ section.settings.bs_subheading | escape }}</p>{%- endif -%}
           </div>
@@ -547,7 +541,6 @@
           <div class="sblg-build__leaf sblg-build__leaf--l">{{ leaf_svg }}</div>
           <div class="sblg-build__leaf sblg-build__leaf--r">{{ leaf_svg }}</div>
           <div class="sblg-head" data-reveal>
-            {{ leafmark_svg }}
             <h2 id="sblg-build-title-{{ sid }}" class="sblg-h2">{{ section.settings.build_heading | escape }}</h2>
             {%- if section.settings.build_subheading != blank -%}<p>{{ section.settings.build_subheading | escape }}</p>{%- endif -%}
           </div>
@@ -618,7 +611,6 @@
     <section class="sblg-block" aria-labelledby="sblg-rev-title-{{ sid }}">
       <div class="sblg-wrap">
         <div class="sblg-head" data-reveal>
-          {{ leafmark_svg }}
           <h2 id="sblg-rev-title-{{ sid }}" class="sblg-h2">{{ section.settings.testi_heading | escape }}</h2>
           {%- if section.settings.testi_subheading != blank -%}<p>{{ section.settings.testi_subheading | escape }}</p>{%- endif -%}
         </div>
@@ -661,7 +653,6 @@
     <section class="sblg-block" aria-labelledby="sblg-faq-title-{{ sid }}">
       <div class="sblg-wrap">
         <div class="sblg-head" data-reveal>
-          {{ leafmark_svg }}
           <h2 id="sblg-faq-title-{{ sid }}" class="sblg-h2">{{ section.settings.faq_heading | escape }}</h2>
           {%- if section.settings.faq_subheading != blank -%}<p>{{ section.settings.faq_subheading | escape }}</p>{%- endif -%}
         </div>
