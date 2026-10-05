@@ -453,7 +453,7 @@
                       assign badge = 'Sold out'
                       assign badge_muted = true
                     elsif product.compare_at_price > product.price
-                      assign save_pct = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price
+                      assign save_pct = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | floor
                       assign badge = 'Save ' | append: save_pct | append: '%'
                     elsif section.settings.bs_default_badge != blank
                       assign badge = section.settings.bs_default_badge
