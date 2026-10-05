@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "all-blogs",
+      "blocks": {
+        "blog_1": { "type": "blog", "settings": { "blog": "why-landscapers-gardeners-choose-sbl-farms" } },
+        "blog_2": { "type": "blog", "settings": { "blog": "visit-karnatakas-largest-sbl-plant-nursery" } },
+        "blog_3": { "type": "blog", "settings": { "blog": "bangalores-hidden-natural-farm" } }
+      },
+      "block_order": ["blog_1", "blog_2", "blog_3"],
+      "settings": {
+        "heading": "Our Blogs",
+        "link_label": "View blog"
+      }
+    }
+  },
+  "order": ["main"]
+}
