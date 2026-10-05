@@ -185,7 +185,7 @@
     .ai-why-sbl__table-{{ ai_gen_id }} th:nth-child(2),
     .ai-why-sbl__table-{{ ai_gen_id }} th:nth-child(3) { width: 35%; }
   }
-{% endstyle %}
+/* Mobile: tighter section spacing */@media screen and (max-width: 749px){.ai-why-sbl-{{ ai_gen_id }}{padding-top:{{ block.settings.section_spacing | at_most: 24 }}px;padding-bottom:{{ block.settings.section_spacing | at_most: 24 }}px}.ai-why-sbl__intro-{{ ai_gen_id }}{margin-bottom:20px}}{% endstyle %}
 
 <why-choose-sbl-{{ ai_gen_id }} class="ai-why-sbl-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
   <div class="ai-why-sbl__inner-{{ ai_gen_id }}">

@@ -97,7 +97,7 @@
     .ai-trending-reels-{{ ai_gen_id }}__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
     .ai-trending-reels-{{ ai_gen_id }}__heading { font-size: {{ block.settings.heading_size | times: 0.85 }}px; }
   }
-{% endstyle %}
+/* Mobile: tighter section spacing */@media screen and (max-width: 749px){.ai-trending-reels-{{ ai_gen_id }}{padding-top:24px;padding-bottom:24px}}{% endstyle %}
 
 <div class="ai-trending-reels-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
   {% if block.settings.heading != blank %}

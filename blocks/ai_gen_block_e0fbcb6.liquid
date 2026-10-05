@@ -212,7 +212,7 @@
     .ai-pots-grid-{{ ai_gen_id }}__sort-label { font-size: 0; }
     .ai-pots-grid-{{ ai_gen_id }}__sort-label svg { width: 18px; }
   }
-{% endstyle %}
+/* Mobile: tighter section spacing */@media screen and (max-width: 749px){.ai-pots-grid-{{ ai_gen_id }}__inner{padding-top:{{ block.settings.section_padding | at_most: 24 }}px;padding-bottom:{{ block.settings.section_padding | at_most: 24 }}px}}{% endstyle %}
 
 <collection-pots-grid-{{ ai_gen_id }} class="ai-pots-grid-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
   <div class="ai-pots-grid-{{ ai_gen_id }}__inner">

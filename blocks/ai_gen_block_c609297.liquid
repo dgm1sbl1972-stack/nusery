@@ -200,7 +200,7 @@
     .ai-favourites-{{ ai_gen_id }}__add { font-size: 12px; gap: 6px; }
     .ai-favourites-{{ ai_gen_id }}__cart-icon { width: 36px; height: 36px; flex-basis: 36px; }
   }
-{% endstyle %}
+/* Mobile: tighter section spacing */@media screen and (max-width: 749px){.ai-favourites-{{ ai_gen_id }}{padding-top:{{ block.settings.section_padding | at_most: 24 }}px;padding-bottom:{{ block.settings.section_padding | at_most: 24 }}px}}{% endstyle %}
 
 <section class="ai-favourites-{{ ai_gen_id }}" style="width: {{ block.settings.desktop_width_percent }}%;" {{ block.shopify_attributes }}>
   <div class="ai-favourites-{{ ai_gen_id }}__inner">

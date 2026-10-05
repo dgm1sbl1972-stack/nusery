@@ -177,7 +177,7 @@
       animation: none;
     }
   }
-{% endstyle %}
+/* Mobile: tighter section spacing */@media screen and (max-width: 749px){.ai-testimonials-{{ ai_gen_id }}{padding-top:{{ block.settings.mobile_padding | at_most: 24 }}px;padding-bottom:{{ block.settings.mobile_padding | at_most: 24 }}px}.ai-testimonials-{{ ai_gen_id }}__heading{margin-bottom:{{ block.settings.heading_spacing | at_most: 20 }}px}}{% endstyle %}
 
 <testimonial-slider-{{ ai_gen_id }} class="ai-testimonials-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
   <h2 class="ai-testimonials-{{ ai_gen_id }}__heading">{{ block.settings.heading }}</h2>

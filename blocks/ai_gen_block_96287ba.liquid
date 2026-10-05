@@ -114,7 +114,7 @@
   @keyframes {{ reviews_id }}-scroll { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 9px)); } }
   @media (prefers-reduced-motion: reduce) { .{{ reviews_id }}__track { animation: none; } .{{ reviews_id }}__card { opacity: 1; transform: none; transition: none; } }
   @media screen and (max-width: 749px) { .{{ reviews_id }}__header { align-items: flex-start; flex-direction: column; } .{{ reviews_id }}__inner { padding: 0 16px; } }
-{% endstyle %}
+/* Mobile: tighter section spacing */@media screen and (max-width: 749px){.{{ reviews_id }}{padding-top:{{ block.settings.section_padding | at_most: 24 }}px;padding-bottom:{{ block.settings.section_padding | at_most: 24 }}px}.{{ reviews_id }}__header{margin-bottom:20px}}{% endstyle %}
 
 <google-reviews-{{ ai_gen_id }} class="{{ reviews_id }}" {{ block.shopify_attributes }}>
   <div class="{{ reviews_id }}__inner">

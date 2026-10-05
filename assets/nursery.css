@@ -893,3 +893,23 @@ img, video, iframe, svg { max-width: 100%; }
 .facets__close { background: none; border: 0; padding: 4px; color: var(--c-text); display: inline-grid; cursor: pointer; }
 html.facets-locked { overflow: hidden; }
 .facets__hint { margin: 14px 0 0; padding: 12px; border: 1px dashed #c9cfc5; border-radius: 10px; font-size: 12.5px; color: var(--c-muted); line-height: 1.5; }
+
+/* Mobile: tighter vertical spacing so sections don't leave big blank gaps. */
+@media (max-width: 749px) {
+  .section-pad { padding: 24px 0; }
+  .section-pad-sm { padding: 12px 0; }
+  .mt-40 { margin-top: 16px; }
+  .section-head { margin-bottom: 20px; }
+  .section-sub { margin-top: 8px; }
+  .reels .section-title { margin-bottom: 18px; }
+  .categories__grid { margin-top: 18px; }
+  .feature-banner, .finder { padding: 32px 0; }
+  .site-footer { padding-top: 32px; }
+  .site-footer__bottom { margin-top: 24px; }
+  .cart__table { margin-top: 16px; }
+  .contact-page__hero { padding: 28px 0 20px; }
+  .contact-page__map { margin-top: 24px; }
+  .acct-auth { padding: 24px 16px 32px; }
+  .acct-page { padding: 24px 0 32px; }
+  .collection-toolbar { margin-bottom: 12px; }
+}

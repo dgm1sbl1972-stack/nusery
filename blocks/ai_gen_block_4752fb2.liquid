@@ -254,7 +254,7 @@
     .ai-plant-category-{{ ai_gen_id }}__name,
     .ai-plant-category-{{ ai_gen_id }}__cta { transition: none; }
   }
-{% endstyle %}
+/* Mobile: tighter section spacing */@media screen and (max-width: 749px){.ai-plant-category-{{ ai_gen_id }}{padding-top:{{ block.settings.padding_top | at_most: 24 }}px;padding-bottom:{{ block.settings.padding_bottom | at_most: 24 }}px}.ai-plant-category-{{ ai_gen_id }}__heading{margin-bottom:20px}}{% endstyle %}
 
 <div class="ai-plant-category-{{ ai_gen_id }}" style="width: {{ block.settings.desktop_width_percent }}%;" {{ block.shopify_attributes }}>
   <div class="ai-plant-category-{{ ai_gen_id }}__inner">
