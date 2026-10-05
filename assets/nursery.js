@@ -358,8 +358,21 @@
     window.location.search = params.toString();
   });
 
+  var facetsMobile = window.matchMedia('(max-width: 900px)');
+  function closeFacetPanels(scope) {
+    (scope || document).querySelectorAll('.facets__panel details.facet[open]').forEach(function (d) { d.open = false; });
+  }
+  /* In the mobile drawer every group starts as a closed row; its options open as a slide-in panel. */
+  if (facetsMobile.matches) closeFacetPanels();
+  document.addEventListener('click', function (e) {
+    var back = e.target.closest('[data-facet-back]');
+    if (!back) return;
+    var d = back.closest('details');
+    if (d) d.open = false;
+  });
   function setFacetsDrawer(facets, open) {
     if (!facets) return;
+    if (!open) closeFacetPanels(facets);
     facets.classList.toggle('is-open', open);
     document.documentElement.classList.toggle('facets-locked', open);
     document.querySelectorAll('[data-facets-open]').forEach(function (b) { b.setAttribute('aria-expanded', open ? 'true' : 'false'); });

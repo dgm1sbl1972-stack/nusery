@@ -85,10 +85,13 @@
 
             <details class="facet cat-nav__group" {% if group_open or section.settings.open_categories %}open{% endif %} {{ block.shopify_attributes }}>
               <summary class="facet__summary">{{ block.settings.title }}</summary>
+              <div class="facet__panel">
+              <div class="facet__subhead"><button type="button" class="facet__back" aria-label="Back to filters" data-facet-back><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span>{{ block.settings.title }}</span></div>
               <ul class="cat-nav__list" role="list">
                 <li><a class="cat-nav__all{% if group_url == current_url %} is-active{% endif %}" href="{{ group_url }}">All {{ block.settings.title | downcase }}</a></li>
                 {{ sub_items }}
               </ul>
+              </div>
             </details>
           {%- endfor -%}
         </nav>
@@ -114,6 +117,8 @@
             {{ filter.label }}
             {%- if filter.active_values.size > 0 -%}<span class="facet__count">{{ filter.active_values.size }}</span>{%- endif -%}
           </summary>
+          <div class="facet__panel">
+          <div class="facet__subhead"><button type="button" class="facet__back" aria-label="Back to filters" data-facet-back><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span>{{ filter.label }}</span></div>
 
           {%- case filter.type -%}
             {%- when 'price_range' -%}
@@ -146,6 +151,7 @@
                 {%- endfor -%}
               </ul>
           {%- endcase -%}
+          </div>
         </details>
       {%- endfor -%}
 
