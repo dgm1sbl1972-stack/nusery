@@ -13,12 +13,6 @@
       "type": "sbl-gift-hero",
       "settings": {}
     },
-    "banner_1": {
-      "type": "sbl-promo-banner",
-      "settings": {
-        "layout": "image"
-      }
-    },
     "gift_occasions": {
       "type": "sbl-gift-occasions",
       "settings": {},
@@ -356,7 +350,6 @@
   },
   "order": [
     "gift_hero",
-    "banner_1",
     "gift_occasions",
     "gift_budget",
     "gift_products",

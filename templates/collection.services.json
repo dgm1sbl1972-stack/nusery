@@ -4,12 +4,6 @@
       "type": "sbl-services-hero",
       "settings": {}
     },
-    "banner_1": {
-      "type": "sbl-promo-banner",
-      "settings": {
-        "layout": "image"
-      }
-    },
     "service_1": {
       "type": "sbl-services-row",
       "settings": {
@@ -130,7 +124,6 @@
   },
   "order": [
     "services_hero",
-    "banner_1",
     "service_1",
     "service_2",
     "service_3",
