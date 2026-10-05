@@ -136,7 +136,7 @@
         </button>
         <a class="ai-nursery-header__drawer-login" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" data-account-popup-open data-menu-close><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 21c.7-4.2 3.3-6.3 7.5-6.3s6.8 2.1 7.5 6.3"/></svg>{% if customer %}My account{% else %}Log in{% endif %}</a>
       </div>
-      {% assign nav_groups = 'plants,seeds,pots,gifting,services' | split: ',' %}
+      {% assign nav_groups = 'plants,seeds,pots' | split: ',' %}
       {% for group in nav_groups %}
         {% assign title_key = group | append: '_title' %}
         {% assign menu_key = group | append: '_menu' %}
@@ -162,6 +162,8 @@
           </div>
         </div>
       {% endfor %}
+      <a class="ai-nursery-header__link" href="{{ block.settings.gifting_link | default: routes.all_products_collection_url }}">{{ block.settings.gifting_title | escape }}</a>
+      <a class="ai-nursery-header__link" href="{{ block.settings.services_link | default: routes.root_url }}">{{ block.settings.services_title | escape }}</a>
       {%- liquid
         assign blog_nav_url = block.settings.blog_link
         if blog_nav_url == blank
