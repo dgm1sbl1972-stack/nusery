@@ -149,7 +149,7 @@
             "gifting_title": "Gifting",
             "gifting_link": "/collections/all?view=gifting",
             "services_title": "Services",
-            "services_link": "",
+            "services_link": "/collections/all?view=services",
             "blog_label": "Blog",
             "blog_link": "",
             "contact_label": "Contact",
