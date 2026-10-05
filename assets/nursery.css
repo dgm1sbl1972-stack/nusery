@@ -851,7 +851,7 @@ img, video, iframe, svg { max-width: 100%; }
   .site-nav__dropdown { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; padding: 0 0 8px 12px; }
   .site-header__actions { margin-left: auto; }
   .categories__grid { grid-template-columns: repeat(3, 1fr); }
-  .buy-now-card { grid-column: span 3; min-height: 130px; order: -1; }
+  .buy-now-card { grid-column: span var(--buy-now-span, 3); min-height: 130px; }
   .feature-banner__inner, .story__grid, .finder__grid, .faq__grid, .main-product__grid { grid-template-columns: 1fr; }
   .product-grid, .showcase__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
   .services__card { grid-template-columns: 1fr; }

@@ -23,7 +23,10 @@
       {%- endfor -%}
 
       {%- if section.settings.show_buy_now -%}
-        <a class="buy-now-card" href="{{ section.settings.buy_now_link | default: routes.all_products_collection_url }}">
+        {%- comment -%} On mobile (3 columns) the card fills whatever is left of the last category row. {%- endcomment -%}
+        {%- assign buy_now_span = section.blocks.size | modulo: 3 -%}
+        {%- assign buy_now_span = 3 | minus: buy_now_span -%}
+        <a class="buy-now-card" style="--buy-now-span: {{ buy_now_span }};" href="{{ section.settings.buy_now_link | default: routes.all_products_collection_url }}">
           <span class="buy-now-card__text">{{ section.settings.buy_now_text }}</span>
           <svg class="buy-now-card__arrow" viewBox="0 0 80 30" width="80" height="30" aria-hidden="true"><path d="M3 8c20 18 45 20 70 10" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M60 8l14 10-16 6" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
