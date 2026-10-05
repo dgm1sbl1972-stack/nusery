@@ -869,5 +869,27 @@ img, video, iframe, svg { max-width: 100%; }
   .facets__toggle { display: inline-flex; align-items: center; gap: 8px; }
   .js .facets__panel { display: none; margin-top: 12px; }
   .js .facets.is-open .facets__panel { display: block; }
+
+  /* Mobile toolbar: "Filter" on the left, "Sort by" on the right. */
+  .js .facets__toggle { display: none; }
+  .collection-toolbar { flex-wrap: wrap; gap: 12px; }
+  .collection-toolbar__count { order: -2; flex: 1 0 100%; }
+  .collection-toolbar__count--desktop { display: none; }
+  .js .collection-toolbar__filter { display: inline-flex; }
+  .js .collection-toolbar:has(.collection-toolbar__filter)::before { content: ""; order: -1; flex: 1 0 100%; border-top: 1px solid var(--c-text); margin-bottom: 4px; }
+  .collection-toolbar__sort { position: relative; margin-left: auto; font-size: 16px; color: var(--c-text); gap: 6px; cursor: pointer; }
+  .collection-toolbar__sort::after { content: ""; width: 8px; height: 8px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); margin: -4px 4px 0 4px; }
+  .collection-toolbar__sort select { position: absolute; inset: 0; width: 100%; opacity: 0; cursor: pointer; }
+
+  /* Filters open as a slide-in drawer. */
+  .js .facets__panel { display: block; position: fixed; top: 0; bottom: 0; left: 0; z-index: 1001; width: min(86vw, 360px); margin: 0; border-radius: 0; overflow-y: auto; transform: translateX(-100%); transition: transform .3s ease; visibility: hidden; }
+  .js .facets.is-open .facets__panel { transform: none; visibility: visible; }
+  .js .facets__drawer-head { display: flex; }
+  .js .facets.is-open .facets__overlay { display: block; }
 }
+.collection-toolbar__filter { display: none; align-items: center; gap: 10px; background: none; border: 0; padding: 4px 0; font: inherit; font-size: 16px; color: var(--c-text); cursor: pointer; }
+.facets__overlay { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,.4); }
+.facets__drawer-head { display: none; align-items: center; justify-content: space-between; margin: -4px 0 14px; padding-bottom: 12px; border-bottom: 1px solid #e6ebe3; font-family: var(--font-display); font-size: 20px; color: var(--c-primary-dark); }
+.facets__close { background: none; border: 0; padding: 4px; color: var(--c-text); display: inline-grid; cursor: pointer; }
+html.facets-locked { overflow: hidden; }
 .facets__hint { margin: 14px 0 0; padding: 12px; border: 1px dashed #c9cfc5; border-radius: 10px; font-size: 12.5px; color: var(--c-muted); line-height: 1.5; }

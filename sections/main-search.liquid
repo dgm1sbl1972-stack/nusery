@@ -24,6 +24,7 @@
           {%- if search.performed -%}
             <div class="collection-toolbar">
               <p class="collection-toolbar__count">{{ search.results_count }} {{ search.results_count | pluralize: 'result', 'results' }} for “{{ search.terms | escape }}”</p>
+              {%- if show_sidebar -%}{%- render 'facets-filter-button', section_id: section.id -%}{%- endif -%}
               {%- if section.settings.enable_sorting -%}
                 <label class="collection-toolbar__sort">
                   <span>Sort by</span>
