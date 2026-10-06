@@ -11,111 +11,143 @@
   "sections": {
     "services_hero": {
       "type": "sbl-services-hero",
-      "settings": {}
+      "settings": {
+        "hero_image": "shopify://shop_images/22eac714-9a81-48d3-9b58-bb94f90eae1f_1.png",
+        "hero_overlay": 70,
+        "hero_height": 420,
+        "hero_height_mobile": 440,
+        "hero_eyebrow": "SBL Nursery Services",
+        "hero_heading": "Complete Green Solutions, From Design to Care",
+        "hero_text": "Transforming homes, offices and commercial spaces with professional landscaping and plant care solutions.",
+        "hero_button_label": "Explore Our Services",
+        "hero_button_link": ""
+      }
     },
     "service_1": {
       "type": "sbl-services-row",
       "settings": {
+        "number": "01",
         "label": "Landscaping",
         "title": "Landscaping",
-        "anchor": "landscaping",
         "text": "Transform your outdoor spaces into beautifully planned green environments. From concept and plant selection to installation and finishing, our landscaping team creates functional and visually stunning landscapes tailored to your space.",
         "features": "Landscape Design\nGarden Development\nPlant Selection\nCommercial & Residential Projects",
-        "number": "01",
+        "button_label": "Contact Us",
+        "button_link": "",
+        "anchor": "landscaping",
         "image_side": "left",
-        "padding_top": 72
+        "bg_color": "#f8f4ec",
+        "padding_top": 72,
+        "padding_bottom": 36
       }
     },
     "service_2": {
       "type": "sbl-services-row",
       "settings": {
+        "number": "02",
         "label": "AMC",
         "title": "Annual Maintenance Contract",
-        "anchor": "amc",
         "text": "Keep your landscape healthy, clean and beautiful throughout the year with our professional garden maintenance services. Our team provides scheduled care for plants, lawns and landscaped spaces.",
         "features": "Regular Garden Maintenance\nPlant Health Monitoring\nPruning & Trimming\nLawn & Landscape Care",
-        "number": "02",
+        "button_label": "Contact Us",
+        "button_link": "",
+        "anchor": "amc",
         "image_side": "right",
-        "padding_top": 36
+        "bg_color": "#f8f4ec",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "service_3": {
       "type": "sbl-services-row",
       "settings": {
+        "number": "03",
         "label": "Green Wall",
         "title": "Green Wall Solutions",
-        "anchor": "green-wall",
         "text": "Bring nature into modern spaces with professionally designed green walls. We create beautiful vertical gardens for homes, offices, hotels, restaurants and commercial environments.",
         "features": "Indoor Green Walls\nCustom Green Wall Design\nOutdoor Vertical Gardens\nInstallation & Maintenance",
-        "number": "03",
+        "button_label": "Contact Us",
+        "button_link": "",
+        "anchor": "green-wall",
         "image_side": "left",
-        "padding_top": 36
+        "bg_color": "#f8f4ec",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "service_4": {
       "type": "sbl-services-row",
       "settings": {
+        "number": "04",
         "label": "Plant Rental",
         "title": "Plant Rental",
-        "anchor": "plant-rental",
         "text": "Enhance your workplace, event or commercial environment with beautiful plants without the responsibility of ownership. Choose from our curated range of indoor and decorative plants.",
         "features": "Office Plant Rental\nIndoor Plants\nEvent Plant Rental\nMaintenance Support",
-        "number": "04",
+        "button_label": "Contact Us",
+        "button_link": "",
+        "anchor": "plant-rental",
         "image_side": "right",
+        "bg_color": "#f8f4ec",
         "padding_top": 36,
         "padding_bottom": 72
       }
     },
     "services_clients": {
       "type": "sbl-services-clients",
-      "settings": {},
       "blocks": {
         "client_1": {
           "type": "client",
           "settings": {
-            "name": "Client 1"
+            "name": "Client 1",
+            "link": ""
           }
         },
         "client_2": {
           "type": "client",
           "settings": {
-            "name": "Client 2"
+            "name": "Client 2",
+            "link": ""
           }
         },
         "client_3": {
           "type": "client",
           "settings": {
-            "name": "Client 3"
+            "name": "Client 3",
+            "link": ""
           }
         },
         "client_4": {
           "type": "client",
           "settings": {
-            "name": "Client 4"
+            "name": "Client 4",
+            "link": ""
           }
         },
         "client_5": {
           "type": "client",
           "settings": {
-            "name": "Client 5"
+            "name": "Client 5",
+            "link": ""
           }
         },
         "client_6": {
           "type": "client",
           "settings": {
-            "name": "Client 6"
+            "name": "Client 6",
+            "link": ""
           }
         },
         "client_7": {
           "type": "client",
           "settings": {
-            "name": "Client 7"
+            "name": "Client 7",
+            "link": ""
           }
         },
         "client_8": {
           "type": "client",
           "settings": {
-            "name": "Client 8"
+            "name": "Client 8",
+            "link": ""
           }
         }
       },
@@ -128,7 +160,15 @@
         "client_6",
         "client_7",
         "client_8"
-      ]
+      ],
+      "settings": {
+        "clients_eyebrow": "Trusted by",
+        "clients_heading": "Our Valued Clients",
+        "clients_text": "Creating greener spaces for leading businesses and organisations.",
+        "ticker_speed": 35,
+        "logos_grayscale": false,
+        "clients_bg": "#eef1ea"
+      }
     }
   },
   "order": [
