@@ -127,11 +127,12 @@
   .ai-plant-category-{{ ai_gen_id }}__heading {
     margin: 0 0 42px;
     color: {{ block.settings.heading_color }};
-    font-size: {{ block.settings.heading_size }}px;
-    line-height: 1.12;
-    font-weight: 750;
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3vw, {{ block.settings.heading_size }}px);
+    line-height: 1.15;
+    font-weight: 700;
     text-align: center;
-    letter-spacing: -0.035em;
+    letter-spacing: normal;
   }
   .ai-plant-category-{{ ai_gen_id }}__heading em {
     color: {{ block.settings.accent_color }};
@@ -255,6 +256,7 @@
     }
     .ai-plant-category-{{ ai_gen_id }}__heading {
       margin-bottom: 28px;
+      font-size: 24px;
     }
     .ai-plant-category-{{ ai_gen_id }}__cta {
       grid-column: span {{ mobile_cta_span }};
