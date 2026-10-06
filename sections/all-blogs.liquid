@@ -19,7 +19,7 @@
         endif
       endfor
     -%}
-    <div class="journal__grid journal__grid--even mt-40{% if blog_cards == 4 %} all-blogs__grid--4{% endif %}">
+    <div class="journal__grid journal__grid--even mt-40{% if blog_cards >= 4 %} all-blogs__grid--4{% endif %}">
       {%- for block in section.blocks -%}
         {%- assign card_blog = block.settings.blog -%}
         {%- if card_blog != blank -%}
@@ -65,8 +65,8 @@
   .all-blogs__card .post__link { margin-top: auto; }
   .all-blogs__desc { display: block; margin: 0 0 12px; font-size: 14px; line-height: 1.5; opacity: .85; }
   .all-blogs__card--empty { min-height: 160px; justify-content: center; text-align: center; }
-  @media (min-width: 901px) { .all-blogs__grid--4 { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1100px) { .all-blogs__grid--4 { grid-template-columns: repeat(4, 1fr); } }
+  .all-blogs__grid--4 { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  @media (min-width: 750px) { .all-blogs__grid--4 { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
 </style>
 
 {% schema %}

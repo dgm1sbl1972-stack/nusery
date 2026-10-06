@@ -12,7 +12,7 @@
     {%- endif -%}
 
     {%- assign article_count = 0 -%}
-    <div class="journal__grid journal__grid--even mt-40">
+    <div class="journal__grid journal__grid--even mt-40 all-articles__grid">
       {%- for i in (1..8) -%}
         {%- assign blog_key = 'blog_' | append: i -%}
         {%- assign selected_blog = section.settings[blog_key] -%}
@@ -53,6 +53,8 @@
   .all-articles__intro { max-width: 720px; margin: 12px auto 0; text-align: center; }
   .all-articles__excerpt { margin: 6px 0 8px; font-size: 14px; line-height: 1.5; opacity: .85; }
   .all-articles__empty { margin-top: 24px; text-align: center; }
+  @media (min-width: 600px) { .all-articles__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 990px) { .all-articles__grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
 </style>
 
 {% schema %}
