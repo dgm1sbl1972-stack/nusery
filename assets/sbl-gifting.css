@@ -13,7 +13,7 @@
   --g-shadow: 0 6px 24px rgba(31, 81, 48, .07);
   --g-shadow-hover: 0 14px 34px rgba(31, 81, 48, .13);
   --g-gutter: 16px;
-  --g-space: 56px;
+  --g-space: 28px;
   --g-head: 'Montserrat', 'Poppins', sans-serif;
   --g-body: 'Poppins', sans-serif;
   background: var(--sec-bg, var(--g-bg));
@@ -23,9 +23,9 @@
   line-height: 1.6;
   overflow: hidden;
 }
-@media (min-width: 750px) { .sblg { --g-gutter: 32px; --g-space: 76px; font-size: 16px; } }
+@media (min-width: 750px) { .sblg { --g-gutter: 32px; --g-space: 36px; font-size: 16px; } }
 @media (min-width: 1200px) { .sblg { --g-gutter: 48px; } }
-@media (min-width: 1200px) { .sblg { --g-space: 92px; } }
+@media (min-width: 1200px) { .sblg { --g-space: 40px; } }
 
 .sblg *, .sblg *::before, .sblg *::after { box-sizing: border-box; }
 .sblg img { display: block; max-width: 100%; height: auto; }
@@ -41,7 +41,7 @@
 .sblg .sblg-h2 { font-size: clamp(26px, 4.6vw, 38px); line-height: 1.15; font-weight: 700; }
 .sblg .sblg-h3 { font-size: 17px; line-height: 1.3; font-weight: 600; }
 .sblg .sblg-eyebrow { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 16px; font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--g-primary); }
-.sblg .sblg-head { text-align: center; max-width: 640px; margin: 0 auto 32px; }
+.sblg .sblg-head { text-align: center; max-width: 640px; margin: 0 auto 22px; }
 .sblg .sblg-head p { margin: 10px 0 0; color: var(--g-muted); }
 .sblg .sblg-head--row { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; max-width: none; text-align: left; }
 
