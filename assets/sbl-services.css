@@ -100,3 +100,8 @@ html.js .sbls [data-reveal].is-in { opacity: 1; transform: none; }
   html.js .sbls [data-reveal] { opacity: 1; transform: none; transition: none; }
   .sbls * { transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* "Trusted by" label as a gold badge */
+.sbls .sbls-badge-gold { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; padding: 7px 16px; border: 1px solid #D9B44A; border-radius: 999px; background: linear-gradient(135deg, #FFF8E1 0%, #F7E3A1 50%, #FFF4D2 100%); box-shadow: 0 4px 14px rgba(183, 134, 11, .18), inset 0 1px 0 rgba(255, 255, 255, .7); color: #8A6400; font-weight: 700; letter-spacing: .18em; opacity: 1; }
+.sbls .sbls-badge-gold span { background: linear-gradient(90deg, #8A6400, #C99A1E 50%, #8A6400); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.sbls .sbls-badge-gold svg { width: 12px; height: 12px; fill: #C99A1E; flex: none; }

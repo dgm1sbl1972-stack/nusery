@@ -13,7 +13,7 @@
   <section class="sbls-clients" aria-labelledby="sbls-cl-title-{{ sid }}">
     <div class="sbls-wrap">
       <div class="sbls-clients__head" data-reveal>
-        {%- if section.settings.clients_eyebrow != blank -%}<p class="sbls-eyebrow">{{ section.settings.clients_eyebrow | escape }}</p>{%- endif -%}
+        {%- if section.settings.clients_eyebrow != blank -%}<p class="sbls-eyebrow sbls-badge-gold"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9L12 2.8Z"/></svg><span>{{ section.settings.clients_eyebrow | escape }}</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9L12 2.8Z"/></svg></p>{%- endif -%}
         <h2 id="sbls-cl-title-{{ sid }}" class="sbls-h2">{{ section.settings.clients_heading | escape }}</h2>
         {%- if section.settings.clients_text != blank -%}<p>{{ section.settings.clients_text | escape }}</p>{%- endif -%}
       </div>
