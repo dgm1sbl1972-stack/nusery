@@ -241,3 +241,20 @@ html.js .sblg [data-reveal].is-in { opacity: 1; transform: none; }
   .sblg *, .sblg *::before, .sblg *::after { transition: none !important; scroll-behavior: auto !important; }
 }
 .sblg .sblg-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* Hero: full-width layout (image edge to edge, text on top) */
+.sblg .sblg-hero--full { display: flex; align-items: center; min-height: var(--hero-h-m, 480px); padding: 0; overflow: hidden; background: var(--g-primary); }
+@media (min-width: 750px) { .sblg .sblg-hero--full { min-height: var(--hero-h, 560px); } }
+.sblg .sblg-hero--full .sblg-hero__leaf { display: none; }
+.sblg .sblg-hero--full .sblg-hero__grid { position: static; display: block; width: 100%; }
+.sblg .sblg-hero--full .sblg-hero__media { position: absolute; inset: 0; z-index: 0; aspect-ratio: auto; border-radius: 0; box-shadow: none; }
+.sblg .sblg-hero--full .sblg-hero__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10, 32, 18, var(--hero-shade, .5)) 0%, rgba(10, 32, 18, calc(var(--hero-shade, .5) * .6)) 45%, rgba(10, 32, 18, 0) 85%); }
+@media (max-width: 749px) { .sblg .sblg-hero--full .sblg-hero__media::after { background: rgba(10, 32, 18, var(--hero-shade, .5)); } }
+.sblg .sblg-hero--full .sblg-hero__copy { position: relative; z-index: 2; max-width: 620px; padding: 56px 0; }
+.sblg .sblg-hero--full .sblg-h1 { color: #fff; }
+.sblg .sblg-hero--full .sblg-eyebrow { color: var(--g-accent); }
+.sblg .sblg-hero--full .sblg-hero__copy p.sblg-hero__text, .sblg .sblg-hero--full .sblg-hero__note { color: rgba(255, 255, 255, .92); }
+.sblg .sblg-hero--full .sblg-hero__note svg { color: var(--g-accent); }
+.sblg .sblg-hero--full .sblg-btn--primary { background: var(--g-accent); color: #1b2a1f; box-shadow: 0 8px 20px rgba(0, 0, 0, .25); }
+.sblg .sblg-hero--full .sblg-hero__chip { z-index: 1; left: auto; right: 24px; bottom: 24px; }
+@media (max-width: 749px) { .sblg .sblg-hero--full .sblg-hero__chip { display: none; } }
