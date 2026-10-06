@@ -13,10 +13,15 @@
       "type": "all-articles",
       "settings": {
         "heading": "All articles",
+        "intro": "",
         "blog_1": "why-landscapers-gardeners-choose-sbl-farms",
         "blog_2": "visit-karnatakas-largest-sbl-plant-nursery",
         "blog_3": "bangalores-hidden-natural-farm",
-        "blog_4": "the-secret-to-healthy-happy-plants",
+        "blog_4": "the-secret-to-healthy-happy-plants-1",
+        "blog_5": "",
+        "blog_6": "",
+        "blog_7": "",
+        "blog_8": "",
         "empty_text": "New articles are coming soon."
       }
     }
