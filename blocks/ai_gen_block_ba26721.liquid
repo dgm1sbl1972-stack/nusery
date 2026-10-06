@@ -39,18 +39,6 @@
     animation: ai-testimonials-scroll-{{ ai_gen_id }} {{ block.settings.scroll_speed }}s linear infinite;
   }
 
-  /* Pause on mouse hover, keyboard focus, or while a finger is on it (is-held, set by the script).
-     A tap on phones leaves :hover and :focus stuck until you tap elsewhere, so those only count with a mouse/keyboard. */
-  @media (hover: hover) and (pointer: fine) {
-    .ai-testimonials-{{ ai_gen_id }}__viewport:hover .ai-testimonials-{{ ai_gen_id }}__track {
-      animation-play-state: paused;
-    }
-  }
-  .ai-testimonials-{{ ai_gen_id }}__viewport:focus-visible .ai-testimonials-{{ ai_gen_id }}__track,
-  .ai-testimonials-{{ ai_gen_id }}__viewport.is-held .ai-testimonials-{{ ai_gen_id }}__track {
-    animation-play-state: paused;
-  }
-
   .ai-testimonials-{{ ai_gen_id }}__card {
     flex: 0 0 min(390px, 82vw);
     display: flex;
@@ -260,25 +248,6 @@
       class TestimonialSlider{{ ai_gen_id }} extends HTMLElement {
         connectedCallback() {
           this.setAttribute('role', 'region');
-          var viewport = this.querySelector('.ai-testimonials-{{ ai_gen_id }}__viewport');
-          if (!viewport) return;
-          var resumeTimer;
-          var hold = function () {
-            clearTimeout(resumeTimer);
-            viewport.classList.add('is-held');
-          };
-          /* Resume shortly after the finger lifts, so a tap or a short read pauses it briefly. */
-          var release = function () {
-            clearTimeout(resumeTimer);
-            resumeTimer = setTimeout(function () { viewport.classList.remove('is-held'); }, 1200);
-          };
-          viewport.addEventListener('touchstart', hold, { passive: true });
-          viewport.addEventListener('touchend', release, { passive: true });
-          viewport.addEventListener('touchcancel', release, { passive: true });
-          /* A tap focuses the viewport; drop that focus so it cannot keep the slider paused. */
-          viewport.addEventListener('touchend', function () {
-            if (document.activeElement === viewport) viewport.blur();
-          }, { passive: true });
         }
       }
       customElements.define('testimonial-slider-{{ ai_gen_id }}', TestimonialSlider{{ ai_gen_id }});
