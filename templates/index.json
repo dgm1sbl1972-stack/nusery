@@ -1053,7 +1053,7 @@
             "heading_spacing": 32,
             "card_gap": 24,
             "scroll_speed": 100,
-            "mobile_scroll_speed": 60,
+            "mobile_scroll_speed": 80,
             "background_color": "#f8f4ec",
             "card_background": "#ffffff",
             "card_border_color": "#d9e2d9",
