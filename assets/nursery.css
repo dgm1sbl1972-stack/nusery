@@ -61,6 +61,8 @@ p { margin: 0 0 .75em; }
 .eyebrow--line::before { content: ""; display: inline-block; width: 22px; height: 1px; background: currentColor; vertical-align: middle; margin-right: 10px; }
 .eyebrow--lines::before, .eyebrow--lines::after { content: "— —"; margin: 0 10px; letter-spacing: 0; opacity: .8; }
 .eyebrow--light { color: rgba(255,255,255,.9); }
+.faq .eyebrow { font-size: clamp(16px, 1.6vw, 20px); margin-bottom: 14px; }
+.faq .eyebrow--line::before { width: 30px; }
 
 /* ---------- Buttons ---------- */
 .btn {
