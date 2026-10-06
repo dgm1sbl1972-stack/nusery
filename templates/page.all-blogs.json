@@ -33,7 +33,7 @@
         "blog_4": {
           "type": "blog",
           "settings": {
-            "blog": "the-secret-to-healthy-happy-plants",
+            "blog": "the-secret-to-healthy-happy-plants-1",
             "image": "shopify://shop_images/gardening.jpg"
           }
         }
