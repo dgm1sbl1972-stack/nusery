@@ -52,18 +52,18 @@
             -%}
             <li data-reveal {{ block.shopify_attributes }}>
               <a class="sblg-budget" href="{{ bud_link }}">
-                <span class="sblg-icon">
-                  {%- case block.settings.icon -%}
-                    {%- when 'seedling' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20v-7"/><path d="M12 13c-3.6 0-5.5-2.3-5.5-6 3.6 0 5.5 2.3 5.5 6Zm0 0c3.6 0 5.5-2.3 5.5-6-3.6 0-5.5 2.3-5.5 6Z"/><path d="M7 20h10"/></svg>
-                    {%- when 'pot' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 13h12l-1.5 7.5h-9L6 13Z"/><path d="M12 13V8"/><path d="M12 9.5C10 9.5 8.5 8 8.5 5.5c2.2 0 3.5 1.6 3.5 4Zm0-1.5c1.8 0 3.2-1.4 3.2-3.6-2 0-3.2 1.4-3.2 3.6Z"/></svg>
-                    {%- when 'monstera' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V11"/><path d="M12 11c-5 0-8-3-8-7.5C9 3.5 12 6.5 12 11Zm0 0c5 0 8-3 8-7.5-5 0-8 3-8 7.5Z"/><path d="M8.5 6.5 10 8.5M15.5 6.5 14 8.5"/><path d="M8 21h8"/></svg>
-                    {%- when 'tree' -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-6"/><path d="M12 3c-3.5 2-6 5-6 8a6 6 0 0 0 12 0c0-3-2.5-6-6-8Z"/><path d="M12 15l-2.5-2.5M12 12.5l2.5-2.5"/><path d="M8 21h8"/></svg>
-                    {%- else -%}<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="8.5" width="17" height="4" rx="1"/><path d="M5 12.5V20h14v-7.5M12 8.5V20"/><path d="M12 8.5C10.5 5 7.5 4.5 7 6.2c-.5 1.8 2.5 2.3 5 2.3Zm0 0c1.5-3.5 4.5-4 5-2.3.5 1.8-2.5 2.3-5 2.3Z"/></svg>
-                  {%- endcase -%}
+                <span class="sblg-budget__media">
+                  {%- if block.settings.image != blank -%}
+                    {{ block.settings.image | image_url: width: 800 | image_tag: widths: '300, 450, 600, 800', sizes: '(min-width: 990px) 24vw, 48vw', loading: 'lazy', alt: block.settings.image.alt | default: block.settings.label }}
+                  {%- else -%}
+                    {{ 'product-1' | placeholder_svg_tag: 'sblg-ph' }}
+                  {%- endif -%}
                 </span>
-                <span class="sblg-budget__label">{{ block.settings.label | escape }}</span>
-                {%- if block.settings.caption != blank -%}<span class="sblg-budget__cap">{{ block.settings.caption | escape }}</span>{%- endif -%}
-                <span class="sblg-budget__go">{{ section.settings.budget_link_label | escape }}</span>
+                <span class="sblg-budget__body">
+                  <span class="sblg-budget__label">{{ block.settings.label | escape }}</span>
+                  {%- if block.settings.caption != blank -%}<span class="sblg-budget__cap">{{ block.settings.caption | escape }}</span>{%- endif -%}
+                  <span class="sblg-budget__go">{{ section.settings.budget_link_label | escape }}</span>
+                </span>
               </a>
             </li>
           {%- endif -%}
@@ -135,32 +135,10 @@
           "default": "Small joys"
         },
         {
-          "type": "select",
-          "id": "icon",
-          "label": "Icon",
-          "default": "seedling",
-          "options": [
-            {
-              "value": "seedling",
-              "label": "Seedling"
-            },
-            {
-              "value": "pot",
-              "label": "Potted plant"
-            },
-            {
-              "value": "monstera",
-              "label": "Leafy plant"
-            },
-            {
-              "value": "tree",
-              "label": "Tree"
-            },
-            {
-              "value": "gift",
-              "label": "Gift box"
-            }
-          ]
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Square photo works best, e.g. 800 x 800px"
         },
         {
           "type": "number",
@@ -193,7 +171,6 @@
           "settings": {
             "label": "Under ₹500",
             "caption": "Small joys",
-            "icon": "seedling",
             "max_price": 500
           }
         },
@@ -202,7 +179,6 @@
           "settings": {
             "label": "₹500 – ₹1,000",
             "caption": "Thoughtful picks",
-            "icon": "pot",
             "min_price": 500,
             "max_price": 1000
           }
@@ -212,7 +188,6 @@
           "settings": {
             "label": "₹1,000 – ₹2,000",
             "caption": "Premium gifts",
-            "icon": "monstera",
             "min_price": 1000,
             "max_price": 2000
           }
@@ -222,7 +197,6 @@
           "settings": {
             "label": "Above ₹2,000",
             "caption": "Luxury green gifts",
-            "icon": "tree",
             "min_price": 2000
           }
         }

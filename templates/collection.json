@@ -45,7 +45,6 @@
           "settings": {
             "label": "Under ₹500",
             "caption": "Small joys",
-            "icon": "seedling",
             "max_price": 500
           }
         },
@@ -54,7 +53,6 @@
           "settings": {
             "label": "₹500 – ₹1,000",
             "caption": "Thoughtful picks",
-            "icon": "pot",
             "min_price": 500,
             "max_price": 1000
           }
@@ -64,7 +62,6 @@
           "settings": {
             "label": "₹1,000 – ₹2,000",
             "caption": "Premium gifts",
-            "icon": "monstera",
             "min_price": 1000,
             "max_price": 2000
           }
@@ -74,7 +71,6 @@
           "settings": {
             "label": "Above ₹2,000",
             "caption": "Luxury green gifts",
-            "icon": "tree",
             "min_price": 2000
           }
         },
