@@ -27,6 +27,7 @@
     <div class="facets__panel" id="Facets-{{ section_id }}">
       <div class="facets__drawer-head">
         <span>Filter</span>
+        {%- if show_filters -%}<a class="facets__clear facets__clear--drawer" href="{{ clear_url }}">Clear all</a>{%- endif -%}
         <button type="button" class="facets__close" aria-label="Close filters" data-facets-close>
           <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
         </button>
