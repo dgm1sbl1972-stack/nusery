@@ -33,7 +33,7 @@
           "settings": {
             "title": "Birthday",
             "icon": "cake",
-            "link": ""
+            "link": "shopify://collections/bestsellers"
           }
         },
         "occasion_2": {
@@ -41,7 +41,7 @@
           "settings": {
             "title": "Housewarming",
             "icon": "home",
-            "link": ""
+            "link": "shopify://collections/bestsellers"
           }
         },
         "occasion_3": {
@@ -49,7 +49,7 @@
           "settings": {
             "title": "Anniversary",
             "icon": "heart",
-            "link": ""
+            "link": "shopify://collections/bestsellers"
           }
         },
         "occasion_4": {
@@ -57,7 +57,7 @@
           "settings": {
             "title": "Thank You",
             "icon": "thanks",
-            "link": ""
+            "link": "shopify://collections/bestsellers"
           }
         },
         "occasion_5": {
@@ -65,7 +65,7 @@
           "settings": {
             "title": "Congratulations",
             "icon": "gift",
-            "link": ""
+            "link": "shopify://collections/bestsellers"
           }
         },
         "occasion_6": {
@@ -73,7 +73,7 @@
           "settings": {
             "title": "Get Well Soon",
             "icon": "baby",
-            "link": ""
+            "link": "shopify://collections/bestsellers"
           }
         }
       },
