@@ -534,6 +534,154 @@
       ],
       "settings": {}
     },
+    "plant_marquee": {
+      "type": "plant-marquee",
+      "blocks": {
+        "word_1": {
+          "type": "item",
+          "settings": {
+            "text": "Snake Plant",
+            "link": ""
+          }
+        },
+        "word_2": {
+          "type": "item",
+          "settings": {
+            "text": "Money Plant",
+            "link": ""
+          }
+        },
+        "word_3": {
+          "type": "item",
+          "settings": {
+            "text": "Areca Palm",
+            "link": ""
+          }
+        },
+        "word_4": {
+          "type": "item",
+          "settings": {
+            "text": "Peace Lily",
+            "link": ""
+          }
+        },
+        "word_5": {
+          "type": "item",
+          "settings": {
+            "text": "Syngonium",
+            "link": ""
+          }
+        },
+        "word_6": {
+          "type": "item",
+          "settings": {
+            "text": "Salvia",
+            "link": ""
+          }
+        },
+        "word_7": {
+          "type": "item",
+          "settings": {
+            "text": "Vinca",
+            "link": ""
+          }
+        },
+        "word_8": {
+          "type": "item",
+          "settings": {
+            "text": "Oxycardium Gold",
+            "link": ""
+          }
+        },
+        "word_9": {
+          "type": "item",
+          "settings": {
+            "text": "Jade Plant",
+            "link": ""
+          }
+        },
+        "word_10": {
+          "type": "item",
+          "settings": {
+            "text": "Tulsi",
+            "link": ""
+          }
+        },
+        "word_11": {
+          "type": "item",
+          "settings": {
+            "text": "Aloe Vera",
+            "link": ""
+          }
+        },
+        "word_12": {
+          "type": "item",
+          "settings": {
+            "text": "Hibiscus",
+            "link": ""
+          }
+        },
+        "word_13": {
+          "type": "item",
+          "settings": {
+            "text": "Flower Seeds",
+            "link": ""
+          }
+        },
+        "word_14": {
+          "type": "item",
+          "settings": {
+            "text": "Ceramic Pots",
+            "link": ""
+          }
+        },
+        "word_15": {
+          "type": "item",
+          "settings": {
+            "text": "Indoor Plants",
+            "link": ""
+          }
+        },
+        "word_16": {
+          "type": "item",
+          "settings": {
+            "text": "Gifting Plants",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "word_1",
+        "word_2",
+        "word_3",
+        "word_4",
+        "word_5",
+        "word_6",
+        "word_7",
+        "word_8",
+        "word_9",
+        "word_10",
+        "word_11",
+        "word_12",
+        "word_13",
+        "word_14",
+        "word_15",
+        "word_16"
+      ],
+      "settings": {
+        "separator": "✦",
+        "speed": 40,
+        "direction": "left",
+        "tilt": -1.5,
+        "font_size": 22,
+        "gap": 22,
+        "padding": 18,
+        "background": "#1f5130",
+        "text_color": "#ffffff",
+        "separator_color": "#ffd60a",
+        "page_background": "#f8f4ec"
+      }
+    },
     "1790224367bff4ff77": {
       "type": "_blocks",
       "blocks": {
@@ -575,6 +723,44 @@
       },
       "block_order": [
         "ai_gen_block_08ce174_BP8qRG"
+      ],
+      "settings": {}
+    },
+    "services_banner_split": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_4d8a09d_VdjqYU": {
+          "type": "ai_gen_block_4d8a09d",
+          "settings": {
+            "heading": "We Don’t Just Grow Plants. We Grow Spaces.",
+            "description": "<p>Planning a garden, refreshing your balcony, or dreaming of a beautiful green wall? From the first idea to the final touch, our experts are here to make it happen. With the right plants, creative design, and professional care, we transform everyday spaces into vibrant green environments you’ll love.</p>",
+            "button_label": "View all our services",
+            "button_link": "shopify://pages/contact",
+            "background_image": "shopify://shop_images/f1e021cb-377e-40d0-9083-3db7e22e964f.png",
+            "background_position": "center center",
+            "overlay_opacity": 75,
+            "overlay_color": "#1f5130",
+            "desktop_width_percent": 100,
+            "min_height": 540,
+            "mobile_min_height": 340,
+            "text_alignment": "center",
+            "content_alignment": "center",
+            "heading_size": 60,
+            "mobile_heading_size": 32,
+            "background_color": "#1f5130",
+            "text_color": "#ffffff",
+            "button_color": "#ffd60a",
+            "button_text_color": "#14231a",
+            "button_hover_color": "#ffffff",
+            "focus_color": "#ffd60a",
+            "border_radius": 0,
+            "button_radius": 8
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_4d8a09d_VdjqYU"
       ],
       "settings": {}
     },
@@ -1022,6 +1208,7 @@
             "blog_3": "bangalores-hidden-natural-farm",
             "heading": "Plant Tips Worth Knowing",
             "button_label": "View all articles",
+            "button_link": "",
             "desktop_width_percent": 100,
             "box_size": 360,
             "section_padding": 65,
@@ -1143,7 +1330,7 @@
       ],
       "settings": {
         "eyebrow": "FAQ",
-        "heading": "Got Questions? Let’s Grow Some Answers.",
+        "heading": "Got Questions? Let’s Find Some Answers.",
         "heading_accent": "",
         "text": "<p>Quick answers to common questions about plants, delivery, care and gardening services.</p>",
         "button_label": "Contact Support",
@@ -1369,164 +1556,6 @@
       ],
       "name": "header section",
       "settings": {}
-    },
-    "plant_marquee": {
-      "type": "plant-marquee",
-      "blocks": {
-        "word_1": {
-          "type": "item",
-          "settings": {
-            "text": "Snake Plant"
-          }
-        },
-        "word_2": {
-          "type": "item",
-          "settings": {
-            "text": "Money Plant"
-          }
-        },
-        "word_3": {
-          "type": "item",
-          "settings": {
-            "text": "Areca Palm"
-          }
-        },
-        "word_4": {
-          "type": "item",
-          "settings": {
-            "text": "Peace Lily"
-          }
-        },
-        "word_5": {
-          "type": "item",
-          "settings": {
-            "text": "Syngonium"
-          }
-        },
-        "word_6": {
-          "type": "item",
-          "settings": {
-            "text": "Salvia"
-          }
-        },
-        "word_7": {
-          "type": "item",
-          "settings": {
-            "text": "Vinca"
-          }
-        },
-        "word_8": {
-          "type": "item",
-          "settings": {
-            "text": "Oxycardium Gold"
-          }
-        },
-        "word_9": {
-          "type": "item",
-          "settings": {
-            "text": "Jade Plant"
-          }
-        },
-        "word_10": {
-          "type": "item",
-          "settings": {
-            "text": "Tulsi"
-          }
-        },
-        "word_11": {
-          "type": "item",
-          "settings": {
-            "text": "Aloe Vera"
-          }
-        },
-        "word_12": {
-          "type": "item",
-          "settings": {
-            "text": "Hibiscus"
-          }
-        },
-        "word_13": {
-          "type": "item",
-          "settings": {
-            "text": "Flower Seeds"
-          }
-        },
-        "word_14": {
-          "type": "item",
-          "settings": {
-            "text": "Ceramic Pots"
-          }
-        },
-        "word_15": {
-          "type": "item",
-          "settings": {
-            "text": "Indoor Plants"
-          }
-        },
-        "word_16": {
-          "type": "item",
-          "settings": {
-            "text": "Gifting Plants"
-          }
-        }
-      },
-      "block_order": [
-        "word_1",
-        "word_2",
-        "word_3",
-        "word_4",
-        "word_5",
-        "word_6",
-        "word_7",
-        "word_8",
-        "word_9",
-        "word_10",
-        "word_11",
-        "word_12",
-        "word_13",
-        "word_14",
-        "word_15",
-        "word_16"
-      ],
-      "settings": {}
-    },
-    "services_banner_split": {
-      "type": "_blocks",
-      "settings": {},
-      "blocks": {
-        "ai_gen_block_4d8a09d_VdjqYU": {
-          "type": "ai_gen_block_4d8a09d",
-          "settings": {
-            "heading": "We Don’t Just Grow Plants. We Grow Spaces.",
-            "description": "<p>Planning a garden, refreshing your balcony, or dreaming of a beautiful green wall? From the first idea to the final touch, our experts are here to make it happen. With the right plants, creative design, and professional care, we transform everyday spaces into vibrant green environments you’ll love.</p>",
-            "button_label": "View all our services",
-            "button_link": "shopify://pages/contact",
-            "background_image": "shopify://shop_images/f1e021cb-377e-40d0-9083-3db7e22e964f.png",
-            "background_position": "center center",
-            "overlay_opacity": 75,
-            "overlay_color": "#1f5130",
-            "desktop_width_percent": 100,
-            "min_height": 540,
-            "mobile_min_height": 340,
-            "text_alignment": "center",
-            "content_alignment": "center",
-            "heading_size": 60,
-            "mobile_heading_size": 32,
-            "background_color": "#1f5130",
-            "text_color": "#ffffff",
-            "button_color": "#ffd60a",
-            "button_text_color": "#14231a",
-            "button_hover_color": "#ffffff",
-            "focus_color": "#ffd60a",
-            "border_radius": 0,
-            "button_radius": 8
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_4d8a09d_VdjqYU"
-      ]
     }
   },
   "order": [
