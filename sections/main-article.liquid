@@ -3,13 +3,57 @@
     <p class="eyebrow"><a href="{{ blog.url }}">{{ blog.title }}</a></p>
     <h1 class="section-title section-title--left">{{ article.title }}</h1>
     <p class="post__meta">📅 {{ article.published_at | date: '%B %-d, %Y' }}</p>
-    {%- if article.image -%}
-      <div class="article__image mt-40">{{ article.image | image_url: width: 1400 | image_tag: loading: 'eager', sizes: '(min-width: 1000px) 1000px, 100vw', widths: '600, 1000, 1400' }}</div>
-    {%- endif -%}
-    <div class="rte mt-40">{{ article.content }}</div>
+  </div>
+  {%- if article.image -%}
+    {%- liquid
+      assign banner_style = 'object-position: ' | append: article.image.presentation.focal_point
+      if section.settings.banner_width == 'wide'
+        assign banner_sizes = '(min-width: 1280px) 1200px, 100vw'
+      else
+        assign banner_sizes = '(min-width: 1000px) 1000px, 100vw'
+      endif
+    -%}
+    <div class="page-width{% if section.settings.banner_width == 'text' %} page-width--narrow{% endif %}">
+      <div class="article__banner mt-40">
+        {{ article.image | image_url: width: 2000 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: banner_sizes, widths: '600, 900, 1200, 1600, 2000', style: banner_style, alt: article.image.alt | default: article.title }}
+      </div>
+    </div>
+  {%- endif -%}
+  <div class="page-width page-width--narrow">
+    <div class="rte article__content mt-40">{{ article.content }}</div>
   </div>
 </article>
 
+<style>
+  .article__banner { position: relative; overflow: hidden; height: {{ section.settings.banner_height_mobile }}px; border-radius: 18px; background: #eef1ea; }
+  @media (min-width: 750px) { .article__banner { height: {{ section.settings.banner_height }}px; } }
+  .article__banner img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  {%- if section.settings.limit_content_images %}
+  .article__content img { display: block; width: auto; max-width: 100%; max-height: {{ section.settings.content_image_max }}px; margin: 24px auto; object-fit: contain; }
+  {%- endif %}
+</style>
+
 {% schema %}
-{ "name": "Blog post", "settings": [] }
+{
+  "name": "Blog post",
+  "settings": [
+    { "type": "header", "content": "Featured image banner" },
+    { "type": "range", "id": "banner_height", "label": "Banner height on desktop", "min": 240, "max": 640, "step": 20, "unit": "px", "default": 420 },
+    { "type": "range", "id": "banner_height_mobile", "label": "Banner height on mobile", "min": 160, "max": 420, "step": 20, "unit": "px", "default": 240 },
+    {
+      "type": "select",
+      "id": "banner_width",
+      "label": "Banner width",
+      "default": "wide",
+      "options": [
+        { "value": "wide", "label": "Wider than the text" },
+        { "value": "text", "label": "Same as the text" }
+      ]
+    },
+    { "type": "paragraph", "content": "The image is cropped to fit. To choose which part stays in view, set a focal point on the image in Shopify admin (Content > Files, or the blog post's featured image)." },
+    { "type": "header", "content": "Images inside the post" },
+    { "type": "checkbox", "id": "limit_content_images", "label": "Limit image height", "default": true },
+    { "type": "range", "id": "content_image_max", "label": "Maximum image height", "min": 240, "max": 800, "step": 20, "unit": "px", "default": 520 }
+  ]
+}
 {% endschema %}
