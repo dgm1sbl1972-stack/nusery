@@ -12,14 +12,18 @@
     "gift_hero": {
       "type": "sbl-gift-hero",
       "settings": {
+        "hero_layout": "full",
+        "hero_height": 560,
+        "hero_height_mobile": 480,
+        "hero_overlay": 50,
         "hero_eyebrow": "PLANT GIFTING MADE SPECIAL",
         "hero_heading": "Gifts That Grow With You",
         "hero_text": "Thoughtful plants and green gifts for every celebration, occasion and special moment.",
         "hero_button_label": "Shop Gifts",
         "hero_button_link": "",
         "hero_note": "Gift-wrapped with a free handwritten note",
-        "hero_image": "shopify://shop_images/b0a6c601-e4e8-40e8-8dd4-6a7cfe79b66c.png",
-        "hero_image_mobile": "shopify://shop_images/b0a6c601-e4e8-40e8-8dd4-6a7cfe79b66c.png",
+        "hero_image": "shopify://shop_images/431b476e-b87d-49e2-98c4-e66818574ab2.png",
+        "hero_image_mobile": "shopify://shop_images/431b476e-b87d-49e2-98c4-e66818574ab2.png",
         "hero_chip": "Loved by plant gifters",
         "hero_media_first_mobile": false,
         "bg_color": "#f8f4ec"
@@ -32,6 +36,7 @@
           "type": "occasion",
           "settings": {
             "title": "Birthday",
+            "image": "shopify://shop_images/c85de4ea-3b02-480e-9678-9bca59b7341f.png",
             "link": "shopify://collections/bestsellers"
           }
         },
@@ -39,6 +44,7 @@
           "type": "occasion",
           "settings": {
             "title": "Housewarming",
+            "image": "shopify://shop_images/9ad7a924-0588-49ba-b3b2-70cc47abecda.png",
             "link": "shopify://collections/bestsellers"
           }
         },
@@ -46,6 +52,7 @@
           "type": "occasion",
           "settings": {
             "title": "Anniversary",
+            "image": "shopify://shop_images/ccbaac55-fa50-40be-9628-4fd30173709a.png",
             "link": "shopify://collections/bestsellers"
           }
         },
@@ -53,6 +60,7 @@
           "type": "occasion",
           "settings": {
             "title": "Thank You",
+            "image": "shopify://shop_images/f94a99ab-3b9c-4cdd-97cc-dcc42dbd6156.png",
             "link": "shopify://collections/bestsellers"
           }
         },
@@ -60,6 +68,7 @@
           "type": "occasion",
           "settings": {
             "title": "Congratulations",
+            "image": "shopify://shop_images/64713d29-dc21-4b2f-9dc6-e26aa8972fa6.png",
             "link": "shopify://collections/bestsellers"
           }
         },
@@ -67,6 +76,7 @@
           "type": "occasion",
           "settings": {
             "title": "Get Well Soon",
+            "image": "shopify://shop_images/472ac5f3-526e-4fc7-aed3-521013214803.png",
             "link": "shopify://collections/bestsellers"
           }
         }
