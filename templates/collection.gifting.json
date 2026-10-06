@@ -99,6 +99,7 @@
           "settings": {
             "label": "Under ₹500",
             "caption": "Small joys",
+            "image": "shopify://shop_images/0a4f3bbe-94ed-4e43-8a09-a6e69b90e12c.png",
             "max_price": 500,
             "link": ""
           }
@@ -108,6 +109,7 @@
           "settings": {
             "label": "₹500 – ₹1,000",
             "caption": "Thoughtful picks",
+            "image": "shopify://shop_images/8e7b69a9-40e2-4e3b-830c-93b6f3a1b669.png",
             "min_price": 500,
             "max_price": 1000,
             "link": ""
@@ -118,6 +120,7 @@
           "settings": {
             "label": "₹1,000 – ₹2,000",
             "caption": "Premium gifts",
+            "image": "shopify://shop_images/0c068afe-18fd-4f98-8ace-18403a654ae4.png",
             "min_price": 1000,
             "max_price": 2000,
             "link": ""
@@ -128,6 +131,7 @@
           "settings": {
             "label": "Above ₹2,000",
             "caption": "Luxury green gifts",
+            "image": "shopify://shop_images/plant_image_1_1080x1080_full.jpg",
             "min_price": 2000,
             "max_price": 500,
             "link": ""
