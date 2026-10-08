@@ -7,6 +7,18 @@
   assign sid = section.id
   assign b = section.settings
   assign btn_link = b.button_link | default: '/pages/contact'
+  assign slides = ''
+  for i in (1..6)
+    if i == 1
+      assign key = 'image'
+    else
+      assign key = 'image_' | append: i
+    endif
+    if b[key] != blank
+      assign slides = slides | append: key | append: ','
+    endif
+  endfor
+  assign slides = slides | split: ','
 -%}
 
 {{ 'sbl-services.css' | asset_url | stylesheet_tag }}
@@ -18,9 +30,23 @@
 <div id="sbls-{{ sid }}" class="sbls" style="--sec-bg: {{ b.bg_color }};" data-sbl-root>
   <div class="sbls-wrap" style="padding-top: {{ b.padding_top }}px; padding-bottom: {{ b.padding_bottom }}px;">
     <article class="sbls-row{% if b.image_side == 'right' %} sbls-row--flip{% endif %}" id="{{ b.anchor | default: sid | handleize }}" aria-labelledby="sbls-t-{{ sid }}">
-      <div class="sbls-row__media" data-reveal>
-        {%- if b.image != blank -%}
-          {{ b.image | image_url: width: 1400 | image_tag: widths: '480, 720, 960, 1200, 1400', sizes: '(min-width: 990px) 52vw, 100vw', loading: 'lazy', alt: b.image.alt | default: b.title }}
+      <div class="sbls-row__media sbls-slider" data-reveal data-sbls-slider>
+        {%- if slides.size > 0 -%}
+          <div class="sbls-slider__track" data-track tabindex="0" aria-label="{{ b.title | escape }} photos" aria-roledescription="carousel">
+            {%- for key in slides -%}
+              {%- assign img = b[key] -%}
+              <div class="sbls-slider__slide" aria-roledescription="slide" aria-label="{{ forloop.index }} of {{ slides.size }}">
+                {{ img | image_url: width: 1400 | image_tag: widths: '480, 720, 960, 1200, 1400', sizes: '(min-width: 990px) 52vw, 100vw', loading: 'lazy', alt: img.alt | default: b.title }}
+              </div>
+            {%- endfor -%}
+          </div>
+          {%- if slides.size > 1 -%}
+            <button type="button" class="sbls-slider__btn sbls-slider__btn--prev" data-prev aria-label="Previous photo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button type="button" class="sbls-slider__btn sbls-slider__btn--next" data-next aria-label="Next photo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+            <div class="sbls-slider__dots" aria-hidden="true">
+              {%- for key in slides -%}<span class="sbls-slider__dot{% if forloop.first %} is-active{% endif %}"></span>{%- endfor -%}
+            </div>
+          {%- endif -%}
         {%- else -%}
           {{ 'lifestyle-2' | placeholder_svg_tag: 'sbls-ph' }}
         {%- endif -%}
@@ -47,6 +73,58 @@
     </article>
   </div>
 </div>
+
+<script>
+  (function () {
+    var root = document.querySelector('#sbls-{{ sid }} [data-sbls-slider]');
+    if (!root || root.dataset.ready) return;
+    root.dataset.ready = '1';
+    var track = root.querySelector('[data-track]');
+    var dots = root.querySelectorAll('.sbls-slider__dot');
+    if (!track || dots.length < 2) return;
+    function index() { return Math.round(track.scrollLeft / track.clientWidth); }
+    function go(i) {
+      var n = dots.length;
+      i = (i + n) % n;
+      track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
+    }
+    root.querySelector('[data-prev]').addEventListener('click', function () { go(index() - 1); });
+    root.querySelector('[data-next]').addEventListener('click', function () { go(index() + 1); });
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(index() - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(index() + 1); }
+    });
+    var t;
+    track.addEventListener('scroll', function () {
+      clearTimeout(t);
+      t = setTimeout(function () {
+        var i = index();
+        dots.forEach(function (d, k) { d.classList.toggle('is-active', k === i); });
+      }, 60);
+    }, { passive: true });
+  })();
+</script>
+
+{% stylesheet %}
+.sbls .sbls-slider { position: relative; }
+.sbls .sbls-slider__track { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.sbls .sbls-slider__track::-webkit-scrollbar { display: none; }
+.sbls .sbls-slider__track:focus-visible { outline: 3px solid #fff; outline-offset: -6px; }
+.sbls .sbls-slider__slide { flex: 0 0 100%; height: 100%; scroll-snap-align: start; overflow: hidden; }
+.sbls .sbls-slider__btn { position: absolute; top: 50%; z-index: 2; display: grid; place-items: center; width: 44px; height: 44px; margin-top: -22px; padding: 0; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .92); color: #1f3d27; box-shadow: 0 6px 18px rgba(0, 0, 0, .18); cursor: pointer; transition: background .2s, transform .2s; }
+.sbls .sbls-slider__btn:hover { background: #fff; transform: scale(1.06); }
+.sbls .sbls-slider__btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.sbls .sbls-slider__btn--prev { left: 14px; }
+.sbls .sbls-slider__btn--next { right: 14px; }
+.sbls .sbls-slider__dots { position: absolute; left: 0; right: 0; bottom: 14px; z-index: 2; display: flex; justify-content: center; gap: 7px; pointer-events: none; }
+.sbls .sbls-slider__dot { width: 8px; height: 8px; border-radius: 999px; background: rgba(255, 255, 255, .6); box-shadow: 0 1px 4px rgba(0, 0, 0, .25); transition: width .25s, background .25s; }
+.sbls .sbls-slider__dot.is-active { width: 22px; background: #fff; }
+@media (max-width: 749px) {
+  .sbls .sbls-slider__btn { width: 38px; height: 38px; margin-top: -19px; }
+  .sbls .sbls-slider__btn--prev { left: 10px; }
+  .sbls .sbls-slider__btn--next { right: 10px; }
+}
+{% endstylesheet %}
 
 {% schema %}
 {
@@ -88,8 +166,14 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Image"
+      "label": "Image 1",
+      "info": "Add more images below to show ‹ › arrows and slide between them."
     },
+    { "type": "image_picker", "id": "image_2", "label": "Image 2" },
+    { "type": "image_picker", "id": "image_3", "label": "Image 3" },
+    { "type": "image_picker", "id": "image_4", "label": "Image 4" },
+    { "type": "image_picker", "id": "image_5", "label": "Image 5" },
+    { "type": "image_picker", "id": "image_6", "label": "Image 6" },
     {
       "type": "text",
       "id": "button_label",
