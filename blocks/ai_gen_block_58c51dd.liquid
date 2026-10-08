@@ -136,7 +136,8 @@
         </button>
         <a class="ai-nursery-header__drawer-login" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" data-account-popup-open data-menu-close><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 21c.7-4.2 3.3-6.3 7.5-6.3s6.8 2.1 7.5 6.3"/></svg>{% if customer %}My account{% else %}Log in{% endif %}</a>
       </div>
-      {% assign nav_groups = 'plants,seeds,pots' | split: ',' %}
+      {% assign nav_groups = 'plants,seeds,pots,gifting' | split: ',' %}
+      {% assign gifting_fallback_links = '/pages/gifting-hampers,/pages/make-your-own-hamper,/pages/corporate-gifts' | split: ',' %}
       {% for group in nav_groups %}
         {% assign title_key = group | append: '_title' %}
         {% assign menu_key = group | append: '_menu' %}
@@ -156,13 +157,14 @@
               {% for i in (1..10) %}
                 {% assign category_title_key = group | append: '_category_' | append: i | append: '_title' %}
                 {% assign category_link_key = group | append: '_category_' | append: i | append: '_link' %}
-                {% if block.settings[category_title_key] != blank %}<a href="{{ block.settings[category_link_key] | default: '#' }}">{{ block.settings[category_title_key] | escape }}</a>{% endif %}
+                {% assign category_url = block.settings[category_link_key] %}
+                {% if category_url == blank and group == 'gifting' %}{% assign category_url = gifting_fallback_links[forloop.index0] %}{% endif %}
+                {% if block.settings[category_title_key] != blank %}<a href="{{ category_url | default: '#' }}">{{ block.settings[category_title_key] | escape }}</a>{% endif %}
               {% endfor %}
             {% endif %}
           </div>
         </div>
       {% endfor %}
-      <a class="ai-nursery-header__link" href="{{ block.settings.gifting_link | default: routes.all_products_collection_url }}">{{ block.settings.gifting_title | escape }}</a>
       <a class="ai-nursery-header__link" href="{{ block.settings.services_link | default: routes.root_url }}">{{ block.settings.services_title | escape }}</a>
       {%- liquid
         assign blog_nav_url = block.settings.blog_link
@@ -299,9 +301,16 @@
     { "type": "text", "id": "pots_category_8_title", "label": "Category 8", "default": "Decorative planters" }, { "type": "url", "id": "pots_category_8_link", "label": "Category 8 link" },
     { "type": "text", "id": "pots_category_9_title", "label": "Category 9", "default": "Seedling trays" }, { "type": "url", "id": "pots_category_9_link", "label": "Category 9 link" },
     { "type": "text", "id": "pots_category_10_title", "label": "Category 10", "default": "Pot accessories" }, { "type": "url", "id": "pots_category_10_link", "label": "Category 10 link" },
-    { "type": "header", "content": "Gifting link" },
+    { "type": "header", "content": "Gifting dropdown" },
     { "type": "text", "id": "gifting_title", "label": "Menu label", "default": "Gifting" },
-    { "type": "url", "id": "gifting_link", "label": "Menu page link" },
+    { "type": "url", "id": "gifting_link", "label": "Menu page link", "info": "Optional. Adds a 'View all' link at the top of the dropdown." },
+    { "type": "link_list", "id": "gifting_menu", "label": "Use navigation menu" },
+    { "type": "text", "id": "gifting_category_1_title", "label": "Category 1", "default": "Gifting Hampers" }, { "type": "url", "id": "gifting_category_1_link", "label": "Category 1 link", "info": "Leave empty to open /pages/gifting-hampers" },
+    { "type": "text", "id": "gifting_category_2_title", "label": "Category 2", "default": "Make Your Own Hamper" }, { "type": "url", "id": "gifting_category_2_link", "label": "Category 2 link", "info": "Leave empty to open /pages/make-your-own-hamper" },
+    { "type": "text", "id": "gifting_category_3_title", "label": "Category 3", "default": "Corporate Gifts" }, { "type": "url", "id": "gifting_category_3_link", "label": "Category 3 link", "info": "Leave empty to open /pages/corporate-gifts" },
+    { "type": "text", "id": "gifting_category_4_title", "label": "Category 4" }, { "type": "url", "id": "gifting_category_4_link", "label": "Category 4 link" },
+    { "type": "text", "id": "gifting_category_5_title", "label": "Category 5" }, { "type": "url", "id": "gifting_category_5_link", "label": "Category 5 link" },
+    { "type": "text", "id": "gifting_category_6_title", "label": "Category 6" }, { "type": "url", "id": "gifting_category_6_link", "label": "Category 6 link" },
     { "type": "header", "content": "Services link" },
     { "type": "text", "id": "services_title", "label": "Menu label", "default": "Services" },
     { "type": "url", "id": "services_link", "label": "Menu page link" },
