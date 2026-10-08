@@ -7,8 +7,28 @@
         "logo_height": 60,
         "logo_zoom": 130
       },
-      "blocks": {},
-      "block_order": []
+      "blocks": {
+        "dropdown": {
+          "type": "dropdown",
+          "settings": {
+            "title": "Gifting Hamper",
+            "badge": "New",
+            "link_1_title": "Gifting Hampers",
+            "link_1_url": "/pages/gifting-hampers",
+            "link_2_title": "Make Your Own Hamper",
+            "link_2_url": "/pages/make-your-own-hamper",
+            "link_3_title": "Corporate Gifts",
+            "link_3_url": "/pages/corporate-gifts",
+            "link_4_title": "New Arrivals",
+            "link_4_url": "/collections/all?sort_by=created-descending",
+            "link_5_title": "All Gifts",
+            "link_5_url": "/collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "dropdown"
+      ]
     },
     "categories": {
       "type": "sbl-gh-categories",
