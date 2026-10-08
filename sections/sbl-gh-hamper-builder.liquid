@@ -6,12 +6,20 @@
 {%- liquid
   assign sid = section.id
   assign s = section.settings
+  assign product_source = s.product_collection
+  if product_source == blank
+    assign product_source = collections.all
+  endif
+  assign box_required = s.box_required
+  if s.box_collection == blank or s.box_collection.products.size == 0
+    assign box_required = false
+  endif
 -%}
-<section class="gh hb" id="Hamper-{{ sid }}" style="--gh-bg: {{ s.bg_color }};"
+<section class="gh hb" id="Hamper-{{ sid }}" style="--gh-bg: {{ s.bg_color }}; --hb-accent: {{ s.accent_color }}; --hb-cols: {{ s.columns_desktop }};"
   data-hamper
   data-min="{{ s.min_products }}"
   data-max="{{ s.max_products }}"
-  data-box-required="{{ s.box_required }}"
+  data-box-required="{{ box_required }}"
   data-money-format="{{ shop.money_format | escape }}">
   <div class="page-width">
     {%- if s.heading != blank or s.subheading != blank -%}
@@ -51,7 +59,7 @@
                 assign add_label = s.box_button
               when 2
                 assign kind = 'product'
-                assign source = s.product_collection
+                assign source = product_source
                 assign add_label = s.product_button
               else
                 assign kind = 'card'
@@ -99,7 +107,7 @@
           <span class="hb__summary-count" data-count-label>0 items</span>
         </div>
         <ul class="hb__list" data-list role="list"></ul>
-        <p class="hb__list-empty" data-list-empty>Nothing added yet. Start by choosing a box.</p>
+        <p class="hb__list-empty" data-list-empty>Nothing added yet.</p>
         <div class="hb__total"><span>Total</span><strong data-total>{{ 0 | money }}</strong></div>
         <p class="hb__error" data-error role="alert" hidden></p>
         <div class="hb__nav">
@@ -343,76 +351,81 @@
 </script>
 
 {% stylesheet %}
-.hb__steps { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); max-width: 860px; margin: 0 auto 30px; padding: 0; list-style: none; }
-.hb__steps::before { content: ""; position: absolute; top: 24px; left: 12.5%; right: 12.5%; height: 1px; background: #d9dfd4; }
+.hb { --hb-accent: #b5884b; }
+.hb .gh__head { margin-bottom: 18px; }
+/* Steps: thin line with outlined icons, BoxUp style. */
+.hb__steps { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); max-width: 900px; margin: 0 auto 34px; padding: 0; list-style: none; }
+.hb__steps::before { content: ""; position: absolute; top: 20px; left: 0; right: 0; height: 1px; background: #d8cfbf; }
 .hb__step { position: relative; display: flex; justify-content: center; }
-.hb__step-btn { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0; border: 0; background: none; color: var(--c-muted); font: inherit; font-size: 13px; cursor: pointer; }
-.hb__step-icon { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid #d9dfd4; border-radius: 12px; background: var(--gh-bg, #fff); transition: background .2s, color .2s, border-color .2s; }
-.hb__step.is-current .hb__step-icon { border-color: var(--c-primary-dark); background: var(--c-primary-dark); color: #fff; }
-.hb__step.is-current .hb__step-btn { color: var(--c-primary-dark); font-weight: 600; }
-.hb__step.is-done .hb__step-icon { border-color: var(--c-primary); color: var(--c-primary); background: #eef6ea; }
-.hb__layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 28px; align-items: start; }
-.hb__panel-head { margin-bottom: 16px; }
+.hb__step-btn { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 0; border: 0; background: none; color: #9a9184; font: inherit; font-size: 13px; letter-spacing: .02em; cursor: pointer; }
+.hb__step-icon { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid #cfc4b2; border-radius: 4px; background: var(--gh-bg, #fff); color: #9a9184; transition: background .2s, color .2s, border-color .2s; }
+.hb__step-icon svg { width: 20px; height: 20px; }
+.hb__step.is-current .hb__step-icon { border-color: var(--hb-accent); background: var(--hb-accent); color: #fff; }
+.hb__step.is-current .hb__step-btn { color: var(--hb-accent); font-weight: 600; }
+.hb__step.is-done .hb__step-icon { border-color: var(--hb-accent); color: var(--hb-accent); }
+/* Full-width grid; the summary is a bar pinned to the bottom. */
+.hb__layout { display: block; }
+.hb__panel-head { margin-bottom: 18px; text-align: center; }
 .hb__panel-title { margin: 0; font-family: var(--font-display); font-size: 20px; color: var(--c-primary-dark); }
 .hb__panel-text { margin: 6px 0 0; color: var(--c-muted); font-size: 14px; }
-.hb__empty { padding: 30px; border: 1px dashed #cfd6ca; border-radius: 14px; color: var(--c-muted); text-align: center; }
-.hb__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
-.hb-item { display: flex; flex-direction: column; overflow: hidden; border: 1px solid #ebe6db; border-radius: 14px; background: #fff; transition: border-color .2s, box-shadow .2s; }
-.hb-item.is-picked { border-color: var(--c-primary); box-shadow: 0 0 0 2px var(--c-primary); }
-.hb-item__media { position: relative; aspect-ratio: 1; background: #f4f1ea; }
+.hb__empty { padding: 30px; border: 1px dashed #cfc4b2; border-radius: 6px; color: var(--c-muted); text-align: center; }
+.hb__grid { display: grid; grid-template-columns: repeat(var(--hb-cols, 4), minmax(0, 1fr)); gap: 20px; }
+.hb-item { display: flex; flex-direction: column; padding: 8px; border: 1px solid #ece6da; border-radius: 2px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.04); transition: border-color .2s, box-shadow .2s; }
+.hb-item:hover { box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+.hb-item.is-picked { border-color: var(--hb-accent); box-shadow: 0 0 0 1px var(--hb-accent); }
+.hb-item__media { position: relative; aspect-ratio: 10 / 9; overflow: hidden; background: #f4f1ea; }
 .hb-item__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.hb-item__tick { position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--c-primary); color: #fff; opacity: 0; transform: scale(.6); transition: opacity .2s, transform .2s; }
+.hb-item__tick { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--hb-accent); color: #fff; opacity: 0; transform: scale(.6); transition: opacity .2s, transform .2s; }
 .hb-item.is-picked .hb-item__tick { opacity: 1; transform: none; }
-.hb-item__body { display: flex; flex: 1; flex-direction: column; gap: 6px; padding: 12px; }
-.hb-item__title { margin: 0; font-size: 14px; font-weight: 600; line-height: 1.3; color: var(--c-text); }
-.hb-item__price { margin: 0; font-size: 14px; color: var(--c-primary-dark); font-weight: 700; }
-.hb-item__variant { width: 100%; font: inherit; font-size: 13px; }
-.hb-item__add { margin-top: auto; width: 100%; padding: 10px 12px; border: 0; border-radius: 8px; background: var(--c-primary-dark); color: #fff; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
-.hb-item__add[aria-pressed="true"] { background: var(--c-primary); }
-.hb-item__add--off { background: #e5e7e3; color: #7b827e; text-align: center; cursor: default; }
-.hb-item__qty { display: flex; align-items: center; justify-content: space-between; margin-top: auto; border: 1px solid var(--c-primary); border-radius: 8px; overflow: hidden; }
-.hb-item__qty button { width: 40px; height: 38px; border: 0; background: #eef6ea; color: var(--c-primary-dark); font-size: 18px; cursor: pointer; }
+.hb-item__body { display: flex; flex: 1; flex-direction: column; gap: 4px; padding: 12px 0 0; }
+.hb-item__title { margin: 0; overflow: hidden; font-size: 13.5px; font-weight: 400; line-height: 1.35; color: var(--c-text); white-space: nowrap; text-overflow: ellipsis; }
+.hb-item__price { margin: 0 0 8px; font-size: 13.5px; font-weight: 700; color: var(--c-text); }
+.hb-item__variant { width: 100%; margin-bottom: 8px; font: inherit; font-size: 13px; }
+.hb-item__add { margin-top: auto; width: 100%; padding: 10px 12px; border: 0; border-radius: 2px; background: var(--hb-accent); color: #fff; font: inherit; font-size: 13px; font-weight: 500; letter-spacing: .02em; cursor: pointer; transition: filter .15s; }
+.hb-item__add:hover { filter: brightness(.92); }
+.hb-item__add[aria-pressed="true"] { background: var(--c-primary-dark); }
+.hb-item__add--off { background: #e5e2dc; color: #7b776f; text-align: center; cursor: default; }
+.hb-item__qty { display: flex; align-items: center; justify-content: space-between; margin-top: auto; border: 1px solid var(--hb-accent); border-radius: 2px; overflow: hidden; }
+.hb-item__qty button { width: 40px; height: 38px; border: 0; background: var(--hb-accent); color: #fff; font-size: 18px; cursor: pointer; }
 .hb-item__qty span { font-weight: 700; }
-.hb__form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 640px; }
+.hb__form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 640px; margin: 0 auto; }
 .hb__form label { position: relative; display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; }
 .hb__form-full { grid-column: 1 / -1; }
-.hb__form input, .hb__form textarea { width: 100%; box-sizing: border-box; padding: 12px; border: 1px solid #d5dbd2; border-radius: 10px; background: #fff; font: inherit; font-size: 16px; font-weight: 400; color: var(--c-text); }
-.hb__form input:focus, .hb__form textarea:focus { outline: none; border-color: var(--c-primary); box-shadow: 0 0 0 3px rgba(31,81,48,.15); }
+.hb__form input, .hb__form textarea { width: 100%; box-sizing: border-box; padding: 12px; border: 1px solid #d8cfbf; border-radius: 4px; background: #fff; font: inherit; font-size: 16px; font-weight: 400; color: var(--c-text); }
+.hb__form input:focus, .hb__form textarea:focus { outline: none; border-color: var(--hb-accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--hb-accent) 20%, transparent); }
 .hb__count { align-self: flex-end; color: var(--c-muted); font-weight: 400; }
-.hb__summary { position: sticky; top: 90px; padding: 20px; border-radius: 16px; background: #fff; box-shadow: 0 10px 30px rgba(13,58,29,.08); }
-.hb__summary-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 10px; }
-.hb__summary-title { margin: 0; font-family: var(--font-display); font-size: 18px; color: var(--c-primary-dark); }
-.hb__summary-count { font-size: 13px; color: var(--c-muted); }
-.hb__list { display: grid; gap: 10px; max-height: 320px; margin: 0; padding: 0; overflow-y: auto; list-style: none; }
-.hb__line { display: flex; align-items: center; gap: 10px; }
-.hb__line img, .hb__line-ph { flex: none; width: 48px; height: 48px; border-radius: 8px; object-fit: cover; background: #f1efe8; }
-.hb__line-text { display: flex; flex: 1; flex-direction: column; min-width: 0; font-size: 13px; }
-.hb__line-title { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-weight: 600; }
-.hb__line-meta { color: var(--c-muted); }
-.hb__line-remove { width: 28px; height: 28px; border: 0; border-radius: 50%; background: #f3f4f1; color: var(--c-text); font-size: 18px; line-height: 1; cursor: pointer; }
-.hb__list-empty { margin: 0; font-size: 13px; color: var(--c-muted); }
-.hb__total { display: flex; justify-content: space-between; margin-top: 14px; padding-top: 14px; border-top: 1px solid #eef1ec; font-size: 15px; }
-.hb__total strong { font-size: 18px; color: var(--c-primary-dark); }
-.hb__error { margin: 12px 0 0; padding: 10px 12px; border-radius: 8px; background: #fdecea; color: #9b2c1f; font-size: 13px; }
-.hb__nav { display: flex; gap: 10px; margin-top: 14px; }
+.hb__summary { position: sticky; bottom: 0; z-index: 5; display: grid; grid-template-columns: auto minmax(0, 1fr) auto minmax(260px, auto); grid-template-areas: "head list total nav" "error error error error"; align-items: center; gap: 8px 20px; margin-top: 28px; padding: 12px 20px calc(12px + env(safe-area-inset-bottom)); border-top: 2px solid var(--hb-accent); border-radius: 10px 10px 0 0; background: #fff; box-shadow: 0 -8px 24px rgba(0,0,0,.08); }
+.hb__summary-head { grid-area: head; display: flex; flex-direction: column; }
+.hb__summary-title { margin: 0; font-family: var(--font-display); font-size: 16px; color: var(--c-primary-dark); }
+.hb__summary-count { font-size: 12.5px; color: var(--c-muted); }
+.hb__list { grid-area: list; display: flex; gap: 8px; margin: 0; padding: 2px 0; overflow-x: auto; list-style: none; }
+.hb__list-empty { grid-area: list; margin: 0; font-size: 13px; color: var(--c-muted); }
+.hb__line { position: relative; flex: none; }
+.hb__line img, .hb__line-ph { display: block; width: 44px; height: 44px; border: 1px solid #ece6da; border-radius: 4px; object-fit: cover; background: #f1efe8; }
+.hb__line-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.hb__line-remove { position: absolute; top: -6px; right: -6px; display: grid; place-items: center; width: 18px; height: 18px; padding: 0; border: 0; border-radius: 50%; background: var(--c-text); color: #fff; font-size: 13px; line-height: 1; cursor: pointer; }
+.hb__total { grid-area: total; display: flex; flex-direction: column; align-items: flex-end; font-size: 12.5px; color: var(--c-muted); }
+.hb__total strong { font-size: 18px; color: var(--c-text); }
+.hb__error { grid-area: error; margin: 0; padding: 8px 12px; border-radius: 6px; background: #fdecea; color: #9b2c1f; font-size: 13px; }
+.hb__nav { grid-area: nav; display: flex; gap: 10px; }
 .hb__nav .btn { flex: 1; justify-content: center; }
+.hb__nav .btn--dark { border-color: var(--hb-accent); background: var(--hb-accent); color: #fff; }
+.hb__nav .btn--outline { border-color: var(--hb-accent); color: var(--hb-accent); }
 @media (max-width: 989px) {
-  .hb__layout { grid-template-columns: 1fr; }
-  /* The summary becomes a bar fixed to the bottom of the screen. */
-  .hb__summary { position: sticky; top: auto; bottom: 0; z-index: 5; margin: 0 -16px; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); border-radius: 18px 18px 0 0; box-shadow: 0 -8px 24px rgba(0,0,0,.10); }
-  .hb__summary-head { margin-bottom: 0; }
-  .hb__list, .hb__list-empty { display: none; }
-  .hb__total { margin-top: 6px; padding-top: 6px; border-top: 0; }
-  .hb__nav { margin-top: 10px; }
+  .hb__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .hb__summary { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "head total" "list list" "error error" "nav nav"; margin-inline: -16px; padding-inline: 16px; }
 }
 @media (max-width: 749px) {
-  .hb__steps { margin-bottom: 22px; }
-  .hb__steps::before { top: 20px; }
-  .hb__step-icon { width: 40px; height: 40px; border-radius: 10px; }
+  .hb__steps { margin-bottom: 24px; }
+  .hb__steps::before { top: 18px; }
+  .hb__step-icon { width: 36px; height: 36px; }
   .hb__step-btn { font-size: 11.5px; text-align: center; }
   .hb__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .hb-item__body { padding: 10px; }
-  .hb-item__title { font-size: 13px; }
+  .hb-item { padding: 6px; }
+  .hb-item__title, .hb-item__price { font-size: 12.5px; }
+  .hb-item__add { padding: 9px 8px; font-size: 12.5px; }
+  .hb__list, .hb__list-empty { display: none; }
+  .hb__summary { grid-template-areas: "head total" "error error" "nav nav"; }
   .hb__form { grid-template-columns: 1fr; }
 }
 {% endstylesheet %}
@@ -429,14 +442,14 @@
     { "type": "text", "id": "step_1_label", "label": "Step name", "default": "Choose Box" },
     { "type": "text", "id": "step_1_title", "label": "Title", "default": "Choose your gift box" },
     { "type": "text", "id": "step_1_text", "label": "Text", "default": "Pick the box or basket your hamper comes in." },
-    { "type": "collection", "id": "box_collection", "label": "Box collection" },
+    { "type": "collection", "id": "box_collection", "label": "Box collection", "info": "If empty, shoppers can skip this step." },
     { "type": "text", "id": "box_button", "label": "Button", "default": "Add To Box" },
     { "type": "checkbox", "id": "box_required", "label": "A box is required", "default": true },
     { "type": "header", "content": "Step 2: Products" },
     { "type": "text", "id": "step_2_label", "label": "Step name", "default": "Add Product" },
     { "type": "text", "id": "step_2_title", "label": "Title", "default": "Fill it with gifts" },
     { "type": "text", "id": "step_2_text", "label": "Text", "default": "Add plants, pots and treats. Use + and − to change quantities." },
-    { "type": "collection", "id": "product_collection", "label": "Product collection" },
+    { "type": "collection", "id": "product_collection", "label": "Product collection", "info": "Leave empty to show all products." },
     { "type": "text", "id": "product_button", "label": "Button", "default": "Add To Box" },
     { "type": "range", "id": "min_products", "label": "Minimum products", "min": 0, "max": 10, "step": 1, "default": 1 },
     { "type": "range", "id": "max_products", "label": "Maximum products", "min": 0, "max": 30, "step": 1, "default": 0, "info": "0 means no limit." },
@@ -454,6 +467,9 @@
     { "type": "header", "content": "Summary" },
     { "type": "text", "id": "summary_title", "label": "Summary title", "default": "Your hamper" },
     { "type": "text", "id": "cart_button", "label": "Add to cart button", "default": "Add hamper to cart" },
+    { "type": "header", "content": "Style" },
+    { "type": "range", "id": "columns_desktop", "label": "Products per row (desktop)", "min": 3, "max": 5, "step": 1, "default": 4 },
+    { "type": "color", "id": "accent_color", "label": "Buttons and steps", "default": "#b5884b" },
     { "type": "color", "id": "bg_color", "label": "Background", "default": "#f8f4ec" }
   ],
   "presets": [{ "name": "Gifting: Hamper builder" }]
