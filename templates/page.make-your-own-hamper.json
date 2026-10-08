@@ -1,0 +1,65 @@
+{
+  "sections": {
+    "builder": {
+      "type": "sbl-gh-hamper-builder",
+      "settings": {
+        "heading": "Make your Own Hamper",
+        "subheading": "Choose a box, fill it with gifts, add a card and your message. We'll pack it beautifully.",
+        "box_required": true,
+        "min_products": 1,
+        "max_products": 0,
+        "message_max": 250,
+        "bg_color": "#f8f4ec"
+      }
+    },
+    "faq": {
+      "type": "sbl-gift-faq",
+      "settings": {
+        "faq_heading": "Hamper questions",
+        "faq_subheading": "Everything you need to know about building your own hamper",
+        "faq_open_first": true,
+        "bg_color": "#ffffff"
+      },
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does delivery take?",
+            "answer": "<p>Most hampers are packed and dispatched within 24–48 hours. Delivery time depends on your location.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "Will my message be included?",
+            "answer": "<p>Yes. The To, From and message you write in step 4 are added to your order and included with the hamper.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I send hampers to different addresses?",
+            "answer": "<p>Each order ships to one address. For several addresses, place a separate order for each hamper, or contact us for bulk orders.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I order hampers in bulk?",
+            "answer": "<p>Yes. For corporate or bulk hampers, send us an enquiry from our Corporate Gifts page.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4"
+      ]
+    }
+  },
+  "order": [
+    "builder",
+    "faq"
+  ]
+}

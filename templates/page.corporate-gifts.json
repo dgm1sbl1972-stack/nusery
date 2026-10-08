@@ -1,0 +1,640 @@
+{
+  "sections": {
+    "categories": {
+      "type": "sbl-gh-categories",
+      "settings": {
+        "heading": "",
+        "subheading": "",
+        "shape": "circle",
+        "bg_color": "#ffffff"
+      },
+      "blocks": {
+        "category_1": {
+          "type": "category",
+          "settings": {
+            "title": "Corporate Hampers"
+          }
+        },
+        "category_2": {
+          "type": "category",
+          "settings": {
+            "title": "Desk Plants"
+          }
+        },
+        "category_3": {
+          "type": "category",
+          "settings": {
+            "title": "Welcome Kits"
+          }
+        },
+        "category_4": {
+          "type": "category",
+          "settings": {
+            "title": "Festive Gifting"
+          }
+        },
+        "category_5": {
+          "type": "category",
+          "settings": {
+            "title": "Eco Gifts"
+          }
+        },
+        "category_6": {
+          "type": "category",
+          "settings": {
+            "title": "Client Gifts"
+          }
+        }
+      },
+      "block_order": [
+        "category_1",
+        "category_2",
+        "category_3",
+        "category_4",
+        "category_5",
+        "category_6"
+      ]
+    },
+    "hero": {
+      "type": "sbl-gift-hero",
+      "settings": {
+        "hero_layout": "full",
+        "hero_height": 480,
+        "hero_height_mobile": 420,
+        "hero_overlay": 40,
+        "hero_eyebrow": "CORPORATE GIFTING",
+        "hero_heading": "Designed for Grand Celebrations, Rooted in Tradition",
+        "hero_text": "Plant hampers and green gifts your clients and teams will remember. Custom branding and bulk delivery across India.",
+        "hero_button_label": "Enquire Now",
+        "hero_button_link": "/pages/corporate-gifts#corporate-enquiry",
+        "hero_note": "",
+        "hero_chip": "",
+        "hero_media_first_mobile": false,
+        "bg_color": "#F8F4EC"
+      }
+    },
+    "ribbon": {
+      "type": "plant-marquee",
+      "settings": {
+        "separator": "✦",
+        "speed": 40,
+        "direction": "left",
+        "tilt": 0,
+        "font_size": 16,
+        "gap": 22,
+        "padding": 12,
+        "background": "#1f5130",
+        "text_color": "#ffffff",
+        "separator_color": "#ffd60a",
+        "page_background": "#f8f4ec"
+      },
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "text": "Custom branding",
+            "link": ""
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "text": "Bulk orders",
+            "link": ""
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "text": "Pan-India delivery",
+            "link": ""
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "text": "Dedicated gifting manager",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4"
+      ]
+    },
+    "corporate_sets": {
+      "type": "sbl-gh-product-tabs",
+      "settings": {
+        "heading": "Corporate Gifting & Corporate Gift Sets for Businesses",
+        "subheading": "Curated green gifts for clients, partners and employees.",
+        "layout": "grid",
+        "limit": 8,
+        "view_all_label": "View all",
+        "bg_color": "#ffffff"
+      },
+      "blocks": {
+        "tab_1": {
+          "type": "tab",
+          "settings": {
+            "label": ""
+          }
+        }
+      },
+      "block_order": [
+        "tab_1"
+      ]
+    },
+    "festive": {
+      "type": "sbl-gh-product-tabs",
+      "settings": {
+        "heading": "Diwali Corporate Gifting",
+        "subheading": "Festive hampers that light up every office.",
+        "layout": "grid",
+        "limit": 8,
+        "view_all_label": "View all",
+        "bg_color": "#f8f4ec"
+      },
+      "blocks": {
+        "tab_1": {
+          "type": "tab",
+          "settings": {
+            "label": ""
+          }
+        }
+      },
+      "block_order": [
+        "tab_1"
+      ]
+    },
+    "best_sellers": {
+      "type": "sbl-gh-product-tabs",
+      "settings": {
+        "heading": "Best Selling Corporate Gifts",
+        "subheading": "Our most-ordered gifts for teams and clients.",
+        "layout": "carousel",
+        "limit": 8,
+        "view_all_label": "View All",
+        "bg_color": "#ffffff"
+      },
+      "blocks": {
+        "tab_1": {
+          "type": "tab",
+          "settings": {
+            "label": ""
+          }
+        }
+      },
+      "block_order": [
+        "tab_1"
+      ]
+    },
+    "clients": {
+      "type": "sbl-services-clients",
+      "settings": {
+        "clients_eyebrow": "Trusted by",
+        "clients_heading": "Brands That Trust Us",
+        "clients_text": "Gifting greener moments for leading businesses and organisations.",
+        "ticker_speed": 35,
+        "logos_grayscale": true,
+        "clients_bg": "#EEF1EA"
+      }
+    },
+    "trending": {
+      "type": "trending-reels",
+      "settings": {
+        "heading": "Trending",
+        "heading_accent": "Corporate Gifts",
+        "background": "#f8f4ec"
+      },
+      "blocks": {
+        "reel_1": {
+          "type": "reel",
+          "settings": {
+            "title": "Corporate hamper"
+          }
+        },
+        "reel_2": {
+          "type": "reel",
+          "settings": {
+            "title": "Welcome kit"
+          }
+        },
+        "reel_3": {
+          "type": "reel",
+          "settings": {
+            "title": "Branded desk plants"
+          }
+        },
+        "reel_4": {
+          "type": "reel",
+          "settings": {
+            "title": "Diwali office gifts"
+          }
+        },
+        "reel_5": {
+          "type": "reel",
+          "settings": {
+            "title": "Client gift box"
+          }
+        },
+        "reel_6": {
+          "type": "reel",
+          "settings": {
+            "title": "Event giveaways"
+          }
+        }
+      },
+      "block_order": [
+        "reel_1",
+        "reel_2",
+        "reel_3",
+        "reel_4",
+        "reel_5",
+        "reel_6"
+      ]
+    },
+    "promo": {
+      "type": "sbl-gh-tiles",
+      "settings": {
+        "heading": "Best-selling Promotional Products",
+        "subheading": "Useful, beautiful gifts with your brand on them.",
+        "layout": "grid",
+        "columns": 3,
+        "ratio": "landscape",
+        "label_style": "overlay",
+        "bg_color": "#ffffff",
+        "heading_color": "#0d3a1d",
+        "text_color": "#5b6660"
+      },
+      "blocks": {
+        "tile_1": {
+          "type": "tile",
+          "settings": {
+            "title": "Desk Plants",
+            "text": "Low-care plants that brighten every desk."
+          }
+        },
+        "tile_2": {
+          "type": "tile",
+          "settings": {
+            "title": "Drinkware",
+            "text": "Branded bottles and mugs."
+          }
+        },
+        "tile_3": {
+          "type": "tile",
+          "settings": {
+            "title": "Desk Essentials",
+            "text": "Planners, organisers and more."
+          }
+        },
+        "tile_4": {
+          "type": "tile",
+          "settings": {
+            "title": "Travel",
+            "text": "Kits for teams on the move."
+          }
+        },
+        "tile_5": {
+          "type": "tile",
+          "settings": {
+            "title": "Journals",
+            "text": "Notebooks with seed-paper covers."
+          }
+        },
+        "tile_6": {
+          "type": "tile",
+          "settings": {
+            "title": "Eco Kits",
+            "text": "Grow-your-own kits and seed boxes."
+          }
+        }
+      },
+      "block_order": [
+        "tile_1",
+        "tile_2",
+        "tile_3",
+        "tile_4",
+        "tile_5",
+        "tile_6"
+      ]
+    },
+    "unique": {
+      "type": "sbl-gh-tiles",
+      "settings": {
+        "heading": "What Makes Us Unique?",
+        "subheading": "",
+        "layout": "grid",
+        "columns": 3,
+        "ratio": "portrait",
+        "label_style": "overlay",
+        "bg_color": "#f8f4ec",
+        "heading_color": "#0d3a1d",
+        "text_color": "#5b6660"
+      },
+      "blocks": {
+        "tile_1": {
+          "type": "tile",
+          "settings": {
+            "title": "Ready to Gift",
+            "text": "Beautifully packed and ready to hand over."
+          }
+        },
+        "tile_2": {
+          "type": "tile",
+          "settings": {
+            "title": "Custom Branding",
+            "text": "Your logo on pots, boxes, cards and ribbons."
+          }
+        },
+        "tile_3": {
+          "type": "tile",
+          "settings": {
+            "title": "Curated Combos",
+            "text": "Plants, pots and treats chosen to go together."
+          }
+        }
+      },
+      "block_order": [
+        "tile_1",
+        "tile_2",
+        "tile_3"
+      ]
+    },
+    "solutions": {
+      "type": "sbl-gh-tiles",
+      "settings": {
+        "heading": "Our Signature Gifting Solutions",
+        "subheading": "Gifting programmes for every moment in your company calendar.",
+        "layout": "grid",
+        "columns": 4,
+        "ratio": "landscape",
+        "label_style": "below",
+        "bg_color": "#1f5130",
+        "heading_color": "#ffffff",
+        "text_color": "#e3efdc"
+      },
+      "blocks": {
+        "tile_1": {
+          "type": "tile",
+          "settings": {
+            "title": "Employee Welcome Kits",
+            "text": "Make day one memorable."
+          }
+        },
+        "tile_2": {
+          "type": "tile",
+          "settings": {
+            "title": "Client Appreciation",
+            "text": "Say thank you with something that grows."
+          }
+        },
+        "tile_3": {
+          "type": "tile",
+          "settings": {
+            "title": "Festive Gifting",
+            "text": "Diwali, New Year and more."
+          }
+        },
+        "tile_4": {
+          "type": "tile",
+          "settings": {
+            "title": "Event Giveaways",
+            "text": "Plant favours for conferences and launches."
+          }
+        },
+        "tile_5": {
+          "type": "tile",
+          "settings": {
+            "title": "Milestone Rewards",
+            "text": "Celebrate work anniversaries."
+          }
+        },
+        "tile_6": {
+          "type": "tile",
+          "settings": {
+            "title": "Wellness Gifting",
+            "text": "Calming plants for better workspaces."
+          }
+        },
+        "tile_7": {
+          "type": "tile",
+          "settings": {
+            "title": "Custom Hampers",
+            "text": "Built to your brief and budget."
+          }
+        },
+        "tile_8": {
+          "type": "tile",
+          "settings": {
+            "title": "Bulk Plant Supply",
+            "text": "Plants for offices and campuses."
+          }
+        }
+      },
+      "block_order": [
+        "tile_1",
+        "tile_2",
+        "tile_3",
+        "tile_4",
+        "tile_5",
+        "tile_6",
+        "tile_7",
+        "tile_8"
+      ]
+    },
+    "faq": {
+      "type": "sbl-gift-faq",
+      "settings": {
+        "faq_heading": "Answered with Honesty",
+        "faq_subheading": "Common questions about corporate gifting with SBL Nursery",
+        "faq_open_first": true,
+        "bg_color": "#ffffff"
+      },
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the minimum order for corporate gifts?",
+            "answer": "<p>Corporate orders start from 20 gifts. For smaller quantities, you can order directly from our gifting pages.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "Can you add our company logo?",
+            "answer": "<p>Yes. We can brand pots, boxes, cards, ribbons and stickers with your logo.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you deliver to multiple addresses?",
+            "answer": "<p>Yes. Share a list of addresses and we'll deliver to each recipient across India.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "How far in advance should we order?",
+            "answer": "<p>We recommend 2–3 weeks for branded orders, and more for festive seasons like Diwali.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "Can you work within our budget?",
+            "answer": "<p>Absolutely. Tell us your budget per gift and we'll suggest options that fit.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5"
+      ]
+    },
+    "enquiry": {
+      "type": "sbl-gh-enquiry",
+      "settings": {
+        "heading": "Corporate Gifting Inquiry",
+        "text": "Tell us what you need and our gifting team will get back to you within one working day.",
+        "enquiry_type": "Corporate gifting",
+        "button_label": "Send enquiry",
+        "success_message": "Thank you! Our gifting team will contact you shortly.",
+        "bg_color": "#f8f4ec",
+        "anchor": "corporate-enquiry"
+      },
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "value": "3.5 lakh+",
+            "label": "Happy families"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "value": "98%",
+            "label": "Client satisfaction"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "value": "2k+",
+            "label": "Corporate orders"
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "value": "8+",
+            "label": "Years of gifting"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ]
+    },
+    "why": {
+      "type": "sbl-gift-build",
+      "settings": {
+        "build_heading": "Why Choose Us for Corporate Gifting?",
+        "build_subheading": "Simple from enquiry to delivery",
+        "step_1_title": "Easy Gifting",
+        "step_1_text": "One point of contact for every order",
+        "step_1_icon": "gift",
+        "step_2_title": "On-time Delivery",
+        "step_2_text": "Pan-India delivery, on your schedule",
+        "step_2_icon": "truck",
+        "step_3_title": "Made with Care",
+        "step_3_text": "Healthy plants, packed by hand",
+        "step_3_icon": "heart",
+        "build_button_label": "Enquire Now",
+        "build_button_link": "/pages/corporate-gifts#corporate-enquiry",
+        "build_bg": "#EEF3E8",
+        "bg_color": "#ffffff"
+      }
+    },
+    "reviews": {
+      "type": "sbl-gift-testimonials",
+      "settings": {
+        "testi_heading": "Corporate Reviews",
+        "testi_subheading": "What our business clients say",
+        "bg_color": "#F8F4EC"
+      },
+      "blocks": {
+        "review_1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The hamper was beautifully packed and the plants arrived fresh. My sister loved it!",
+            "rating": 5,
+            "name": "Sneha M.",
+            "meta": "Bengaluru"
+          }
+        },
+        "review_2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Ordered a custom hamper for my parents' anniversary. The card and message were a lovely touch.",
+            "rating": 5,
+            "name": "Rahul S.",
+            "meta": "Mysuru"
+          }
+        },
+        "review_3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Great value for money and delivered right on time. Will gift again!",
+            "rating": 5,
+            "name": "Ananya P.",
+            "meta": "Bengaluru"
+          }
+        },
+        "review_4": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Our team loved the plant gift boxes we sent for Diwali. Smooth from enquiry to delivery.",
+            "rating": 5,
+            "name": "Vikram N.",
+            "meta": "HR Manager"
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4"
+      ]
+    }
+  },
+  "order": [
+    "categories",
+    "hero",
+    "ribbon",
+    "corporate_sets",
+    "festive",
+    "best_sellers",
+    "clients",
+    "trending",
+    "promo",
+    "unique",
+    "solutions",
+    "faq",
+    "enquiry",
+    "why",
+    "reviews"
+  ]
+}

@@ -1,0 +1,461 @@
+{%- comment -%}
+  Make-your-own-hamper builder: 1 Choose a box → 2 Add products → 3 Pick a card → 4 Personalise.
+  Everything goes to the cart together; each line carries a "Hamper" reference, and the box line also
+  carries the To / From / message, so the order shows what belongs in which hamper.
+{%- endcomment -%}
+{%- liquid
+  assign sid = section.id
+  assign s = section.settings
+-%}
+<section class="gh hb" id="Hamper-{{ sid }}" style="--gh-bg: {{ s.bg_color }};"
+  data-hamper
+  data-min="{{ s.min_products }}"
+  data-max="{{ s.max_products }}"
+  data-box-required="{{ s.box_required }}"
+  data-money-format="{{ shop.money_format | escape }}">
+  <div class="page-width">
+    {%- if s.heading != blank or s.subheading != blank -%}
+      <div class="gh__head">
+        {%- if s.heading != blank -%}<h1 class="gh__title">{{ s.heading | escape }}</h1>{%- endif -%}
+        {%- if s.subheading != blank -%}<p class="gh__sub">{{ s.subheading | escape }}</p>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <ol class="hb__steps">
+      {%- for n in (1..4) -%}
+        {%- assign label_key = 'step_' | append: n | append: '_label' -%}
+        <li class="hb__step{% if n == 1 %} is-current{% endif %}" data-step-tab="{{ n }}">
+          <button type="button" class="hb__step-btn" data-goto="{{ n }}" {% if n == 1 %}aria-current="step"{% endif %}>
+            <span class="hb__step-icon" aria-hidden="true">
+              {%- case n -%}
+                {%- when 1 -%}<svg viewBox="0 0 24 24" width="22" height="22"><path d="M3 8l9-4 9 4-9 4-9-4Zm0 0v8l9 4 9-4V8M12 12v8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                {%- when 2 -%}<svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 20v-8m0 0c0-4 3-7 7-7 0 4-3 7-7 7Zm0 3c0-3-2.5-5.5-6-5.5 0 3.5 2.5 5.5 6 5.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                {%- when 3 -%}<svg viewBox="0 0 24 24" width="22" height="22"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                {%- else -%}<svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              {%- endcase -%}
+            </span>
+            <span class="hb__step-label">{{ s[label_key] | escape }}</span>
+          </button>
+        </li>
+      {%- endfor -%}
+    </ol>
+
+    <div class="hb__layout">
+      <div class="hb__main">
+        {%- for n in (1..3) -%}
+          {%- liquid
+            case n
+              when 1
+                assign kind = 'box'
+                assign source = s.box_collection
+                assign add_label = s.box_button
+              when 2
+                assign kind = 'product'
+                assign source = s.product_collection
+                assign add_label = s.product_button
+              else
+                assign kind = 'card'
+                assign source = s.card_collection
+                assign add_label = s.card_button
+            endcase
+            assign title_key = 'step_' | append: n | append: '_title'
+            assign text_key = 'step_' | append: n | append: '_text'
+          -%}
+          <div class="hb__panel" data-step="{{ n }}" {% unless n == 1 %}hidden{% endunless %}>
+            <div class="hb__panel-head">
+              <h2 class="hb__panel-title">{{ s[title_key] | escape }}</h2>
+              {%- if s[text_key] != blank -%}<p class="hb__panel-text">{{ s[text_key] | escape }}</p>{%- endif -%}
+            </div>
+            {%- if source.products.size > 0 -%}
+              <div class="hb__grid" data-kind-grid="{{ kind }}">
+                {%- for product in source.products limit: 48 -%}
+                  {%- render 'sbl-hamper-item', product: product, kind: kind, add_label: add_label -%}
+                {%- endfor -%}
+              </div>
+            {%- elsif request.design_mode -%}
+              <p class="hb__empty">Choose the collection for this step in the section settings (only you see this note).</p>
+            {%- else -%}
+              <p class="hb__empty">Coming soon. You can continue to the next step.</p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+
+        <div class="hb__panel" data-step="4" hidden>
+          <div class="hb__panel-head">
+            <h2 class="hb__panel-title">{{ s.step_4_title | escape }}</h2>
+            {%- if s.step_4_text != blank -%}<p class="hb__panel-text">{{ s.step_4_text | escape }}</p>{%- endif -%}
+          </div>
+          <div class="hb__form">
+            <label><span>To</span><input type="text" maxlength="40" autocomplete="off" placeholder="Recipient's name" data-field="To"></label>
+            <label><span>From</span><input type="text" maxlength="40" autocomplete="name" placeholder="Your name" data-field="From"></label>
+            <label class="hb__form-full"><span>Your message</span><textarea rows="5" maxlength="{{ s.message_max }}" placeholder="Write a few words for the card…" data-field="Gift message"></textarea><small class="hb__count"><span data-count>0</span> / {{ s.message_max }}</small></label>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hb__summary" aria-label="Your hamper">
+        <div class="hb__summary-head">
+          <h2 class="hb__summary-title">{{ s.summary_title | escape }}</h2>
+          <span class="hb__summary-count" data-count-label>0 items</span>
+        </div>
+        <ul class="hb__list" data-list role="list"></ul>
+        <p class="hb__list-empty" data-list-empty>Nothing added yet. Start by choosing a box.</p>
+        <div class="hb__total"><span>Total</span><strong data-total>{{ 0 | money }}</strong></div>
+        <p class="hb__error" data-error role="alert" hidden></p>
+        <div class="hb__nav">
+          <button type="button" class="btn btn--outline hb__back" data-back hidden>Back</button>
+          <button type="button" class="btn btn--dark hb__next" data-next>Next</button>
+          <button type="button" class="btn btn--dark hb__add" data-add-cart hidden>{{ s.cart_button | escape }}</button>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var root = document.getElementById('Hamper-{{ sid }}');
+    if (!root || root.dataset.ready) return;
+    root.dataset.ready = '1';
+
+    var min = Number(root.dataset.min) || 0;
+    var max = Number(root.dataset.max) || 0;
+    var boxRequired = root.dataset.boxRequired === 'true';
+    var moneyFormat = root.dataset.moneyFormat || ('{' + '{amount}' + '}');
+    var step = 1;
+    var picked = { box: null, card: null };
+    var products = {}; /* variantId -> { qty, title, price, image } */
+
+    function formatMoney(cents) {
+      var n = (Number(cents) || 0) / 100;
+      return moneyFormat.replace(/\{\{\s*(\w+)\s*\}\}/, function (_, key) {
+        var decimals = /no_decimals/.test(key) ? 0 : 2;
+        var parts = n.toFixed(decimals).split('.');
+        var sep = /comma_separator/.test(key) ? ['.', ','] : [',', '.'];
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, sep[0]);
+        return parts.join(sep[1]);
+      });
+    }
+    function itemData(el) {
+      return { id: el.dataset.variant, title: el.dataset.title, price: Number(el.dataset.price), image: el.dataset.image };
+    }
+    function productCount() {
+      return Object.keys(products).reduce(function (sum, k) { return sum + products[k].qty; }, 0);
+    }
+    function showError(msg) {
+      var el = root.querySelector('[data-error]');
+      el.textContent = msg || '';
+      el.hidden = !msg;
+    }
+
+    function syncItems() {
+      root.querySelectorAll('[data-item]').forEach(function (el) {
+        var kind = el.dataset.kind;
+        var id = el.dataset.variant;
+        var on = kind === 'product' ? !!products[id] : !!(picked[kind] && picked[kind].id === id);
+        el.classList.toggle('is-picked', on);
+        var add = el.querySelector('[data-add]');
+        var qty = el.querySelector('[data-qty]');
+        if (add) {
+          add.setAttribute('aria-pressed', on ? 'true' : 'false');
+          if (kind === 'product') add.hidden = on;
+          else add.textContent = on ? 'Selected ✓' : add.dataset.label;
+        }
+        if (qty) {
+          qty.hidden = !on;
+          if (on) qty.querySelector('[data-qty-value]').textContent = products[id].qty;
+        }
+      });
+    }
+
+    function renderSummary() {
+      var list = root.querySelector('[data-list]');
+      var rows = [];
+      var total = 0;
+      function row(kind, it, qty) {
+        total += it.price * qty;
+        rows.push(
+          '<li class="hb__line">' +
+            (it.image ? '<img src="' + it.image + '" alt="" width="48" height="48" loading="lazy">' : '<span class="hb__line-ph"></span>') +
+            '<span class="hb__line-text"><span class="hb__line-title"></span><span class="hb__line-meta">' + (qty > 1 ? qty + ' × ' : '') + formatMoney(it.price) + '</span></span>' +
+            '<button type="button" class="hb__line-remove" data-remove="' + kind + ':' + it.id + '" aria-label="Remove">×</button>' +
+          '</li>'
+        );
+      }
+      if (picked.box) row('box', picked.box, 1);
+      Object.keys(products).forEach(function (id) { row('product', products[id], products[id].qty); });
+      if (picked.card) row('card', picked.card, 1);
+      list.innerHTML = rows.join('');
+      /* Titles go in as text, never as HTML. */
+      var titles = [];
+      if (picked.box) titles.push(picked.box.title);
+      Object.keys(products).forEach(function (id) { titles.push(products[id].title); });
+      if (picked.card) titles.push(picked.card.title);
+      list.querySelectorAll('.hb__line-title').forEach(function (el, i) { el.textContent = titles[i]; });
+
+      var count = (picked.box ? 1 : 0) + productCount() + (picked.card ? 1 : 0);
+      root.querySelector('[data-count-label]').textContent = count + (count === 1 ? ' item' : ' items');
+      root.querySelector('[data-list-empty]').hidden = count > 0;
+      root.querySelector('[data-total]').textContent = formatMoney(total);
+    }
+
+    function refresh() { syncItems(); renderSummary(); }
+
+    function validate(n) {
+      if (n === 1 && boxRequired && !picked.box) return 'Please choose a box to continue.';
+      if (n === 2 && productCount() < min) return 'Please add at least ' + min + (min === 1 ? ' product' : ' products') + ' to your hamper.';
+      return '';
+    }
+
+    function go(n) {
+      for (var i = 1; i < n; i++) {
+        var err = validate(i);
+        if (err) { n = i; showError(err); break; }
+        showError('');
+      }
+      step = n;
+      root.querySelectorAll('[data-step]').forEach(function (p) { p.hidden = Number(p.dataset.step) !== step; });
+      root.querySelectorAll('[data-step-tab]').forEach(function (li) {
+        var k = Number(li.dataset.stepTab);
+        li.classList.toggle('is-current', k === step);
+        li.classList.toggle('is-done', k < step);
+        var b = li.querySelector('button');
+        if (k === step) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+      });
+      root.querySelector('[data-back]').hidden = step === 1;
+      root.querySelector('[data-next]').hidden = step === 4;
+      root.querySelector('[data-add-cart]').hidden = step !== 4;
+      var top = root.querySelector('.hb__steps').getBoundingClientRect().top + window.scrollY - 90;
+      if (window.scrollY > top) window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+
+    root.querySelectorAll('[data-item] [data-add]').forEach(function (btn) { btn.dataset.label = btn.textContent.trim(); });
+
+    root.addEventListener('click', function (e) {
+      var t = e.target;
+      var item = t.closest('[data-item]');
+      if (t.closest('[data-add]') && item) {
+        var kind = item.dataset.kind;
+        var it = itemData(item);
+        showError('');
+        if (kind === 'product') {
+          if (max && productCount() >= max) { showError('You can add up to ' + max + ' products to one hamper.'); return; }
+          products[it.id] = Object.assign(it, { qty: 1 });
+        } else {
+          picked[kind] = picked[kind] && picked[kind].id === it.id ? null : it;
+        }
+        refresh();
+        return;
+      }
+      if (t.closest('[data-plus]') && item) {
+        if (max && productCount() >= max) { showError('You can add up to ' + max + ' products to one hamper.'); return; }
+        products[item.dataset.variant].qty++;
+        refresh();
+        return;
+      }
+      if (t.closest('[data-minus]') && item) {
+        var p = products[item.dataset.variant];
+        if (p && --p.qty <= 0) delete products[item.dataset.variant];
+        showError('');
+        refresh();
+        return;
+      }
+      var rm = t.closest('[data-remove]');
+      if (rm) {
+        var parts = rm.dataset.remove.split(':');
+        if (parts[0] === 'product') delete products[parts[1]]; else picked[parts[0]] = null;
+        refresh();
+        return;
+      }
+      var goto = t.closest('[data-goto]');
+      if (goto) { go(Number(goto.dataset.goto)); return; }
+      if (t.closest('[data-next]')) { go(Math.min(step + 1, 4)); return; }
+      if (t.closest('[data-back]')) { showError(''); go(Math.max(step - 1, 1)); return; }
+      if (t.closest('[data-add-cart]')) addToCart(t.closest('[data-add-cart]'));
+    });
+
+    /* Changing a product's option swaps the variant (and keeps it in the hamper if it was added). */
+    root.addEventListener('change', function (e) {
+      var sel = e.target.closest('[data-variant-select]');
+      if (sel) {
+        var item = sel.closest('[data-item]');
+        var opt = sel.options[sel.selectedIndex];
+        var oldId = item.dataset.variant;
+        item.dataset.variant = opt.value;
+        item.dataset.price = opt.dataset.price;
+        item.querySelector('[data-price-label]').textContent = opt.dataset.money;
+        var kind = item.dataset.kind;
+        if (kind === 'product' && products[oldId]) {
+          var qty = products[oldId].qty;
+          delete products[oldId];
+          products[opt.value] = Object.assign(itemData(item), { qty: qty });
+        } else if (kind !== 'product' && picked[kind] && picked[kind].id === oldId) {
+          picked[kind] = itemData(item);
+        }
+        refresh();
+      }
+    });
+
+    var message = root.querySelector('[data-field="Gift message"]');
+    if (message) message.addEventListener('input', function () { root.querySelector('[data-count]').textContent = message.value.length; });
+
+    function addToCart(btn) {
+      for (var i = 1; i <= 3; i++) {
+        var err = validate(i);
+        if (err) { go(i); showError(err); return; }
+      }
+      var ref = 'H-' + Date.now().toString(36).slice(-5).toUpperCase();
+      var personal = { Hamper: ref };
+      root.querySelectorAll('[data-field]').forEach(function (f) { if (f.value.trim()) personal[f.dataset.field] = f.value.trim(); });
+      var items = [];
+      if (picked.box) items.push({ id: Number(picked.box.id), quantity: 1, properties: personal });
+      Object.keys(products).forEach(function (id) {
+        items.push({ id: Number(id), quantity: products[id].qty, properties: items.length ? { Hamper: ref } : personal });
+      });
+      if (picked.card) items.push({ id: Number(picked.card.id), quantity: 1, properties: items.length ? { Hamper: ref } : personal });
+      if (!items.length) { showError('Your hamper is empty.'); return; }
+
+      var label = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Adding…';
+      var cartRoot = (window.Shopify && Shopify.routes && Shopify.routes.root) || '/';
+      fetch(cartRoot + 'cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ items: items })
+      })
+        .then(function (r) { return r.json().then(function (data) { return { ok: r.ok, data: data }; }); })
+        .then(function (res) {
+          if (!res.ok) { showError(res.data.description || res.data.message || 'Could not add the hamper to your cart.'); return; }
+          picked = { box: null, card: null };
+          products = {};
+          root.querySelectorAll('[data-field]').forEach(function (f) { f.value = ''; });
+          refresh();
+          go(1);
+          if (window.SBLCart) window.SBLCart.open(); else window.location.assign(cartRoot + 'cart');
+        })
+        .catch(function () { showError('Something went wrong. Please try again.'); })
+        .finally(function () { btn.disabled = false; btn.textContent = label; });
+    }
+
+    refresh();
+  })();
+</script>
+
+{% stylesheet %}
+.hb__steps { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); max-width: 860px; margin: 0 auto 30px; padding: 0; list-style: none; }
+.hb__steps::before { content: ""; position: absolute; top: 24px; left: 12.5%; right: 12.5%; height: 1px; background: #d9dfd4; }
+.hb__step { position: relative; display: flex; justify-content: center; }
+.hb__step-btn { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0; border: 0; background: none; color: var(--c-muted); font: inherit; font-size: 13px; cursor: pointer; }
+.hb__step-icon { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid #d9dfd4; border-radius: 12px; background: var(--gh-bg, #fff); transition: background .2s, color .2s, border-color .2s; }
+.hb__step.is-current .hb__step-icon { border-color: var(--c-primary-dark); background: var(--c-primary-dark); color: #fff; }
+.hb__step.is-current .hb__step-btn { color: var(--c-primary-dark); font-weight: 600; }
+.hb__step.is-done .hb__step-icon { border-color: var(--c-primary); color: var(--c-primary); background: #eef6ea; }
+.hb__layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 28px; align-items: start; }
+.hb__panel-head { margin-bottom: 16px; }
+.hb__panel-title { margin: 0; font-family: var(--font-display); font-size: 20px; color: var(--c-primary-dark); }
+.hb__panel-text { margin: 6px 0 0; color: var(--c-muted); font-size: 14px; }
+.hb__empty { padding: 30px; border: 1px dashed #cfd6ca; border-radius: 14px; color: var(--c-muted); text-align: center; }
+.hb__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+.hb-item { display: flex; flex-direction: column; overflow: hidden; border: 1px solid #ebe6db; border-radius: 14px; background: #fff; transition: border-color .2s, box-shadow .2s; }
+.hb-item.is-picked { border-color: var(--c-primary); box-shadow: 0 0 0 2px var(--c-primary); }
+.hb-item__media { position: relative; aspect-ratio: 1; background: #f4f1ea; }
+.hb-item__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.hb-item__tick { position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--c-primary); color: #fff; opacity: 0; transform: scale(.6); transition: opacity .2s, transform .2s; }
+.hb-item.is-picked .hb-item__tick { opacity: 1; transform: none; }
+.hb-item__body { display: flex; flex: 1; flex-direction: column; gap: 6px; padding: 12px; }
+.hb-item__title { margin: 0; font-size: 14px; font-weight: 600; line-height: 1.3; color: var(--c-text); }
+.hb-item__price { margin: 0; font-size: 14px; color: var(--c-primary-dark); font-weight: 700; }
+.hb-item__variant { width: 100%; font: inherit; font-size: 13px; }
+.hb-item__add { margin-top: auto; width: 100%; padding: 10px 12px; border: 0; border-radius: 8px; background: var(--c-primary-dark); color: #fff; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.hb-item__add[aria-pressed="true"] { background: var(--c-primary); }
+.hb-item__add--off { background: #e5e7e3; color: #7b827e; text-align: center; cursor: default; }
+.hb-item__qty { display: flex; align-items: center; justify-content: space-between; margin-top: auto; border: 1px solid var(--c-primary); border-radius: 8px; overflow: hidden; }
+.hb-item__qty button { width: 40px; height: 38px; border: 0; background: #eef6ea; color: var(--c-primary-dark); font-size: 18px; cursor: pointer; }
+.hb-item__qty span { font-weight: 700; }
+.hb__form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 640px; }
+.hb__form label { position: relative; display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; }
+.hb__form-full { grid-column: 1 / -1; }
+.hb__form input, .hb__form textarea { width: 100%; box-sizing: border-box; padding: 12px; border: 1px solid #d5dbd2; border-radius: 10px; background: #fff; font: inherit; font-size: 16px; font-weight: 400; color: var(--c-text); }
+.hb__form input:focus, .hb__form textarea:focus { outline: none; border-color: var(--c-primary); box-shadow: 0 0 0 3px rgba(31,81,48,.15); }
+.hb__count { align-self: flex-end; color: var(--c-muted); font-weight: 400; }
+.hb__summary { position: sticky; top: 90px; padding: 20px; border-radius: 16px; background: #fff; box-shadow: 0 10px 30px rgba(13,58,29,.08); }
+.hb__summary-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 10px; }
+.hb__summary-title { margin: 0; font-family: var(--font-display); font-size: 18px; color: var(--c-primary-dark); }
+.hb__summary-count { font-size: 13px; color: var(--c-muted); }
+.hb__list { display: grid; gap: 10px; max-height: 320px; margin: 0; padding: 0; overflow-y: auto; list-style: none; }
+.hb__line { display: flex; align-items: center; gap: 10px; }
+.hb__line img, .hb__line-ph { flex: none; width: 48px; height: 48px; border-radius: 8px; object-fit: cover; background: #f1efe8; }
+.hb__line-text { display: flex; flex: 1; flex-direction: column; min-width: 0; font-size: 13px; }
+.hb__line-title { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-weight: 600; }
+.hb__line-meta { color: var(--c-muted); }
+.hb__line-remove { width: 28px; height: 28px; border: 0; border-radius: 50%; background: #f3f4f1; color: var(--c-text); font-size: 18px; line-height: 1; cursor: pointer; }
+.hb__list-empty { margin: 0; font-size: 13px; color: var(--c-muted); }
+.hb__total { display: flex; justify-content: space-between; margin-top: 14px; padding-top: 14px; border-top: 1px solid #eef1ec; font-size: 15px; }
+.hb__total strong { font-size: 18px; color: var(--c-primary-dark); }
+.hb__error { margin: 12px 0 0; padding: 10px 12px; border-radius: 8px; background: #fdecea; color: #9b2c1f; font-size: 13px; }
+.hb__nav { display: flex; gap: 10px; margin-top: 14px; }
+.hb__nav .btn { flex: 1; justify-content: center; }
+@media (max-width: 989px) {
+  .hb__layout { grid-template-columns: 1fr; }
+  /* The summary becomes a bar fixed to the bottom of the screen. */
+  .hb__summary { position: sticky; top: auto; bottom: 0; z-index: 5; margin: 0 -16px; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); border-radius: 18px 18px 0 0; box-shadow: 0 -8px 24px rgba(0,0,0,.10); }
+  .hb__summary-head { margin-bottom: 0; }
+  .hb__list, .hb__list-empty { display: none; }
+  .hb__total { margin-top: 6px; padding-top: 6px; border-top: 0; }
+  .hb__nav { margin-top: 10px; }
+}
+@media (max-width: 749px) {
+  .hb__steps { margin-bottom: 22px; }
+  .hb__steps::before { top: 20px; }
+  .hb__step-icon { width: 40px; height: 40px; border-radius: 10px; }
+  .hb__step-btn { font-size: 11.5px; text-align: center; }
+  .hb__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .hb-item__body { padding: 10px; }
+  .hb-item__title { font-size: 13px; }
+  .hb__form { grid-template-columns: 1fr; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Gifting: Hamper builder",
+  "tag": "section",
+  "class": "section-gh-hamper-builder",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Make your Own Hamper" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Choose a box, fill it with gifts, add a card and your message. We'll pack it beautifully." },
+    { "type": "header", "content": "Step 1: Box" },
+    { "type": "text", "id": "step_1_label", "label": "Step name", "default": "Choose Box" },
+    { "type": "text", "id": "step_1_title", "label": "Title", "default": "Choose your gift box" },
+    { "type": "text", "id": "step_1_text", "label": "Text", "default": "Pick the box or basket your hamper comes in." },
+    { "type": "collection", "id": "box_collection", "label": "Box collection" },
+    { "type": "text", "id": "box_button", "label": "Button", "default": "Add To Box" },
+    { "type": "checkbox", "id": "box_required", "label": "A box is required", "default": true },
+    { "type": "header", "content": "Step 2: Products" },
+    { "type": "text", "id": "step_2_label", "label": "Step name", "default": "Add Product" },
+    { "type": "text", "id": "step_2_title", "label": "Title", "default": "Fill it with gifts" },
+    { "type": "text", "id": "step_2_text", "label": "Text", "default": "Add plants, pots and treats. Use + and − to change quantities." },
+    { "type": "collection", "id": "product_collection", "label": "Product collection" },
+    { "type": "text", "id": "product_button", "label": "Button", "default": "Add To Box" },
+    { "type": "range", "id": "min_products", "label": "Minimum products", "min": 0, "max": 10, "step": 1, "default": 1 },
+    { "type": "range", "id": "max_products", "label": "Maximum products", "min": 0, "max": 30, "step": 1, "default": 0, "info": "0 means no limit." },
+    { "type": "header", "content": "Step 3: Card" },
+    { "type": "text", "id": "step_3_label", "label": "Step name", "default": "Select a Card" },
+    { "type": "text", "id": "step_3_title", "label": "Title", "default": "Pick a greeting card" },
+    { "type": "text", "id": "step_3_text", "label": "Text", "default": "Optional. Your message will be written on it." },
+    { "type": "collection", "id": "card_collection", "label": "Card collection" },
+    { "type": "text", "id": "card_button", "label": "Button", "default": "Choose card" },
+    { "type": "header", "content": "Step 4: Personalise" },
+    { "type": "text", "id": "step_4_label", "label": "Step name", "default": "Personalize" },
+    { "type": "text", "id": "step_4_title", "label": "Title", "default": "Add your personal touch" },
+    { "type": "text", "id": "step_4_text", "label": "Text", "default": "Tell us who it's for and what to write. We'll include it with the hamper." },
+    { "type": "range", "id": "message_max", "label": "Message length", "min": 50, "max": 500, "step": 10, "default": 250, "unit": "chr" },
+    { "type": "header", "content": "Summary" },
+    { "type": "text", "id": "summary_title", "label": "Summary title", "default": "Your hamper" },
+    { "type": "text", "id": "cart_button", "label": "Add to cart button", "default": "Add hamper to cart" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#f8f4ec" }
+  ],
+  "presets": [{ "name": "Gifting: Hamper builder" }]
+}
+{% endschema %}
