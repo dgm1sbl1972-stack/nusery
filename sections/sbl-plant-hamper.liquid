@@ -25,11 +25,31 @@
   assign demo_accessories = 'Decorative pots:34900|Plant stands:59900|Gardening tools:29900|Organic fertilizer:14900|Plant care kits:39900|Pebbles:9900|Seeds:7900|Greeting cards:9900|Plant tags:4900' | split: '|'
   assign demo_cards = 'Birthday card:9900|Thank you card:9900|Congratulations card:9900|Get well soon card:9900' | split: '|'
 
+  comment
+    Steps with no products are left out on the live store (the theme editor shows example cards instead).
+  endcomment
+  assign step_list = ''
+  if basket_count > 0 or demo
+    assign step_list = step_list | append: '1,'
+  endif
+  if plant_count > 0 or demo
+    assign step_list = step_list | append: '2,'
+  endif
+  if accessory_count > 0 or demo
+    assign step_list = step_list | append: '3,'
+  endif
+  assign step_list = step_list | append: '4' | split: ','
+  assign first_step = step_list.first | plus: 0
+  assign show_cards = false
+  if card_count > 0 or demo
+    assign show_cards = true
+  endif
+
   assign fee_cents = s.delivery_fee | times: 100
   assign free_over_cents = s.free_delivery_over | times: 100
 -%}
 <section class="ph" id="PlantHamper-{{ sid }}"
-  style="--ph-bg: {{ s.bg_color }}; --ph-accent: {{ s.accent_color }}; --ph-sage: {{ s.sage_color }}; --ph-beige: {{ s.beige_color }}; --ph-cols: {{ s.columns_desktop }};"
+  style="--ph-bg: {{ s.bg_color }}; --ph-accent: {{ s.accent_color }}; --ph-sage: {{ s.sage_color }}; --ph-beige: {{ s.beige_color }}; --ph-cols: {{ s.columns_desktop }}; --ph-steps: {{ step_list.size }};"
   data-hamper
   data-min="{{ s.min_plants }}"
   data-max="{{ s.max_plants }}"
@@ -47,10 +67,11 @@
     </header>
 
     <ol class="ph__steps" aria-label="Hamper steps">
-      {%- for n in (1..4) -%}
+      {%- for step_n in step_list -%}
+        {%- assign n = step_n | plus: 0 -%}
         {%- assign label_key = 'step_' | append: n | append: '_label' -%}
-        <li class="ph__step{% if n == 1 %} is-current{% endif %}" data-step-tab="{{ n }}">
-          <button type="button" class="ph__step-btn" data-goto="{{ n }}" {% if n == 1 %}aria-current="step"{% endif %}>
+        <li class="ph__step{% if forloop.first %} is-current{% endif %}" data-step-tab="{{ n }}">
+          <button type="button" class="ph__step-btn" data-goto="{{ n }}" {% if forloop.first %}aria-current="step"{% endif %}>
             <span class="ph__step-icon" aria-hidden="true">
               {%- case n -%}
                 {%- when 1 -%}<svg viewBox="0 0 32 32"><path d="M4 13h24l-2.4 12.2a2 2 0 0 1-2 1.6H8.4a2 2 0 0 1-2-1.6L4 13Z"/><path d="M9 13a7 7 0 0 1 14 0M10 17v6M16 17v6M22 17v6"/></svg>
@@ -59,7 +80,7 @@
                 {%- else -%}<svg viewBox="0 0 32 32"><rect x="5" y="13" width="22" height="14" rx="1.5"/><path d="M4 9h24v4H4zM16 9v18"/><path d="M16 9c-2-4-7-5-7-1.5C9 9 13 9 16 9Zm0 0c2-4 7-5 7-1.5C23 9 19 9 16 9Z"/></svg>
               {%- endcase -%}
             </span>
-            <span class="ph__step-num">Step {{ n }}</span>
+            <span class="ph__step-num">Step {{ forloop.index }}</span>
             <span class="ph__step-label">{{ s[label_key] | escape }}</span>
           </button>
         </li>
@@ -68,7 +89,9 @@
 
     <div class="ph__layout">
       <div class="ph__main">
-        {%- for n in (1..3) -%}
+        {%- for step_n in step_list -%}
+          {%- assign n = step_n | plus: 0 -%}
+          {%- if n == 4 -%}{%- continue -%}{%- endif -%}
           {%- liquid
             case n
               when 1
@@ -95,10 +118,10 @@
             endcase
             assign title_key = 'step_' | append: n | append: '_title'
             assign text_key = 'step_' | append: n | append: '_text'
-            assign next_n = n | plus: 1
+            assign next_n = step_list[forloop.index] | plus: 0
             assign next_label_key = 'step_' | append: next_n | append: '_label'
           -%}
-          <div class="ph__panel" data-step="{{ n }}" {% unless n == 1 %}hidden{% endunless %}>
+          <div class="ph__panel" data-step="{{ n }}" {% unless n == first_step %}hidden{% endunless %}>
             <div class="ph__panel-head">
               <h2 class="ph__panel-title">{{ s[title_key] | escape }}</h2>
               {%- if s[text_key] != blank -%}<p class="ph__panel-text">{{ s[text_key] | escape }}</p>{%- endif -%}
@@ -123,13 +146,13 @@
             {%- endif -%}
             <p class="ph__error ph__error--inline" data-error role="alert" hidden></p>
             <div class="ph__panel-nav">
-              {%- if n > 1 -%}<button type="button" class="ph__btn ph__btn--ghost" data-back>Back</button>{%- endif -%}
+              {%- unless n == first_step -%}<button type="button" class="ph__btn ph__btn--ghost" data-back>Back</button>{%- endunless -%}
               <button type="button" class="ph__btn" data-next>Continue: {{ s[next_label_key] | escape }}</button>
             </div>
           </div>
         {%- endfor -%}
 
-        <div class="ph__panel" data-step="4" hidden>
+        <div class="ph__panel" data-step="4" {% unless first_step == 4 %}hidden{% endunless %}>
           <div class="ph__panel-head">
             <h2 class="ph__panel-title">{{ s.step_4_title | escape }}</h2>
             {%- if s.step_4_text != blank -%}<p class="ph__panel-text">{{ s.step_4_text | escape }}</p>{%- endif -%}
@@ -142,6 +165,7 @@
             <label><span>Delivery date</span><input type="date" data-field="Delivery date" data-date></label>
           </div>
 
+          {%- if show_cards -%}
           <fieldset class="ph__choice">
             <legend>Greeting card</legend>
             <div class="ph__cards">
@@ -162,6 +186,7 @@
               {%- endif -%}
             </div>
           </fieldset>
+          {%- endif -%}
 
           {%- assign wraps = section.blocks | where: 'type', 'wrap' -%}
           {%- if wraps.size > 0 -%}
@@ -193,7 +218,7 @@
 
           <p class="ph__error ph__error--inline" data-error role="alert" hidden></p>
           <div class="ph__panel-nav">
-            <button type="button" class="ph__btn ph__btn--ghost" data-back>Back</button>
+            {%- unless first_step == 4 -%}<button type="button" class="ph__btn ph__btn--ghost" data-back>Back</button>{%- endunless -%}
             <button type="button" class="ph__btn ph__btn--ghost" data-preview>{{ s.preview_button | escape }}</button>
             <button type="button" class="ph__btn" data-add-cart>{{ s.cart_button | escape }}</button>
           </div>
@@ -207,20 +232,20 @@
             <span class="ph__summary-count" data-count-label>0 items</span>
           </div>
 
-          <div class="ph__group">
+          <div class="ph__group"{% unless step_list contains '1' %} hidden{% endunless %}>
             <h3 class="ph__group-title">Basket</h3>
             <ul class="ph__lines" data-list="basket" role="list"></ul>
             <p class="ph__group-empty" data-empty="basket">No basket chosen yet</p>
           </div>
-          <div class="ph__group">
+          <div class="ph__group"{% unless step_list contains '2' %} hidden{% endunless %}>
             <h3 class="ph__group-title">Plants</h3>
             <ul class="ph__lines" data-list="plant" role="list"></ul>
-            <p class="ph__group-empty" data-empty="plant">Add plants in step 2</p>
+            <p class="ph__group-empty" data-empty="plant">Add plants to your hamper</p>
           </div>
-          <div class="ph__group">
+          <div class="ph__group"{% unless step_list contains '3' %} hidden{% endunless %}>
             <h3 class="ph__group-title">Accessories</h3>
             <ul class="ph__lines" data-list="accessory" role="list"></ul>
-            <p class="ph__group-empty" data-empty="accessory">Optional extras in step 3</p>
+            <p class="ph__group-empty" data-empty="accessory">Optional extras like pots and tools</p>
           </div>
           <div class="ph__group">
             <h3 class="ph__group-title">Personalization</h3>
@@ -307,6 +332,12 @@
     var state = { basket: null, card: null, plant: {}, accessory: {} };
     var wrap = null;
     var dialog = root.querySelector('[data-dialog]');
+    var order = Array.prototype.map.call(root.querySelectorAll('[data-step-tab]'), function (li) { return Number(li.dataset.stepTab); });
+    function hasStep(n) { return order.indexOf(n) !== -1; }
+    function stepBy(from, delta) {
+      var i = Math.max(0, Math.min(order.length - 1, order.indexOf(from) + delta));
+      return order[i];
+    }
 
     function formatMoney(cents) {
       var n = (Number(cents) || 0) / 100;
@@ -424,7 +455,7 @@
       if (!personal.children.length) {
         var hint = document.createElement('div');
         hint.className = 'ph__personal-empty';
-        hint.textContent = 'Add a message, wrap and date in step 4';
+        hint.textContent = 'Add a message, wrapping and delivery date';
         personal.appendChild(hint);
       }
 
@@ -458,15 +489,15 @@
     function refresh() { syncItems(); renderSummary(); }
 
     function validate(n) {
-      if (n === 1 && basketRequired && !state.basket) return 'Please choose a basket to continue.';
-      if (n === 2 && qtyOf('plant') < min) return 'Please add at least ' + min + (min === 1 ? ' plant' : ' plants') + ' to your hamper.';
+      if (n === 1 && hasStep(1) && basketRequired && !state.basket) return 'Please choose a basket to continue.';
+      if (n === 2 && hasStep(2) && qtyOf('plant') < min) return 'Please add at least ' + min + (min === 1 ? ' plant' : ' plants') + ' to your hamper.';
       return '';
     }
 
     function go(n, quiet) {
-      for (var i = 1; i < n; i++) {
-        var err = validate(i);
-        if (err) { n = i; showError(err); break; }
+      for (var i = 0; i < order.length && order[i] < n; i++) {
+        var err = validate(order[i]);
+        if (err) { n = order[i]; showError(err); break; }
         showError('');
       }
       step = n;
@@ -594,9 +625,9 @@
       }
       var goto = t.closest('[data-goto]');
       if (goto) { go(Number(goto.dataset.goto)); return; }
-      if (t.closest('[data-next]')) { go(Math.min(step + 1, 4)); return; }
-      if (t.closest('[data-bar-next]')) { if (step === 4) addToCart(t.closest('[data-bar-next]')); else go(step + 1); return; }
-      if (t.closest('[data-back]')) { showError(''); go(Math.max(step - 1, 1)); return; }
+      if (t.closest('[data-next]')) { go(stepBy(step, 1)); return; }
+      if (t.closest('[data-bar-next]')) { if (step === 4) addToCart(t.closest('[data-bar-next]')); else go(stepBy(step, 1)); return; }
+      if (t.closest('[data-back]')) { showError(''); go(stepBy(step, -1)); return; }
       if (t.closest('[data-preview]')) { openPreview(); return; }
       if (t.closest('[data-dialog-close]') || t === dialog) { closePreview(); return; }
       if (t.closest('[data-add-cart]')) addToCart(t.closest('[data-add-cart]'));
@@ -687,7 +718,7 @@
           if (count) count.textContent = '0';
           closePreview();
           refresh();
-          go(1, true);
+          go(order[0], true);
           if (window.SBLCart) window.SBLCart.open(); else window.location.assign(cartRoot + 'cart');
         })
         .catch(function () { showError('Something went wrong. Please try again.'); })
@@ -698,7 +729,7 @@
     }
 
     refresh();
-    go(1, true);
+    go(order[0], true);
   })();
 </script>
 
@@ -710,8 +741,8 @@
 .ph__sub { margin: 14px 0 0; font-size: 16px; line-height: 1.6; color: color-mix(in srgb, var(--ph-ink) 70%, transparent); }
 
 /* Progress */
-.ph__steps { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); max-width: 920px; margin: 0 auto 40px; padding: 0; list-style: none; counter-reset: none; }
-.ph__steps::before { content: ""; position: absolute; top: 28px; left: 12.5%; right: 12.5%; height: 2px; background: repeating-linear-gradient(90deg, var(--ph-sage) 0 6px, transparent 6px 12px); opacity: .7; }
+.ph__steps { position: relative; display: grid; grid-template-columns: repeat(var(--ph-steps, 4), 1fr); max-width: 920px; margin: 0 auto 40px; padding: 0; list-style: none; counter-reset: none; }
+.ph__steps::before { content: ""; position: absolute; top: 28px; left: calc(50% / var(--ph-steps, 4)); right: calc(50% / var(--ph-steps, 4)); height: 2px; background: repeating-linear-gradient(90deg, var(--ph-sage) 0 6px, transparent 6px 12px); opacity: .7; }
 .ph__step { position: relative; display: flex; justify-content: center; }
 .ph__step-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 0 6px; border: 0; background: none; color: color-mix(in srgb, var(--ph-ink) 55%, transparent); font: inherit; text-align: center; cursor: pointer; }
 .ph__step-icon { display: grid; place-items: center; width: 56px; height: 56px; margin-bottom: 8px; border: 1.5px solid var(--ph-line); border-radius: 50%; background: var(--ph-bg, #f6f1e7); color: color-mix(in srgb, var(--ph-ink) 55%, transparent); transition: background .25s, color .25s, border-color .25s, box-shadow .25s; }
