@@ -67,6 +67,10 @@
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__drawer-head,
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__subhead { display: none; }
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__drawer-close { display: inline-flex; padding: 4px; border: 0; background: transparent; color: inherit; cursor: pointer; }
+  @media screen and (min-width: 750px) {
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item--simple .ai-nursery-header__dropdown { width: max-content; min-width: 180px; max-width: 280px; grid-template-columns: 1fr; padding: 8px; }
+    .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item--simple .ai-nursery-header__dropdown a { white-space: nowrap; }
+  }
   @media screen and (max-width: 1100px) {
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__inner { gap: 16px; padding-inline: 14px; }
     .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__nav { gap: 13px; }
@@ -142,7 +146,7 @@
         {% assign title_key = group | append: '_title' %}
         {% assign menu_key = group | append: '_menu' %}
         {% assign menu_object = block.settings[menu_key] %}
-        <div class="ai-nursery-header__item" data-menu-item>
+        <div class="ai-nursery-header__item{% if group == 'gifting' %} ai-nursery-header__item--simple{% endif %}" data-menu-item>
           <button class="ai-nursery-header__toggle" type="button" aria-expanded="false" data-dropdown-toggle>{{ block.settings[title_key] | escape }}<span class="ai-nursery-header__chevron" aria-hidden="true"></span></button>
           <div class="ai-nursery-header__dropdown">
             <div class="ai-nursery-header__subhead">
