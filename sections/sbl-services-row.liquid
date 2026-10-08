@@ -133,18 +133,19 @@
 .sbls .sbls-slider__track::-webkit-scrollbar { display: none; }
 .sbls .sbls-slider__track:focus-visible { outline: 3px solid #fff; outline-offset: -6px; }
 .sbls .sbls-slider__slide { flex: 0 0 100%; height: 100%; scroll-snap-align: start; overflow: hidden; }
-.sbls .sbls-slider__btn { position: absolute; top: 50%; z-index: 2; display: grid; place-items: center; width: 44px; height: 44px; margin-top: -22px; padding: 0; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .92); color: #1f3d27; box-shadow: 0 6px 18px rgba(0, 0, 0, .18); cursor: pointer; transition: background .2s, transform .2s; }
+.sbls .sbls-slider__btn { position: absolute; top: 50%; z-index: 2; display: grid; place-items: center; width: 32px; height: 32px; margin-top: -16px; padding: 0; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .92); color: #1f3d27; box-shadow: 0 6px 18px rgba(0, 0, 0, .18); cursor: pointer; transition: background .2s, transform .2s; }
 .sbls .sbls-slider__btn:hover { background: #fff; transform: scale(1.06); }
-.sbls .sbls-slider__btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-.sbls .sbls-slider__btn--prev { left: 14px; }
-.sbls .sbls-slider__btn--next { right: 14px; }
+.sbls .sbls-slider__btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.sbls .sbls-slider__btn--prev { left: 12px; }
+.sbls .sbls-slider__btn--next { right: 12px; }
 .sbls .sbls-slider__dots { position: absolute; left: 0; right: 0; bottom: 14px; z-index: 2; display: flex; justify-content: center; gap: 7px; pointer-events: none; }
 .sbls .sbls-slider__dot { width: 8px; height: 8px; border-radius: 999px; background: rgba(255, 255, 255, .6); box-shadow: 0 1px 4px rgba(0, 0, 0, .25); transition: width .25s, background .25s; }
 .sbls .sbls-slider__dot.is-active { width: 22px; background: #fff; }
 @media (max-width: 749px) {
-  .sbls .sbls-slider__btn { width: 38px; height: 38px; margin-top: -19px; }
-  .sbls .sbls-slider__btn--prev { left: 10px; }
-  .sbls .sbls-slider__btn--next { right: 10px; }
+  .sbls .sbls-slider__btn { width: 28px; height: 28px; margin-top: -14px; }
+  .sbls .sbls-slider__btn svg { width: 14px; height: 14px; }
+  .sbls .sbls-slider__btn--prev { left: 8px; }
+  .sbls .sbls-slider__btn--next { right: 8px; }
 }
 {% endstylesheet %}
 
