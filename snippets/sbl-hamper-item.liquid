@@ -1,0 +1,41 @@
+{%- comment -%}
+  One choosable product in the hamper builder (sections/sbl-gh-hamper-builder.liquid).
+  Accepts:
+  - product: {Object}
+  - kind: 'box' | 'product' | 'card'. Boxes and cards are pick-one; products can be added with a quantity.
+  - add_label: button text
+{%- endcomment -%}
+{%- assign v = product.selected_or_first_available_variant -%}
+<div class="hb-item" data-item data-kind="{{ kind }}" data-variant="{{ v.id }}" data-price="{{ v.price }}" data-title="{{ product.title | escape }}" data-image="{% if product.featured_media %}{{ product.featured_media | image_url: width: 160, height: 160, crop: 'center' }}{% endif %}">
+  <div class="hb-item__media">
+    {%- if product.featured_media -%}
+      {{ product.featured_media | image_url: width: 500 | image_tag: loading: 'lazy', widths: '250, 375, 500', sizes: '(min-width: 990px) 220px, 45vw', alt: product.featured_media.alt | default: product.title }}
+    {%- else -%}
+      <span class="gh__ph">{{ 'product-1' | placeholder_svg_tag }}</span>
+    {%- endif -%}
+    <span class="hb-item__tick" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </div>
+  <div class="hb-item__body">
+    <p class="hb-item__title">{{ product.title | escape }}</p>
+    <p class="hb-item__price" data-price-label>{{ v.price | money }}</p>
+    {%- if product.has_only_default_variant == false -%}
+      <select class="hb-item__variant" data-variant-select data-sheet-select data-sheet-title="{{ product.title | escape }}" aria-label="Choose an option for {{ product.title | escape }}">
+        {%- for variant in product.variants -%}
+          <option value="{{ variant.id }}" data-price="{{ variant.price }}" data-money="{{ variant.price | money | escape }}"{% unless variant.available %} disabled{% endunless %}{% if variant.id == v.id %} selected{% endif %}>{{ variant.title | escape }}{% unless variant.available %} (sold out){% endunless %}</option>
+        {%- endfor -%}
+      </select>
+    {%- endif -%}
+    {%- if product.available -%}
+      <button type="button" class="hb-item__add" data-add aria-pressed="false">{{ add_label | escape }}</button>
+      {%- if kind == 'product' -%}
+        <div class="hb-item__qty" data-qty hidden>
+          <button type="button" data-minus aria-label="Remove one {{ product.title | escape }}">−</button>
+          <span data-qty-value aria-live="polite">1</span>
+          <button type="button" data-plus aria-label="Add one more {{ product.title | escape }}">+</button>
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <span class="hb-item__add hb-item__add--off">Sold out</span>
+    {%- endif -%}
+  </div>
+</div>

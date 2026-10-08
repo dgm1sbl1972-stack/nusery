@@ -1,0 +1,82 @@
+{%- comment -%} Gifting pages: a row of arch or circle images that link to gift categories (For Her, For Him…). {%- endcomment -%}
+<section class="gh gh-cats" style="--gh-bg: {{ section.settings.bg_color }};">
+  <div class="page-width">
+    {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
+      <div class="gh__head">
+        {%- if section.settings.heading != blank -%}<h2 class="gh__title">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+        {%- if section.settings.subheading != blank -%}<p class="gh__sub">{{ section.settings.subheading | escape }}</p>{%- endif -%}
+      </div>
+    {%- endif -%}
+    <div class="gh-cats__row gh-cats__row--{{ section.settings.shape }}">
+      {%- for block in section.blocks -%}
+        <a class="gh-cats__item" href="{{ block.settings.link | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+          <span class="gh-cats__img">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 500 | image_tag: loading: 'lazy', widths: '250, 375, 500', sizes: '200px', alt: block.settings.title }}
+            {%- else -%}
+              <span class="gh__ph">{{ 'collection-' | append: forloop.index | placeholder_svg_tag }}</span>
+            {%- endif -%}
+          </span>
+          <span class="gh-cats__label">{{ block.settings.title | escape }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.gh-cats__row { display: flex; justify-content: center; gap: clamp(14px, 3vw, 40px); }
+.gh-cats__item { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 12px; width: clamp(110px, 14vw, 190px); color: var(--c-primary-dark); text-align: center; text-decoration: none; }
+.gh-cats__img { display: block; width: 100%; overflow: hidden; background: #fff; box-shadow: 0 8px 22px rgba(13,58,29,.10); transition: transform .3s ease; }
+.gh-cats__img img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.gh-cats__row--arch .gh-cats__img { aspect-ratio: 4 / 5; border-radius: 999px 999px 16px 16px; }
+.gh-cats__row--circle .gh-cats__img { aspect-ratio: 1; border-radius: 50%; border: 4px solid #fff; }
+.gh-cats__row--square .gh-cats__img { aspect-ratio: 1; border-radius: 16px; }
+.gh-cats__item:hover .gh-cats__img { transform: translateY(-4px); }
+.gh-cats__label { font-family: var(--font-display); font-size: 15px; font-weight: 600; line-height: 1.3; }
+@media (max-width: 749px) {
+  .gh-cats__row { justify-content: flex-start; overflow-x: auto; margin: 0 -16px; padding: 4px 16px 10px; scroll-padding: 0 16px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .gh-cats__row::-webkit-scrollbar { display: none; }
+  .gh-cats__item { width: 31vw; scroll-snap-align: start; }
+  .gh-cats__row--circle .gh-cats__item { width: 24vw; }
+  .gh-cats__label { font-size: 13px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Gifting: Category row",
+  "tag": "section",
+  "class": "section-gh-categories",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Gifts By Categories" },
+    { "type": "text", "id": "subheading", "label": "Subheading" },
+    { "type": "select", "id": "shape", "label": "Image shape", "options": [{ "value": "arch", "label": "Arch" }, { "value": "circle", "label": "Circle" }, { "value": "square", "label": "Rounded square" }], "default": "arch" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#f8f4ec" }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "For Her" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Gifting: Category row",
+      "blocks": [
+        { "type": "category", "settings": { "title": "For Her" } },
+        { "type": "category", "settings": { "title": "For Him" } },
+        { "type": "category", "settings": { "title": "For Couple" } },
+        { "type": "category", "settings": { "title": "For Parents" } },
+        { "type": "category", "settings": { "title": "For Kids" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

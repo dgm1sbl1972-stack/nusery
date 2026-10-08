@@ -1,0 +1,451 @@
+{
+  "sections": {
+    "hero": {
+      "type": "sbl-gift-hero",
+      "settings": {
+        "hero_layout": "full",
+        "hero_height": 520,
+        "hero_height_mobile": 440,
+        "hero_overlay": 35,
+        "hero_eyebrow": "ELEVATE EVERY OCCASION WITH GREEN GIFTS",
+        "hero_heading": "Thoughtfully Personalised to Leave a Lasting Impression",
+        "hero_text": "Plant hampers, curated gift boxes and personalised gifts for every celebration.",
+        "hero_button_label": "Personalise Your Gift",
+        "hero_button_link": "/pages/make-your-own-hamper",
+        "hero_note": "Gift-wrapped with a free handwritten note",
+        "hero_chip": "",
+        "hero_media_first_mobile": false,
+        "bg_color": "#F8F4EC"
+      }
+    },
+    "ribbon": {
+      "type": "plant-marquee",
+      "settings": {
+        "separator": "✦",
+        "speed": 40,
+        "direction": "left",
+        "tilt": 0,
+        "font_size": 16,
+        "gap": 22,
+        "padding": 12,
+        "background": "#1f5130",
+        "text_color": "#ffffff",
+        "separator_color": "#ffd60a",
+        "page_background": "#f8f4ec"
+      },
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "text": "Customise your gifts",
+            "link": ""
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "text": "24–48 hour delivery available",
+            "link": ""
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "text": "Free handwritten note",
+            "link": ""
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "text": "Bulk & corporate orders welcome",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4"
+      ]
+    },
+    "categories": {
+      "type": "sbl-gh-categories",
+      "settings": {
+        "heading": "Gifts By Categories",
+        "subheading": "",
+        "shape": "arch",
+        "bg_color": "#f8f4ec"
+      },
+      "blocks": {
+        "category_1": {
+          "type": "category",
+          "settings": {
+            "title": "For Her"
+          }
+        },
+        "category_2": {
+          "type": "category",
+          "settings": {
+            "title": "For Him"
+          }
+        },
+        "category_3": {
+          "type": "category",
+          "settings": {
+            "title": "For Couple"
+          }
+        },
+        "category_4": {
+          "type": "category",
+          "settings": {
+            "title": "For Parents"
+          }
+        },
+        "category_5": {
+          "type": "category",
+          "settings": {
+            "title": "For Kids"
+          }
+        }
+      },
+      "block_order": [
+        "category_1",
+        "category_2",
+        "category_3",
+        "category_4",
+        "category_5"
+      ]
+    },
+    "most_loved": {
+      "type": "sbl-gh-product-tabs",
+      "settings": {
+        "heading": "Most Loved Gift Hampers",
+        "subheading": "Explore thoughtful gift hampers for parents, family, partners, friends and colleagues, and make every occasion more memorable.",
+        "layout": "carousel",
+        "limit": 8,
+        "view_all_label": "View All",
+        "bg_color": "#ffffff"
+      },
+      "blocks": {
+        "tab_1": {
+          "type": "tab",
+          "settings": {
+            "label": "Diwali Gifts"
+          }
+        },
+        "tab_2": {
+          "type": "tab",
+          "settings": {
+            "label": "Birthday Gifts"
+          }
+        },
+        "tab_3": {
+          "type": "tab",
+          "settings": {
+            "label": "Romantic Love Gifts"
+          }
+        },
+        "tab_4": {
+          "type": "tab",
+          "settings": {
+            "label": "Eco-Friendly Gifts"
+          }
+        },
+        "tab_5": {
+          "type": "tab",
+          "settings": {
+            "label": "Plant Hampers"
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_2",
+        "tab_3",
+        "tab_4",
+        "tab_5"
+      ]
+    },
+    "trending": {
+      "type": "trending-reels",
+      "settings": {
+        "heading": "Trending Gifts",
+        "heading_accent": "for You",
+        "background": "#f8f4ec"
+      },
+      "blocks": {
+        "reel_1": {
+          "type": "reel",
+          "settings": {
+            "title": "Diwali hamper unboxing"
+          }
+        },
+        "reel_2": {
+          "type": "reel",
+          "settings": {
+            "title": "Plant gift box"
+          }
+        },
+        "reel_3": {
+          "type": "reel",
+          "settings": {
+            "title": "Make your own hamper"
+          }
+        },
+        "reel_4": {
+          "type": "reel",
+          "settings": {
+            "title": "Festive gift ideas"
+          }
+        },
+        "reel_5": {
+          "type": "reel",
+          "settings": {
+            "title": "Desk plant gifts"
+          }
+        },
+        "reel_6": {
+          "type": "reel",
+          "settings": {
+            "title": "Thank-you hampers"
+          }
+        }
+      },
+      "block_order": [
+        "reel_1",
+        "reel_2",
+        "reel_3",
+        "reel_4",
+        "reel_5",
+        "reel_6"
+      ]
+    },
+    "budget": {
+      "type": "sbl-gift-budget",
+      "settings": {
+        "budget_heading": "Luxury Gift Hampers for Every Occasion",
+        "budget_subheading": "Find the perfect hamper for your budget",
+        "budget_link_label": "Shop now",
+        "bg_color": "#ffffff"
+      },
+      "blocks": {
+        "budget_1": {
+          "type": "budget",
+          "settings": {
+            "label": "Under ₹500",
+            "caption": "Elegant Finds",
+            "max_price": 500
+          }
+        },
+        "budget_2": {
+          "type": "budget",
+          "settings": {
+            "label": "₹500 – ₹1,500",
+            "caption": "Premium Selections",
+            "min_price": 500,
+            "max_price": 1500
+          }
+        },
+        "budget_3": {
+          "type": "budget",
+          "settings": {
+            "label": "₹1,500 – ₹3,000",
+            "caption": "Exquisite Indulgence",
+            "min_price": 1500,
+            "max_price": 3000
+          }
+        },
+        "budget_4": {
+          "type": "budget",
+          "settings": {
+            "label": "Above ₹3,000",
+            "caption": "Bespoke Luxury",
+            "min_price": 3000
+          }
+        }
+      },
+      "block_order": [
+        "budget_1",
+        "budget_2",
+        "budget_3",
+        "budget_4"
+      ]
+    },
+    "personalised": {
+      "type": "sbl-gh-product-tabs",
+      "settings": {
+        "heading": "Unique Personalised & Customised Gifts for Loved Ones",
+        "subheading": "Make every celebration memorable with unique personalised and customised gifts.",
+        "layout": "grid",
+        "limit": 8,
+        "view_all_label": "View all",
+        "bg_color": "#f8f4ec"
+      },
+      "blocks": {
+        "tab_1": {
+          "type": "tab",
+          "settings": {
+            "label": ""
+          }
+        }
+      },
+      "block_order": [
+        "tab_1"
+      ]
+    },
+    "build": {
+      "type": "sbl-gh-build-banner",
+      "settings": {
+        "heading": "Make your Own Hamper",
+        "subheading": "Pick your favourite plants and gifts, add a card and a message, and make every occasion extra special.",
+        "badge_text": "Make your Own Hamper",
+        "link": "/pages/make-your-own-hamper",
+        "bg_color": "#ffffff"
+      }
+    },
+    "quiz": {
+      "type": "sbl-gh-image-text",
+      "settings": {
+        "image_position": "left",
+        "heading": "Not sure what to gift?",
+        "accent": "Answer a few questions and find the perfect match!",
+        "text": "<p>Let us guide you to the perfect gift. Answer a few quick questions and we'll curate a selection tailored to your recipient and occasion.</p>",
+        "button_label": "Start now",
+        "bg_color": "#f8f4ec"
+      }
+    },
+    "celebrations": {
+      "type": "sbl-gh-tiles",
+      "settings": {
+        "heading": "Elegant Gifts for Every Celebration",
+        "subheading": "Thoughtful gifts for birthdays, anniversaries, housewarmings and every special moment.",
+        "layout": "masonry",
+        "columns": 3,
+        "ratio": "square",
+        "label_style": "pill",
+        "bg_color": "#ffffff",
+        "heading_color": "#0d3a1d",
+        "text_color": "#5b6660"
+      },
+      "blocks": {
+        "tile_1": {
+          "type": "tile",
+          "settings": {
+            "title": "Birthday Gifts",
+            "tall": false
+          }
+        },
+        "tile_2": {
+          "type": "tile",
+          "settings": {
+            "title": "Anniversary Gifts",
+            "tall": true
+          }
+        },
+        "tile_3": {
+          "type": "tile",
+          "settings": {
+            "title": "Housewarming Gifts",
+            "tall": true
+          }
+        },
+        "tile_4": {
+          "type": "tile",
+          "settings": {
+            "title": "Self Care Hampers",
+            "tall": false
+          }
+        },
+        "tile_5": {
+          "type": "tile",
+          "settings": {
+            "title": "Baby Shower Hampers",
+            "tall": true
+          }
+        },
+        "tile_6": {
+          "type": "tile",
+          "settings": {
+            "title": "Thank You Gifts",
+            "tall": false
+          }
+        }
+      },
+      "block_order": [
+        "tile_1",
+        "tile_2",
+        "tile_3",
+        "tile_4",
+        "tile_5",
+        "tile_6"
+      ]
+    },
+    "reviews": {
+      "type": "sbl-gift-testimonials",
+      "settings": {
+        "testi_heading": "Gifts that made an impression!",
+        "testi_subheading": "Real words from happy gifters",
+        "bg_color": "#F8F4EC"
+      },
+      "blocks": {
+        "review_1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The hamper was beautifully packed and the plants arrived fresh. My sister loved it!",
+            "rating": 5,
+            "name": "Sneha M.",
+            "meta": "Bengaluru"
+          }
+        },
+        "review_2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Ordered a custom hamper for my parents' anniversary. The card and message were a lovely touch.",
+            "rating": 5,
+            "name": "Rahul S.",
+            "meta": "Mysuru"
+          }
+        },
+        "review_3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Great value for money and delivered right on time. Will gift again!",
+            "rating": 5,
+            "name": "Ananya P.",
+            "meta": "Bengaluru"
+          }
+        },
+        "review_4": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Our team loved the plant gift boxes we sent for Diwali. Smooth from enquiry to delivery.",
+            "rating": 5,
+            "name": "Vikram N.",
+            "meta": "HR Manager"
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "ribbon",
+    "categories",
+    "most_loved",
+    "trending",
+    "budget",
+    "personalised",
+    "build",
+    "quiz",
+    "celebrations",
+    "reviews"
+  ]
+}

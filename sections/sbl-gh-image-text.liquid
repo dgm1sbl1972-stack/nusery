@@ -1,0 +1,54 @@
+{%- comment -%} Gifting pages: image beside a heading, an accent line, text and a button ("Not sure what to gift?"). {%- endcomment -%}
+<section class="gh gh-it" style="--gh-bg: {{ section.settings.bg_color }};">
+  <div class="page-width gh-it__grid{% if section.settings.image_position == 'right' %} gh-it__grid--flip{% endif %}">
+    <div class="gh-it__media">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '500, 800, 1200', sizes: '(min-width: 750px) 50vw, 100vw', alt: section.settings.image.alt }}
+      {%- else -%}
+        <span class="gh__ph">{{ 'lifestyle-2' | placeholder_svg_tag }}</span>
+      {%- endif -%}
+    </div>
+    <div class="gh-it__text">
+      {%- if section.settings.heading != blank -%}<h2 class="gh-it__title">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+      {%- if section.settings.accent != blank -%}<p class="gh-it__accent">{{ section.settings.accent | escape }}</p>{%- endif -%}
+      {%- if section.settings.text != blank -%}<div class="gh-it__body">{{ section.settings.text }}</div>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a class="btn btn--dark" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label | escape }} <span aria-hidden="true">→</span></a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.gh-it__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 5vw, 64px); align-items: center; }
+.gh-it__grid--flip .gh-it__media { order: 2; }
+.gh-it__media { overflow: hidden; aspect-ratio: 4 / 3; border-radius: 16px; }
+.gh-it__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.gh-it__title { margin: 0; font-family: var(--font-display); font-size: clamp(24px, 2.8vw, 34px); line-height: 1.15; color: var(--c-primary-dark); }
+.gh-it__accent { margin: 8px 0 0; font-family: var(--font-display); font-size: clamp(17px, 1.8vw, 22px); font-weight: 600; color: var(--c-primary); }
+.gh-it__body { margin: 14px 0 22px; color: var(--c-muted); font-size: 14.5px; line-height: 1.7; }
+.gh-it__body p { margin: 0 0 8px; }
+@media (max-width: 749px) {
+  .gh-it__grid { grid-template-columns: 1fr; }
+  .gh-it__grid--flip .gh-it__media { order: 0; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Gifting: Image with text",
+  "tag": "section",
+  "class": "section-gh-image-text",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "select", "id": "image_position", "label": "Image position", "options": [{ "value": "left", "label": "Left" }, { "value": "right", "label": "Right" }], "default": "left" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Not sure what to gift?" },
+    { "type": "text", "id": "accent", "label": "Accent line", "default": "Answer a few questions and find the perfect match!" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Tell us who it's for and the occasion, and we'll suggest plants and hampers they'll love.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Start now" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#ffffff" }
+  ],
+  "presets": [{ "name": "Gifting: Image with text" }]
+}
+{% endschema %}

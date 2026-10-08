@@ -1025,3 +1025,12 @@ html.option-sheet-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .option-sheet__panel, .option-sheet__overlay { transition: none; }
 }
+
+/* ---------- Gifting pages (sbl-gh-* sections) ---------- */
+.gh { padding: clamp(40px, 6vw, 72px) 0; background: var(--gh-bg, transparent); color: var(--gh-text, var(--c-text)); }
+.gh__head { max-width: 780px; margin: 0 auto clamp(22px, 3vw, 34px); text-align: center; }
+.gh__title { margin: 0; font-family: var(--font-display); font-size: clamp(24px, 3vw, 36px); line-height: 1.15; color: var(--gh-title, var(--c-primary-dark)); }
+.gh__sub { margin: 10px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--gh-muted, var(--c-muted)); }
+.gh__more { margin-top: 28px; text-align: center; }
+.gh__ph { display: block; width: 100%; height: 100%; background: var(--c-lime, #eef5e6); }
+.gh__ph svg { width: 100%; height: 100%; }

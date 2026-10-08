@@ -1,0 +1,109 @@
+{%- comment -%}
+  Gifting pages: big numbers on one side and an enquiry form on the other (Corporate Gifting Inquiry).
+  The form uses Shopify's contact form, so enquiries arrive in the store's contact email.
+{%- endcomment -%}
+{%- assign enquiry_anchor = section.settings.anchor | default: section.id -%}
+<section class="gh gh-enq" id="{{ enquiry_anchor | handleize }}" style="--gh-bg: {{ section.settings.bg_color }};">
+  <div class="page-width gh-enq__grid">
+    <div class="gh-enq__stats">
+      {%- for block in section.blocks -%}
+        <div class="gh-enq__stat" {{ block.shopify_attributes }}>
+          <strong>{{ block.settings.value | escape }}</strong>
+          <span>{{ block.settings.label | escape }}</span>
+        </div>
+      {%- endfor -%}
+    </div>
+    <div class="gh-enq__card">
+      {%- if section.settings.heading != blank -%}<h2 class="gh__title gh-enq__title">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<p class="gh__sub gh-enq__sub">{{ section.settings.text | escape }}</p>{%- endif -%}
+      {%- assign enquiry_form_id = 'GhEnquiryForm-' | append: section.id -%}
+      {%- form 'contact', id: enquiry_form_id, class: 'gh-enq__form' -%}
+        <input type="hidden" name="contact[Enquiry type]" value="{{ section.settings.enquiry_type | escape }}">
+        {%- if form.posted_successfully? -%}
+          <p class="gh-enq__msg gh-enq__msg--ok" role="status">{{ section.settings.success_message | escape }}</p>
+        {%- elsif form.errors -%}
+          <div class="gh-enq__msg gh-enq__msg--err" role="alert">{{ form.errors | default_errors }}</div>
+        {%- endif -%}
+        <div class="gh-enq__fields">
+          <label><span>Name *</span><input type="text" name="contact[name]" autocomplete="name" required value="{{ form.name }}"></label>
+          <label><span>Company</span><input type="text" name="contact[Company]" autocomplete="organization"></label>
+          <label><span>Email *</span><input type="email" name="contact[email]" autocomplete="email" required value="{{ form.email }}"></label>
+          <label><span>Phone *</span><input type="tel" name="contact[phone]" autocomplete="tel" required value="{{ form.phone }}"></label>
+          <label><span>Quantity</span><input type="number" name="contact[Quantity]" min="1" inputmode="numeric" placeholder="e.g. 50"></label>
+          <label><span>Budget per gift</span>
+            <select name="contact[Budget per gift]">
+              <option value="">Select</option>
+              <option>Under ₹500</option><option>₹500 – ₹1,500</option><option>₹1,500 – ₹3,000</option><option>Above ₹3,000</option>
+            </select>
+          </label>
+          <label class="gh-enq__full"><span>Requirements</span><textarea name="contact[body]" rows="4" placeholder="Occasion, delivery date, branding needs…">{{ form.body }}</textarea></label>
+        </div>
+        <button type="submit" class="btn btn--dark gh-enq__submit">{{ section.settings.button_label | escape }}</button>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.gh-enq__grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(24px, 5vw, 64px); align-items: center; }
+.gh-enq__stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.gh-enq__stat { display: flex; flex-direction: column; gap: 6px; padding: 22px 18px; border-radius: 16px; background: #fff; box-shadow: 0 6px 20px rgba(13,58,29,.06); }
+.gh-enq__stat strong { font-family: var(--font-display); font-size: clamp(26px, 3vw, 40px); line-height: 1; color: var(--c-primary); }
+.gh-enq__stat span { font-size: 13px; color: var(--c-muted); }
+.gh-enq__card { padding: clamp(20px, 3vw, 36px); border-radius: 18px; background: #fff; box-shadow: 0 10px 30px rgba(13,58,29,.08); }
+.gh-enq__title { text-align: left; }
+.gh-enq__sub { margin-bottom: 18px; }
+.gh-enq__fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.gh-enq__fields label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; color: var(--c-text); }
+.gh-enq__fields input, .gh-enq__fields textarea, .gh-enq__fields select { width: 100%; box-sizing: border-box; padding: 11px 12px; border: 1px solid #d5dbd2; border-radius: 10px; background: #fcfbf8; font: inherit; font-size: 15px; font-weight: 400; color: var(--c-text); }
+.gh-enq__fields input:focus, .gh-enq__fields textarea:focus, .gh-enq__fields select:focus { outline: none; border-color: var(--c-primary); box-shadow: 0 0 0 3px rgba(31,81,48,.15); }
+.gh-enq__full { grid-column: 1 / -1; }
+.gh-enq__submit { margin-top: 18px; width: 100%; justify-content: center; }
+.gh-enq__msg { margin: 0 0 14px; padding: 12px 14px; border-radius: 10px; font-size: 14px; }
+.gh-enq__msg--ok { background: #e7f4e1; color: #1f5130; }
+.gh-enq__msg--err { background: #fdecea; color: #9b2c1f; }
+@media (max-width: 749px) {
+  .gh-enq__grid { grid-template-columns: 1fr; }
+  .gh-enq__stats { order: 2; }
+  .gh-enq__fields { grid-template-columns: 1fr; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Gifting: Enquiry form",
+  "tag": "section",
+  "class": "section-gh-enquiry",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Corporate Gifting Inquiry" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Tell us what you need and our gifting team will get back to you within one working day." },
+    { "type": "text", "id": "anchor", "label": "Anchor name", "default": "corporate-enquiry", "info": "Buttons can jump here with a link ending in #corporate-enquiry." },
+    { "type": "text", "id": "enquiry_type", "label": "Enquiry type", "default": "Corporate gifting", "info": "Added to the email so you can tell enquiries apart." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Send enquiry" },
+    { "type": "text", "id": "success_message", "label": "Thank-you message", "default": "Thank you! Our gifting team will contact you shortly." },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#f8f4ec" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Number",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Number", "default": "5 lakh+" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Happy customers" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Gifting: Enquiry form",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "3.5 lakh+", "label": "Happy families" } },
+        { "type": "stat", "settings": { "value": "98%", "label": "Client satisfaction" } },
+        { "type": "stat", "settings": { "value": "2k+", "label": "Corporate orders" } },
+        { "type": "stat", "settings": { "value": "8+", "label": "Years of gifting" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
