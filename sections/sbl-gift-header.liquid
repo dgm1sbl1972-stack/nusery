@@ -13,7 +13,7 @@
     assign corporate_active = true
   endif
 -%}
-<div class="gxh" id="GiftHeader-{{ sid }}" style="--gxh-bg: {{ s.bg_color }}; --gxh-text: {{ s.text_color }}; --gxh-accent: {{ s.accent_color }}; --gxh-badge: {{ s.badge_color }}; --gxh-bar: {{ s.bar_color }};" data-gift-header>
+<div class="gxh" id="GiftHeader-{{ sid }}" style="--gxh-logo-h: {{ s.logo_height }}px; --gxh-logo-zoom: {{ s.logo_zoom | divided_by: 100.0 }}; --gxh-bg: {{ s.bg_color }}; --gxh-text: {{ s.text_color }}; --gxh-accent: {{ s.accent_color }}; --gxh-badge: {{ s.badge_color }}; --gxh-bar: {{ s.bar_color }};" data-gift-header>
   {%- if s.bar_text != blank -%}
     <div class="gxh__bar">
       <div class="page-width gxh__bar-inner">
@@ -43,7 +43,7 @@
 
       <a class="gxh__logo" href="{{ s.logo_link | default: routes.root_url }}">
         {%- if s.logo != blank -%}
-          {{ s.logo | image_url: width: 500 | image_tag: alt: shop.name, width: s.logo_width, loading: 'eager', style: 'height: auto;' }}
+          {{ s.logo | image_url: width: 600 | image_tag: alt: shop.name, loading: 'eager', class: 'gxh__logo-img' }}
         {%- else -%}
           <span class="gxh__brand">{{ s.brand_name | default: shop.name | escape }}</span>
           {%- if s.tagline != blank -%}<span class="gxh__tagline">{{ s.tagline | escape }}</span>{%- endif -%}
@@ -170,7 +170,7 @@
 .gxh__switch-btn:hover { color: var(--gxh-text); }
 .gxh__switch-btn.is-active { background: var(--gxh-accent); color: #fff; }
 .gxh__logo { display: flex; flex-direction: column; align-items: center; color: var(--gxh-text); text-decoration: none; text-align: center; }
-.gxh__logo img { display: block; max-width: 100%; }
+.gxh__logo-img { display: block; width: auto; height: var(--gxh-logo-h, 56px); max-width: 40vw; object-fit: contain; transform: scale(var(--gxh-logo-zoom, 1)); }
 .gxh__brand { font-family: var(--font-display); font-size: clamp(24px, 2.6vw, 34px); font-weight: 600; letter-spacing: .12em; line-height: 1; text-transform: uppercase; }
 .gxh__tagline { margin-top: 4px; font-size: 11.5px; letter-spacing: .2em; }
 .gxh__actions { justify-self: end; display: flex; align-items: center; gap: 14px; }
@@ -205,6 +205,7 @@ html.gxh-locked { overflow: hidden; }
   .gxh__burger { display: inline-flex; }
   .gxh__logo { justify-self: center; }
   .gxh__brand { font-size: 22px; }
+  .gxh__logo-img { height: min(var(--gxh-logo-h, 56px), 48px); max-width: 44vw; }
   .gxh__tagline { font-size: 10px; }
   .gxh__actions { gap: 4px; }
   .gxh__actions .gxh__search, .gxh__icon--account { display: none; }
@@ -251,8 +252,9 @@ html.gxh-locked { overflow: hidden; }
     { "type": "text", "id": "corporate_label", "label": "Corporate label", "default": "Corporate Gifts" },
     { "type": "url", "id": "corporate_link", "label": "Corporate link", "info": "Leave empty for /pages/corporate-gifts. Pages with 'corporate' in the address show Corporate as selected." },
     { "type": "header", "content": "Logo" },
-    { "type": "image_picker", "id": "logo", "label": "Logo image" },
-    { "type": "range", "id": "logo_width", "label": "Logo width", "min": 60, "max": 260, "step": 10, "unit": "px", "default": 160 },
+    { "type": "image_picker", "id": "logo", "label": "Logo image", "info": "Use the same logo as the main header." },
+    { "type": "range", "id": "logo_height", "label": "Logo size (height)", "min": 30, "max": 120, "step": 2, "unit": "px", "default": 60 },
+    { "type": "range", "id": "logo_zoom", "label": "Logo zoom", "min": 100, "max": 200, "step": 5, "unit": "%", "default": 130, "info": "Same as the main header: enlarges the logo without making the header taller." },
     { "type": "text", "id": "brand_name", "label": "Brand name (when no logo)", "default": "SBL Nursery" },
     { "type": "text", "id": "tagline", "label": "Tagline (when no logo)", "default": "Plant Gifting" },
     { "type": "url", "id": "logo_link", "label": "Logo link", "info": "Leave empty for the home page." },
