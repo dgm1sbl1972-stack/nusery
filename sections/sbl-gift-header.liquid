@@ -1,6 +1,6 @@
 {%- comment -%}
   Header for the gifting pages (Gifting Hampers, Make Your Own Hamper, Corporate Gifts).
-  Top bar · Personalised / Corporate switch · logo · search and icons · one menu row with a single dropdown.
+  Top bar · Personalised / Corporate switch · logo · search and icons · one menu row holding a single 'Gifting Hamper' dropdown.
   layout/theme.liquid hides the store's normal header on the templates that use this section.
 {%- endcomment -%}
 {%- liquid
@@ -8,6 +8,7 @@
   assign sid = section.id
   assign personal_url = s.personal_link | default: '/pages/gifting-hampers'
   assign corporate_url = s.corporate_link | default: '/pages/corporate-gifts'
+  assign dropdown_fallback_links = '/pages/gifting-hampers,/pages/make-your-own-hamper,/pages/corporate-gifts,/collections/all?sort_by=created-descending,/collections/all' | split: ','
   assign corporate_active = false
   if request.path contains 'corporate'
     assign corporate_active = true
@@ -94,7 +95,7 @@
             <div class="gxh__dropdown">
               {%- if block.settings.view_all_link != blank -%}<a class="gxh__dropdown-all" href="{{ block.settings.view_all_link }}">View all {{ block.settings.title | escape }} →</a>{%- endif -%}
               {%- if menu_object != blank and menu_object.links.size > 0 -%}
-                {%- for link in menu_object.links limit: 16 -%}<a href="{{ link.url }}">{{ link.title | escape }}</a>{%- endfor -%}
+                {%- for link in menu_object.links limit: 16 -%}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>{%- endfor -%}
               {%- else -%}
                 {%- for i in (1..8) -%}
                   {%- assign t_key = 'link_' | append: i | append: '_title' -%}
@@ -102,17 +103,13 @@
                   {%- assign link_title = block.settings[t_key] -%}
                   {%- if link_title != blank -%}
                     {%- assign link_url = block.settings[u_key] -%}
+                    {%- if link_url == blank and forloop.index <= dropdown_fallback_links.size -%}{%- assign link_url = dropdown_fallback_links[forloop.index0] -%}{%- endif -%}
                     {%- if link_url == blank -%}{%- assign link_q = link_title | url_encode -%}{%- assign link_url = routes.search_url | append: '?type=product&q=' | append: link_q -%}{%- endif -%}
-                    <a href="{{ link_url }}">{{ link_title | escape }}</a>
+                    <a href="{{ link_url }}"{% if request.path == link_url %} aria-current="page"{% endif %}>{{ link_title | escape }}</a>
                   {%- endif -%}
                 {%- endfor -%}
               {%- endif -%}
             </div>
-          </li>
-        {%- else -%}
-          <li class="gxh__item" {{ block.shopify_attributes }}>
-            {%- if block.settings.badge != blank -%}<span class="gxh__badge">{{ block.settings.badge | escape }}</span>{%- endif -%}
-            <a class="gxh__link" href="{{ block.settings.url | default: routes.all_products_collection_url }}"{% if block.settings.url != blank and request.path == block.settings.url %} aria-current="page"{% endif %}>{{ block.settings.title | escape }}</a>
           </li>
         {%- endif -%}
       {%- endfor -%}
@@ -188,8 +185,9 @@
 .gxh__link svg { transition: transform .2s; }
 .gxh__badge { position: absolute; top: -9px; left: 50%; transform: translateX(-50%); padding: 2px 8px; border-radius: 4px; background: var(--gxh-badge); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: .08em; line-height: 1.4; text-transform: uppercase; }
 .gxh__item--dropdown .gxh__badge { left: calc(50% - 10px); }
-.gxh__dropdown { position: absolute; top: 100%; left: 50%; z-index: 20; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 12px; min-width: 420px; padding: 14px; border-top: 3px solid var(--gxh-accent); border-radius: 0 0 14px 14px; background: #fff; box-shadow: 0 18px 40px rgba(0,0,0,.14); opacity: 0; visibility: hidden; transform: translate(-50%, 8px); transition: opacity .2s, transform .2s, visibility .2s; }
+.gxh__dropdown { position: absolute; top: 100%; left: 50%; z-index: 20; display: grid; grid-template-columns: 1fr; gap: 2px; min-width: 260px; padding: 14px; border-top: 3px solid var(--gxh-accent); border-radius: 0 0 14px 14px; background: #fff; box-shadow: 0 18px 40px rgba(0,0,0,.14); opacity: 0; visibility: hidden; transform: translate(-50%, 8px); transition: opacity .2s, transform .2s, visibility .2s; }
 .gxh__dropdown a { padding: 10px 12px; border-radius: 8px; color: var(--gxh-text); font-size: 14px; text-decoration: none; }
+.gxh__dropdown a[aria-current="page"] { color: var(--gxh-accent); font-weight: 600; }
 .gxh__dropdown a:hover, .gxh__dropdown a:focus-visible { background: color-mix(in srgb, var(--gxh-accent) 10%, transparent); color: var(--gxh-accent); outline: none; }
 .gxh__dropdown-all { grid-column: 1 / -1; font-weight: 700; border-bottom: 1px solid #eee; border-radius: 8px 8px 0 0 !important; }
 @media (hover: hover) {
@@ -279,36 +277,24 @@ html.gxh-locked { overflow: hidden; }
         { "type": "text", "id": "badge", "label": "Badge", "info": "e.g. NEW. Leave empty for none." },
         { "type": "link_list", "id": "menu", "label": "Use navigation menu", "info": "Optional. Otherwise the links below are used." },
         { "type": "url", "id": "view_all_link", "label": "View all link" },
-        { "type": "text", "id": "link_1_title", "label": "Link 1", "default": "Birthday Gifts" }, { "type": "url", "id": "link_1_url", "label": "Link 1 URL" },
-        { "type": "text", "id": "link_2_title", "label": "Link 2", "default": "Anniversary Gifts" }, { "type": "url", "id": "link_2_url", "label": "Link 2 URL" },
-        { "type": "text", "id": "link_3_title", "label": "Link 3", "default": "Housewarming Gifts" }, { "type": "url", "id": "link_3_url", "label": "Link 3 URL" },
-        { "type": "text", "id": "link_4_title", "label": "Link 4", "default": "Diwali Gifts" }, { "type": "url", "id": "link_4_url", "label": "Link 4 URL" },
-        { "type": "text", "id": "link_5_title", "label": "Link 5", "default": "Thank You Gifts" }, { "type": "url", "id": "link_5_url", "label": "Link 5 URL" },
-        { "type": "text", "id": "link_6_title", "label": "Link 6", "default": "Plant Hampers" }, { "type": "url", "id": "link_6_url", "label": "Link 6 URL" },
+        { "type": "text", "id": "link_1_title", "label": "Link 1", "default": "Gifting Hampers" }, { "type": "url", "id": "link_1_url", "label": "Link 1 URL", "info": "Leave empty for /pages/gifting-hampers" },
+        { "type": "text", "id": "link_2_title", "label": "Link 2", "default": "Make Your Own Hamper" }, { "type": "url", "id": "link_2_url", "label": "Link 2 URL", "info": "Leave empty for /pages/make-your-own-hamper" },
+        { "type": "text", "id": "link_3_title", "label": "Link 3", "default": "Corporate Gifts" }, { "type": "url", "id": "link_3_url", "label": "Link 3 URL", "info": "Leave empty for /pages/corporate-gifts" },
+        { "type": "text", "id": "link_4_title", "label": "Link 4", "default": "New Arrivals" }, { "type": "url", "id": "link_4_url", "label": "Link 4 URL", "info": "Leave empty for /collections/all?sort_by=created-descending" },
+        { "type": "text", "id": "link_5_title", "label": "Link 5", "default": "All Gifts" }, { "type": "url", "id": "link_5_url", "label": "Link 5 URL", "info": "Leave empty for /collections/all" },
+        { "type": "text", "id": "link_6_title", "label": "Link 6" }, { "type": "url", "id": "link_6_url", "label": "Link 6 URL" },
         { "type": "text", "id": "link_7_title", "label": "Link 7" }, { "type": "url", "id": "link_7_url", "label": "Link 7 URL" },
         { "type": "text", "id": "link_8_title", "label": "Link 8" }, { "type": "url", "id": "link_8_url", "label": "Link 8 URL" },
-        { "type": "paragraph", "content": "Links without a URL open a search for that name." }
-      ]
-    },
-    {
-      "type": "link",
-      "name": "Link",
-      "settings": [
-        { "type": "text", "id": "title", "label": "Label", "default": "All Gifts" },
-        { "type": "url", "id": "url", "label": "URL" },
-        { "type": "text", "id": "badge", "label": "Badge", "info": "e.g. NEW. Leave empty for none." }
+        { "type": "paragraph", "content": "Links 6–8 without a URL open a search for that name." }
       ]
     }
   ],
-  "max_blocks": 8,
+  "max_blocks": 1,
   "presets": [
     {
       "name": "Gifting: Header",
       "blocks": [
-        { "type": "dropdown" },
-        { "type": "link", "settings": { "title": "Make Your Own Hamper" } },
-        { "type": "link", "settings": { "title": "New Arrivals", "badge": "New" } },
-        { "type": "link", "settings": { "title": "All Gifts" } }
+        { "type": "dropdown" }
       ]
     }
   ]
