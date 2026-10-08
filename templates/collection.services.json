@@ -44,7 +44,7 @@
     "service_2": {
       "type": "sbl-services-row",
       "settings": {
-        "number": "02",
+        "number": "04",
         "label": "AMC",
         "title": "Annual Maintenance Contract (AMC)",
         "text": "Keep your landscape healthy, clean and beautiful throughout the year with our professional garden maintenance services. Our team provides scheduled care for plants, lawns and landscaped spaces.",
@@ -56,13 +56,13 @@
         "image_side": "right",
         "bg_color": "#f8f4ec",
         "padding_top": 36,
-        "padding_bottom": 36
+        "padding_bottom": 72
       }
     },
     "service_3": {
       "type": "sbl-services-row",
       "settings": {
-        "number": "03",
+        "number": "02",
         "label": "Green Wall",
         "title": "Green Wall Solutions",
         "text": "Bring nature into modern spaces with professionally designed green walls. We create beautiful vertical gardens for homes, offices, hotels, restaurants and commercial environments.",
@@ -71,7 +71,7 @@
         "button_label": "Contact Us",
         "button_link": "",
         "anchor": "green-wall",
-        "image_side": "left",
+        "image_side": "right",
         "bg_color": "#f8f4ec",
         "padding_top": 36,
         "padding_bottom": 36
@@ -80,19 +80,19 @@
     "service_4": {
       "type": "sbl-services-row",
       "settings": {
-        "number": "04",
+        "number": "03",
         "label": "Plant Rental",
         "title": "Plant Rental",
         "text": "Enhance your workplace, event or commercial environment with beautiful plants without the responsibility of ownership. Choose from our curated range of indoor and decorative plants.",
-        "features": "Office Plant Rental\nIndoor Plants\nEvent Plant Rental\nMaintenance Support",
+        "features": "Office Plant Rental\nIndoor Plants\nEvent Plant Rental\nMaintenance Support\nResidential Planting",
         "image": "shopify://shop_images/IMG_4121_1_2.jpg",
         "button_label": "Contact Us",
         "button_link": "",
         "anchor": "plant-rental",
-        "image_side": "right",
+        "image_side": "left",
         "bg_color": "#f8f4ec",
         "padding_top": 36,
-        "padding_bottom": 72
+        "padding_bottom": 36
       }
     },
     "services_clients": {
@@ -178,9 +178,9 @@
   "order": [
     "services_hero",
     "service_1",
-    "service_2",
     "service_3",
     "service_4",
+    "service_2",
     "services_clients"
   ]
 }
