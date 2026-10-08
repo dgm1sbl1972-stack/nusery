@@ -1,6 +1,6 @@
 {%- comment -%}
   Header for the gifting pages (Gifting Hampers, Make Your Own Hamper, Corporate Gifts).
-  Top bar · Personalised / Corporate switch · logo · search and icons · one menu row holding a single 'Gifting Hamper' dropdown.
+  Top bar · Personalised / Corporate switch · logo · search and icons · an optional menu row (add a Dropdown block to show it).
   layout/theme.liquid hides the store's normal header on the templates that use this section.
 {%- endcomment -%}
 {%- liquid
@@ -29,9 +29,13 @@
 
   <div class="gxh__main">
     <div class="page-width gxh__row">
-      <button type="button" class="gxh__burger" aria-label="Open menu" aria-expanded="false" aria-controls="GiftNav-{{ sid }}" data-gxh-open>
-        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </button>
+      {%- if section.blocks.size > 0 -%}
+        <button type="button" class="gxh__burger" aria-label="Open menu" aria-expanded="false" aria-controls="GiftNav-{{ sid }}" data-gxh-open>
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      {%- else -%}
+        <span class="gxh__burger gxh__burger--empty" aria-hidden="true"></span>
+      {%- endif -%}
 
       <div class="gxh__switch" role="group" aria-label="Gift type">
         <a class="gxh__switch-btn{% unless corporate_active %} is-active{% endunless %}" href="{{ personal_url }}"{% unless corporate_active %} aria-current="page"{% endunless %}>
@@ -76,6 +80,7 @@
     </form>
   </div>
 
+  {%- if section.blocks.size > 0 -%}
   <div class="gxh__overlay" data-gxh-close></div>
   <nav class="gxh__nav" id="GiftNav-{{ sid }}" aria-label="Gifting">
     <div class="gxh__drawer-head">
@@ -115,6 +120,7 @@
       {%- endfor -%}
     </ul>
   </nav>
+  {%- endif -%}
 </div>
 
 <script>
@@ -201,6 +207,7 @@ html.gxh-locked { overflow: hidden; }
 @media (max-width: 989px) {
   .gxh__row { grid-template-columns: auto 1fr auto; gap: 10px; padding-top: 10px; padding-bottom: 8px; }
   .gxh__burger { display: inline-flex; }
+  .gxh__burger--empty { width: 32px; visibility: hidden; }
   .gxh__logo { justify-self: center; }
   .gxh__brand { font-size: 22px; }
   .gxh__logo-img { height: min(var(--gxh-logo-h, 56px), 48px); max-width: 44vw; }
@@ -293,9 +300,7 @@ html.gxh-locked { overflow: hidden; }
   "presets": [
     {
       "name": "Gifting: Header",
-      "blocks": [
-        { "type": "dropdown" }
-      ]
+      "blocks": []
     }
   ]
 }
