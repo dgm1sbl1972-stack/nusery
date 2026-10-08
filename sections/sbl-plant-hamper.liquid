@@ -1,0 +1,986 @@
+{%- comment -%}
+  Make Your Own Plant Hamper: 1 Choose your basket → 2 Choose plants → 3 Add accessories → 4 Personalize & checkout.
+  A sticky summary on the right keeps the running total; "Preview hamper" draws the picks together in a basket.
+  Everything goes to the cart together. Each line carries a "Hamper" reference, and the basket line also carries
+  the recipient, message, card, wrapping and delivery date, so the order shows what belongs in which hamper.
+  When a step's collection is empty, the theme editor shows example cards so the layout can be previewed.
+{%- endcomment -%}
+{%- liquid
+  assign sid = section.id
+  assign s = section.settings
+  assign demo = request.design_mode
+
+  assign basket_count = s.basket_collection.products.size | default: 0
+  assign plant_count = s.plant_collection.products.size | default: 0
+  assign accessory_count = s.accessory_collection.products.size | default: 0
+  assign card_count = s.card_collection.products.size | default: 0
+
+  assign basket_required = s.basket_required
+  if basket_count == 0 and demo == false
+    assign basket_required = false
+  endif
+
+  assign demo_baskets = 'Small Plant Basket:49900|Medium Garden Hamper:89900|Premium Plant Hamper:149900|Eco Gift Basket:69900' | split: '|'
+  assign demo_plants = 'Peace Lily:44900|Snake Plant:39900|Syngonium:29900|Money Plant:24900|Succulents:19900|Flowering Plants:34900|Indoor Plants:39900|Small Fruit Plants:54900' | split: '|'
+  assign demo_accessories = 'Decorative pots:34900|Plant stands:59900|Gardening tools:29900|Organic fertilizer:14900|Plant care kits:39900|Pebbles:9900|Seeds:7900|Greeting cards:9900|Plant tags:4900' | split: '|'
+  assign demo_cards = 'Birthday card:9900|Thank you card:9900|Congratulations card:9900|Get well soon card:9900' | split: '|'
+
+  assign fee_cents = s.delivery_fee | times: 100
+  assign free_over_cents = s.free_delivery_over | times: 100
+-%}
+<section class="ph" id="PlantHamper-{{ sid }}"
+  style="--ph-bg: {{ s.bg_color }}; --ph-accent: {{ s.accent_color }}; --ph-sage: {{ s.sage_color }}; --ph-beige: {{ s.beige_color }}; --ph-cols: {{ s.columns_desktop }};"
+  data-hamper
+  data-min="{{ s.min_plants }}"
+  data-max="{{ s.max_plants }}"
+  data-basket-required="{{ basket_required }}"
+  data-delivery-mode="{{ s.delivery_mode }}"
+  data-delivery-fee="{{ fee_cents }}"
+  data-free-over="{{ free_over_cents }}"
+  data-lead-days="{{ s.lead_days }}"
+  data-money-format="{{ shop.money_format | escape }}">
+  <div class="page-width">
+    <header class="ph__head">
+      {%- if s.eyebrow != blank -%}<p class="ph__eyebrow">{{ s.eyebrow | escape }}</p>{%- endif -%}
+      {%- if s.heading != blank -%}<h1 class="ph__title">{{ s.heading | escape }}</h1>{%- endif -%}
+      {%- if s.subheading != blank -%}<p class="ph__sub">{{ s.subheading | escape }}</p>{%- endif -%}
+    </header>
+
+    <ol class="ph__steps" aria-label="Hamper steps">
+      {%- for n in (1..4) -%}
+        {%- assign label_key = 'step_' | append: n | append: '_label' -%}
+        <li class="ph__step{% if n == 1 %} is-current{% endif %}" data-step-tab="{{ n }}">
+          <button type="button" class="ph__step-btn" data-goto="{{ n }}" {% if n == 1 %}aria-current="step"{% endif %}>
+            <span class="ph__step-icon" aria-hidden="true">
+              {%- case n -%}
+                {%- when 1 -%}<svg viewBox="0 0 32 32"><path d="M4 13h24l-2.4 12.2a2 2 0 0 1-2 1.6H8.4a2 2 0 0 1-2-1.6L4 13Z"/><path d="M9 13a7 7 0 0 1 14 0M10 17v6M16 17v6M22 17v6"/></svg>
+                {%- when 2 -%}<svg viewBox="0 0 32 32"><path d="M16 27V15"/><path d="M16 16c0-5 3.6-9 9-9 0 5-3.6 9-9 9Z"/><path d="M16 20c0-4-3-7-8-7 0 4 3 7 8 7Z"/><path d="M10 27h12"/></svg>
+                {%- when 3 -%}<svg viewBox="0 0 32 32"><path d="M9 14h14l-1.6 11.4a2 2 0 0 1-2 1.6h-6.8a2 2 0 0 1-2-1.6L9 14Z"/><path d="M7.5 14h17"/><path d="M16 14V9m0 0c0-2.5 1.8-4 4-4 0 2.5-1.8 4-4 4Zm0 0c0-2-1.5-3.4-3.5-3.4 0 2 1.5 3.4 3.5 3.4Z"/></svg>
+                {%- else -%}<svg viewBox="0 0 32 32"><rect x="5" y="13" width="22" height="14" rx="1.5"/><path d="M4 9h24v4H4zM16 9v18"/><path d="M16 9c-2-4-7-5-7-1.5C9 9 13 9 16 9Zm0 0c2-4 7-5 7-1.5C23 9 19 9 16 9Z"/></svg>
+              {%- endcase -%}
+            </span>
+            <span class="ph__step-num">Step {{ n }}</span>
+            <span class="ph__step-label">{{ s[label_key] | escape }}</span>
+          </button>
+        </li>
+      {%- endfor -%}
+    </ol>
+
+    <div class="ph__layout">
+      <div class="ph__main">
+        {%- for n in (1..3) -%}
+          {%- liquid
+            case n
+              when 1
+                assign kind = 'basket'
+                assign source = s.basket_collection
+                assign count = basket_count
+                assign add_label = s.basket_button
+                assign demo_list = demo_baskets
+                assign show_rating = false
+              when 2
+                assign kind = 'plant'
+                assign source = s.plant_collection
+                assign count = plant_count
+                assign add_label = s.plant_button
+                assign demo_list = demo_plants
+                assign show_rating = s.show_rating
+              else
+                assign kind = 'accessory'
+                assign source = s.accessory_collection
+                assign count = accessory_count
+                assign add_label = s.accessory_button
+                assign demo_list = demo_accessories
+                assign show_rating = false
+            endcase
+            assign title_key = 'step_' | append: n | append: '_title'
+            assign text_key = 'step_' | append: n | append: '_text'
+            assign next_n = n | plus: 1
+            assign next_label_key = 'step_' | append: next_n | append: '_label'
+          -%}
+          <div class="ph__panel" data-step="{{ n }}" {% unless n == 1 %}hidden{% endunless %}>
+            <div class="ph__panel-head">
+              <h2 class="ph__panel-title">{{ s[title_key] | escape }}</h2>
+              {%- if s[text_key] != blank -%}<p class="ph__panel-text">{{ s[text_key] | escape }}</p>{%- endif -%}
+            </div>
+            {%- if count > 0 -%}
+              <div class="ph__grid ph__grid--{{ kind }}">
+                {%- for product in source.products limit: 48 -%}
+                  {%- render 'sbl-plant-hamper-item', product: product, kind: kind, add_label: add_label, show_rating: show_rating -%}
+                {%- endfor -%}
+              </div>
+            {%- elsif demo -%}
+              <p class="ph__note">Example cards: choose the collection for this step in the section settings. Only you see this note.</p>
+              <div class="ph__grid ph__grid--{{ kind }}">
+                {%- for entry in demo_list -%}
+                  {%- assign parts = entry | split: ':' -%}
+                  {%- assign demo_price = parts[1] | plus: 0 -%}
+                  {%- render 'sbl-plant-hamper-item', kind: kind, add_label: add_label, show_rating: show_rating, demo_title: parts[0], demo_price: demo_price, demo_index: forloop.index -%}
+                {%- endfor -%}
+              </div>
+            {%- else -%}
+              <p class="ph__empty">New picks are on their way. You can continue to the next step.</p>
+            {%- endif -%}
+            <p class="ph__error ph__error--inline" data-error role="alert" hidden></p>
+            <div class="ph__panel-nav">
+              {%- if n > 1 -%}<button type="button" class="ph__btn ph__btn--ghost" data-back>Back</button>{%- endif -%}
+              <button type="button" class="ph__btn" data-next>Continue: {{ s[next_label_key] | escape }}</button>
+            </div>
+          </div>
+        {%- endfor -%}
+
+        <div class="ph__panel" data-step="4" hidden>
+          <div class="ph__panel-head">
+            <h2 class="ph__panel-title">{{ s.step_4_title | escape }}</h2>
+            {%- if s.step_4_text != blank -%}<p class="ph__panel-text">{{ s.step_4_text | escape }}</p>{%- endif -%}
+          </div>
+
+          <div class="ph__form">
+            <label><span>Recipient name</span><input type="text" maxlength="40" autocomplete="off" placeholder="Who is it for?" data-field="To"></label>
+            <label><span>Your name</span><input type="text" maxlength="40" autocomplete="name" placeholder="From" data-field="From"></label>
+            <label class="ph__form-full"><span>Gift message</span><textarea rows="4" maxlength="{{ s.message_max }}" placeholder="Write a few warm words…" data-field="Gift message"></textarea><small class="ph__count"><span data-count>0</span> / {{ s.message_max }}</small></label>
+            <label><span>Delivery date</span><input type="date" data-field="Delivery date" data-date></label>
+          </div>
+
+          <fieldset class="ph__choice">
+            <legend>Greeting card</legend>
+            <div class="ph__cards">
+              <button type="button" class="ph__card-none is-picked" data-card-none aria-pressed="true">
+                <span class="ph__card-none-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M6.5 17.5l11-11"/></svg></span>
+                No card
+              </button>
+              {%- if card_count > 0 -%}
+                {%- for product in s.card_collection.products limit: 12 -%}
+                  {%- render 'sbl-plant-hamper-item', product: product, kind: 'card', add_label: 'Choose', show_rating: false -%}
+                {%- endfor -%}
+              {%- elsif demo -%}
+                {%- for entry in demo_cards -%}
+                  {%- assign parts = entry | split: ':' -%}
+                  {%- assign demo_price = parts[1] | plus: 0 -%}
+                  {%- render 'sbl-plant-hamper-item', kind: 'card', add_label: 'Choose', show_rating: false, demo_title: parts[0], demo_price: demo_price, demo_index: forloop.index -%}
+                {%- endfor -%}
+              {%- endif -%}
+            </div>
+          </fieldset>
+
+          {%- assign wraps = section.blocks | where: 'type', 'wrap' -%}
+          {%- if wraps.size > 0 -%}
+            <fieldset class="ph__choice">
+              <legend>Ribbon &amp; wrapping style</legend>
+              <div class="ph__wraps">
+                {%- for block in wraps -%}
+                  {%- liquid
+                    assign wrap_variant = ''
+                    assign wrap_price = 0
+                    if block.settings.product != blank
+                      assign wrap_variant = block.settings.product.selected_or_first_available_variant.id
+                      assign wrap_price = block.settings.product.selected_or_first_available_variant.price
+                    endif
+                  -%}
+                  <button type="button" class="ph__wrap{% if forloop.first %} is-picked{% endif %}" data-wrap data-title="{{ block.settings.title | escape }}" data-color="{{ block.settings.color }}" data-variant="{{ wrap_variant }}" data-price="{{ wrap_price }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}" {{ block.shopify_attributes }}>
+                    <span class="ph__wrap-swatch" style="--wrap: {{ block.settings.color }};">
+                      {%- if block.settings.image != blank -%}{{ block.settings.image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+                    </span>
+                    <span class="ph__wrap-text">
+                      <span class="ph__wrap-name">{{ block.settings.title | escape }}</span>
+                      <span class="ph__wrap-price">{% if wrap_price > 0 %}+ {{ wrap_price | money_without_trailing_zeros }}{% else %}Included{% endif %}</span>
+                    </span>
+                  </button>
+                {%- endfor -%}
+              </div>
+            </fieldset>
+          {%- endif -%}
+
+          <p class="ph__error ph__error--inline" data-error role="alert" hidden></p>
+          <div class="ph__panel-nav">
+            <button type="button" class="ph__btn ph__btn--ghost" data-back>Back</button>
+            <button type="button" class="ph__btn ph__btn--ghost" data-preview>{{ s.preview_button | escape }}</button>
+            <button type="button" class="ph__btn" data-add-cart>{{ s.cart_button | escape }}</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="ph__summary" id="PlantHamperSummary-{{ sid }}" aria-label="{{ s.summary_title | escape }}">
+        <div class="ph__summary-card">
+          <div class="ph__summary-head">
+            <h2 class="ph__summary-title">{{ s.summary_title | escape }}</h2>
+            <span class="ph__summary-count" data-count-label>0 items</span>
+          </div>
+
+          <div class="ph__group">
+            <h3 class="ph__group-title">Basket</h3>
+            <ul class="ph__lines" data-list="basket" role="list"></ul>
+            <p class="ph__group-empty" data-empty="basket">No basket chosen yet</p>
+          </div>
+          <div class="ph__group">
+            <h3 class="ph__group-title">Plants</h3>
+            <ul class="ph__lines" data-list="plant" role="list"></ul>
+            <p class="ph__group-empty" data-empty="plant">Add plants in step 2</p>
+          </div>
+          <div class="ph__group">
+            <h3 class="ph__group-title">Accessories</h3>
+            <ul class="ph__lines" data-list="accessory" role="list"></ul>
+            <p class="ph__group-empty" data-empty="accessory">Optional extras in step 3</p>
+          </div>
+          <div class="ph__group">
+            <h3 class="ph__group-title">Personalization</h3>
+            <ul class="ph__lines" data-list="card" role="list"></ul>
+            <dl class="ph__personal" data-personal></dl>
+          </div>
+
+          <dl class="ph__totals">
+            <div><dt>Subtotal</dt><dd data-subtotal>{{ 0 | money_without_trailing_zeros }}</dd></div>
+            <div><dt>Delivery</dt><dd data-delivery>{% if s.delivery_mode == 'checkout' %}At checkout{% else %}{{ fee_cents | money_without_trailing_zeros }}{% endif %}</dd></div>
+            <div class="ph__totals-total"><dt>Total</dt><dd data-total>{{ 0 | money_without_trailing_zeros }}</dd></div>
+          </dl>
+          {%- if s.delivery_note != blank -%}<p class="ph__delivery-note" data-delivery-note>{{ s.delivery_note | escape }}</p>{%- endif -%}
+
+          <p class="ph__error" data-error role="alert" hidden></p>
+          <div class="ph__summary-actions">
+            <button type="button" class="ph__btn ph__btn--ghost" data-preview>{{ s.preview_button | escape }}</button>
+            <button type="button" class="ph__btn" data-add-cart>{{ s.cart_button | escape }}</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="ph__bar" aria-hidden="true">
+    <span class="ph__bar-info"><strong data-bar-total>{{ 0 | money_without_trailing_zeros }}</strong><span data-bar-count>0 items</span></span>
+    <a class="ph__btn ph__btn--ghost" href="#PlantHamperSummary-{{ sid }}" tabindex="-1">View hamper</a>
+    <button type="button" class="ph__btn" data-bar-next tabindex="-1">Continue</button>
+  </div>
+
+  <dialog class="ph__dialog" data-dialog aria-labelledby="PlantHamperPreview-{{ sid }}">
+    <div class="ph__dialog-inner">
+      <button type="button" class="ph__dialog-close" data-dialog-close aria-label="Close preview"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+      <h2 class="ph__dialog-title" id="PlantHamperPreview-{{ sid }}">Your hamper preview</h2>
+      <div class="ph__stage" data-stage>
+        <div class="ph__stage-items" data-stage-items></div>
+        <svg class="ph__basket" viewBox="0 0 400 190" aria-hidden="true">
+          <defs>
+            <pattern id="PhWeave-{{ sid }}" width="24" height="14" patternUnits="userSpaceOnUse">
+              <rect width="24" height="14" fill="#c49a62"/>
+              <path d="M0 7c6-5 12-5 12 0s6 5 12 0" fill="none" stroke="#a87b45" stroke-width="3"/>
+              <path d="M0 14h24" stroke="#9c703c" stroke-width="1.2" opacity=".6"/>
+            </pattern>
+            <linearGradient id="PhShade-{{ sid }}" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#3b2a14" stop-opacity=".35"/></linearGradient>
+          </defs>
+          <ellipse cx="200" cy="182" rx="168" ry="8" fill="#000" opacity=".12"/>
+          <path d="M22 22h356l-30 150a12 12 0 0 1-12 10H64a12 12 0 0 1-12-10L22 22Z" fill="url(#PhWeave-{{ sid }})"/>
+          <path d="M22 22h356l-30 150a12 12 0 0 1-12 10H64a12 12 0 0 1-12-10L22 22Z" fill="url(#PhShade-{{ sid }})"/>
+          <rect x="12" y="10" width="376" height="22" rx="11" fill="#b5884b"/>
+          <rect x="12" y="10" width="376" height="8" rx="4" fill="#d3ab72" opacity=".7"/>
+          <g data-ribbon fill="#2f5d3a">
+            <rect x="0" y="72" width="400" height="16" opacity=".92"/>
+            <path d="M200 80c-22-26-58-20-46 2 8 14 30 6 46-2Zm0 0c22-26 58-20 46 2-8 14-30 6-46-2Z"/>
+            <path d="M196 84l-16 40 12-4 6 12 6-46Zm8 0 16 40-12-4-6 12-6-46Z" opacity=".9"/>
+            <circle cx="200" cy="81" r="8"/>
+          </g>
+        </svg>
+        <div class="ph__tag" data-tag hidden><span>For</span><strong data-tag-name></strong></div>
+      </div>
+      <ul class="ph__preview-list" data-preview-list role="list"></ul>
+      <div class="ph__dialog-foot">
+        <span>Total <strong data-dialog-total>{{ 0 | money_without_trailing_zeros }}</strong></span>
+        <button type="button" class="ph__btn" data-add-cart>{{ s.cart_button | escape }}</button>
+      </div>
+    </div>
+  </dialog>
+</section>
+
+<script>
+  (function () {
+    var root = document.getElementById('PlantHamper-{{ sid }}');
+    if (!root || root.dataset.ready) return;
+    root.dataset.ready = '1';
+
+    var min = Number(root.dataset.min) || 0;
+    var max = Number(root.dataset.max) || 0;
+    var basketRequired = root.dataset.basketRequired === 'true';
+    var deliveryMode = root.dataset.deliveryMode;
+    var deliveryFee = Number(root.dataset.deliveryFee) || 0;
+    var freeOver = Number(root.dataset.freeOver) || 0;
+    var leadDays = Number(root.dataset.leadDays) || 0;
+    var moneyFormat = root.dataset.moneyFormat || ('{' + '{amount}' + '}');
+    var step = 1;
+    var state = { basket: null, card: null, plant: {}, accessory: {} };
+    var wrap = null;
+    var dialog = root.querySelector('[data-dialog]');
+
+    function formatMoney(cents) {
+      var n = (Number(cents) || 0) / 100;
+      return moneyFormat.replace(/\{\{\s*(\w+)\s*\}\}/, function (_, key) {
+        var decimals = /no_decimals/.test(key) || n % 1 === 0 ? 0 : 2;
+        var parts = n.toFixed(decimals).split('.');
+        var sep = /comma_separator/.test(key) ? ['.', ','] : [',', '.'];
+        if (/amount_with_space_separator/.test(key)) sep = [' ', ','];
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, sep[0]);
+        return parts.join(sep[1]);
+      });
+    }
+    function itemData(el) {
+      return { id: el.dataset.variant, title: el.dataset.title, price: Number(el.dataset.price) || 0, image: el.dataset.image };
+    }
+    function isMulti(kind) { return kind === 'plant' || kind === 'accessory'; }
+    function qtyOf(kind) {
+      return Object.keys(state[kind]).reduce(function (sum, k) { return sum + state[kind][k].qty; }, 0);
+    }
+    function showError(msg) {
+      root.querySelectorAll('[data-error]').forEach(function (el) { el.textContent = msg || ''; el.hidden = !msg; });
+    }
+    function field(name) {
+      var f = root.querySelector('[data-field="' + name + '"]');
+      return f ? f.value.trim() : '';
+    }
+
+    function subtotal() {
+      var total = 0;
+      if (state.basket) total += state.basket.price;
+      if (state.card) total += state.card.price;
+      ['plant', 'accessory'].forEach(function (k) {
+        Object.keys(state[k]).forEach(function (id) { total += state[k][id].price * state[k][id].qty; });
+      });
+      if (wrap) total += wrap.price;
+      return total;
+    }
+    function deliveryCost(sub) {
+      if (deliveryMode === 'checkout') return null;
+      if (sub === 0) return 0;
+      if (freeOver && sub >= freeOver) return 0;
+      return deliveryFee;
+    }
+    function itemCount() {
+      return (state.basket ? 1 : 0) + qtyOf('plant') + qtyOf('accessory') + (state.card ? 1 : 0);
+    }
+
+    function syncItems() {
+      root.querySelectorAll('[data-item]').forEach(function (el) {
+        var kind = el.dataset.kind;
+        var id = el.dataset.variant;
+        var on = isMulti(kind) ? !!state[kind][id] : !!(state[kind] && state[kind].id === id);
+        el.classList.toggle('is-picked', on);
+        var add = el.querySelector('[data-add]');
+        var qty = el.querySelector('[data-qty]');
+        if (add) {
+          add.setAttribute('aria-pressed', on ? 'true' : 'false');
+          if (isMulti(kind)) add.hidden = on;
+          else add.textContent = on ? 'Selected ✓' : add.dataset.label;
+        }
+        if (qty) {
+          qty.hidden = !on;
+          if (on) qty.querySelector('[data-qty-value]').textContent = state[kind][id].qty;
+        }
+      });
+      var none = root.querySelector('[data-card-none]');
+      if (none) { none.classList.toggle('is-picked', !state.card); none.setAttribute('aria-pressed', state.card ? 'false' : 'true'); }
+    }
+
+    function line(kind, it, qty) {
+      var li = document.createElement('li');
+      li.className = 'ph__line';
+      var media = it.image ? document.createElement('img') : document.createElement('span');
+      if (it.image) { media.src = it.image; media.alt = ''; media.width = 44; media.height = 44; media.loading = 'lazy'; }
+      else media.className = 'ph__line-ph';
+      var text = document.createElement('span');
+      text.className = 'ph__line-text';
+      var title = document.createElement('span');
+      title.className = 'ph__line-title';
+      title.textContent = (qty > 1 ? qty + ' × ' : '') + it.title;
+      var price = document.createElement('span');
+      price.className = 'ph__line-price';
+      price.textContent = formatMoney(it.price * qty);
+      text.appendChild(title);
+      var rm = document.createElement('button');
+      rm.type = 'button';
+      rm.className = 'ph__line-remove';
+      rm.dataset.remove = kind + ':' + it.id;
+      rm.setAttribute('aria-label', 'Remove ' + it.title);
+      rm.textContent = '×';
+      li.appendChild(media); li.appendChild(text); li.appendChild(price); li.appendChild(rm);
+      return li;
+    }
+
+    function renderSummary() {
+      ['basket', 'plant', 'accessory', 'card'].forEach(function (kind) {
+        var list = root.querySelector('[data-list="' + kind + '"]');
+        list.innerHTML = '';
+        if (isMulti(kind)) Object.keys(state[kind]).forEach(function (id) { list.appendChild(line(kind, state[kind][id], state[kind][id].qty)); });
+        else if (state[kind]) list.appendChild(line(kind, state[kind], 1));
+        var empty = root.querySelector('[data-empty="' + kind + '"]');
+        if (empty) empty.hidden = list.children.length > 0;
+      });
+
+      var personal = root.querySelector('[data-personal]');
+      personal.innerHTML = '';
+      var rows = [['To', field('To')], ['From', field('From')], ['Wrapping', wrap ? wrap.title + (wrap.price ? ' (' + formatMoney(wrap.price) + ')' : '') : ''], ['Delivery', prettyDate(field('Delivery date'))], ['Message', field('Gift message') ? '“' + field('Gift message').slice(0, 60) + (field('Gift message').length > 60 ? '…' : '') + '”' : '']];
+      rows.forEach(function (r) {
+        if (!r[1]) return;
+        var wrapEl = document.createElement('div');
+        var dt = document.createElement('dt'); dt.textContent = r[0];
+        var dd = document.createElement('dd'); dd.textContent = r[1];
+        wrapEl.appendChild(dt); wrapEl.appendChild(dd); personal.appendChild(wrapEl);
+      });
+      if (!personal.children.length) {
+        var hint = document.createElement('div');
+        hint.className = 'ph__personal-empty';
+        hint.textContent = 'Add a message, wrap and date in step 4';
+        personal.appendChild(hint);
+      }
+
+      var sub = subtotal();
+      var del = deliveryCost(sub);
+      var count = itemCount();
+      var countText = count + (count === 1 ? ' item' : ' items');
+      root.querySelector('[data-count-label]').textContent = countText;
+      root.querySelector('[data-bar-count]').textContent = countText;
+      root.querySelector('[data-subtotal]').textContent = formatMoney(sub);
+      root.querySelector('[data-delivery]').textContent = del === null ? 'At checkout' : (del === 0 ? (sub ? 'Free' : formatMoney(0)) : formatMoney(del));
+      var total = formatMoney(sub + (del || 0));
+      root.querySelector('[data-total]').textContent = total;
+      root.querySelector('[data-bar-total]').textContent = total;
+      root.querySelector('[data-dialog-total]').textContent = total;
+      var note = root.querySelector('[data-delivery-note]');
+      if (note && deliveryMode !== 'checkout' && freeOver && sub > 0 && sub < freeOver) {
+        note.textContent = 'Add ' + formatMoney(freeOver - sub) + ' more for free delivery.';
+      } else if (note) {
+        note.textContent = note.dataset.base || note.textContent;
+      }
+    }
+
+    function prettyDate(v) {
+      if (!v) return '';
+      var d = new Date(v + 'T00:00:00');
+      if (isNaN(d)) return v;
+      return d.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' });
+    }
+
+    function refresh() { syncItems(); renderSummary(); }
+
+    function validate(n) {
+      if (n === 1 && basketRequired && !state.basket) return 'Please choose a basket to continue.';
+      if (n === 2 && qtyOf('plant') < min) return 'Please add at least ' + min + (min === 1 ? ' plant' : ' plants') + ' to your hamper.';
+      return '';
+    }
+
+    function go(n, quiet) {
+      for (var i = 1; i < n; i++) {
+        var err = validate(i);
+        if (err) { n = i; showError(err); break; }
+        showError('');
+      }
+      step = n;
+      root.querySelectorAll('[data-step]').forEach(function (p) { p.hidden = Number(p.dataset.step) !== step; });
+      root.querySelectorAll('[data-step-tab]').forEach(function (li) {
+        var k = Number(li.dataset.stepTab);
+        li.classList.toggle('is-current', k === step);
+        li.classList.toggle('is-done', k < step);
+        var b = li.querySelector('button');
+        if (k === step) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+      });
+      root.querySelector('[data-bar-next]').textContent = step === 4 ? root.querySelector('[data-add-cart]').textContent : 'Continue';
+      if (quiet) return;
+      var top = root.querySelector('.ph__steps').getBoundingClientRect().top + window.scrollY - 90;
+      if (Math.abs(window.scrollY - top) > 40) window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+
+    function openPreview() {
+      var stage = root.querySelector('[data-stage-items]');
+      var list = root.querySelector('[data-preview-list]');
+      stage.innerHTML = '';
+      list.innerHTML = '';
+      var pieces = [];
+      ['plant', 'accessory'].forEach(function (k) {
+        Object.keys(state[k]).forEach(function (id) {
+          for (var q = 0; q < Math.min(state[k][id].qty, 3); q++) pieces.push({ kind: k, it: state[k][id] });
+        });
+      });
+      if (state.card) pieces.push({ kind: 'card', it: state.card });
+      pieces.sort(function (a, b) { return (a.kind === 'plant' ? 0 : 1) - (b.kind === 'plant' ? 0 : 1); });
+      var plants = pieces.filter(function (p) { return p.kind === 'plant'; });
+      var extras = pieces.filter(function (p) { return p.kind !== 'plant'; });
+      function place(group, row) {
+        group.forEach(function (p, i) {
+          var el = document.createElement('span');
+          el.className = 'ph__piece ph__piece--' + (row === 0 ? 'back' : 'front');
+          var spread = group.length > 1 ? (i / (group.length - 1)) : 0.5;
+          var x = row === 0 ? 14 + spread * 72 : 22 + spread * 56;
+          var lift = row === 0 ? Math.sin(spread * Math.PI) * 14 : 0;
+          el.style.left = x + '%';
+          el.style.bottom = (row === 0 ? 40 + lift : 30) + '%';
+          el.style.zIndex = row === 0 ? 1 + Math.round(lift) : 30;
+          el.style.transform = 'translateX(-50%) rotate(' + ((spread - 0.5) * (row === 0 ? 16 : 10)) + 'deg)';
+          if (p.it.image) {
+            var img = document.createElement('img');
+            img.src = p.it.image; img.alt = ''; img.width = 120; img.height = 120;
+            el.appendChild(img);
+          } else {
+            el.classList.add('ph__piece--ph');
+            el.textContent = p.it.title.charAt(0);
+          }
+          stage.appendChild(el);
+        });
+      }
+      place(plants.slice(0, 7), 0);
+      place(extras.slice(0, 5), 1);
+      root.querySelector('[data-stage]').classList.toggle('is-empty', pieces.length === 0);
+
+      var ribbon = root.querySelector('[data-ribbon]');
+      if (ribbon) ribbon.setAttribute('fill', wrap && wrap.color ? wrap.color : '{{ s.accent_color }}');
+      var tag = root.querySelector('[data-tag]');
+      var to = field('To');
+      tag.hidden = !to;
+      root.querySelector('[data-tag-name]').textContent = to;
+
+      var rows = [];
+      if (state.basket) rows.push(state.basket.title);
+      Object.keys(state.plant).forEach(function (id) { rows.push((state.plant[id].qty > 1 ? state.plant[id].qty + ' × ' : '') + state.plant[id].title); });
+      Object.keys(state.accessory).forEach(function (id) { rows.push((state.accessory[id].qty > 1 ? state.accessory[id].qty + ' × ' : '') + state.accessory[id].title); });
+      if (state.card) rows.push(state.card.title);
+      if (wrap) rows.push(wrap.title);
+      if (!rows.length) rows.push('Your hamper is empty. Choose a basket and some plants to see it here.');
+      rows.forEach(function (r) { var li = document.createElement('li'); li.textContent = r; list.appendChild(li); });
+
+      if (dialog.showModal) dialog.showModal(); else dialog.setAttribute('open', '');
+    }
+    function closePreview() { if (dialog.close) dialog.close(); else dialog.removeAttribute('open'); }
+
+    root.querySelectorAll('[data-item] [data-add]').forEach(function (btn) { btn.dataset.label = btn.textContent.trim(); });
+
+    root.addEventListener('click', function (e) {
+      var t = e.target;
+      var item = t.closest('[data-item]');
+      if (t.closest('[data-add]') && item) {
+        var kind = item.dataset.kind;
+        var it = itemData(item);
+        showError('');
+        if (isMulti(kind)) {
+          if (kind === 'plant' && max && qtyOf('plant') >= max) { showError('You can add up to ' + max + ' plants to one hamper.'); return; }
+          state[kind][it.id] = Object.assign(it, { qty: 1 });
+        } else {
+          state[kind] = state[kind] && state[kind].id === it.id ? null : it;
+        }
+        refresh();
+        return;
+      }
+      if (t.closest('[data-plus]') && item) {
+        if (item.dataset.kind === 'plant' && max && qtyOf('plant') >= max) { showError('You can add up to ' + max + ' plants to one hamper.'); return; }
+        state[item.dataset.kind][item.dataset.variant].qty++;
+        refresh();
+        return;
+      }
+      if (t.closest('[data-minus]') && item) {
+        var bag = state[item.dataset.kind];
+        var p = bag[item.dataset.variant];
+        if (p && --p.qty <= 0) delete bag[item.dataset.variant];
+        showError('');
+        refresh();
+        return;
+      }
+      if (t.closest('[data-card-none]')) { state.card = null; refresh(); return; }
+      var w = t.closest('[data-wrap]');
+      if (w) {
+        root.querySelectorAll('[data-wrap]').forEach(function (b) { var on = b === w; b.classList.toggle('is-picked', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+        wrap = { title: w.dataset.title, color: w.dataset.color, id: w.dataset.variant, price: Number(w.dataset.price) || 0 };
+        renderSummary();
+        return;
+      }
+      var rm = t.closest('[data-remove]');
+      if (rm) {
+        var parts = rm.dataset.remove.split(':');
+        if (isMulti(parts[0])) delete state[parts[0]][parts.slice(1).join(':')]; else state[parts[0]] = null;
+        refresh();
+        return;
+      }
+      var goto = t.closest('[data-goto]');
+      if (goto) { go(Number(goto.dataset.goto)); return; }
+      if (t.closest('[data-next]')) { go(Math.min(step + 1, 4)); return; }
+      if (t.closest('[data-bar-next]')) { if (step === 4) addToCart(t.closest('[data-bar-next]')); else go(step + 1); return; }
+      if (t.closest('[data-back]')) { showError(''); go(Math.max(step - 1, 1)); return; }
+      if (t.closest('[data-preview]')) { openPreview(); return; }
+      if (t.closest('[data-dialog-close]') || t === dialog) { closePreview(); return; }
+      if (t.closest('[data-add-cart]')) addToCart(t.closest('[data-add-cart]'));
+    });
+
+    /* Changing a product's option swaps the variant (and keeps it in the hamper if it was added). */
+    root.addEventListener('change', function (e) {
+      var sel = e.target.closest('[data-variant-select]');
+      if (!sel) return;
+      var item = sel.closest('[data-item]');
+      var opt = sel.options[sel.selectedIndex];
+      var oldId = item.dataset.variant;
+      var kind = item.dataset.kind;
+      item.dataset.variant = opt.value;
+      item.dataset.price = opt.dataset.price;
+      item.querySelector('[data-price-label]').textContent = opt.dataset.money;
+      if (isMulti(kind) && state[kind][oldId]) {
+        var qty = state[kind][oldId].qty;
+        delete state[kind][oldId];
+        state[kind][opt.value] = Object.assign(itemData(item), { qty: qty });
+      } else if (!isMulti(kind) && state[kind] && state[kind].id === oldId) {
+        state[kind] = itemData(item);
+      }
+      refresh();
+    });
+
+    root.querySelectorAll('[data-field]').forEach(function (f) { f.addEventListener('input', renderSummary); });
+    var message = root.querySelector('[data-field="Gift message"]');
+    if (message) message.addEventListener('input', function () { root.querySelector('[data-count]').textContent = message.value.length; });
+
+    var dateInput = root.querySelector('[data-date]');
+    if (dateInput) {
+      var d = new Date();
+      d.setDate(d.getDate() + leadDays);
+      var iso = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+      dateInput.min = iso;
+    }
+    var note = root.querySelector('[data-delivery-note]');
+    if (note) note.dataset.base = note.textContent;
+
+    var firstWrap = root.querySelector('[data-wrap].is-picked');
+    if (firstWrap) wrap = { title: firstWrap.dataset.title, color: firstWrap.dataset.color, id: firstWrap.dataset.variant, price: Number(firstWrap.dataset.price) || 0 };
+
+    function addToCart(btn) {
+      for (var i = 1; i <= 2; i++) {
+        var err = validate(i);
+        if (err) { closePreview(); go(i); showError(err); return; }
+      }
+      if (dateInput && dateInput.value && dateInput.min && dateInput.value < dateInput.min) {
+        closePreview(); go(4); showError('Please choose a delivery date from ' + prettyDate(dateInput.min) + ' onwards.'); return;
+      }
+      var all = [];
+      if (state.basket) all.push({ it: state.basket, qty: 1 });
+      ['plant', 'accessory'].forEach(function (k) { Object.keys(state[k]).forEach(function (id) { all.push({ it: state[k][id], qty: state[k][id].qty }); }); });
+      if (state.card) all.push({ it: state.card, qty: 1 });
+      if (wrap && wrap.id) all.push({ it: wrap, qty: 1 });
+      if (!all.length) { showError('Your hamper is empty.'); return; }
+      if (all.some(function (a) { return String(a.it.id).indexOf('demo-') === 0; })) {
+        showError('Example items can’t go in the cart. Choose real collections for each step in the section settings.');
+        return;
+      }
+
+      var ref = 'H-' + Date.now().toString(36).slice(-5).toUpperCase();
+      var personal = { Hamper: ref };
+      root.querySelectorAll('[data-field]').forEach(function (f) { if (f.value.trim()) personal[f.dataset.field] = f.dataset.field === 'Delivery date' ? prettyDate(f.value) + ' (' + f.value + ')' : f.value.trim(); });
+      if (state.card) personal['Greeting card'] = state.card.title;
+      if (wrap) personal['Wrapping'] = wrap.title;
+      var items = all.map(function (a, i) {
+        return { id: Number(a.it.id), quantity: a.qty, properties: i === 0 ? personal : { Hamper: ref } };
+      });
+
+      var buttons = root.querySelectorAll('[data-add-cart], [data-bar-next]');
+      buttons.forEach(function (b) { b.disabled = true; });
+      var label = btn.textContent;
+      btn.textContent = 'Adding…';
+      var cartRoot = (window.Shopify && Shopify.routes && Shopify.routes.root) || '/';
+      fetch(cartRoot + 'cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ items: items })
+      })
+        .then(function (r) { return r.json().then(function (data) { return { ok: r.ok, data: data }; }); })
+        .then(function (res) {
+          if (!res.ok) { showError(res.data.description || res.data.message || 'Could not add the hamper to your cart.'); return; }
+          state = { basket: null, card: null, plant: {}, accessory: {} };
+          root.querySelectorAll('[data-field]').forEach(function (f) { f.value = ''; });
+          var count = root.querySelector('[data-count]');
+          if (count) count.textContent = '0';
+          closePreview();
+          refresh();
+          go(1, true);
+          if (window.SBLCart) window.SBLCart.open(); else window.location.assign(cartRoot + 'cart');
+        })
+        .catch(function () { showError('Something went wrong. Please try again.'); })
+        .finally(function () {
+          buttons.forEach(function (b) { b.disabled = false; });
+          btn.textContent = label;
+        });
+    }
+
+    refresh();
+    go(1, true);
+  })();
+</script>
+
+{% stylesheet %}
+.ph { --ph-accent: #2f5d3a; --ph-sage: #9caf88; --ph-beige: #e8dcc6; --ph-ink: #1d2b20; --ph-line: color-mix(in srgb, var(--ph-beige) 70%, #b9a888); padding: 56px 0 72px; background: var(--ph-bg, #f6f1e7); color: var(--ph-ink); }
+.ph__head { max-width: 680px; margin: 0 auto 34px; text-align: center; }
+.ph__eyebrow { margin: 0 0 10px; font-size: 12px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--ph-accent); }
+.ph__title { margin: 0; font-family: var(--font-display); font-size: clamp(28px, 4vw, 44px); font-weight: 700; line-height: 1.12; color: var(--ph-ink); }
+.ph__sub { margin: 14px 0 0; font-size: 16px; line-height: 1.6; color: color-mix(in srgb, var(--ph-ink) 70%, transparent); }
+
+/* Progress */
+.ph__steps { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); max-width: 920px; margin: 0 auto 40px; padding: 0; list-style: none; counter-reset: none; }
+.ph__steps::before { content: ""; position: absolute; top: 28px; left: 12.5%; right: 12.5%; height: 2px; background: repeating-linear-gradient(90deg, var(--ph-sage) 0 6px, transparent 6px 12px); opacity: .7; }
+.ph__step { position: relative; display: flex; justify-content: center; }
+.ph__step-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 0 6px; border: 0; background: none; color: color-mix(in srgb, var(--ph-ink) 55%, transparent); font: inherit; text-align: center; cursor: pointer; }
+.ph__step-icon { display: grid; place-items: center; width: 56px; height: 56px; margin-bottom: 8px; border: 1.5px solid var(--ph-line); border-radius: 50%; background: var(--ph-bg, #f6f1e7); color: color-mix(in srgb, var(--ph-ink) 55%, transparent); transition: background .25s, color .25s, border-color .25s, box-shadow .25s; }
+.ph__step-icon svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.ph__step-num { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.ph__step-label { font-size: 14px; font-weight: 600; color: var(--ph-ink); opacity: .7; }
+.ph__step.is-current .ph__step-icon { border-color: var(--ph-accent); background: var(--ph-accent); color: #fff; box-shadow: 0 0 0 6px color-mix(in srgb, var(--ph-accent) 14%, transparent); }
+.ph__step.is-current .ph__step-num { color: var(--ph-accent); }
+.ph__step.is-current .ph__step-label { opacity: 1; }
+.ph__step.is-done .ph__step-icon { border-color: var(--ph-sage); background: color-mix(in srgb, var(--ph-sage) 22%, #fff); color: var(--ph-accent); }
+.ph__step-btn:focus-visible { outline: none; }
+.ph__step-btn:focus-visible .ph__step-icon { box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--ph-accent); }
+
+/* Layout */
+.ph__layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; align-items: start; gap: 36px; }
+.ph__panel-head { margin-bottom: 22px; }
+.ph__panel-title { margin: 0; font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--ph-ink); }
+.ph__panel-text { margin: 6px 0 0; font-size: 14.5px; color: color-mix(in srgb, var(--ph-ink) 65%, transparent); }
+.ph__note { margin: 0 0 16px; padding: 10px 14px; border-radius: 10px; background: color-mix(in srgb, var(--ph-sage) 20%, #fff); font-size: 13px; color: var(--ph-accent); }
+.ph__empty { padding: 36px; border: 1.5px dashed var(--ph-line); border-radius: 16px; text-align: center; color: color-mix(in srgb, var(--ph-ink) 60%, transparent); }
+.ph__grid { display: grid; grid-template-columns: repeat(var(--ph-cols, 3), minmax(0, 1fr)); gap: 20px; }
+.ph__grid--basket { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.ph__grid--accessory { grid-template-columns: repeat(calc(var(--ph-cols, 3) + 1), minmax(0, 1fr)); gap: 16px; }
+.ph__panel-nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--ph-line); }
+
+/* Cards */
+.ph-item { position: relative; display: flex; flex-direction: column; overflow: hidden; border: 1px solid color-mix(in srgb, var(--ph-line) 60%, transparent); border-radius: 18px; background: #fff; box-shadow: 0 1px 2px rgba(30, 45, 30, .04); transition: transform .25s, box-shadow .25s, border-color .25s; }
+.ph-item:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(30, 45, 30, .1); }
+.ph-item.is-picked { border-color: var(--ph-accent); box-shadow: 0 0 0 1.5px var(--ph-accent), 0 14px 30px rgba(30, 45, 30, .1); }
+.ph-item__media { position: relative; aspect-ratio: 1; overflow: hidden; background: linear-gradient(160deg, color-mix(in srgb, var(--ph-sage) 18%, #fff), var(--ph-beige)); }
+.ph-item--basket .ph-item__media { aspect-ratio: 4 / 3; }
+.ph-item__media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+.ph-item:hover .ph-item__media img { transform: scale(1.04); }
+.ph-item__ph, .ph-item__ph svg { display: block; width: 100%; height: 100%; }
+.ph-item__ph svg { fill: color-mix(in srgb, var(--ph-accent) 35%, transparent); opacity: .5; }
+.ph-item__tick { position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--ph-accent); color: #fff; opacity: 0; transform: scale(.6); transition: opacity .2s, transform .2s; }
+.ph-item.is-picked .ph-item__tick { opacity: 1; transform: none; }
+.ph-item__badge { position: absolute; top: 10px; left: 10px; padding: 4px 10px; border-radius: 999px; background: #fff; color: var(--ph-accent); font-size: 11px; font-weight: 700; letter-spacing: .04em; }
+.ph-item__badge--demo { background: color-mix(in srgb, var(--ph-beige) 80%, #fff); color: #7a6440; }
+.ph-item__body { display: flex; flex: 1; flex-direction: column; gap: 6px; padding: 14px 16px 16px; }
+.ph-item__title { margin: 0; font-size: 15px; font-weight: 600; line-height: 1.35; color: var(--ph-ink); }
+.ph-item .card-rating { margin: 0; }
+.ph-item__price { display: flex; align-items: baseline; gap: 8px; margin: 0 0 8px; font-size: 15px; font-weight: 700; color: var(--ph-accent); }
+.ph-item__price s { font-size: 12.5px; font-weight: 400; color: color-mix(in srgb, var(--ph-ink) 45%, transparent); }
+.ph-item__variant { width: 100%; margin-bottom: 8px; padding: 8px 10px; border: 1px solid var(--ph-line); border-radius: 10px; background: #fff; font: inherit; font-size: 13px; }
+.ph-item__add { margin-top: auto; width: 100%; padding: 11px 14px; border: 1.5px solid var(--ph-accent); border-radius: 999px; background: var(--ph-accent); color: #fff; font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: background .2s, color .2s; }
+.ph-item__add:hover { background: color-mix(in srgb, var(--ph-accent) 85%, #000); }
+.ph-item__add[aria-pressed="true"] { background: #fff; color: var(--ph-accent); }
+.ph-item__add--off { border-color: #ddd; background: #eee; color: #888; text-align: center; cursor: default; }
+.ph-item__qty { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding: 3px; border: 1.5px solid var(--ph-accent); border-radius: 999px; }
+.ph-item__qty button { width: 36px; height: 34px; border: 0; border-radius: 999px; background: color-mix(in srgb, var(--ph-sage) 25%, #fff); color: var(--ph-accent); font-size: 18px; cursor: pointer; }
+.ph-item__qty span { font-weight: 700; }
+.ph-item--accessory .ph-item__body { padding: 12px 12px 14px; }
+.ph-item--accessory .ph-item__title { font-size: 14px; }
+
+/* Personalize */
+.ph__form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ph__form label { display: flex; flex-direction: column; gap: 7px; font-size: 13px; font-weight: 600; }
+.ph__form-full { grid-column: 1 / -1; }
+.ph__form input, .ph__form textarea { width: 100%; box-sizing: border-box; padding: 13px 14px; border: 1px solid var(--ph-line); border-radius: 12px; background: #fff; font: inherit; font-size: 16px; font-weight: 400; color: var(--ph-ink); }
+.ph__form input:focus, .ph__form textarea:focus { outline: none; border-color: var(--ph-accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ph-accent) 15%, transparent); }
+.ph__count { align-self: flex-end; font-weight: 400; color: color-mix(in srgb, var(--ph-ink) 50%, transparent); }
+.ph__choice { margin: 28px 0 0; padding: 0; border: 0; }
+.ph__choice legend { margin-bottom: 12px; padding: 0; font-size: 15px; font-weight: 700; }
+.ph__cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+.ph__cards .ph-item__body { padding: 10px 12px 12px; }
+.ph__cards .ph-item__title { font-size: 13.5px; }
+.ph__cards .ph-item__media { aspect-ratio: 4 / 3; }
+.ph__card-none { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; min-height: 180px; border: 1.5px dashed var(--ph-line); border-radius: 18px; background: #fff; color: var(--ph-ink); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.ph__card-none.is-picked { border-style: solid; border-color: var(--ph-accent); color: var(--ph-accent); }
+.ph__card-none-icon svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.ph__wraps { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.ph__wrap { display: flex; align-items: center; gap: 12px; padding: 10px 14px 10px 10px; border: 1.5px solid var(--ph-line); border-radius: 14px; background: #fff; color: var(--ph-ink); font: inherit; text-align: left; cursor: pointer; transition: border-color .2s, box-shadow .2s; }
+.ph__wrap.is-picked { border-color: var(--ph-accent); box-shadow: 0 0 0 1px var(--ph-accent); }
+.ph__wrap-swatch { position: relative; flex: none; width: 44px; height: 44px; overflow: hidden; border-radius: 10px; background: var(--wrap); box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
+.ph__wrap-swatch::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 42%, rgba(255,255,255,.45) 42% 58%, transparent 58%); }
+.ph__wrap-swatch img { width: 100%; height: 100%; object-fit: cover; }
+.ph__wrap-text { display: flex; flex-direction: column; }
+.ph__wrap-name { font-size: 14px; font-weight: 600; }
+.ph__wrap-price { font-size: 12.5px; color: color-mix(in srgb, var(--ph-ink) 55%, transparent); }
+
+/* Buttons */
+.ph__btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 0 24px; border: 1.5px solid var(--ph-accent); border-radius: 999px; background: var(--ph-accent); color: #fff; font: inherit; font-size: 14.5px; font-weight: 600; text-decoration: none; cursor: pointer; transition: background .2s, color .2s, transform .2s; }
+.ph__btn:hover { transform: translateY(-1px); background: color-mix(in srgb, var(--ph-accent) 85%, #000); }
+.ph__btn--ghost { background: transparent; color: var(--ph-accent); }
+.ph__btn--ghost:hover { background: color-mix(in srgb, var(--ph-accent) 8%, transparent); }
+.ph__btn:disabled { opacity: .6; cursor: wait; }
+
+/* Summary */
+.ph__summary { position: sticky; top: 24px; }
+.ph__summary-card { padding: 24px; border: 1px solid color-mix(in srgb, var(--ph-line) 60%, transparent); border-radius: 22px; background: #fff; box-shadow: 0 18px 40px rgba(30, 45, 30, .08); }
+.ph__summary-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--ph-line); }
+.ph__summary-title { margin: 0; font-family: var(--font-display); font-size: 19px; font-weight: 700; }
+.ph__summary-count { font-size: 13px; color: color-mix(in srgb, var(--ph-ink) 55%, transparent); }
+.ph__group { padding: 10px 0; border-bottom: 1px dashed var(--ph-line); }
+.ph__group-title { margin: 0 0 6px; font-size: 11.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ph-accent); }
+.ph__group-empty, .ph__personal-empty { margin: 0; font-size: 13px; color: color-mix(in srgb, var(--ph-ink) 45%, transparent); }
+.ph__lines { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.ph__line { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto 22px; align-items: center; gap: 10px; }
+.ph__line img, .ph__line-ph { display: block; width: 40px; height: 40px; border-radius: 10px; object-fit: cover; background: color-mix(in srgb, var(--ph-sage) 25%, #fff); }
+.ph__line-title { display: block; overflow: hidden; font-size: 13.5px; white-space: nowrap; text-overflow: ellipsis; }
+.ph__line-price { font-size: 13.5px; font-weight: 600; }
+.ph__line-remove { display: grid; place-items: center; width: 22px; height: 22px; padding: 0; border: 0; border-radius: 50%; background: color-mix(in srgb, var(--ph-beige) 70%, #fff); color: var(--ph-ink); font-size: 14px; line-height: 1; cursor: pointer; }
+.ph__line-remove:hover { background: #f3d9d4; color: #9b2c1f; }
+.ph__personal { display: flex; flex-direction: column; gap: 4px; margin: 6px 0 0; }
+.ph__personal div { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 8px; font-size: 13px; }
+.ph__personal dt { color: color-mix(in srgb, var(--ph-ink) 55%, transparent); }
+.ph__personal dd { margin: 0; overflow-wrap: anywhere; }
+.ph__totals { display: flex; flex-direction: column; gap: 8px; margin: 14px 0 0; }
+.ph__totals div { display: flex; justify-content: space-between; font-size: 14px; }
+.ph__totals dt { color: color-mix(in srgb, var(--ph-ink) 65%, transparent); }
+.ph__totals dd { margin: 0; font-weight: 600; }
+.ph__totals-total { margin-top: 4px; padding-top: 12px; border-top: 1px solid var(--ph-line); }
+.ph__totals-total dt, .ph__totals-total dd { font-size: 18px; font-weight: 700; color: var(--ph-ink); }
+.ph__delivery-note { margin: 8px 0 0; font-size: 12.5px; color: var(--ph-accent); }
+.ph__error { margin: 14px 0 0; padding: 10px 12px; border-radius: 10px; background: #fdecea; color: #9b2c1f; font-size: 13px; }
+.ph__error--inline { display: none; }
+.ph__summary-actions { display: grid; gap: 10px; margin-top: 18px; }
+.ph__summary-actions .ph__btn { width: 100%; }
+
+/* Mobile bar */
+.ph__bar { display: none; }
+
+/* Preview dialog */
+.ph__dialog { width: min(720px, calc(100vw - 32px)); max-height: calc(100vh - 32px); padding: 0; border: 0; border-radius: 24px; background: var(--ph-bg, #f6f1e7); color: var(--ph-ink); box-shadow: 0 30px 80px rgba(0,0,0,.25); }
+.ph__dialog::backdrop { background: rgba(20, 30, 20, .55); backdrop-filter: blur(2px); }
+.ph__dialog-inner { position: relative; padding: 28px 28px 24px; }
+.ph__dialog-close { position: absolute; top: 14px; right: 14px; display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 50%; background: #fff; color: var(--ph-ink); cursor: pointer; }
+.ph__dialog-title { margin: 0 0 8px; font-family: var(--font-display); font-size: 22px; text-align: center; }
+.ph__stage { position: relative; aspect-ratio: 16 / 10; margin: 0 auto; max-width: 560px; border-radius: 20px; background: radial-gradient(120% 90% at 50% 10%, #fffaf0 0%, color-mix(in srgb, var(--ph-beige) 70%, #fff) 60%, var(--ph-beige) 100%); overflow: hidden; }
+.ph__stage::before { content: ""; position: absolute; left: -10%; right: -10%; bottom: 0; height: 22%; background: linear-gradient(180deg, #c9a97a, #a9875a); opacity: .45; }
+.ph__basket { position: absolute; left: 50%; bottom: 6%; width: 78%; transform: translateX(-50%); z-index: 20; }
+.ph__stage-items { position: absolute; inset: 0; }
+.ph__piece { position: absolute; display: grid; place-items: center; overflow: hidden; border: 3px solid #fff; border-radius: 50% 50% 46% 46%; background: color-mix(in srgb, var(--ph-sage) 30%, #fff); box-shadow: 0 10px 22px rgba(30, 45, 30, .2); }
+.ph__piece--back { width: 25%; aspect-ratio: 1; }
+.ph__piece--front { width: 15%; aspect-ratio: 1; border-radius: 16px; }
+.ph__piece img { width: 100%; height: 100%; object-fit: cover; }
+.ph__piece--ph { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--ph-accent); }
+.ph__stage.is-empty::after { content: "Your plants appear here"; position: absolute; top: 26%; left: 0; right: 0; text-align: center; font-size: 14px; color: color-mix(in srgb, var(--ph-ink) 45%, transparent); }
+.ph__tag { position: absolute; right: 9%; bottom: 14%; z-index: 40; display: flex; flex-direction: column; min-width: 86px; max-width: 34%; padding: 8px 12px 8px 18px; border-radius: 4px 10px 10px 4px; background: #fffaf0; box-shadow: 0 6px 14px rgba(0,0,0,.15); transform: rotate(-6deg); font-size: 11px; }
+.ph__tag::before { content: ""; position: absolute; left: 6px; top: 50%; width: 6px; height: 6px; margin-top: -3px; border-radius: 50%; background: var(--ph-beige); }
+.ph__tag strong { overflow: hidden; font-family: var(--font-display); font-size: 14px; white-space: nowrap; text-overflow: ellipsis; color: var(--ph-accent); }
+.ph__preview-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
+.ph__preview-list li { padding: 6px 12px; border-radius: 999px; background: #fff; font-size: 13px; }
+.ph__dialog-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--ph-line); font-size: 15px; }
+.ph__dialog-foot strong { font-size: 20px; }
+
+@media (max-width: 1100px) {
+  .ph__layout { grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; }
+  .ph__grid, .ph__grid--basket { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ph__grid--accessory { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 989px) {
+  .ph { padding-bottom: 96px; }
+  .ph__layout { grid-template-columns: 1fr; }
+  .ph__summary { position: static; scroll-margin-top: 80px; }
+  .ph__error--inline:not([hidden]) { display: block; }
+  .ph__summary .ph__error { display: none; }
+  .ph__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .ph__grid--basket { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .ph__bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; display: flex; align-items: center; gap: 10px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); border-top: 1px solid var(--ph-line); background: #fff; box-shadow: 0 -8px 24px rgba(0,0,0,.08); }
+  .ph__bar-info { display: flex; flex: 1; flex-direction: column; min-width: 0; font-size: 12px; color: color-mix(in srgb, var(--ph-ink) 60%, transparent); }
+  .ph__bar-info strong { font-size: 17px; color: var(--ph-ink); }
+  .ph__bar .ph__btn { min-height: 42px; padding: 0 16px; font-size: 13.5px; }
+}
+@media (max-width: 749px) {
+  .ph { padding-top: 32px; }
+  .ph__head { margin-bottom: 24px; }
+  .ph__sub { font-size: 14.5px; }
+  .ph__steps { margin-bottom: 28px; }
+  .ph__steps::before { top: 21px; }
+  .ph__step-icon { width: 42px; height: 42px; margin-bottom: 4px; }
+  .ph__step-icon svg { width: 22px; height: 22px; }
+  .ph__step-num { display: none; }
+  .ph__step-label { font-size: 11.5px; line-height: 1.25; }
+  .ph__panel-title { font-size: 20px; }
+  .ph__grid, .ph__grid--basket, .ph__grid--accessory { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .ph-item { border-radius: 14px; }
+  .ph-item__body { padding: 10px 10px 12px; }
+  .ph-item__title { font-size: 13.5px; }
+  .ph-item__price { font-size: 14px; }
+  .ph-item__add { padding: 9px 8px; font-size: 12.5px; }
+  .ph__form { grid-template-columns: 1fr; }
+  .ph__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ph__card-none { min-height: 140px; }
+  .ph__panel-nav { justify-content: stretch; }
+  .ph__panel-nav .ph__btn { flex: 1; padding: 0 14px; }
+  .ph__dialog-inner { padding: 22px 16px 18px; }
+  .ph__dialog-foot .ph__btn { width: 100%; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Plant hamper builder",
+  "tag": "section",
+  "class": "section-plant-hamper",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Build a living gift" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Make Your Own Plant Hamper" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Pick a natural basket, fill it with healthy plants and thoughtful extras, and we'll pack it by hand." },
+    { "type": "header", "content": "Step 1: Basket" },
+    { "type": "text", "id": "step_1_label", "label": "Step name", "default": "Choose Your Basket" },
+    { "type": "text", "id": "step_1_title", "label": "Title", "default": "Choose your basket" },
+    { "type": "text", "id": "step_1_text", "label": "Text", "default": "Handwoven, natural baskets in four sizes." },
+    { "type": "collection", "id": "basket_collection", "label": "Basket collection" },
+    { "type": "text", "id": "basket_button", "label": "Button", "default": "Choose Basket" },
+    { "type": "checkbox", "id": "basket_required", "label": "A basket is required", "default": true },
+    { "type": "header", "content": "Step 2: Plants" },
+    { "type": "text", "id": "step_2_label", "label": "Step name", "default": "Choose Plants" },
+    { "type": "text", "id": "step_2_title", "label": "Title", "default": "Choose your plants" },
+    { "type": "text", "id": "step_2_text", "label": "Text", "default": "Fresh from our nursery. Use + and − to change quantities." },
+    { "type": "collection", "id": "plant_collection", "label": "Plant collection" },
+    { "type": "text", "id": "plant_button", "label": "Button", "default": "Add to Hamper" },
+    { "type": "checkbox", "id": "show_rating", "label": "Show star ratings", "default": true },
+    { "type": "range", "id": "min_plants", "label": "Minimum plants", "min": 0, "max": 10, "step": 1, "default": 1 },
+    { "type": "range", "id": "max_plants", "label": "Maximum plants", "min": 0, "max": 20, "step": 1, "default": 0, "info": "0 means no limit." },
+    { "type": "header", "content": "Step 3: Accessories" },
+    { "type": "text", "id": "step_3_label", "label": "Step name", "default": "Add Accessories" },
+    { "type": "text", "id": "step_3_title", "label": "Title", "default": "Add accessories" },
+    { "type": "text", "id": "step_3_text", "label": "Text", "default": "Pots, tools, care kits and little extras. All optional." },
+    { "type": "collection", "id": "accessory_collection", "label": "Accessory collection" },
+    { "type": "text", "id": "accessory_button", "label": "Button", "default": "Add" },
+    { "type": "header", "content": "Step 4: Personalize" },
+    { "type": "text", "id": "step_4_label", "label": "Step name", "default": "Personalize & Checkout" },
+    { "type": "text", "id": "step_4_title", "label": "Title", "default": "Personalize your hamper" },
+    { "type": "text", "id": "step_4_text", "label": "Text", "default": "Add a message, pick a card and wrapping, and choose when it should arrive." },
+    { "type": "collection", "id": "card_collection", "label": "Greeting card collection", "info": "Optional. Shoppers can also choose No card." },
+    { "type": "range", "id": "message_max", "label": "Message length", "min": 50, "max": 500, "step": 10, "default": 250, "unit": "chr" },
+    { "type": "range", "id": "lead_days", "label": "Earliest delivery (days from today)", "min": 0, "max": 14, "step": 1, "default": 2 },
+    { "type": "paragraph", "content": "Add ribbon and wrapping styles as blocks. Link a product to a style to charge for it." },
+    { "type": "header", "content": "Summary and delivery" },
+    { "type": "text", "id": "summary_title", "label": "Summary title", "default": "Your Plant Hamper" },
+    { "type": "text", "id": "preview_button", "label": "Preview button", "default": "Preview Hamper" },
+    { "type": "text", "id": "cart_button", "label": "Add to cart button", "default": "Add Hamper to Cart" },
+    { "type": "select", "id": "delivery_mode", "label": "Delivery line", "options": [{ "value": "checkout", "label": "Calculated at checkout" }, { "value": "flat", "label": "Estimated flat fee" }], "default": "checkout", "info": "The estimate is shown only. The real delivery charge comes from your Shopify shipping rates." },
+    { "type": "number", "id": "delivery_fee", "label": "Estimated delivery fee", "default": 99 },
+    { "type": "number", "id": "free_delivery_over", "label": "Free delivery over", "default": 999, "info": "0 turns this off." },
+    { "type": "text", "id": "delivery_note", "label": "Delivery note", "default": "Final delivery charge is confirmed at checkout." },
+    { "type": "header", "content": "Style" },
+    { "type": "range", "id": "columns_desktop", "label": "Plants per row (desktop)", "min": 2, "max": 4, "step": 1, "default": 3 },
+    { "type": "color", "id": "accent_color", "label": "Botanical green", "default": "#2f5d3a" },
+    { "type": "color", "id": "sage_color", "label": "Sage", "default": "#9caf88" },
+    { "type": "color", "id": "beige_color", "label": "Beige", "default": "#e8dcc6" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#f6f1e7" }
+  ],
+  "blocks": [
+    {
+      "type": "wrap",
+      "name": "Wrapping style",
+      "limit": 8,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Name", "default": "Natural jute ribbon" },
+        { "type": "color", "id": "color", "label": "Ribbon colour", "default": "#b08a5b" },
+        { "type": "image_picker", "id": "image", "label": "Swatch image", "info": "Optional." },
+        { "type": "product", "id": "product", "label": "Charge with product", "info": "Optional. Leave empty to include it for free." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Plant hamper builder",
+      "blocks": [
+        { "type": "wrap", "settings": { "title": "Natural jute ribbon", "color": "#b08a5b" } },
+        { "type": "wrap", "settings": { "title": "Sage satin ribbon", "color": "#9caf88" } },
+        { "type": "wrap", "settings": { "title": "Forest green wrap", "color": "#2f5d3a" } },
+        { "type": "wrap", "settings": { "title": "Kraft paper & twine", "color": "#c8a97e" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

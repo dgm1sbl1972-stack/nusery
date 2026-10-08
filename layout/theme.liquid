@@ -35,7 +35,7 @@
   <body class="template-{{ template.name }}">
     <a class="skip-link" href="#MainContent">Skip to content</a>
     {%- comment -%} The gifting pages bring their own header (sections/sbl-gift-header.liquid). {%- endcomment -%}
-    {%- assign gift_templates = 'gifting-hampers,make-your-own-hamper,corporate-gifts' | split: ',' -%}
+    {%- assign gift_templates = 'gifting-hampers,corporate-gifts' | split: ',' -%}
     {%- unless template.name == 'page' and gift_templates contains template.suffix -%}
       {% sections 'header-group' %}
     {%- endunless -%}

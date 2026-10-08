@@ -1,11 +1,17 @@
-{%- comment -%} Removable pills for active filters. Accepts: filters {%- endcomment -%}
+{%- comment -%} Removable pills for active filters. Accepts: filters, view (optional template view to keep) {%- endcomment -%}
+{%- liquid
+  assign view_param = ''
+  if view != blank
+    assign view_param = 'view=' | append: view
+  endif
+-%}
 {%- capture active_pills -%}
   {%- for filter in filters -%}
     {%- for value in filter.active_values -%}
-      <a class="active-filter" href="{{ value.url_to_remove }}">{{ value.label }} <span aria-hidden="true">×</span><span class="visually-hidden">Remove filter</span></a>
+      <a class="active-filter" href="{{ value.url_to_remove }}{% if view_param != blank %}{% if value.url_to_remove contains '?' %}&{% else %}?{% endif %}{{ view_param }}{% endif %}">{{ value.label }} <span aria-hidden="true">×</span><span class="visually-hidden">Remove filter</span></a>
     {%- endfor -%}
     {%- if filter.type == 'price_range' and filter.min_value.value or filter.type == 'price_range' and filter.max_value.value -%}
-      <a class="active-filter" href="{{ filter.url_to_remove }}">
+      <a class="active-filter" href="{{ filter.url_to_remove }}{% if view_param != blank %}{% if filter.url_to_remove contains '?' %}&{% else %}?{% endif %}{{ view_param }}{% endif %}">
         {{ filter.min_value.value | default: 0 | money }} – {{ filter.max_value.value | default: filter.range_max | money }}
         <span aria-hidden="true">×</span><span class="visually-hidden">Remove filter</span>
       </a>

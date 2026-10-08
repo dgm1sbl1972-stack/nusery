@@ -1,0 +1,218 @@
+{%- comment -%}
+  All Gifts listing: heading, filters on the left (from the Search & Discovery app), gift count, sort and a
+  4-column grid of gift cards. Works on any collection; the header links to /collections/all?view=all-gifts.
+  Filters and sorting keep the ?view so shoppers stay on this page.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign view_name = template.suffix
+  assign sort_values = 'best-selling,price-ascending,price-descending,created-descending,manual' | split: ','
+  assign sort_labels = 'Best Selling|Price: Low to High|Price: High to Low|New Arrivals|Recommended' | split: '|'
+  assign demo_cards = 'Peace Lily Gift Plant~An elegant, low-light bloomer in a ceramic pot~79900~99900~Best Seller|Snake Plant Gift Set~Two hardy air purifiers with a care card~89900~~Popular|Succulent Gift Box~Six mini succulents in a wooden crate~64900~79900~New|Mini Garden Hamper~Herbs, seeds and tools in a jute basket~119900~~|Indoor Plant Gift Basket~Three easy indoor plants, ready to gift~149900~179900~Best Seller|Flowering Plant Gift~Seasonal blooms wrapped in kraft paper~54900~~New|Premium Plant Hamper~Our signature basket of plants and treats~249900~289900~Popular|Gardening Starter Kit~Everything a new gardener needs~99900~~|Plant Care Gift Box~Fertilizer, mister and pruning shears~74900~89900~|Ceramic Pot & Plant Set~A glazed pot paired with a lush plant~109900~~New|Bonsai Gift Set~A ficus bonsai with tray and care guide~189900~219900~Best Seller|Personalized Plant Gift~A plant in a pot with a name of your choice~89900~~Popular' | split: '|'
+-%}
+<section class="ag" id="AllGifts-{{ section.id }}" style="--ag-bg: {{ s.bg_color }}; --ag-accent: {{ s.accent_color }};">
+  <div class="page-width">
+    <header class="ag__head">
+      {%- if s.eyebrow != blank -%}<p class="ag__eyebrow">{{ s.eyebrow | escape }}</p>{%- endif -%}
+      <h1 class="ag__title">{{ s.heading | default: collection.title | escape }}</h1>
+      {%- if s.subheading != blank -%}<p class="ag__sub">{{ s.subheading | escape }}</p>{%- endif -%}
+    </header>
+
+    {%- paginate collection.products by s.products_per_page -%}
+      {%- liquid
+        assign sort_by = collection.sort_by | default: collection.default_sort_by
+        assign show_filters = false
+        if s.enable_filtering and collection.filters.size > 0
+          assign show_filters = true
+        endif
+        assign show_sidebar = show_filters
+        if s.enable_filtering and request.design_mode
+          assign show_sidebar = true
+        endif
+        assign form_id = 'GiftFilters-' | append: section.id
+        assign clear_url = collection.url | append: '?sort_by=' | append: sort_by
+        if view_name != blank
+          assign clear_url = clear_url | append: '&view=' | append: view_name
+        endif
+        assign total = collection.products_count
+        assign demo = false
+        if total == 0 and request.design_mode
+          assign demo = true
+        endif
+      -%}
+      <div class="collection-layout ag__layout{% unless show_sidebar %} collection-layout--no-filters{% endunless %}">
+        {%- render 'facets-sidebar', section: section, section_id: section.id, filters: collection.filters, show_filters: show_filters, show_sidebar: show_sidebar, form_id: form_id, results_url: collection.url, clear_url: clear_url, current_url: collection.url, view: view_name -%}
+
+        <div class="collection-main">
+          <div class="ag__toolbar">
+            <p class="ag__count">
+              {%- if demo -%}
+                <strong>120+</strong> {{ s.count_label | escape }}
+              {%- elsif s.round_count and total >= 20 -%}
+                {%- assign rounded = total | divided_by: 10 | times: 10 -%}
+                <strong>{{ rounded }}+</strong> {{ s.count_label | escape }}
+              {%- else -%}
+                <strong>{{ total }}</strong> {{ s.count_label | escape }}
+              {%- endif -%}
+            </p>
+            {%- if show_sidebar -%}{%- render 'facets-filter-button', section_id: section.id -%}{%- endif -%}
+            {%- if s.enable_sorting -%}
+              <label class="ag__sort">
+                <span>Sort by</span>
+                <select name="sort_by" form="{{ form_id }}">
+                  {%- for value in sort_values -%}
+                    {%- assign label = sort_labels[forloop.index0] -%}
+                    {%- for option in collection.sort_options -%}
+                      {%- if option.value == value -%}
+                        <option value="{{ value }}"{% if value == sort_by %} selected{% endif %}>{{ label }}</option>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endfor -%}
+                </select>
+              </label>
+            {%- endif -%}
+          </div>
+
+          {%- if show_filters -%}{%- render 'facets-active', filters: collection.filters, view: view_name -%}{%- endif -%}
+
+          <div class="ag__grid">
+            {%- for product in collection.products -%}
+              {%- render 'sbl-gift-card', product: product, second_action: s.second_action, show_rating: s.show_rating -%}
+            {%- else -%}
+              {%- if demo -%}
+                {%- for entry in demo_cards -%}
+                  {%- liquid
+                    assign parts = entry | split: '~'
+                    assign demo_price = parts[2] | plus: 0
+                    assign demo_compare = parts[3] | plus: 0
+                  -%}
+                  {%- render 'sbl-gift-card', second_action: s.second_action, show_rating: s.show_rating, demo_title: parts[0], demo_text: parts[1], demo_price: demo_price, demo_compare: demo_compare, demo_badge: parts[4], demo_index: forloop.index -%}
+                {%- endfor -%}
+              {%- else -%}
+                <p class="ag__empty">No gifts match these filters. <a href="{{ clear_url }}">Clear filters</a></p>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          {%- if paginate.pages > 1 -%}
+            <nav class="ag__pages" aria-label="Pages">
+              {%- if paginate.previous -%}<a class="ag__page ag__page--nav" href="{{ paginate.previous.url }}{% if view_name != blank %}{% unless paginate.previous.url contains 'view=' %}&view={{ view_name }}{% endunless %}{% endif %}" aria-label="Previous page">‹</a>{%- endif -%}
+              {%- for part in paginate.parts -%}
+                {%- if part.is_link -%}
+                  <a class="ag__page" href="{{ part.url }}{% if view_name != blank %}{% unless part.url contains 'view=' %}&view={{ view_name }}{% endunless %}{% endif %}">{{ part.title }}</a>
+                {%- elsif part.title == paginate.current_page -%}
+                  <span class="ag__page is-current" aria-current="page">{{ part.title }}</span>
+                {%- else -%}
+                  <span class="ag__page ag__page--gap">{{ part.title }}</span>
+                {%- endif -%}
+              {%- endfor -%}
+              {%- if paginate.next -%}<a class="ag__page ag__page--nav" href="{{ paginate.next.url }}{% if view_name != blank %}{% unless paginate.next.url contains 'view=' %}&view={{ view_name }}{% endunless %}{% endif %}" aria-label="Next page">›</a>{%- endif -%}
+            </nav>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.ag { --ag-accent: #2f5d3a; padding: 48px 0 72px; background: var(--ag-bg, #f6f1e7); }
+.ag__head { max-width: 680px; margin: 0 auto 36px; text-align: center; }
+.ag__eyebrow { margin: 0 0 10px; font-size: 12px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--ag-accent); }
+.ag__title { margin: 0; font-family: var(--font-display); font-size: clamp(28px, 4vw, 44px); line-height: 1.12; color: #1d2b20; }
+.ag__sub { margin: 12px 0 0; font-size: 16px; line-height: 1.6; color: #5d6a5f; }
+.ag__layout { margin-top: 0; }
+.ag__toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; padding: 12px 16px; border: 1px solid #e6dcc9; border-radius: 14px; background: #fff; }
+.ag__count { margin: 0; font-size: 14px; color: #5d6a5f; }
+.ag__count strong { font-size: 16px; color: #1d2b20; }
+.ag__sort { display: inline-flex; align-items: center; gap: 10px; margin-left: auto; font-size: 13px; color: #5d6a5f; }
+.ag__sort select { padding: 9px 34px 9px 12px; border: 1px solid #e0d6c3; border-radius: 999px; background-color: #fbf8f2; font: inherit; font-size: 13.5px; color: #1d2b20; }
+.ag__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; }
+.collection-layout--no-filters .ag__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.collection-layout:not(.collection-layout--no-filters) .ag__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (min-width: 1280px) { .collection-layout:not(.collection-layout--no-filters) .ag__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.ag__empty { grid-column: 1 / -1; padding: 40px; border: 1.5px dashed #d8cdb7; border-radius: 16px; text-align: center; }
+.ag__pages { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 40px; }
+.ag__page { display: grid; place-items: center; min-width: 42px; height: 42px; padding: 0 12px; border: 1px solid #e0d6c3; border-radius: 999px; background: #fff; color: #1d2b20; font-weight: 600; text-decoration: none; }
+.ag__page.is-current { border-color: var(--ag-accent); background: var(--ag-accent); color: #fff; }
+.ag__page--gap { border: 0; background: none; }
+
+/* Gift card */
+.gc { position: relative; display: flex; flex-direction: column; overflow: hidden; border: 1px solid #ece3d2; border-radius: 20px; background: #fff; transition: transform .25s, box-shadow .25s; }
+.gc:hover { transform: translateY(-4px); box-shadow: 0 18px 36px rgba(30, 45, 30, .1); }
+.gc__media { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: linear-gradient(160deg, #eef2e6, #e8dcc6); }
+.gc__img { position: absolute; inset: 0; display: block; }
+.gc__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .4s, transform .6s; }
+.gc__img-alt { opacity: 0; }
+.gc:hover .gc__img-main { transform: scale(1.05); }
+.gc:hover .gc__img-alt { opacity: 1; }
+.gc__ph { width: 100%; height: 100%; fill: rgba(47, 93, 58, .25); }
+.gc__badge { position: absolute; top: 12px; left: 12px; z-index: 2; padding: 5px 11px; border-radius: 999px; background: #fff; color: #2f5d3a; font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; box-shadow: 0 3px 10px rgba(0,0,0,.08); }
+.gc__badge--best-seller { background: #2f5d3a; color: #fff; }
+.gc__badge--new { background: #e9efe0; color: #2f5d3a; }
+.gc__badge--popular { background: #f3e3c4; color: #7a5520; }
+.gc__badge--sale { background: #b5452f; color: #fff; }
+.gc__wish { top: 12px; right: 12px; }
+.gc__body { display: flex; flex: 1; flex-direction: column; padding: 16px 16px 18px; }
+.gc__title { margin: 0 0 4px; font-size: 15.5px; font-weight: 600; line-height: 1.35; }
+.gc__title a { color: #1d2b20; text-decoration: none; }
+.gc__title a:hover { color: var(--ag-accent, #2f5d3a); }
+.gc__text { margin: 0 0 8px; font-size: 13px; line-height: 1.45; color: #6b766d; }
+.gc .card-rating { margin: 0 0 10px; }
+.gc__price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin: auto 0 14px; }
+.gc__price strong { font-size: 17px; color: #1d2b20; }
+.gc__price s { font-size: 13px; color: #9aa39b; }
+.gc__off { font-size: 12px; font-weight: 700; color: #b5452f; }
+.gc__actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.gc__actions form { display: contents; }
+.gc__btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 10px; border: 1.5px solid var(--ag-accent, #2f5d3a); border-radius: 999px; background: var(--ag-accent, #2f5d3a); color: #fff; font: inherit; font-size: 12.5px; font-weight: 600; text-align: center; text-decoration: none; cursor: pointer; transition: background .2s, color .2s; }
+.gc__btn:hover { background: color-mix(in srgb, var(--ag-accent, #2f5d3a) 85%, #000); }
+.gc__btn--ghost { background: transparent; color: var(--ag-accent, #2f5d3a); }
+.gc__btn--ghost:hover { background: color-mix(in srgb, var(--ag-accent, #2f5d3a) 8%, transparent); }
+.gc__btn--off { border-color: #ddd; background: #eee; color: #888; cursor: default; }
+@media (max-width: 989px) {
+  .ag__grid, .collection-layout--no-filters .ag__grid, .collection-layout:not(.collection-layout--no-filters) .ag__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+}
+@media (max-width: 749px) {
+  .ag { padding-top: 28px; }
+  .ag__head { margin-bottom: 24px; }
+  .ag__sub { font-size: 14.5px; }
+  .ag__toolbar { padding: 10px 12px; }
+  .ag__sort span { display: none; }
+  .ag__grid, .collection-layout--no-filters .ag__grid, .collection-layout:not(.collection-layout--no-filters) .ag__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .gc { border-radius: 16px; }
+  .gc__body { padding: 12px 12px 14px; }
+  .gc__title { font-size: 14px; }
+  .gc__text { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 12px; }
+  .gc__price strong { font-size: 15px; }
+  .gc__actions { grid-template-columns: 1fr; gap: 6px; }
+  .gc__btn { min-height: 38px; font-size: 12px; }
+  .gc__badge { top: 8px; left: 8px; padding: 4px 8px; font-size: 10px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "All gifts listing",
+  "tag": "section",
+  "class": "section-all-gifts",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "All Gifts" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Gifts for Every Occasion" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Thoughtful plant gifts and nature-inspired hampers for every special moment." },
+    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 },
+    { "type": "text", "id": "count_label", "label": "Count label", "default": "Gifts" },
+    { "type": "checkbox", "id": "round_count", "label": "Round the count (e.g. 120+)", "default": true },
+    { "type": "checkbox", "id": "show_rating", "label": "Show star ratings", "default": true },
+    { "type": "select", "id": "second_action", "label": "Second button", "options": [{ "value": "buy_now", "label": "Buy Now" }, { "value": "details", "label": "View Details" }], "default": "buy_now" },
+    { "type": "header", "content": "Filters and sorting" },
+    { "type": "paragraph", "content": "Choose filters (Price, Gift type, Plant type, Occasion, Indoor / Outdoor, Plant size, Pot type, Availability, Personalized) in the Search & Discovery app. Use product tags or metafields for each one." },
+    { "type": "checkbox", "id": "enable_filtering", "label": "Show filters on the left", "default": true },
+    { "type": "checkbox", "id": "open_filters", "label": "Expand all filter groups by default", "default": true },
+    { "type": "checkbox", "id": "enable_sorting", "label": "Show sort dropdown", "default": true },
+    { "type": "header", "content": "Style" },
+    { "type": "color", "id": "accent_color", "label": "Botanical green", "default": "#2f5d3a" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#f6f1e7" }
+  ]
+}
+{% endschema %}

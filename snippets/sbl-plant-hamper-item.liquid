@@ -1,0 +1,81 @@
+{%- comment -%}
+  One choosable card in the plant hamper builder (sections/sbl-plant-hamper.liquid).
+  Accepts:
+  - product: {Object} (optional; when blank, an example card is drawn from demo_title / demo_price)
+  - kind: 'basket' | 'plant' | 'accessory' | 'card'. Baskets and cards are pick-one; plants and accessories take a quantity.
+  - add_label: button text
+  - show_rating: {Boolean}
+  - demo_title, demo_price (cents), demo_index: used for example cards in the theme editor
+{%- endcomment -%}
+{%- liquid
+  if product != blank
+    assign v = product.selected_or_first_available_variant
+    assign item_id = v.id
+    assign item_price = v.price
+    assign item_title = product.title
+    assign item_available = product.available
+    assign item_image = ''
+    if product.featured_media
+      assign item_image = product.featured_media | image_url: width: 240, height: 240, crop: 'center'
+    endif
+  else
+    assign item_id = 'demo-' | append: kind | append: '-' | append: demo_index
+    assign item_price = demo_price
+    assign item_title = demo_title
+    assign item_available = true
+    assign item_image = ''
+  endif
+  assign multi = false
+  if kind == 'plant' or kind == 'accessory'
+    assign multi = true
+  endif
+-%}
+<div class="ph-item ph-item--{{ kind }}" data-item data-kind="{{ kind }}" data-variant="{{ item_id }}" data-price="{{ item_price }}" data-title="{{ item_title | escape }}" data-image="{{ item_image }}">
+  <div class="ph-item__media">
+    {%- if product != blank and product.featured_media -%}
+      {{ product.featured_media | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 450, 600', sizes: '(min-width: 990px) 240px, 45vw', alt: product.featured_media.alt | default: product.title }}
+    {%- else -%}
+      {%- assign ph = demo_index | default: 0 | modulo: 6 | plus: 1 -%}
+      <span class="ph-item__ph">{{ 'product-' | append: ph | placeholder_svg_tag }}</span>
+    {%- endif -%}
+    <span class="ph-item__tick" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    {%- if product != blank and product.compare_at_price > product.price -%}
+      <span class="ph-item__badge">Save {{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | floor }}%</span>
+    {%- elsif product == blank -%}
+      <span class="ph-item__badge ph-item__badge--demo">Example</span>
+    {%- endif -%}
+  </div>
+  <div class="ph-item__body">
+    <p class="ph-item__title">{{ item_title | escape }}</p>
+    {%- if show_rating -%}
+      {%- if product != blank -%}
+        {%- render 'card-rating', product: product -%}
+      {%- else -%}
+        <div class="card-rating" aria-label="Rated 4.8 out of 5"><span class="card-rating__stars" style="--rating: 96%;" aria-hidden="true"></span><span class="card-rating__value">4.8</span><span class="card-rating__count">(42)</span></div>
+      {%- endif -%}
+    {%- endif -%}
+    <p class="ph-item__price">
+      <span data-price-label>{{ item_price | money_without_trailing_zeros }}</span>
+      {%- if product != blank and product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money_without_trailing_zeros }}</s>{%- endif -%}
+    </p>
+    {%- if product != blank and product.has_only_default_variant == false -%}
+      <select class="ph-item__variant" data-variant-select data-sheet-select data-sheet-title="{{ product.title | escape }}" aria-label="Choose an option for {{ product.title | escape }}">
+        {%- for variant in product.variants -%}
+          <option value="{{ variant.id }}" data-price="{{ variant.price }}" data-money="{{ variant.price | money_without_trailing_zeros | escape }}"{% unless variant.available %} disabled{% endunless %}{% if variant.id == v.id %} selected{% endif %}>{{ variant.title | escape }}{% unless variant.available %} (sold out){% endunless %}</option>
+        {%- endfor -%}
+      </select>
+    {%- endif -%}
+    {%- if item_available -%}
+      <button type="button" class="ph-item__add" data-add aria-pressed="false">{{ add_label | escape }}</button>
+      {%- if multi -%}
+        <div class="ph-item__qty" data-qty hidden>
+          <button type="button" data-minus aria-label="Remove one {{ item_title | escape }}">−</button>
+          <span data-qty-value aria-live="polite">1</span>
+          <button type="button" data-plus aria-label="Add one more {{ item_title | escape }}">+</button>
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <span class="ph-item__add ph-item__add--off">Sold out</span>
+    {%- endif -%}
+  </div>
+</div>

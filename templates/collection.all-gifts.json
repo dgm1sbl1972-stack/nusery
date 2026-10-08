@@ -1,0 +1,193 @@
+{
+  "sections": {
+    "categories": {
+      "type": "sbl-gh-categories",
+      "settings": {
+        "heading": "",
+        "subheading": "",
+        "shape": "circle",
+        "bg_color": "#f6f1e7"
+      },
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "title": "Plant Gifts",
+            "link": "/search?type=product&q=plant+gift"
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "title": "Gift Hampers",
+            "link": "/pages/gifting-hampers"
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "title": "Indoor Plant Gifts",
+            "link": "/collections/indoor-plants"
+          }
+        },
+        "cat_4": {
+          "type": "category",
+          "settings": {
+            "title": "Gardening Gifts",
+            "link": "/search?type=product&q=gardening"
+          }
+        },
+        "cat_5": {
+          "type": "category",
+          "settings": {
+            "title": "Pots & Planters",
+            "link": "/search?type=product&q=pot"
+          }
+        },
+        "cat_6": {
+          "type": "category",
+          "settings": {
+            "title": "Personalized Gifts",
+            "link": "/search?type=product&q=personalized"
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3",
+        "cat_4",
+        "cat_5",
+        "cat_6"
+      ]
+    },
+    "main": {
+      "type": "sbl-all-gifts",
+      "settings": {
+        "eyebrow": "All Gifts",
+        "heading": "Gifts for Every Occasion",
+        "subheading": "Thoughtful plant gifts and nature-inspired hampers for every special moment.",
+        "products_per_page": 24,
+        "count_label": "Gifts",
+        "round_count": true,
+        "show_rating": true,
+        "second_action": "buy_now",
+        "enable_filtering": true,
+        "open_filters": true,
+        "enable_sorting": true,
+        "accent_color": "#2f5d3a",
+        "bg_color": "#f6f1e7"
+      }
+    },
+    "why": {
+      "type": "sbl-gift-why",
+      "settings": {
+        "eyebrow": "The gift that grows",
+        "heading": "Why Gift Plants?",
+        "text": "Flowers fade, plants keep growing. A living gift brightens a home, cleans the air and reminds them of you every day.",
+        "button_label": "Make your own hamper",
+        "button_link": "/pages/make-your-own-hamper",
+        "accent_color": "#2f5d3a",
+        "bg_color": "#e9efe0"
+      },
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "leaf",
+            "title": "Fresh & Healthy Plants",
+            "text": "Hand-picked from our nursery and checked before they leave."
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "box",
+            "title": "Beautifully Packed",
+            "text": "Natural baskets, ribbons and a handwritten note."
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "eco",
+            "title": "Eco-Friendly Gifts",
+            "text": "Plastic-free wrapping and reusable pots and baskets."
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck",
+            "title": "Easy Delivery",
+            "text": "Safe, careful delivery to their door on the date you choose."
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ]
+    },
+    "reviews": {
+      "type": "sbl-gift-testimonials",
+      "settings": {
+        "testi_heading": "Customer Reviews",
+        "testi_subheading": "Real words from happy plant gifters",
+        "bg_color": "#f6f1e7"
+      },
+      "blocks": {
+        "review_1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The peace lily gift box was gorgeous. Fresh plant, lovely basket and the note was handwritten.",
+            "rating": 5,
+            "name": "Priya S.",
+            "meta": "Birthday gift"
+          }
+        },
+        "review_2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Sent a plant hamper to my parents for their anniversary. They haven't stopped talking about it.",
+            "rating": 5,
+            "name": "Rahul M.",
+            "meta": "Anniversary"
+          }
+        },
+        "review_3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Beautifully packed and delivered on the exact date I picked. Will order again.",
+            "rating": 5,
+            "name": "Ananya K.",
+            "meta": "Housewarming"
+          }
+        },
+        "review_4": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Ordered succulent gift boxes for my team. Everyone loved them.",
+            "rating": 5,
+            "name": "Arjun P.",
+            "meta": "Corporate gifting"
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4"
+      ]
+    }
+  },
+  "order": [
+    "categories",
+    "main",
+    "why",
+    "reviews"
+  ]
+}

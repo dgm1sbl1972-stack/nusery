@@ -43,6 +43,7 @@
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item.is-open .ai-nursery-header__chevron,
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item:hover .ai-nursery-header__chevron { transform: rotate(225deg); margin-bottom: -1px; }
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown { display: grid; position: absolute; top: 100%; left: -18px; z-index: 30; width: 480px; max-width: min(80vw, 480px); padding: 14px; background: {{ block.settings.background_color }}; border: 1px solid {{ block.settings.divider_color }}; border-top: 3px solid {{ block.settings.accent_color }}; border-radius: 0 0 14px 14px; box-shadow: 0 18px 40px rgba(20, 35, 26, .16); grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 10px; opacity: 0; visibility: hidden; transform: translateY(8px); pointer-events: none; transition: opacity .2s ease, transform .2s ease, visibility .2s; }
+  .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__dropdown--compact { width: 250px; grid-template-columns: 1fr; }
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item.is-open .ai-nursery-header__dropdown,
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item:hover .ai-nursery-header__dropdown,
   .ai-nursery-header-{{ ai_gen_id }} .ai-nursery-header__item:focus-within .ai-nursery-header__dropdown { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
@@ -138,20 +139,20 @@
         </button>
         <a class="ai-nursery-header__drawer-login" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" data-account-popup-open data-menu-close><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 21c.7-4.2 3.3-6.3 7.5-6.3s6.8 2.1 7.5 6.3"/></svg>{% if customer %}My account{% else %}Log in{% endif %}</a>
       </div>
-      {% assign nav_groups = 'plants,seeds,pots' | split: ',' %}
+      {% assign nav_groups = 'plants,seeds,pots,gifting' | split: ',' %}
       {% for group in nav_groups %}
         {% assign title_key = group | append: '_title' %}
         {% assign menu_key = group | append: '_menu' %}
         {% assign menu_object = block.settings[menu_key] %}
         <div class="ai-nursery-header__item" data-menu-item>
           <button class="ai-nursery-header__toggle" type="button" aria-expanded="false" data-dropdown-toggle>{{ block.settings[title_key] | escape }}<span class="ai-nursery-header__chevron" aria-hidden="true"></span></button>
-          <div class="ai-nursery-header__dropdown">
+          <div class="ai-nursery-header__dropdown{% if group == 'gifting' %} ai-nursery-header__dropdown--compact{% endif %}">
             <div class="ai-nursery-header__subhead">
               <button class="ai-nursery-header__back" type="button" aria-label="Back to menu" data-submenu-back><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button>
               <span>{{ block.settings[title_key] | escape }}</span>
             </div>
             {% assign group_link_key = group | append: '_link' %}
-            {% if block.settings[group_link_key] != blank %}<a class="ai-nursery-header__dropdown-all" href="{{ block.settings[group_link_key] }}">View all {{ block.settings[title_key] | escape }}</a>{% endif %}
+            {% if block.settings[group_link_key] != blank and group != 'gifting' %}<a class="ai-nursery-header__dropdown-all" href="{{ block.settings[group_link_key] }}">View all {{ block.settings[title_key] | escape }}</a>{% endif %}
             {% if menu_object != blank and menu_object.links.size > 0 %}
               {% for link in menu_object.links limit: 20 %}<a href="{{ link.url }}">{{ link.title | escape }}</a>{% endfor %}
             {% else %}
@@ -159,13 +160,19 @@
                 {% assign category_title_key = group | append: '_category_' | append: i | append: '_title' %}
                 {% assign category_link_key = group | append: '_category_' | append: i | append: '_link' %}
                 {% assign category_url = block.settings[category_link_key] %}
+                {%- if group == 'gifting' and category_url == blank -%}
+                  {%- case i -%}
+                    {%- when 1 -%}{% assign category_url = block.settings.gifting_link | default: '/collections/all?view=gifting' %}
+                    {%- when 2 -%}{% assign category_url = '/pages/make-your-own-hamper' %}
+                    {%- when 3 -%}{% assign category_url = '/collections/all?view=all-gifts' %}
+                  {%- endcase -%}
+                {%- endif -%}
                 {% if block.settings[category_title_key] != blank %}<a href="{{ category_url | default: '#' }}">{{ block.settings[category_title_key] | escape }}</a>{% endif %}
               {% endfor %}
             {% endif %}
           </div>
         </div>
       {% endfor %}
-      <a class="ai-nursery-header__link" href="{{ block.settings.gifting_link | default: '/collections/all?view=gifting' }}">{{ block.settings.gifting_title | escape }}</a>
       <a class="ai-nursery-header__link" href="{{ block.settings.services_link | default: routes.root_url }}">{{ block.settings.services_title | escape }}</a>
       {%- liquid
         assign blog_nav_url = block.settings.blog_link
@@ -304,11 +311,11 @@
     { "type": "text", "id": "pots_category_10_title", "label": "Category 10" }, { "type": "url", "id": "pots_category_10_link", "label": "Category 10 link" },
     { "type": "header", "content": "Gifting dropdown" },
     { "type": "text", "id": "gifting_title", "label": "Menu label", "default": "Gifting" },
-    { "type": "url", "id": "gifting_link", "label": "Menu page link", "info": "Leave empty for /collections/all?view=gifting" },
+    { "type": "url", "id": "gifting_link", "label": "Gifting page link", "info": "Used by Category 1 when its link is empty. Leave empty for /collections/all?view=gifting" },
     { "type": "link_list", "id": "gifting_menu", "label": "Use navigation menu" },
-    { "type": "text", "id": "gifting_category_1_title", "label": "Category 1", "default": "Gift Hamper" }, { "type": "url", "id": "gifting_category_1_link", "label": "Category 1 link", "info": "Leave empty to open /pages/gifting-hampers" },
-    { "type": "text", "id": "gifting_category_2_title", "label": "Category 2" }, { "type": "url", "id": "gifting_category_2_link", "label": "Category 2 link", "info": "Leave empty to open /pages/make-your-own-hamper" },
-    { "type": "text", "id": "gifting_category_3_title", "label": "Category 3" }, { "type": "url", "id": "gifting_category_3_link", "label": "Category 3 link", "info": "Leave empty to open /pages/corporate-gifts" },
+    { "type": "text", "id": "gifting_category_1_title", "label": "Category 1", "default": "Gifting" }, { "type": "url", "id": "gifting_category_1_link", "label": "Category 1 link", "info": "Leave empty to open the gifting page" },
+    { "type": "text", "id": "gifting_category_2_title", "label": "Category 2", "default": "Make Your Own Hamper" }, { "type": "url", "id": "gifting_category_2_link", "label": "Category 2 link", "info": "Leave empty to open /pages/make-your-own-hamper" },
+    { "type": "text", "id": "gifting_category_3_title", "label": "Category 3", "default": "All Gifts" }, { "type": "url", "id": "gifting_category_3_link", "label": "Category 3 link", "info": "Leave empty to open /collections/all?view=all-gifts" },
     { "type": "text", "id": "gifting_category_4_title", "label": "Category 4" }, { "type": "url", "id": "gifting_category_4_link", "label": "Category 4 link" },
     { "type": "text", "id": "gifting_category_5_title", "label": "Category 5" }, { "type": "url", "id": "gifting_category_5_link", "label": "Category 5 link" },
     { "type": "text", "id": "gifting_category_6_title", "label": "Category 6" }, { "type": "url", "id": "gifting_category_6_link", "label": "Category 6 link" },

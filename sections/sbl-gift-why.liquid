@@ -1,0 +1,96 @@
+{%- comment -%} Gifting pages: "Why gift plants?" row of icon features (fresh plants, packing, eco-friendly, delivery). {%- endcomment -%}
+<section class="gw" style="--gw-bg: {{ section.settings.bg_color }}; --gw-accent: {{ section.settings.accent_color }};">
+  <div class="page-width">
+    <div class="gw__inner">
+      <div class="gw__intro">
+        {%- if section.settings.eyebrow != blank -%}<p class="gw__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2 class="gw__title">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+        {%- if section.settings.text != blank -%}<p class="gw__text">{{ section.settings.text | escape }}</p>{%- endif -%}
+        {%- if section.settings.button_label != blank -%}<a class="gw__btn" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label | escape }}</a>{%- endif -%}
+      </div>
+      <ul class="gw__grid" role="list">
+        {%- for block in section.blocks -%}
+          <li class="gw__item" {{ block.shopify_attributes }}>
+            <span class="gw__icon" aria-hidden="true">
+              {%- case block.settings.icon -%}
+                {%- when 'box' -%}<svg viewBox="0 0 32 32"><rect x="5" y="13" width="22" height="14" rx="1.5"/><path d="M4 9h24v4H4zM16 9v18"/><path d="M16 9c-2-4-7-5-7-1.5C9 9 13 9 16 9Zm0 0c2-4 7-5 7-1.5C23 9 19 9 16 9Z"/></svg>
+                {%- when 'eco' -%}<svg viewBox="0 0 32 32"><path d="M6 26c0-11 7-18 20-20-1 13-8 20-19 20"/><path d="M6 26c4-6 8-10 14-13"/></svg>
+                {%- when 'truck' -%}<svg viewBox="0 0 32 32"><path d="M3 8h16v14H3zM19 13h6l4 5v4H19"/><circle cx="9" cy="24" r="2.5"/><circle cx="23" cy="24" r="2.5"/></svg>
+                {%- when 'heart' -%}<svg viewBox="0 0 32 32"><path d="M27 12.5c0 6.5-11 13-11 13s-11-6.5-11-13A5.8 5.8 0 0 1 16 9a5.8 5.8 0 0 1 11 3.5Z"/></svg>
+                {%- when 'sun' -%}<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="5"/><path d="M16 4v3M16 25v3M4 16h3M25 16h3M7.5 7.5l2 2M22.5 22.5l2 2M7.5 24.5l2-2M22.5 9.5l2-2"/></svg>
+                {%- else -%}<svg viewBox="0 0 32 32"><path d="M16 28V15"/><path d="M16 16c0-5 3.6-9 9-9 0 5-3.6 9-9 9Z"/><path d="M16 20c0-4-3-7-8-7 0 4 3 7 8 7Z"/></svg>
+              {%- endcase -%}
+            </span>
+            <h3 class="gw__item-title">{{ block.settings.title | escape }}</h3>
+            {%- if block.settings.text != blank -%}<p class="gw__item-text">{{ block.settings.text | escape }}</p>{%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.gw { padding: clamp(48px, 7vw, 88px) 0; background: var(--gw-bg, #e9efe0); }
+.gw__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); align-items: center; gap: clamp(28px, 5vw, 64px); }
+.gw__eyebrow { margin: 0 0 10px; font-size: 12px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--gw-accent, #2f5d3a); }
+.gw__title { margin: 0; font-family: var(--font-display); font-size: clamp(26px, 3.4vw, 38px); line-height: 1.15; color: #1d2b20; }
+.gw__text { margin: 14px 0 0; font-size: 15px; line-height: 1.7; color: #4f5d52; }
+.gw__btn { display: inline-flex; align-items: center; min-height: 46px; margin-top: 22px; padding: 0 26px; border-radius: 999px; background: var(--gw-accent, #2f5d3a); color: #fff; font-size: 14.5px; font-weight: 600; text-decoration: none; }
+.gw__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin: 0; padding: 0; list-style: none; }
+.gw__item { padding: 24px; border-radius: 20px; background: #fff; box-shadow: 0 8px 24px rgba(30, 45, 30, .06); }
+.gw__icon { display: grid; place-items: center; width: 54px; height: 54px; margin-bottom: 14px; border-radius: 50%; background: color-mix(in srgb, var(--gw-accent, #2f5d3a) 10%, #fff); color: var(--gw-accent, #2f5d3a); }
+.gw__icon svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.gw__item-title { margin: 0 0 6px; font-size: 16px; font-weight: 700; color: #1d2b20; }
+.gw__item-text { margin: 0; font-size: 13.5px; line-height: 1.6; color: #5d6a5f; }
+@media (max-width: 989px) {
+  .gw__inner { grid-template-columns: 1fr; text-align: center; }
+}
+@media (max-width: 749px) {
+  .gw__grid { gap: 12px; }
+  .gw__item { padding: 18px 14px; text-align: center; }
+  .gw__icon { margin-inline: auto; width: 46px; height: 46px; }
+  .gw__item-title { font-size: 14.5px; }
+  .gw__item-text { font-size: 12.5px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Gifting: Why gift plants",
+  "tag": "section",
+  "class": "section-gift-why",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The gift that grows" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Why Gift Plants?" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Flowers fade, plants keep growing. A living gift brightens a home, cleans the air and reminds them of you every day." },
+    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#2f5d3a" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#e9efe0" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "options": [{ "value": "leaf", "label": "Leaf" }, { "value": "box", "label": "Gift box" }, { "value": "eco", "label": "Eco leaf" }, { "value": "truck", "label": "Delivery" }, { "value": "heart", "label": "Heart" }, { "value": "sun", "label": "Sun" }], "default": "leaf" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Fresh & Healthy Plants" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Gifting: Why gift plants",
+      "blocks": [
+        { "type": "feature", "settings": { "icon": "leaf", "title": "Fresh & Healthy Plants", "text": "Hand-picked from our nursery and checked before they leave." } },
+        { "type": "feature", "settings": { "icon": "box", "title": "Beautifully Packed", "text": "Natural baskets, ribbons and a handwritten note." } },
+        { "type": "feature", "settings": { "icon": "eco", "title": "Eco-Friendly Gifts", "text": "Plastic-free wrapping and reusable pots and baskets." } },
+        { "type": "feature", "settings": { "icon": "truck", "title": "Easy Delivery", "text": "Safe, careful delivery to their door on the date you choose." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
