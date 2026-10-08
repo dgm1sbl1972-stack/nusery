@@ -1,5 +1,54 @@
 {
   "sections": {
+    "gift_header": {
+      "type": "sbl-gift-header",
+      "settings": {},
+      "blocks": {
+        "dropdown": {
+          "type": "dropdown",
+          "settings": {
+            "title": "Gifting Hamper",
+            "badge": "New"
+          }
+        },
+        "make": {
+          "type": "link",
+          "settings": {
+            "title": "Make Your Own Hamper",
+            "url": "/pages/make-your-own-hamper"
+          }
+        },
+        "new": {
+          "type": "link",
+          "settings": {
+            "title": "New Arrivals",
+            "url": "/collections/all?sort_by=created-descending",
+            "badge": "New"
+          }
+        },
+        "corporate": {
+          "type": "link",
+          "settings": {
+            "title": "Corporate Gifts",
+            "url": "/pages/corporate-gifts"
+          }
+        },
+        "all": {
+          "type": "link",
+          "settings": {
+            "title": "All Gifts",
+            "url": "/collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "dropdown",
+        "make",
+        "new",
+        "corporate",
+        "all"
+      ]
+    },
     "builder": {
       "type": "sbl-gh-hamper-builder",
       "settings": {
@@ -59,6 +108,7 @@
     }
   },
   "order": [
+    "gift_header",
     "builder",
     "faq"
   ]

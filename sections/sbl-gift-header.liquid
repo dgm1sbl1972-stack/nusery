@@ -1,0 +1,314 @@
+{%- comment -%}
+  Header for the gifting pages (Gifting Hampers, Make Your Own Hamper, Corporate Gifts).
+  Top bar · Personalised / Corporate switch · logo · search and icons · one menu row with a single dropdown.
+  layout/theme.liquid hides the store's normal header on the templates that use this section.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign sid = section.id
+  assign personal_url = s.personal_link | default: '/pages/gifting-hampers'
+  assign corporate_url = s.corporate_link | default: '/pages/corporate-gifts'
+  assign corporate_active = false
+  if request.path contains 'corporate'
+    assign corporate_active = true
+  endif
+-%}
+<div class="gxh" id="GiftHeader-{{ sid }}" style="--gxh-bg: {{ s.bg_color }}; --gxh-text: {{ s.text_color }}; --gxh-accent: {{ s.accent_color }}; --gxh-badge: {{ s.badge_color }}; --gxh-bar: {{ s.bar_color }};" data-gift-header>
+  {%- if s.bar_text != blank -%}
+    <div class="gxh__bar">
+      <div class="page-width gxh__bar-inner">
+        <span></span>
+        <p class="gxh__bar-text">{{ s.bar_text | escape }}{% if s.bar_link_label != blank %} <a href="{{ s.bar_link | default: corporate_url }}">{{ s.bar_link_label | escape }}</a>{% endif %}</p>
+        {%- if s.track_label != blank -%}
+          <a class="gxh__track" href="{{ s.track_link | default: routes.account_url }}"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="7" cy="17.5" r="1.6" fill="currentColor"/><circle cx="17" cy="17.5" r="1.6" fill="currentColor"/></svg>{{ s.track_label | escape }}</a>
+        {%- else -%}<span></span>{%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="gxh__main">
+    <div class="page-width gxh__row">
+      <button type="button" class="gxh__burger" aria-label="Open menu" aria-expanded="false" aria-controls="GiftNav-{{ sid }}" data-gxh-open>
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+
+      <div class="gxh__switch" role="group" aria-label="Gift type">
+        <a class="gxh__switch-btn{% unless corporate_active %} is-active{% endunless %}" href="{{ personal_url }}"{% unless corporate_active %} aria-current="page"{% endunless %}>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>{{ s.personal_label | escape }}
+        </a>
+        <a class="gxh__switch-btn{% if corporate_active %} is-active{% endif %}" href="{{ corporate_url }}"{% if corporate_active %} aria-current="page"{% endif %}>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 7V5h8v2M3 12h18" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>{{ s.corporate_label | escape }}
+        </a>
+      </div>
+
+      <a class="gxh__logo" href="{{ s.logo_link | default: routes.root_url }}">
+        {%- if s.logo != blank -%}
+          {{ s.logo | image_url: width: 500 | image_tag: alt: shop.name, width: s.logo_width, loading: 'eager', style: 'height: auto;' }}
+        {%- else -%}
+          <span class="gxh__brand">{{ s.brand_name | default: shop.name | escape }}</span>
+          {%- if s.tagline != blank -%}<span class="gxh__tagline">{{ s.tagline | escape }}</span>{%- endif -%}
+        {%- endif -%}
+      </a>
+
+      <div class="gxh__actions">
+        <form class="gxh__search" action="{{ routes.search_url }}" method="get" role="search">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ s.search_placeholder | escape }}" aria-label="Search">
+        </form>
+        <a class="gxh__icon gxh__icon--wish" href="{{ s.wishlist_link | default: '/pages/wishlist' }}" aria-label="Wishlist" data-wishlist-link>
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <span class="gxh__count" data-wishlist-count hidden>0</span>
+        </a>
+        <a class="gxh__icon gxh__icon--account" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" aria-label="{% if customer %}My account{% else %}Log in{% endif %}" data-account-popup-open>
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="8" r="3.8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 21c.7-4.2 3.3-6.3 7.5-6.3s6.8 2.1 7.5 6.3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        </a>
+        <a class="gxh__icon" href="{{ routes.cart_url }}" aria-label="Cart">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 9a3 3 0 006 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span class="gxh__count" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+        </a>
+      </div>
+    </div>
+
+    <form class="gxh__search gxh__search--mobile" action="{{ routes.search_url }}" method="get" role="search">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ s.search_placeholder | escape }}" aria-label="Search">
+    </form>
+  </div>
+
+  <div class="gxh__overlay" data-gxh-close></div>
+  <nav class="gxh__nav" id="GiftNav-{{ sid }}" aria-label="Gifting">
+    <div class="gxh__drawer-head">
+      <span>{{ s.drawer_title | escape }}</span>
+      <button type="button" class="gxh__close" aria-label="Close menu" data-gxh-close><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+    <ul class="page-width gxh__menu" role="list">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'dropdown' -%}
+          {%- assign menu_object = block.settings.menu -%}
+          <li class="gxh__item gxh__item--dropdown" data-gxh-item {{ block.shopify_attributes }}>
+            {%- if block.settings.badge != blank -%}<span class="gxh__badge">{{ block.settings.badge | escape }}</span>{%- endif -%}
+            <button type="button" class="gxh__link" aria-expanded="false" data-gxh-toggle>
+              {{ block.settings.title | escape }}
+              <svg viewBox="0 0 12 8" width="12" height="8" aria-hidden="true"><path d="M1 1.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="gxh__dropdown">
+              {%- if block.settings.view_all_link != blank -%}<a class="gxh__dropdown-all" href="{{ block.settings.view_all_link }}">View all {{ block.settings.title | escape }} →</a>{%- endif -%}
+              {%- if menu_object != blank and menu_object.links.size > 0 -%}
+                {%- for link in menu_object.links limit: 16 -%}<a href="{{ link.url }}">{{ link.title | escape }}</a>{%- endfor -%}
+              {%- else -%}
+                {%- for i in (1..8) -%}
+                  {%- assign t_key = 'link_' | append: i | append: '_title' -%}
+                  {%- assign u_key = 'link_' | append: i | append: '_url' -%}
+                  {%- assign link_title = block.settings[t_key] -%}
+                  {%- if link_title != blank -%}
+                    {%- assign link_url = block.settings[u_key] -%}
+                    {%- if link_url == blank -%}{%- assign link_q = link_title | url_encode -%}{%- assign link_url = routes.search_url | append: '?type=product&q=' | append: link_q -%}{%- endif -%}
+                    <a href="{{ link_url }}">{{ link_title | escape }}</a>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+            </div>
+          </li>
+        {%- else -%}
+          <li class="gxh__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.badge != blank -%}<span class="gxh__badge">{{ block.settings.badge | escape }}</span>{%- endif -%}
+            <a class="gxh__link" href="{{ block.settings.url | default: routes.all_products_collection_url }}"{% if block.settings.url != blank and request.path == block.settings.url %} aria-current="page"{% endif %}>{{ block.settings.title | escape }}</a>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </nav>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('GiftHeader-{{ sid }}');
+    if (!root || root.dataset.ready) return;
+    root.dataset.ready = '1';
+    var openBtn = root.querySelector('[data-gxh-open]');
+    function setDrawer(open) {
+      root.classList.toggle('is-drawer-open', open);
+      document.documentElement.classList.toggle('gxh-locked', open);
+      if (openBtn) openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    if (openBtn) openBtn.addEventListener('click', function () { setDrawer(true); });
+    root.querySelectorAll('[data-gxh-close]').forEach(function (el) { el.addEventListener('click', function () { setDrawer(false); }); });
+    root.querySelectorAll('[data-gxh-toggle]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var item = btn.closest('[data-gxh-item]');
+        var open = !item.classList.contains('is-open');
+        item.classList.toggle('is-open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    });
+    document.addEventListener('click', function (e) {
+      if (root.contains(e.target)) return;
+      root.querySelectorAll('[data-gxh-item].is-open').forEach(function (item) {
+        item.classList.remove('is-open');
+        item.querySelector('[data-gxh-toggle]').setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      setDrawer(false);
+      root.querySelectorAll('[data-gxh-item].is-open').forEach(function (item) { item.classList.remove('is-open'); });
+    });
+  })();
+</script>
+
+{% stylesheet %}
+.gxh { position: relative; z-index: 50; background: var(--gxh-bg); color: var(--gxh-text); }
+.gxh__bar { background: var(--gxh-bar); color: #fff; font-size: 12.5px; }
+.gxh__bar-inner { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; min-height: 34px; }
+.gxh__bar-text { margin: 0; text-align: center; }
+.gxh__bar-text a { color: #fff; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.gxh__track { justify-self: end; display: inline-flex; align-items: center; gap: 6px; color: #fff; text-decoration: none; font-size: 12px; }
+.gxh__row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px; padding-top: 14px; padding-bottom: 12px; }
+.gxh__burger { display: none; padding: 4px; border: 0; background: none; color: inherit; cursor: pointer; }
+.gxh__switch { justify-self: start; display: inline-flex; gap: 4px; padding: 5px; border-radius: 999px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.05); }
+.gxh__switch-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 999px; color: #7a7f78; font-size: 14.5px; text-decoration: none; white-space: nowrap; transition: background .2s, color .2s; }
+.gxh__switch-btn:hover { color: var(--gxh-text); }
+.gxh__switch-btn.is-active { background: var(--gxh-accent); color: #fff; }
+.gxh__logo { display: flex; flex-direction: column; align-items: center; color: var(--gxh-text); text-decoration: none; text-align: center; }
+.gxh__logo img { display: block; max-width: 100%; }
+.gxh__brand { font-family: var(--font-display); font-size: clamp(24px, 2.6vw, 34px); font-weight: 600; letter-spacing: .12em; line-height: 1; text-transform: uppercase; }
+.gxh__tagline { margin-top: 4px; font-size: 11.5px; letter-spacing: .2em; }
+.gxh__actions { justify-self: end; display: flex; align-items: center; gap: 14px; }
+.gxh__search { display: flex; align-items: center; gap: 10px; width: min(300px, 24vw); padding: 0 14px; height: 42px; border: 1px solid var(--gxh-text); border-radius: 8px; background: #fff; }
+.gxh__search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 14px; color: var(--gxh-text); }
+.gxh__search--mobile { display: none; }
+.gxh__icon { position: relative; display: inline-grid; place-items: center; width: 38px; height: 38px; color: var(--gxh-text); }
+.gxh__count { position: absolute; top: 0; right: -2px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 9px; background: var(--gxh-badge); color: #fff; font-size: 10px; font-weight: 700; line-height: 17px; text-align: center; }
+.gxh__count[hidden] { display: none; }
+.gxh__nav { border-top: 1px solid rgba(0,0,0,.07); }
+.gxh__menu { display: flex; justify-content: center; gap: clamp(18px, 2.6vw, 38px); margin: 0 auto; list-style: none; }
+.gxh__item { position: relative; display: flex; align-items: center; padding: 14px 0 12px; }
+.gxh__link { display: inline-flex; align-items: center; gap: 8px; padding: 0; border: 0; background: none; color: var(--gxh-text); font: inherit; font-size: 14px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; white-space: nowrap; cursor: pointer; }
+.gxh__link:hover, .gxh__link[aria-current="page"] { color: var(--gxh-accent); }
+.gxh__link svg { transition: transform .2s; }
+.gxh__badge { position: absolute; top: -9px; left: 50%; transform: translateX(-50%); padding: 2px 8px; border-radius: 4px; background: var(--gxh-badge); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: .08em; line-height: 1.4; text-transform: uppercase; }
+.gxh__item--dropdown .gxh__badge { left: calc(50% - 10px); }
+.gxh__dropdown { position: absolute; top: 100%; left: 50%; z-index: 20; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 12px; min-width: 420px; padding: 14px; border-top: 3px solid var(--gxh-accent); border-radius: 0 0 14px 14px; background: #fff; box-shadow: 0 18px 40px rgba(0,0,0,.14); opacity: 0; visibility: hidden; transform: translate(-50%, 8px); transition: opacity .2s, transform .2s, visibility .2s; }
+.gxh__dropdown a { padding: 10px 12px; border-radius: 8px; color: var(--gxh-text); font-size: 14px; text-decoration: none; }
+.gxh__dropdown a:hover, .gxh__dropdown a:focus-visible { background: color-mix(in srgb, var(--gxh-accent) 10%, transparent); color: var(--gxh-accent); outline: none; }
+.gxh__dropdown-all { grid-column: 1 / -1; font-weight: 700; border-bottom: 1px solid #eee; border-radius: 8px 8px 0 0 !important; }
+@media (hover: hover) {
+  .gxh__item--dropdown:hover .gxh__dropdown { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+  .gxh__item--dropdown:hover .gxh__link svg { transform: rotate(180deg); }
+}
+.gxh__item--dropdown.is-open .gxh__dropdown, .gxh__item--dropdown:focus-within .gxh__dropdown { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.gxh__item--dropdown.is-open .gxh__link svg { transform: rotate(180deg); }
+.gxh__overlay, .gxh__drawer-head { display: none; }
+html.gxh-locked { overflow: hidden; }
+@media (max-width: 989px) {
+  .gxh__row { grid-template-columns: auto 1fr auto; gap: 10px; padding-top: 10px; padding-bottom: 8px; }
+  .gxh__burger { display: inline-flex; }
+  .gxh__logo { justify-self: center; }
+  .gxh__brand { font-size: 22px; }
+  .gxh__tagline { font-size: 10px; }
+  .gxh__actions { gap: 4px; }
+  .gxh__actions .gxh__search, .gxh__icon--account { display: none; }
+  .gxh__switch { grid-column: 1 / -1; grid-row: 2; justify-self: stretch; margin-top: 4px; }
+  .gxh__switch-btn { flex: 1; justify-content: center; padding: 9px 10px; font-size: 13.5px; }
+  .gxh__search--mobile { display: flex; width: auto; margin: 0 16px 10px; height: 44px; border-color: rgba(0,0,0,.18); }
+  .gxh__search--mobile input { font-size: 16px; }
+  .gxh__bar-inner { grid-template-columns: 1fr; }
+  .gxh__bar-inner > span, .gxh__track { display: none; }
+  /* Menu row becomes a slide-in drawer. */
+  .gxh__nav { position: fixed; top: 0; bottom: 0; left: 0; z-index: 1001; width: min(86vw, 360px); overflow-y: auto; border: 0; background: #fff; transform: translateX(-100%); transition: transform .3s ease; visibility: hidden; }
+  .gxh.is-drawer-open .gxh__nav { transform: none; visibility: visible; }
+  .gxh.is-drawer-open .gxh__overlay { display: block; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,.4); }
+  .gxh__drawer-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid #eee; font-family: var(--font-display); font-size: 18px; font-weight: 600; color: var(--c-primary-dark); }
+  .gxh__close { padding: 4px; border: 0; background: none; color: inherit; cursor: pointer; }
+  .gxh__menu { flex-direction: column; gap: 0; padding: 0 16px; }
+  .gxh__item { flex-direction: column; align-items: stretch; padding: 0; border-bottom: 1px solid #f0f0ec; }
+  .gxh__link { justify-content: space-between; width: 100%; padding: 15px 2px; font-size: 14.5px; }
+  .gxh__badge { position: static; align-self: flex-start; margin-top: 12px; transform: none; }
+  .gxh__item--dropdown .gxh__badge { left: auto; }
+  .gxh__item .gxh__badge + .gxh__link { padding-top: 6px; }
+  .gxh__dropdown { position: static; display: none; grid-template-columns: 1fr; min-width: 0; padding: 0 0 10px 8px; border: 0; border-radius: 0; box-shadow: none; opacity: 1; visibility: visible; transform: none; transition: none; }
+  .gxh__item--dropdown.is-open .gxh__dropdown { display: grid; transform: none; }
+  .gxh__item--dropdown:focus-within .gxh__dropdown { transform: none; }
+  .gxh__item--dropdown:not(.is-open):focus-within .gxh__dropdown { display: none; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Gifting: Header",
+  "tag": "header",
+  "class": "section-gift-header",
+  "settings": [
+    { "type": "header", "content": "Top bar" },
+    { "type": "text", "id": "bar_text", "label": "Text", "default": "We do bulk gifting too." },
+    { "type": "text", "id": "bar_link_label", "label": "Link label", "default": "Enquire Now" },
+    { "type": "url", "id": "bar_link", "label": "Link", "info": "Leave empty for the Corporate gifts page." },
+    { "type": "text", "id": "track_label", "label": "Right-hand link", "default": "Track your order" },
+    { "type": "url", "id": "track_link", "label": "Right-hand link URL", "info": "Leave empty for the customer account page." },
+    { "type": "header", "content": "Gift type switch" },
+    { "type": "text", "id": "personal_label", "label": "Personalised label", "default": "Personalized Gifts" },
+    { "type": "url", "id": "personal_link", "label": "Personalised link", "info": "Leave empty for /pages/gifting-hampers." },
+    { "type": "text", "id": "corporate_label", "label": "Corporate label", "default": "Corporate Gifts" },
+    { "type": "url", "id": "corporate_link", "label": "Corporate link", "info": "Leave empty for /pages/corporate-gifts. Pages with 'corporate' in the address show Corporate as selected." },
+    { "type": "header", "content": "Logo" },
+    { "type": "image_picker", "id": "logo", "label": "Logo image" },
+    { "type": "range", "id": "logo_width", "label": "Logo width", "min": 60, "max": 260, "step": 10, "unit": "px", "default": 160 },
+    { "type": "text", "id": "brand_name", "label": "Brand name (when no logo)", "default": "SBL Nursery" },
+    { "type": "text", "id": "tagline", "label": "Tagline (when no logo)", "default": "Plant Gifting" },
+    { "type": "url", "id": "logo_link", "label": "Logo link", "info": "Leave empty for the home page." },
+    { "type": "header", "content": "Search and icons" },
+    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search gifts" },
+    { "type": "url", "id": "wishlist_link", "label": "Wishlist link" },
+    { "type": "text", "id": "drawer_title", "label": "Phone menu title", "default": "Gifting" },
+    { "type": "header", "content": "Colours" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#f3ede4" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#14231a" },
+    { "type": "color", "id": "accent_color", "label": "Accent (switch, hover)", "default": "#1f5130" },
+    { "type": "color", "id": "badge_color", "label": "Badges", "default": "#c9a24a" },
+    { "type": "color", "id": "bar_color", "label": "Top bar", "default": "#0d3a1d" }
+  ],
+  "blocks": [
+    {
+      "type": "dropdown",
+      "name": "Dropdown",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Label", "default": "Gifting Hamper" },
+        { "type": "text", "id": "badge", "label": "Badge", "info": "e.g. NEW. Leave empty for none." },
+        { "type": "link_list", "id": "menu", "label": "Use navigation menu", "info": "Optional. Otherwise the links below are used." },
+        { "type": "url", "id": "view_all_link", "label": "View all link" },
+        { "type": "text", "id": "link_1_title", "label": "Link 1", "default": "Birthday Gifts" }, { "type": "url", "id": "link_1_url", "label": "Link 1 URL" },
+        { "type": "text", "id": "link_2_title", "label": "Link 2", "default": "Anniversary Gifts" }, { "type": "url", "id": "link_2_url", "label": "Link 2 URL" },
+        { "type": "text", "id": "link_3_title", "label": "Link 3", "default": "Housewarming Gifts" }, { "type": "url", "id": "link_3_url", "label": "Link 3 URL" },
+        { "type": "text", "id": "link_4_title", "label": "Link 4", "default": "Diwali Gifts" }, { "type": "url", "id": "link_4_url", "label": "Link 4 URL" },
+        { "type": "text", "id": "link_5_title", "label": "Link 5", "default": "Thank You Gifts" }, { "type": "url", "id": "link_5_url", "label": "Link 5 URL" },
+        { "type": "text", "id": "link_6_title", "label": "Link 6", "default": "Plant Hampers" }, { "type": "url", "id": "link_6_url", "label": "Link 6 URL" },
+        { "type": "text", "id": "link_7_title", "label": "Link 7" }, { "type": "url", "id": "link_7_url", "label": "Link 7 URL" },
+        { "type": "text", "id": "link_8_title", "label": "Link 8" }, { "type": "url", "id": "link_8_url", "label": "Link 8 URL" },
+        { "type": "paragraph", "content": "Links without a URL open a search for that name." }
+      ]
+    },
+    {
+      "type": "link",
+      "name": "Link",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Label", "default": "All Gifts" },
+        { "type": "url", "id": "url", "label": "URL" },
+        { "type": "text", "id": "badge", "label": "Badge", "info": "e.g. NEW. Leave empty for none." }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Gifting: Header",
+      "blocks": [
+        { "type": "dropdown" },
+        { "type": "link", "settings": { "title": "Make Your Own Hamper" } },
+        { "type": "link", "settings": { "title": "New Arrivals", "badge": "New" } },
+        { "type": "link", "settings": { "title": "All Gifts" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
