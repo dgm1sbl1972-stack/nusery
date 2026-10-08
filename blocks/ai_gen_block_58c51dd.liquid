@@ -146,6 +146,17 @@
         {% assign title_key = group | append: '_title' %}
         {% assign menu_key = group | append: '_menu' %}
         {% assign menu_object = block.settings[menu_key] %}
+        {% if group == 'gifting' and menu_object == blank %}
+          {% assign gifting_has_items = false %}
+          {% for i in (1..10) %}
+            {% assign category_title_key = 'gifting_category_' | append: i | append: '_title' %}
+            {% if block.settings[category_title_key] != blank %}{% assign gifting_has_items = true %}{% endif %}
+          {% endfor %}
+          {% unless gifting_has_items %}
+            <a class="ai-nursery-header__link" href="{{ block.settings.gifting_link | default: gifting_fallback_links[0] }}">{{ block.settings.gifting_title | escape }}</a>
+            {% continue %}
+          {% endunless %}
+        {% endif %}
         <div class="ai-nursery-header__item{% if group == 'gifting' %} ai-nursery-header__item--simple{% endif %}" data-menu-item>
           <button class="ai-nursery-header__toggle" type="button" aria-expanded="false" data-dropdown-toggle>{{ block.settings[title_key] | escape }}<span class="ai-nursery-header__chevron" aria-hidden="true"></span></button>
           <div class="ai-nursery-header__dropdown">
@@ -309,7 +320,7 @@
     { "type": "text", "id": "gifting_title", "label": "Menu label", "default": "Gifting" },
     { "type": "url", "id": "gifting_link", "label": "Menu page link", "info": "Optional. Adds a 'View all' link at the top of the dropdown." },
     { "type": "link_list", "id": "gifting_menu", "label": "Use navigation menu" },
-    { "type": "text", "id": "gifting_category_1_title", "label": "Category 1", "default": "Gift Hamper" }, { "type": "url", "id": "gifting_category_1_link", "label": "Category 1 link", "info": "Leave empty to open /pages/gifting-hampers" },
+    { "type": "text", "id": "gifting_category_1_title", "label": "Category 1" }, { "type": "url", "id": "gifting_category_1_link", "label": "Category 1 link", "info": "Leave empty to open /pages/gifting-hampers" },
     { "type": "text", "id": "gifting_category_2_title", "label": "Category 2" }, { "type": "url", "id": "gifting_category_2_link", "label": "Category 2 link", "info": "Leave empty to open /pages/make-your-own-hamper" },
     { "type": "text", "id": "gifting_category_3_title", "label": "Category 3" }, { "type": "url", "id": "gifting_category_3_link", "label": "Category 3 link", "info": "Leave empty to open /pages/corporate-gifts" },
     { "type": "text", "id": "gifting_category_4_title", "label": "Category 4" }, { "type": "url", "id": "gifting_category_4_link", "label": "Category 4 link" },
