@@ -10,10 +10,12 @@
   - clear_url: link for "Clear all"
   - current_url: URL of the current listing, to highlight the active category
   - search_terms: search page only
+  - view: optional template view (e.g. 'all-gifts') kept when filtering or sorting
 {%- endcomment -%}
 {%- unless show_filters -%}
   <form id="{{ form_id }}" action="{{ results_url }}" method="get" data-collection-filters hidden>
     {%- if search_terms != blank -%}<input type="hidden" name="q" value="{{ search_terms | escape }}"><input type="hidden" name="type" value="product">{%- endif -%}
+    {%- if view != blank -%}<input type="hidden" name="view" value="{{ view | escape }}">{%- endif -%}
   </form>
 {%- endunless -%}
 {%- if show_sidebar -%}
@@ -107,6 +109,7 @@
         <input type="hidden" name="q" value="{{ search_terms | escape }}">
         <input type="hidden" name="type" value="product">
       {%- endif -%}
+      {%- if view != blank -%}<input type="hidden" name="view" value="{{ view | escape }}">{%- endif -%}
       <div class="facets__head">
         <h2 class="facets__title">Filters</h2>
         <a class="facets__clear" href="{{ clear_url }}">Clear all</a>

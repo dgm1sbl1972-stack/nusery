@@ -1,0 +1,107 @@
+{%- comment -%}
+  Premium gift product card for the All Gifts page (sections/sbl-all-gifts.liquid).
+  Accepts:
+  - product: {Object} (optional; when blank, an example card is drawn from demo_title / demo_price / demo_text)
+  - second_action: 'buy_now' | 'details'
+  - show_rating: {Boolean}
+  - demo_title, demo_text, demo_price, demo_compare (cents), demo_badge, demo_index: example cards in the theme editor
+
+  Badge: product metafield custom.badge, else a tag (bestseller / best seller / new / popular), else the discount.
+{%- endcomment -%}
+<article class="gc">
+  {%- if product != blank -%}
+    {%- liquid
+      assign variant = product.selected_or_first_available_variant
+      assign badge = product.metafields.custom.badge.value
+      if badge == blank
+        assign tags = product.tags | join: ',' | downcase
+        if tags contains 'bestseller' or tags contains 'best seller' or tags contains 'best-seller'
+          assign badge = 'Best Seller'
+        elsif tags contains 'popular'
+          assign badge = 'Popular'
+        elsif product.tags contains 'new' or product.tags contains 'New' or tags contains 'new arrival'
+          assign badge = 'New'
+        endif
+      endif
+      assign off = 0
+      if product.compare_at_price > product.price
+        assign off = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | floor
+      endif
+      assign badge_class = badge | handleize
+    -%}
+    <div class="gc__media">
+      <a href="{{ product.url }}" class="gc__img" tabindex="-1" aria-hidden="true">
+        {%- if product.featured_media -%}
+          {{ product.featured_media | image_url: width: 700 | image_tag: loading: 'lazy', sizes: '(min-width: 1200px) 300px, (min-width: 750px) 33vw, 50vw', widths: '300, 450, 600, 700', alt: product.featured_media.alt | default: product.title, class: 'gc__img-main' }}
+          {%- if product.media.size > 1 -%}
+            {{ product.media[1] | image_url: width: 700 | image_tag: loading: 'lazy', sizes: '(min-width: 1200px) 300px, (min-width: 750px) 33vw, 50vw', widths: '300, 450, 600, 700', alt: '', class: 'gc__img-alt' }}
+          {%- endif -%}
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'gc__ph' }}
+        {%- endif -%}
+      </a>
+      {%- if badge != blank -%}
+        <span class="gc__badge gc__badge--{{ badge_class }}">{{ badge | escape }}</span>
+      {%- elsif off > 0 -%}
+        <span class="gc__badge gc__badge--sale">{{ off }}% off</span>
+      {%- endif -%}
+      {%- render 'wishlist-button', product: product, class: 'gc__wish' -%}
+    </div>
+    <div class="gc__body">
+      <h3 class="gc__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+      {%- render 'card-subtext', product: product, class: 'gc__text' -%}
+      {%- if show_rating -%}{%- render 'card-rating', product: product -%}{%- endif -%}
+      <div class="gc__price">
+        <strong>{% if product.price_varies %}From {% endif %}{{ product.price | money_without_trailing_zeros }}</strong>
+        {%- if product.compare_at_price > product.price -%}
+          <s>{{ product.compare_at_price | money_without_trailing_zeros }}</s>
+          <span class="gc__off">{{ off }}% off</span>
+        {%- endif -%}
+      </div>
+      <div class="gc__actions">
+        {%- if product.available == false -%}
+          <span class="gc__btn gc__btn--off">{{ 'general.sold_out' | t }}</span>
+        {%- elsif product.has_only_default_variant -%}
+          <form action="{{ routes.cart_add_url }}" method="post" data-add-to-cart>
+            <input type="hidden" name="id" value="{{ variant.id }}">
+            <input type="hidden" name="quantity" value="1">
+            <button type="submit" class="gc__btn">{{ 'general.add_to_cart' | t }}</button>
+          </form>
+        {%- else -%}
+          <a class="gc__btn" href="{{ product.url }}">Choose options</a>
+        {%- endif -%}
+        {%- if second_action == 'buy_now' and product.available and product.has_only_default_variant -%}
+          <a class="gc__btn gc__btn--ghost" href="{{ routes.cart_url }}/{{ variant.id }}:1">Buy Now</a>
+        {%- else -%}
+          <a class="gc__btn gc__btn--ghost" href="{{ product.url }}">View Details</a>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- else -%}
+    {%- liquid
+      assign ph = demo_index | default: 0 | modulo: 6 | plus: 1
+      assign off = 0
+      if demo_compare > demo_price
+        assign off = demo_compare | minus: demo_price | times: 100 | divided_by: demo_compare | floor
+      endif
+    -%}
+    <div class="gc__media">
+      <span class="gc__img">{{ 'product-' | append: ph | placeholder_svg_tag: 'gc__ph' }}</span>
+      {%- if demo_badge != blank -%}<span class="gc__badge gc__badge--{{ demo_badge | handleize }}">{{ demo_badge }}</span>{%- endif -%}
+      <span class="wl-btn gc__wish" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.8 8.7c0 5.2-8.8 11-8.8 11s-8.8-5.8-8.8-11A4.6 4.6 0 0 1 12 6.4a4.6 4.6 0 0 1 8.8 2.3Z"/></svg></span>
+    </div>
+    <div class="gc__body">
+      <h3 class="gc__title">{{ demo_title }}</h3>
+      <p class="card-subtext gc__text">{{ demo_text }}</p>
+      {%- if show_rating -%}<div class="card-rating"><span class="card-rating__stars" style="--rating: 94%;" aria-hidden="true"></span><span class="card-rating__value">4.7</span><span class="card-rating__count">(128)</span></div>{%- endif -%}
+      <div class="gc__price">
+        <strong>{{ demo_price | money_without_trailing_zeros }}</strong>
+        {%- if off > 0 -%}<s>{{ demo_compare | money_without_trailing_zeros }}</s><span class="gc__off">{{ off }}% off</span>{%- endif -%}
+      </div>
+      <div class="gc__actions">
+        <span class="gc__btn">{{ 'general.add_to_cart' | t }}</span>
+        <span class="gc__btn gc__btn--ghost">{% if second_action == 'buy_now' %}Buy Now{% else %}View Details{% endif %}</span>
+      </div>
+    </div>
+  {%- endif -%}
+</article>
