@@ -8,7 +8,7 @@
 {{ 'sbl-services.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'sbl-pages.js' | asset_url }}" defer></script>
 
-<div id="sbls-{{ sid }}" class="sbls{% if section.settings.logos_grayscale %} sbls--gray-logos{% endif %}" style="--clients-bg: {{ section.settings.clients_bg }};" data-sbl-root>
+<div id="sbls-{{ sid }}" class="sbls{% if section.settings.logos_grayscale %} sbls--gray-logos{% endif %}" style="--clients-bg: {{ section.settings.clients_bg }}; --tile: {{ section.settings.tile_size | default: 170 }}px;" data-sbl-root>
 {%- liquid
   assign logo_count = 0
   for block in section.blocks
@@ -31,7 +31,7 @@
         {%- for block in section.blocks -%}
           {%- if block.type == 'client' -%}
             {%- if block.settings.logo == blank and request.design_mode == false -%}{%- continue -%}{%- endif -%}
-            <li {{ block.shopify_attributes }}>
+            <li style="--logo-scale: {{ block.settings.logo_scale | default: 70 }}%;" {{ block.shopify_attributes }}>
               {%- if block.settings.link != blank -%}<a class="sbls-logo" href="{{ block.settings.link }}" target="_blank" rel="noopener">{%- else -%}<div class="sbls-logo">{%- endif -%}
                 {%- if block.settings.logo != blank -%}
                   {{ block.settings.logo | image_url: width: 320 | image_tag: widths: '160, 240, 320', sizes: '200px', loading: 'lazy', alt: block.settings.name | default: block.settings.logo.alt }}
@@ -103,6 +103,17 @@
       "default": 35
     },
     {
+      "type": "range",
+      "id": "tile_size",
+      "label": "Logo tile size",
+      "info": "Width and height of each square tile on desktop. Phones use about 80%.",
+      "min": 100,
+      "max": 260,
+      "step": 10,
+      "unit": "px",
+      "default": 170
+    },
+    {
       "type": "checkbox",
       "id": "logos_grayscale",
       "label": "Show logos in grey until hovered",
@@ -125,7 +136,18 @@
           "type": "image_picker",
           "id": "logo",
           "label": "Logo",
-          "info": "Transparent PNG or SVG works best, about 400 x 200px. Clients without a logo are hidden on the live site."
+          "info": "Transparent PNG or SVG works best. Clients without a logo are hidden on the live site."
+        },
+        {
+          "type": "range",
+          "id": "logo_scale",
+          "label": "Logo size",
+          "info": "How much of the square tile this logo fills. Use it to balance wide and tall logos.",
+          "min": 30,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "default": 70
         },
         {
           "type": "text",

@@ -79,12 +79,13 @@
 .sbls .sbls-ticker__track { display: flex; width: max-content; animation: sbls-ticker var(--ticker-duration, 40s) linear infinite; }
 .sbls .sbls-ticker:hover .sbls-ticker__track, .sbls .sbls-ticker:focus-within .sbls-ticker__track { animation-play-state: paused; }
 .sbls .sbls-ticker__list { display: flex; gap: 16px; margin: 0; padding: 0 16px 0 0; list-style: none; }
-.sbls .sbls-ticker__list > li { flex: none; width: 180px; }
-@media (min-width: 750px) { .sbls .sbls-ticker__list { gap: 20px; padding-right: 20px; } .sbls .sbls-ticker__list > li { width: 230px; } }
+.sbls .sbls-ticker__list > li { flex: none; width: calc(var(--tile, 170px) * .8); }
+@media (min-width: 750px) { .sbls .sbls-ticker__list { gap: 20px; padding-right: 20px; } .sbls .sbls-ticker__list > li { width: var(--tile, 170px); } }
 @keyframes sbls-ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.sbls .sbls-logo { display: grid; place-items: center; height: 104px; padding: 14px 20px; border-radius: 14px; background: var(--s-card); box-shadow: var(--s-shadow); text-decoration: none; color: var(--s-primary); font-family: var(--s-head); font-weight: 700; font-size: 15px; text-align: center; transition: transform .25s ease, box-shadow .25s ease; }
+.sbls .sbls-logo { display: grid; place-items: center; aspect-ratio: 1 / 1; height: auto; padding: 0; border-radius: 14px; background: var(--s-card); box-shadow: var(--s-shadow); text-decoration: none; color: var(--s-primary); font-family: var(--s-head); font-weight: 700; font-size: 15px; text-align: center; transition: transform .25s ease, box-shadow .25s ease; }
 .sbls a.sbls-logo:hover { transform: translateY(-3px); box-shadow: var(--s-shadow-hover); }
-.sbls .sbls-logo img { max-height: 70px; max-width: 100%; width: auto; height: auto; object-fit: contain; }
+.sbls .sbls-logo { position: relative; overflow: hidden; }
+.sbls .sbls-logo img { position: absolute; inset: 0; display: block; width: var(--logo-scale, 70%); height: var(--logo-scale, 70%); margin: auto; object-fit: contain; }
 .sbls.sbls--gray-logos .sbls-logo img { filter: grayscale(1); opacity: .8; transition: filter .25s ease, opacity .25s ease; }
 .sbls .sbls-logo:hover img { filter: none; opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
