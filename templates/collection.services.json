@@ -122,6 +122,7 @@
         "client_1": {
           "type": "client",
           "settings": {
+            "logo": "shopify://shop_images/images_39.jpg",
             "name": "Client 1",
             "link": ""
           }
@@ -129,6 +130,7 @@
         "client_2": {
           "type": "client",
           "settings": {
+            "logo": "shopify://shop_images/images_40.jpg",
             "name": "Client 2",
             "link": ""
           }
@@ -136,6 +138,7 @@
         "client_3": {
           "type": "client",
           "settings": {
+            "logo": "shopify://shop_images/images_42.jpg",
             "name": "Client 3",
             "link": ""
           }
@@ -143,6 +146,7 @@
         "client_4": {
           "type": "client",
           "settings": {
+            "logo": "shopify://shop_images/images_43.jpg",
             "name": "Client 4",
             "link": ""
           }
@@ -150,6 +154,7 @@
         "client_5": {
           "type": "client",
           "settings": {
+            "logo": "shopify://shop_images/images_44.jpg",
             "name": "Client 5",
             "link": ""
           }
@@ -157,6 +162,7 @@
         "client_6": {
           "type": "client",
           "settings": {
+            "logo": "shopify://shop_images/images_1.png",
             "name": "Client 6",
             "link": ""
           }
@@ -164,6 +170,7 @@
         "client_7": {
           "type": "client",
           "settings": {
+            "logo": "shopify://shop_images/images_2.png",
             "name": "Client 7",
             "link": ""
           }
@@ -171,6 +178,7 @@
         "client_8": {
           "type": "client",
           "settings": {
+            "logo": "shopify://shop_images/images.png",
             "name": "Client 8",
             "link": ""
           }
