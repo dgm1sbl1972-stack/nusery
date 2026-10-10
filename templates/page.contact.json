@@ -12,7 +12,28 @@
     "main": {
       "type": "contact-page",
       "settings": {
-        "map_query": "SBL Farms, Ramohalli, Bangalore"
+        "eyebrow": "We’re here to help",
+        "heading": "Contact us",
+        "subheading": "Questions about plants, orders, delivery or garden services? Reach out and our plant experts will get back to you.",
+        "address_label": "Visit our SBL Nursery",
+        "address": "SBL Farms\nKolur, Gururayanapura (Village)\nRamohalli Post, Tavarekere Hobli\nBangalore, Karnataka",
+        "phone_label": "Call us",
+        "phone": "+91 99000 01972",
+        "whatsapp_enabled": true,
+        "whatsapp": "",
+        "email_label": "Email us",
+        "email": "sblfarms@sbl1972.com",
+        "hours_label": "Opening hours",
+        "hours": "Monday – Saturday: 9:00 AM – 6:00 PM\nSunday: 9:00 AM – 1:00 PM",
+        "form_heading": "Send us a message",
+        "form_text": "We usually reply within one working day.",
+        "topics": "Order & delivery, Plant care help, Garden services, Bulk / corporate order, Other",
+        "button_label": "Send message",
+        "success_message": "Thanks! Your message has been sent. We’ll get back to you soon.",
+        "show_map": true,
+        "map_query": "SBL Farms, Ramohalli, Bangalore",
+        "background": "#f8f4ec",
+        "accent": "#1f5130"
       }
     }
   },
