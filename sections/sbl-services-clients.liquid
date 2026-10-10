@@ -9,7 +9,17 @@
 <script src="{{ 'sbl-pages.js' | asset_url }}" defer></script>
 
 <div id="sbls-{{ sid }}" class="sbls{% if section.settings.logos_grayscale %} sbls--gray-logos{% endif %}" style="--clients-bg: {{ section.settings.clients_bg }};" data-sbl-root>
-{%- if section.blocks.size > 0 -%}
+{%- liquid
+  assign logo_count = 0
+  for block in section.blocks
+    if block.type == 'client'
+      if block.settings.logo != blank or request.design_mode
+        assign logo_count = logo_count | plus: 1
+      endif
+    endif
+  endfor
+-%}
+{%- if logo_count > 0 -%}
   <section class="sbls-clients" aria-labelledby="sbls-cl-title-{{ sid }}">
     <div class="sbls-wrap">
       <div class="sbls-clients__head" data-reveal>
@@ -20,12 +30,13 @@
       {%- capture client_items -%}
         {%- for block in section.blocks -%}
           {%- if block.type == 'client' -%}
+            {%- if block.settings.logo == blank and request.design_mode == false -%}{%- continue -%}{%- endif -%}
             <li {{ block.shopify_attributes }}>
               {%- if block.settings.link != blank -%}<a class="sbls-logo" href="{{ block.settings.link }}" target="_blank" rel="noopener">{%- else -%}<div class="sbls-logo">{%- endif -%}
                 {%- if block.settings.logo != blank -%}
                   {{ block.settings.logo | image_url: width: 320 | image_tag: widths: '160, 240, 320', sizes: '200px', loading: 'lazy', alt: block.settings.name | default: block.settings.logo.alt }}
                 {%- else -%}
-                  <span>{{ block.settings.name | escape }}</span>
+                  <span class="sbls-logo__empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 17-5.5-5.5L7 20"/></svg>Upload logo{% if block.settings.name != blank %}<small>{{ block.settings.name | escape }}</small>{% endif %}</span>
                 {%- endif -%}
               {%- if block.settings.link != blank -%}</a>{%- else -%}</div>{%- endif -%}
             </li>
@@ -33,12 +44,7 @@
         {%- endfor -%}
       {%- endcapture -%}
       {%- liquid
-        assign client_count = 0
-        for block in section.blocks
-          if block.type == 'client'
-            assign client_count = client_count | plus: 1
-          endif
-        endfor
+        assign client_count = logo_count
         assign client_repeat = 1
         if client_count > 0 and client_count < 10
           assign client_repeat = 10 | divided_by: client_count | plus: 1
@@ -119,14 +125,14 @@
           "type": "image_picker",
           "id": "logo",
           "label": "Logo",
-          "info": "Transparent PNG or SVG works best"
+          "info": "Transparent PNG or SVG works best, about 400 x 200px. Clients without a logo are hidden on the live site."
         },
         {
           "type": "text",
           "id": "name",
           "label": "Client name",
           "default": "Client name",
-          "info": "Used as the logo's alt text, or shown when no logo is uploaded"
+          "info": "Used as the logo's alt text for accessibility; not shown on the page."
         },
         {
           "type": "url",
