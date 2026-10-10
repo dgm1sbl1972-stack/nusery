@@ -123,6 +123,7 @@
           "type": "client",
           "settings": {
             "logo": "shopify://shop_images/images_39.jpg",
+            "logo_scale": 90,
             "name": "Client 1",
             "link": ""
           }
@@ -131,6 +132,7 @@
           "type": "client",
           "settings": {
             "logo": "shopify://shop_images/images_40.jpg",
+            "logo_scale": 85,
             "name": "Client 2",
             "link": ""
           }
@@ -139,6 +141,7 @@
           "type": "client",
           "settings": {
             "logo": "shopify://shop_images/images_42.jpg",
+            "logo_scale": 100,
             "name": "Client 3",
             "link": ""
           }
@@ -147,6 +150,7 @@
           "type": "client",
           "settings": {
             "logo": "shopify://shop_images/images_43.jpg",
+            "logo_scale": 100,
             "name": "Client 4",
             "link": ""
           }
@@ -155,6 +159,7 @@
           "type": "client",
           "settings": {
             "logo": "shopify://shop_images/images_44.jpg",
+            "logo_scale": 100,
             "name": "Client 5",
             "link": ""
           }
@@ -163,6 +168,7 @@
           "type": "client",
           "settings": {
             "logo": "shopify://shop_images/images_1.png",
+            "logo_scale": 100,
             "name": "Client 6",
             "link": ""
           }
@@ -171,6 +177,7 @@
           "type": "client",
           "settings": {
             "logo": "shopify://shop_images/images_2.png",
+            "logo_scale": 100,
             "name": "Client 7",
             "link": ""
           }
@@ -179,6 +186,7 @@
           "type": "client",
           "settings": {
             "logo": "shopify://shop_images/images.png",
+            "logo_scale": 90,
             "name": "Client 8",
             "link": ""
           }
@@ -186,6 +194,8 @@
         "client_9": {
           "type": "client",
           "settings": {
+            "logo": "shopify://shop_images/3bd21384-e763-447d-9484-72bb244245f5.png",
+            "logo_scale": 100,
             "name": "Client 9",
             "link": ""
           }
@@ -206,7 +216,8 @@
         "clients_eyebrow": "Trusted by",
         "clients_heading": "Our Valued Clients",
         "clients_text": "Creating greener spaces for leading businesses and organisations.",
-        "ticker_speed": 35,
+        "ticker_speed": 45,
+        "tile_size": 170,
         "logos_grayscale": false,
         "clients_bg": "#eef1ea"
       }
