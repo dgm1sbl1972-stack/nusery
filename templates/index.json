@@ -355,7 +355,7 @@
             "product_1_reviews": "440",
             "product_1_link": "shopify://products/peace-lily",
             "product_2_image": "shopify://shop_images/e0e3054d-d7bf-4c16-ab13-dfd5b94a713c.jpg",
-            "product_2_product": "peace-lily",
+            "product_2_product": "anthurium-red-plant",
             "product_2_title": "Anthurium Red Plant",
             "product_2_description": "Long-lasting indoor plant",
             "product_2_price": "₹699",
@@ -365,9 +365,9 @@
             "product_2_bestseller_text": "Bestseller",
             "product_2_rating": "4.8",
             "product_2_reviews": "111",
-            "product_2_link": "shopify://products/peace-lily",
+            "product_2_link": "shopify://products/anthurium-red-plant",
             "product_3_image": "shopify://shop_images/4fa418a6-c1bb-46b3-8e48-ba4265cf551e.png",
-            "product_3_product": "peace-lily",
+            "product_3_product": "jade-mini-plant",
             "product_3_title": "Jade Mini Plant",
             "product_3_description": "Easy-care lucky succulent",
             "product_3_price": "₹249",
@@ -377,7 +377,7 @@
             "product_3_bestseller_text": "Bestseller",
             "product_3_rating": "4.8",
             "product_3_reviews": "414",
-            "product_3_link": "shopify://products/peace-lily",
+            "product_3_link": "shopify://products/jade-mini-plant",
             "product_4_image": "shopify://shop_images/3d691abe-2a08-480a-8c1a-1281c1061b2e.jpg",
             "product_4_product": "peace-lily",
             "product_4_title": "Peace Lily Plant",
@@ -403,7 +403,7 @@
             "product_5_reviews": "0",
             "product_5_link": "shopify://products/peace-lily",
             "product_6_image": "shopify://shop_images/e0e3054d-d7bf-4c16-ab13-dfd5b94a713c.jpg",
-            "product_6_product": "peace-lily",
+            "product_6_product": "anthurium-red-plant",
             "product_6_title": "Anthurium Red Plant",
             "product_6_description": "Long-lasting indoor plant",
             "product_6_price": "₹450",
@@ -413,7 +413,7 @@
             "product_6_bestseller_text": "Bestseller",
             "product_6_rating": "4.8",
             "product_6_reviews": "0",
-            "product_6_link": "shopify://products/peace-lily"
+            "product_6_link": "shopify://products/anthurium-red-plant"
           },
           "blocks": {}
         }
