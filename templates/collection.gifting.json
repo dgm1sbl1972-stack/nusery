@@ -22,8 +22,8 @@
         "hero_button_label": "Shop Gifts",
         "hero_button_link": "",
         "hero_note": "Gift-wrapped with a free handwritten note",
-        "hero_image": "shopify://shop_images/431b476e-b87d-49e2-98c4-e66818574ab2.png",
-        "hero_image_mobile": "shopify://shop_images/431b476e-b87d-49e2-98c4-e66818574ab2.png",
+        "hero_image": "shopify://shop_images/431b476e-b87d-49e2-98c4-e66818574ab2.jpg",
+        "hero_image_mobile": "shopify://shop_images/431b476e-b87d-49e2-98c4-e66818574ab2.jpg",
         "hero_chip": "Loved by plant gifters",
         "hero_media_first_mobile": false,
         "bg_color": "#f8f4ec"
@@ -36,7 +36,7 @@
           "type": "occasion",
           "settings": {
             "title": "Birthday",
-            "image": "shopify://shop_images/c85de4ea-3b02-480e-9678-9bca59b7341f.png",
+            "image": "shopify://shop_images/c85de4ea-3b02-480e-9678-9bca59b7341f.jpg",
             "link": "shopify://collections/bestsellers"
           }
         },
@@ -44,7 +44,7 @@
           "type": "occasion",
           "settings": {
             "title": "Housewarming",
-            "image": "shopify://shop_images/9ad7a924-0588-49ba-b3b2-70cc47abecda.png",
+            "image": "shopify://shop_images/9ad7a924-0588-49ba-b3b2-70cc47abecda.jpg",
             "link": "shopify://collections/bestsellers"
           }
         },
@@ -52,7 +52,7 @@
           "type": "occasion",
           "settings": {
             "title": "Anniversary",
-            "image": "shopify://shop_images/ccbaac55-fa50-40be-9628-4fd30173709a.png",
+            "image": "shopify://shop_images/ccbaac55-fa50-40be-9628-4fd30173709a.jpg",
             "link": "shopify://collections/bestsellers"
           }
         },
@@ -60,7 +60,7 @@
           "type": "occasion",
           "settings": {
             "title": "Thank You",
-            "image": "shopify://shop_images/f94a99ab-3b9c-4cdd-97cc-dcc42dbd6156.png",
+            "image": "shopify://shop_images/f94a99ab-3b9c-4cdd-97cc-dcc42dbd6156.jpg",
             "link": "shopify://collections/bestsellers"
           }
         },
@@ -68,7 +68,7 @@
           "type": "occasion",
           "settings": {
             "title": "Congratulations",
-            "image": "shopify://shop_images/64713d29-dc21-4b2f-9dc6-e26aa8972fa6.png",
+            "image": "shopify://shop_images/64713d29-dc21-4b2f-9dc6-e26aa8972fa6.jpg",
             "link": "shopify://collections/bestsellers"
           }
         },
@@ -76,7 +76,7 @@
           "type": "occasion",
           "settings": {
             "title": "Get Well Soon",
-            "image": "shopify://shop_images/472ac5f3-526e-4fc7-aed3-521013214803.png",
+            "image": "shopify://shop_images/472ac5f3-526e-4fc7-aed3-521013214803.jpg",
             "link": "shopify://collections/bestsellers"
           }
         }
@@ -103,7 +103,7 @@
           "settings": {
             "label": "Under ₹500",
             "caption": "Small joys",
-            "image": "shopify://shop_images/0a4f3bbe-94ed-4e43-8a09-a6e69b90e12c.png",
+            "image": "shopify://shop_images/0a4f3bbe-94ed-4e43-8a09-a6e69b90e12c.jpg",
             "max_price": 500,
             "link": ""
           }
@@ -113,7 +113,7 @@
           "settings": {
             "label": "₹500 – ₹1,000",
             "caption": "Thoughtful picks",
-            "image": "shopify://shop_images/8e7b69a9-40e2-4e3b-830c-93b6f3a1b669.png",
+            "image": "shopify://shop_images/8e7b69a9-40e2-4e3b-830c-93b6f3a1b669.jpg",
             "min_price": 500,
             "max_price": 1000,
             "link": ""
@@ -124,7 +124,7 @@
           "settings": {
             "label": "₹1,000 – ₹2,000",
             "caption": "Premium gifts",
-            "image": "shopify://shop_images/0c068afe-18fd-4f98-8ace-18403a654ae4.png",
+            "image": "shopify://shop_images/0c068afe-18fd-4f98-8ace-18403a654ae4.jpg",
             "min_price": 1000,
             "max_price": 2000,
             "link": ""
@@ -199,7 +199,7 @@
         "corp_bg_image": "shopify://shop_images/c1f44223-e351-40b2-8c75-101eddcd7b72.png",
         "corp_overlay": 40,
         "corp_bg_color": "#1f5130",
-        "corp_image": "shopify://shop_images/c1f44223-e351-40b2-8c75-101eddcd7b72_2bab15da-08a1-4b4a-8b85-72d62c47be87.png",
+        "corp_image": "shopify://shop_images/c1f44223-e351-40b2-8c75-101eddcd7b72_2bab15da-08a1-4b4a-8b85-72d62c47be87.jpg",
         "bg_color": "#f8f4ec"
       }
     },

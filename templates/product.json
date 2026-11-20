@@ -143,7 +143,7 @@
           "type": "ai_gen_block_2a77e54",
           "disabled": true,
           "settings": {
-            "fallback_image": "shopify://shop_images/d760c6ee-2848-4f68-84ec-19b15fc2b69e.png",
+            "fallback_image": "shopify://shop_images/d760c6ee-2848-4f68-84ec-19b15fc2b69e.jpg",
             "desktop_width_percent": 100,
             "image_fit": "cover",
             "background_color": "#f8f4ec",
@@ -163,7 +163,7 @@
         "ai_gen_block_a2c911a_J46GaH": {
           "type": "ai_gen_block_a2c911a",
           "settings": {
-            "banner_image": "shopify://shop_images/33c3b90b-340f-4cef-9a2b-fe1d6de8772e.png",
+            "banner_image": "shopify://shop_images/33c3b90b-340f-4cef-9a2b-fe1d6de8772e.jpg",
             "desktop_width_percent": 100,
             "use_product_title": true,
             "heading": "Discover this plant",
@@ -192,37 +192,6 @@
     },
     "product_reviews": {
       "type": "product-reviews",
-      "blocks": {
-        "judge_me_reviews_review_snippet_widget_igQMjR": {
-          "type": "shopify://apps/judge-me-reviews/blocks/review_snippet_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "disabled": true,
-          "settings": {
-            "reviews_selection": "auto",
-            "products": [],
-            "filter_pinned": false,
-            "filter_featured": false,
-            "filter_custom_tags": "",
-            "min_star_rating": "inherit",
-            "show_review_media": true,
-            "max_reviews": 6,
-            "review_length": "medium",
-            "text_size": "medium",
-            "max_width": 400,
-            "max_image_size": "small",
-            "arrows_visibility": "always_shown",
-            "transition_speed": 5,
-            "corner_styling": "inherit",
-            "text_color": "",
-            "card_color": "",
-            "stars_color": "",
-            "arrows_color": "",
-            "arrows_background_color": ""
-          }
-        }
-      },
-      "block_order": [
-        "judge_me_reviews_review_snippet_widget_igQMjR"
-      ],
       "settings": {
         "heading": "Customer  Reviews",
         "heading_accent": "",
