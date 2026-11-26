@@ -30,7 +30,7 @@
         {%- if product.available -%}
           <form action="{{ routes.cart_add_url }}" method="post" data-add-to-cart>
             <input type="hidden" name="id" value="{{ variant.id }}">
-            <input type="hidden" name="quantity" value="1">
+            <input type="hidden" name="quantity" value="{% if product.tags contains 'ceramic-pots' %}50{% else %}1{% endif %}">
             <button type="submit" class="btn btn--sm btn--green">{{ 'general.add_to_cart' | t }}</button>
           </form>
         {%- else -%}
