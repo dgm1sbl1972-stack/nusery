@@ -62,7 +62,11 @@
             "bulk_label": "Custom & bulk orders available",
             "bulk_link": "shopify://pages/contact",
             "bulk_tag": "ceramic-pots",
-            "bulk_small_banner": "shopify://shop_images/ceramic-pots-banner.png"
+            "bulk_small_banner": "shopify://shop_images/ceramic-pots-banner.png",
+            "bulk_specs_heading": "Pot specification",
+            "bulk_manufacturer": "SBL Farms (Sri Bhagyalakshmi Farms)\nMachohalli, Magadi Main Road, Bangalore",
+            "bulk_terms": "Products are subject to availability. Our ceramic pots are handcrafted, so colour, glaze and finish may vary slightly from the images and from piece to piece. Sizes are approximate (H = height, D = diameter). Pots are available in multiple colours and shapes; bottom saucer plates are sold separately at an additional cost. Delivery times may vary, especially for bulk orders. Customers must provide accurate details. Orders are subject to our policies.",
+            "bulk_refund": "Please check your pots when they are delivered. Breakage, cracks or incorrect items must be reported within 24 hours of delivery with photos of the product and packaging. Replacements or refunds are subject to verification. Slight variations in colour and glaze are a natural part of handcrafted ceramics."
           },
           "blocks": {}
         },
