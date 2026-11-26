@@ -281,7 +281,7 @@
             "title": "Pots",
             "link": "shopify://collections/pots",
             "sub_1_title": "Ceramic pots",
-            "sub_1_link": "/collections/pots/ceramic-pots",
+            "sub_1_link": "shopify://collections/ceramic-pots",
             "sub_2_title": "Terracotta pots",
             "sub_2_link": "/collections/pots/terracotta-pots",
             "sub_3_title": "Plastic pots",

@@ -127,7 +127,7 @@
             "pots_link": "shopify://collections/pots",
             "pots_menu": "",
             "pots_category_1_title": "Ceramic pots",
-            "pots_category_1_link": "/collections/pots/ceramic-pots",
+            "pots_category_1_link": "shopify://collections/ceramic-pots",
             "pots_category_2_title": "",
             "pots_category_2_link": "",
             "pots_category_3_title": "Plastic pots",
