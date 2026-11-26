@@ -296,7 +296,7 @@
       var drawer = SBLCart.drawer();
       if (drawer) drawer.classList.add('is-loading');
       var props = {};
-      try { props = JSON.parse(lineSelect.getAttribute('data-properties') || '{}') || {}; } catch (err) {}
+      try { props = JSON.parse(lineSelect.getAttribute('data-properties') || '{}') || {}; } catch (err) {} if (Array.isArray(props) || typeof props !== 'object') props = {};
       var qty = Number(lineSelect.getAttribute('data-qty')) || 1;
       fetch(cartRoot + 'cart/change.js', {
         method: 'POST',
