@@ -61,7 +61,8 @@
             "refund": "Live plants are non-returnable. Damaged or incorrect products must be reported within 24 hours with photos. Refunds/replacements are subject to verification.",
             "bulk_label": "Custom & bulk orders available",
             "bulk_link": "shopify://pages/contact",
-            "bulk_tag": "ceramic-pots"
+            "bulk_tag": "ceramic-pots",
+            "bulk_small_banner": "shopify://shop_images/ceramic-pots-banner.png"
           },
           "blocks": {}
         },
