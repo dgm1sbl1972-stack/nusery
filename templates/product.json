@@ -74,7 +74,9 @@
             "stand_terms": "Products are subject to availability. Stands are powder-coated metal, so colour and finish may vary slightly from the images. All sizes are approximate and given in centimetres (cm). Delivery times may vary, especially for bulk orders.",
             "stand_refund": "Please check your stand when it is delivered. Damage, bends or incorrect items must be reported within 24 hours of delivery with photos of the product and packaging. Replacements or refunds are subject to verification.",
             "stand_small_banner": "shopify://shop_images/plant-stands-banner.png",
-            "stand_manufacturer": "SBL Farms (Sri Bhagyalakshmi Farms)"
+            "stand_manufacturer": "SBL Farms (Sri Bhagyalakshmi Farms)",
+            "plastic_tag": "plastic-pots",
+            "plastic_small_banner": "shopify://shop_images/plastic-pots-banner.png"
           },
           "blocks": {}
         },
