@@ -64,10 +64,32 @@
                 {% assign icon_key = 'icon_' | append: i | replace: '1', 'one' | replace: '2', 'two' | replace: '3', 'three' %}
                 {% assign feature_text = block.settings[feature_key] %}
                 {% assign feature_icon = block.settings[icon_key] %}
+                {%- liquid
+                  if product.tags contains 'planter-stands'
+                    assign t = 'Sturdy powder-coated metal|Rust resistant|Indoor & outdoor use' | split: '|'
+                    assign ic = 'shield|check|home' | split: '|'
+                    assign feature_text = t[forloop.index0]
+                    assign feature_icon = ic[forloop.index0]
+                  elsif product.tags contains 'ceramic-pots'
+                    assign t = 'Handcrafted ceramic|Elegant glazed finish|Custom & bulk orders' | split: '|'
+                    assign ic = 'heart|sparkle|layers' | split: '|'
+                    assign feature_text = t[forloop.index0]
+                    assign feature_icon = ic[forloop.index0]
+                  elsif product.tags contains 'plastic-pots'
+                    assign t = 'Lightweight & sturdy|Nursery & garden use|Multiple sizes' | split: '|'
+                    assign ic = 'check|sprout|layers' | split: '|'
+                    assign feature_text = t[forloop.index0]
+                    assign feature_icon = ic[forloop.index0]
+                  endif
+                -%}
                 {% if feature_text != blank %}
                   <span class="ai-product-banner-{{ ai_gen_id }}__feature">
                     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                       {% case feature_icon %}
+                        {% when 'shield' %}<path d="M12 3 5 6v6c0 4.4 3 7.6 7 9 4-1.4 7-4.6 7-9V6l-7-3Z"/><path d="m9 12 2 2 4-4"/>
+                        {% when 'home' %}<path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>
+                        {% when 'sparkle' %}<path d="M12 3v4m0 10v4M3 12h4m10 0h4M6.3 6.3l2.8 2.8m5.8 5.8 2.8 2.8m0-11.4-2.8 2.8m-5.8 5.8-2.8 2.8"/>
+                        {% when 'layers' %}<path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/>
                         {% when 'leaf' %}<path d="M20 4c-8 0-14 3-14 10a6 6 0 0 0 6 6c7 0 10-6 8-16Z"/><path d="M4 21c3-5 7-8 12-11"/>
                         {% when 'sun' %}<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/>
                         {% when 'drop' %}<path d="M12 3s-7 7.2-7 12a7 7 0 0 0 14 0c0-4.8-7-12-7-12Z"/><path d="M9 16a3 3 0 0 0 3 3"/>
