@@ -76,7 +76,9 @@
             "stand_small_banner": "shopify://shop_images/plant-stands-banner.png",
             "stand_manufacturer": "SBL Farms (Sri Bhagyalakshmi Farms)",
             "plastic_tag": "plastic-pots",
-            "plastic_small_banner": "shopify://shop_images/plastic-pots-banner.png"
+            "plastic_small_banner": "shopify://shop_images/plastic-pots-banner.png",
+            "bulk_features": "Available in multiple colours & shapes\nBottom saucer plate available at an additional cost\nBest wholesale factory prices\nAvailable exclusively in bulk quantities",
+            "bulk_custom": "Made to order in tailored sizes, glazes and finishes, perfect for homes, offices and landscape projects."
           },
           "blocks": {}
         },
